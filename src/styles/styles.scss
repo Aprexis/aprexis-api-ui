@@ -1,0 +1,48 @@
+$dark-blue: #193769;
+$dark-blue-text:#1a3b6b;
+$blue:#006298;
+$medium-blue: #03718D;
+$light-blue:#9db6d4;
+$light-blue-bg:#f0f4f9;
+$orange: #F6921D;
+$yellow: #fdb913;
+$red: #790000;
+$light-red:#C89797;
+$green:#155724;
+$teal:#0183A4;
+$white:#fff;
+$gray: #dee2e6;
+$darker-gray:#464646;
+$light-gray:#F5F5F7;
+$dark-red:#8B0000;
+$text-muted:#6c757d;
+
+@font-face {
+  font-family: 'Work Sans', sans-serif;
+  src: local('Work Sans'), url(https://fonts.googleapis.com/css?family=Work+Sans);
+}
+
+.alert-error {background-color: red;}
+.alert-information {background-color: light-blue;}
+.alert-success {background-color: green; color: white;}
+.alert-warning {background-color: yellow}
+
+body {
+  padding-top: 67px;
+  background-color: $white;
+  font-family: 'Work Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+header {
+  background-color: $medium-blue;
+}
+
+.header-nav {
+  .nav-link { color: white; }
+}
+
+.navbar,
+.navbar-brand {
+  padding: 0;
+}
