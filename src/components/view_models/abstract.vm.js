@@ -1,4 +1,4 @@
-import { jsEventHelper, valueHelper } from "../../helpers"
+import { alertHelper, jsEventHelper, valueHelper } from "../../helpers"
 
 class AbstractViewModel {
   constructor(props) {
@@ -11,8 +11,12 @@ class AbstractViewModel {
 
     this.addData = this.addData.bind(this)
     this.addField = this.addField.bind(this)
+    this.clearAlert = this.clearAlert.bind(this)
     this.clearData = this.clearData.bind(this)
+    this.clearModal = this.clearModal.bind(this)
+    this.onError = this.onError.bind(this)
     this.redrawView = this.redrawView.bind(this)
+    this.removeField = this.removeField.bind(this)
     this.setFieldFromEvent = this.setFieldFromEvent.bind(this)
   }
 
@@ -26,12 +30,30 @@ class AbstractViewModel {
     this.redrawView()
   }
 
+  clearAlert() {
+    alertHelper.clear()
+    this.redrawView()
+  }
+
   clearData(redraw = true) {
     this.data = {}
 
     if (valueHelper.isSet(redraw)) {
       this.redrawView()
     }
+  }
+
+  clearModal(nextOperation) {
+    this.removeField('modal')
+
+    if (valueHelper.isFunction(nextOperation)) {
+      nextOperation()
+    }
+  }
+
+  onError(message) {
+    alertHelper.error(message)
+    this.redrawView()
   }
 
   redrawView() {
@@ -51,6 +73,11 @@ class AbstractViewModel {
         }
       }
     )
+  }
+
+  removeField(fieldName) {
+    delete this.data[fieldName]
+    this.redrawView()
   }
 
   setFieldFromEvent(event) {

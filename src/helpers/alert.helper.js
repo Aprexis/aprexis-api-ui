@@ -4,7 +4,7 @@ export const alertHelper = {
   get,
   info,
   success,
-  warn
+  warning
 }
 
 function clear() {
@@ -13,7 +13,8 @@ function clear() {
 }
 
 function error(message) {
-  sessionStorage.setItem('alert-type', 'error')
+  console.log(`ERROR: ${message}`)
+  sessionStorage.setItem('alert-type', 'danger')
   sessionStorage.setItem('alert-message', message)
 }
 
@@ -25,16 +26,19 @@ function get() {
 }
 
 function info(message) {
-  sessionStorage.setItem('alert-type', 'information')
+  console.log(`'INFO: ${message}`)
+  sessionStorage.setItem('alert-type', 'info')
   sessionStorage.setItem('alert-message', message)
 }
 
 function success(message) {
+  console.log(`SUCCESS: ${message}`)
   sessionStorage.setItem('alert-type', 'success')
   sessionStorage.setItem('alert-message', message)
 }
 
-function warn(message) {
+function warning(message) {
+  console.log(`WARNING: ${message}`)
   sessionStorage.setItem('alert-type', 'warning')
   sessionStorage.setItem('alert-message', message)
 }

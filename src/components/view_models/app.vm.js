@@ -29,7 +29,7 @@ class AppViewModel extends AbstractViewModel {
 
   home() {
     const userCredentials = userCredentialsHelper.get()
-    if (!valueHelper.isValue(userCredentials)) {
+    if (valueHelper.isValue(userCredentials)) {
       history.push('/dashboard')
       return
     }

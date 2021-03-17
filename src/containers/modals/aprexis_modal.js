@@ -5,20 +5,20 @@ import { dateHelper, valueHelper } from '../../helpers'
 
 class AprexisModal extends Component {
   render() {
-    const { children, date, modalClassName, modalDate, modalFooterComponents, modalHeaderComponents, modalVisible, toggleModal } = this.props
+    const { children, clearAlert, clearModal, date, modalClassName, modalDate, modalFooterComponents, modalHeaderComponents, modalVisible, toggleModal } = this.props
     const openModal = valueHelper.isSet(modalVisible) || (dateHelper.isDateValue(modalDate) && +modalDate != +date)
 
     return (
       <Modal
         className={`${modalClassName} modal-dialog dialog-centered`}
         isOpen={openModal}
-        toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>
+        toggle={() => { toggleModal(clearModal) }}>
+        <ModalHeader toggle={() => { toggleModal(clearModal) }}>
           {modalHeaderComponents}
         </ModalHeader>
 
         <ModalBody>
-          <DisplayAlert parentType='modal' />
+          <DisplayAlert clearAlert={clearAlert} parentType='modal' />
           {children}
         </ModalBody>
 

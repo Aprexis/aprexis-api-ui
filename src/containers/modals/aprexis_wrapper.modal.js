@@ -48,7 +48,7 @@ export function aprexisWrapperModal(WrappedModal) {
     }
 
     toggleState(state, props) {
-      deriveStateFromProps(state, props)
+      deriveStateFromProps(props, state)
     }
   }
 }
@@ -66,7 +66,7 @@ function deriveStateFromProps(props, state) {
 
   let { modalVisible } = state
   if (!dateHelper.isDateValue(propsDate)) {
-    modalVisible = true
+    modalVisible = false
   } else if (!dateHelper.isDateValue(modalDate) || +propsDate > +modalDate) {
     modalDate = propsDate
     modalVisible = true

@@ -33,7 +33,8 @@ class SignInModalViewModel extends AbstractModalViewModel {
         if (valueHelper.isFunction(nextOperation)) {
           nextOperation()
         }
-      }
+      },
+      this.onError
     )
   }
 

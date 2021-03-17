@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap'
+import { DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
 import { userCredentialsHelper, valueHelper } from '../../helpers'
 
 class UserDropdown extends Component {
@@ -38,17 +38,11 @@ class UserDropdown extends Component {
     const { onSignIn } = this.props
 
     return (
-      <UncontrolledDropdown className='user-dropdown'>
-        <DropdownToggle nav caret>
+      <NavItem>
+        <NavLink className='btn-uppercase' onClick={onSignIn}>
           Sign-In
-        </DropdownToggle>
-
-        <DropdownMenu right>
-          <DropdownItem className='btn-uppercase' onClick={(event) => { onSignIn() }}>
-            Sign-In
-          </DropdownItem>
-        </DropdownMenu>
-      </UncontrolledDropdown>
+        </NavLink>
+      </NavItem>
     )
   }
 

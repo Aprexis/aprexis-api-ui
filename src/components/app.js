@@ -56,7 +56,12 @@ class App extends Component {
 
         <Footer history={history} match={match} />
 
-        <Modals {...modal} clearModal={this.vm.clearModal} modalProps={{ 'sign-in': { updateView: this.vm.home } }} />
+        <Modals
+          {...modal}
+          clearAlert={this.vm.clearAlert}
+          clearModal={this.vm.clearModal}
+          modalProps={{ 'sign-in': { updateView: this.vm.home } }}
+        />
       </div>
     )
   }
