@@ -3,7 +3,8 @@ import { alertHelper, dateHelper, history, valueHelper } from '../helpers'
 export const API = {
   buildQueryString,
   handleError,
-  perform
+  perform,
+  validateId
 }
 
 const baseApiUrl = process.env.REACT_APP_APREXIS_API
@@ -77,9 +78,11 @@ function handleError(method, path, error, onFailure) {
   const message = parseErrorMessage(method, path, error)
   if (valueHelper.isFunction(onFailure)) {
     onFailure(message)
-  } else {
-    alertHelper.error(message)
+    return
   }
+
+  alertHelper.error(message)
+  return
 
   function parseErrorMessage(method, path, error) {
     if (!valueHelper.isValue(error.message)) {
@@ -172,4 +175,19 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
       body: JSON.stringify(body)
     }
   }
+}
+
+function validateId(idType, id, onFailure) {
+  if (!isNaN(id) && id > 0) {
+    return true
+  }
+
+  const message = `${id} is not a valid ${idType}`
+  if (valueHelper.isFunction(onFailure)) {
+    onFailure(message)
+    return false
+  }
+
+  alertHelper.error(message)
+  return false
 }

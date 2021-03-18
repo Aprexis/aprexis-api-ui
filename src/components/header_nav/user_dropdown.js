@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
-import { userCredentialsHelper, valueHelper } from '../../helpers'
+import { userCredentialsHelper, userHelper, valueHelper } from '../../helpers'
 
 class UserDropdown extends Component {
   constructor(props) {
@@ -11,13 +11,8 @@ class UserDropdown extends Component {
   }
 
   renderCurrentUser(userCredentials) {
-    const { currentUser, onSignOut } = this.props
-    let name
-    if (valueHelper.isValue(currentUser)) {
-      name = `${currentUser.name} (${userCredentials.username})`
-    } else {
-      name = `(${userCredentials.username})`
-    }
+    const { currentUser, } = this.props
+    const name = valueHelper.isValue(currentUser) ? userHelper.fullName(currentUser) : userCredentials.username
 
     return (
       <UncontrolledDropdown className='user-dropdown'>
@@ -26,7 +21,11 @@ class UserDropdown extends Component {
         </DropdownToggle>
 
         <DropdownMenu right>
-          <DropdownItem className='btn-uppercase' onClick={onSignOut}>
+          <DropdownItem className='btn-uppercase' onClick={this.props.onUserPage}>
+            Account
+          </DropdownItem>
+
+          <DropdownItem className='btn-uppercase' onClick={this.props.onSignOut}>
             Logout
           </DropdownItem>
         </DropdownMenu>

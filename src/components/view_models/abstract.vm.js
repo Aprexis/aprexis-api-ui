@@ -20,14 +20,26 @@ class AbstractViewModel {
     this.setFieldFromEvent = this.setFieldFromEvent.bind(this)
   }
 
-  addData(data) {
+  addData(data, nextOperation) {
     this.data = { ...this.data, ...data }
-    this.redrawView()
+
+    if (!valueHelper.isFunction(nextOperation)) {
+      this.redrawView()
+      return
+    }
+
+    nextOperation()
   }
 
-  addField(fieldName, fieldValue) {
+  addField(fieldName, fieldValue, nextOperation) {
     this.data[fieldName] = fieldValue
-    this.redrawView()
+
+    if (!valueHelper.isFunction(nextOperation)) {
+      this.redrawView()
+      return
+    }
+
+    nextOperation()
   }
 
   clearAlert() {
@@ -75,9 +87,15 @@ class AbstractViewModel {
     )
   }
 
-  removeField(fieldName) {
+  removeField(fieldName, nextOperation) {
     delete this.data[fieldName]
-    this.redrawView()
+
+    if (!valueHelper.isFunction(nextOperation)) {
+      this.redrawView()
+      return
+    }
+
+    nextOperation()
   }
 
   setFieldFromEvent(event) {

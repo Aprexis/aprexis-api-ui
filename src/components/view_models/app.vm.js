@@ -1,30 +1,32 @@
 import { AbstractViewModel } from './'
-import { authenticationApi } from '../../api'
+import { authenticationApi, userApi } from '../../api'
 import { alertHelper, history, userCredentialsHelper, valueHelper } from '../../helpers'
 
 class AppViewModel extends AbstractViewModel {
   constructor(props) {
     super(props)
 
-    this.forceLogoutOnSignInPage = this.forceLogoutOnSignInPage.bind(this)
+    this.getCurrentUser = this.getCurrentUser.bind(this)
     this.home = this.home.bind(this)
     this.loadData = this.loadData.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.userPage = this.userPage.bind(this)
+    this.usersPage = this.usersPage.bind(this)
   }
 
-  forceLogoutOnSignInPage(location) {
-    if (!location.pathname.endsWith('/sign-in')) {
-      return false
-    }
-
+  getCurrentUser(nextOperation) {
     const userCredentials = userCredentialsHelper.get()
-    if (!valueHelper.isValue(userCredentials)) {
-      return false
+    if (valueHelper.isValue(userCredentials)) {
+      userApi.show(
+        userCredentials,
+        userCredentials.id,
+        (currentUser) => {
+          this.addField('currentUser', currentUser, nextOperation)
+        },
+        this.onError
+      )
     }
-
-    this.signOut('Logged out on sign-in page')
-    return true
   }
 
   home() {
@@ -39,8 +41,7 @@ class AppViewModel extends AbstractViewModel {
 
   loadData() {
     this.clearData(false)
-    // TODO: add retrieval of current user information.
-    this.redrawView()
+    this.getCurrentUser()
   }
 
   signIn() {
@@ -48,11 +49,21 @@ class AppViewModel extends AbstractViewModel {
     this.addField('modal', { modalName: 'sign-in' })
   }
 
-  signOut(message) {
-    this.clearData()
+  signOut() {
+    this.clearData(false)
 
     const userCredentials = userCredentialsHelper.remove()
     authenticationApi.signOut(userCredentials, this.home)
+  }
+
+  userPage() {
+    const userCredentials = userCredentialsHelper.get()
+
+    history.push(`/users/${userCredentials.id}`)
+  }
+
+  usersPage() {
+    history.push('/users')
   }
 }
 

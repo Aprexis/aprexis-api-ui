@@ -48,13 +48,15 @@ class App extends Component {
           currentUser={currentUser}
           history={history}
           match={match}
-          signIn={this.vm.signIn}
-          signOut={this.vm.signOut}
+          onSignIn={this.vm.signIn}
+          onSignOut={this.vm.signOut}
+          onUserPage={this.vm.userPage}
+          onUsersPage={this.vm.usersPage}
         />
 
-        <Main history={history} match={match} />
+        <Main currentUser={currentUser} history={history} match={match} />
 
-        <Footer history={history} match={match} />
+        <Footer currentUser={currentUser} history={history} match={match} />
 
         <Modals
           {...modal}
@@ -64,10 +66,6 @@ class App extends Component {
         />
       </div>
     )
-  }
-
-  shouldComponentUpdate() {
-    return !this.vm.forceLogoutOnSignInPage(window.location)
   }
 }
 

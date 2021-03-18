@@ -1,10 +1,9 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Component } from 'react'
-import { Collapse, Nav, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap'
-import { UserDropdown } from './header_nav'
+import { Collapse, Nav, Navbar, NavbarBrand } from 'reactstrap'
+import { UserDropdown, UserHeaders } from './header_nav'
 import { valueHelper } from '../helpers'
-
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -15,7 +14,7 @@ class Header extends Component {
   }
 
   render() {
-    const { currentUser, history, signIn, signOut } = this.props
+    const { currentUser, history } = this.props
 
     return (
       <header
@@ -43,17 +42,15 @@ class Header extends Component {
                 <Nav className='header-nav ml-md-auto' navbar>
                   {
                     valueHelper.isValue(currentUser) &&
-                    <NavItem>
-                      <NavLink className='btn-uppercase'>
-                        To Be Added Later
-                    </NavLink>
-                    </NavItem>
+                    <UserHeaders currentUser={currentUser} onUsersPage={this.props.onUsersPage} />
                   }
 
                   <UserDropdown
+                    currentUser={currentUser}
                     history={history}
-                    onSignIn={signIn}
-                    onSignOut={(event) => { signOut('Logged out') }}
+                    onSignIn={this.props.onSignIn}
+                    onSignOut={(event) => { this.props.onSignOut('Logged out') }}
+                    onUserPage={this.props.onUserPage}
                   />
                 </Nav>
               </Collapse>
