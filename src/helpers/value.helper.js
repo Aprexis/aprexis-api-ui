@@ -1,5 +1,7 @@
 export const valueHelper = {
   capitalizeWords,
+  hashGet,
+  hashSet,
   isFunction,
   isSet,
   isStringValue,
@@ -9,6 +11,35 @@ export const valueHelper = {
 
 function capitalizeWords(str) {
   return str.replace(/\w\S*/g, (txt) => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+}
+
+function hashSet(hash, field, value) {
+  if (typeof field === 'string') {
+    valueHelper.hashSet(hash, field.split('.'), value)
+    return
+  }
+
+  if (field.length === 1) {
+    hash[field[0]] = value
+    return
+  }
+
+  if (!valueHelper.isValue(hash[field[0]])) {
+    hash[field[0]] = {}
+  }
+  valueHelper.hashSet(hash[field[0]], field.slice(1), value)
+}
+
+function hashGet(hash, field) {
+  if (typeof field === 'string') {
+    return valueHelper.hashGet(hash, field.split('.'))
+  }
+
+  if (field.length === 1) {
+    return hash[field[0]]
+  }
+
+  return valueHelper.hashGet(hash[field[0]], field.slice(1))
 }
 
 function isFunction(value) {

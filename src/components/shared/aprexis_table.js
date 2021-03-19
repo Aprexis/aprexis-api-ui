@@ -44,7 +44,7 @@ class DataRows extends Component {
         ++groupIndex
       }
 
-      tableRows.push(<DataRow dataRow={dataRow} rowIndex={rowIndex} />)
+      tableRows.push(<DataRow dataRow={dataRow} key={`aprexis-table-data-row-${rowIndex}`} rowIndex={rowIndex} />)
     }
 
     return (<React.Fragment>{tableRows}</React.Fragment>)
@@ -53,21 +53,24 @@ class DataRows extends Component {
 
 class Group extends Component {
   render() {
-    const { group, groupIndex } = this.props
+    const { group } = this.props
 
     return (
-      <tr className="aprexis-table-group" key={`aprexis-table-group-${groupIndex}`}>
+      <tr className="aprexis-table-group">
         <AprexisTableCell cell={group} colSpan={30} group={true} />
       </tr>
     )
   }
 }
 
-
 class Groups extends Component {
   render() {
     const { groups } = this.props
-    const renderedGroups = groups.map((group, groupIndex) => { return (<Group group={group} groupIndex={groupIndex} />) })
+    const renderedGroups = groups.map(
+      (group, groupIndex) => {
+        return (<Group group={group} key={`aprexis-table-group-${groupIndex}`} />)
+      }
+    )
 
     return (<React.Fragment>{renderedGroups}</React.Fragment>)
   }

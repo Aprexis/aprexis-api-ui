@@ -1,8 +1,8 @@
-import { AbstractViewModel } from '../../'
+import { AbstractPageViewModel } from '../'
 import { userApi } from '../../../../api'
 import { userCredentialsHelper } from '../../../../helpers'
 
-class UserPageViewModel extends AbstractViewModel {
+class UserPageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 

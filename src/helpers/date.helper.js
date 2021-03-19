@@ -22,6 +22,14 @@ function isValidDate(date, allowBlank = false) {
 }
 
 function makeDate(value) {
+  if (typeof value === 'object') {
+    if (valueHelper.isFunction(value.getMonth)) {
+      return value
+    }
+
+    return
+  }
+
   const dateMoment = moment(value)
   if (!dateMoment.isValid()) {
     return

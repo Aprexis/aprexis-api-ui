@@ -1,10 +1,16 @@
-import { BooleanFilter, DateFilter } from '../components/filters'
+import { BooleanFilter, DateFilter, StringFilter } from '../components/filters'
 
 export const filterTypes = {
   'boolean': {
-    filterClass: BooleanFilter
+    filterClass: BooleanFilter,
+    onChange: 'onChange'
   },
   'date': {
-    filterClass: DateFilter
+    filterClass: DateFilter,
+    onChange: 'onChangeDay'
+  },
+  'string': {
+    filterClass: StringFilter,
+    onChange: 'onChange'
   }
 }

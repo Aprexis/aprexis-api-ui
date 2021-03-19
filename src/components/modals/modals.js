@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { SignInModal } from './'
+import { FiltersModal, SignInModal } from './'
 import { valueHelper } from '../../helpers'
 
 const modalList = {
+  Filters: FiltersModal,
   SignIn: SignInModal
 }
 

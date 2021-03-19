@@ -3,7 +3,7 @@ import { valueHelper } from '../../helpers'
 
 class AprexisHeaderCell extends Component {
   render() {
-    const { content, colSpan, onCellClick } = this.props
+    const { colSpan, content, onCellClick } = this.props
 
     return (
       <th className="aprexis-table-header-cell" colSpan={colSpan} onClick={onCellClick} scope="col">{content}</th>
@@ -27,8 +27,6 @@ class AprexisTableCell extends Component {
     super(props)
 
     this.extractContent = this.extractContent.bind(this)
-    this.renderCell = this.renderCell.bind(this)
-    this.renderHeader = this.renderHeader.bind(this)
   }
 
   extractContent(cell) {

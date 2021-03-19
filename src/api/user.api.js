@@ -1,7 +1,14 @@
 import { API } from './'
 
 export const userApi = {
+  index,
   show
+}
+
+function index(userCredentials, params, onSuccess, onFailure) {
+  const method = "GET"
+  const path = "/admin/users"
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 
 function show(userCredentials, id, onSuccess, onFailure) {

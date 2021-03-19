@@ -44,9 +44,9 @@ class ListView extends Component {
       <RefreshView
         label={this.props.listLabel}
         objects={list}
-        onIdle={(event) => { this.props.loadData() }}
+        onIdle={this.props.refreshData}
         pluralList={listPluralLabel}
-        timeout={myTimeout}>
+        timeout={myTimeout} >
         <ListHeader list={this.props.list} nav={this.props.nav} title={this.props.title} titleChildren={this.props.titleChildren} />
 
         <FiltersItem
@@ -71,18 +71,21 @@ class ListView extends Component {
         />
 
         <AprexisList
+          aprexisTableClassName={this.props.aprexisTableClassName}
           generateGroupRow={this.props.generateGroupRow}
           generateTableHeadings={this.props.generateTableHeadings}
           generateTableRow={this.props.generateTableRow}
           list={list}
           listPluralLabel={listPluralLabel}
           multipleRowsSelection={this.props.multipleRowsSelection}
+          onChangePage={this.props.onChangePage}
+          onChangePerPage={this.props.onChangePerPage}
+          page={this.props.page}
           tableClassName={this.props.tableClassName}
-          aprexisTableClassName={this.props.aprexisTableClassName}
         />
 
-        {this.props.listChildren}
-      </RefreshView>
+        { this.props.listChildren}
+      </RefreshView >
     )
   }
 }

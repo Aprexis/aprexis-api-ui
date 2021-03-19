@@ -1,6 +1,6 @@
-import { AbstractViewModel } from '../'
+import { AbstractPageViewModel } from './'
 
-class HomePageViewModel extends AbstractViewModel {
+class HomePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 

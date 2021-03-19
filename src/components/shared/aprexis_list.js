@@ -1,7 +1,130 @@
-import { Component } from 'react'
-import { valueHelper } from '../../helpers'
+import React, { Component } from 'react'
+import { faFastBackward, faFastForward, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AprexisTable, Spinner } from './'
+import { pageHelper, valueHelper } from '../../helpers'
 
+class Page extends Component {
+  constructor(props) {
+    super(props)
+
+    this.back = this.back.bind(this)
+    this.back10 = this.back10.bind(this)
+    this.forward = this.forward.bind(this)
+    this.forward10 = this.forward10.bind(this)
+    this.numbers = this.numbers.bind(this)
+  }
+
+  back(number) {
+    if (number === 1) {
+      return
+    }
+
+    return (
+      <button className="btn btn-sm btn-primary" onClick={() => { this.props.onChangePage(number - 1) }}>
+        <FontAwesomeIcon icon={faStepBackward} />
+      </button>
+    )
+  }
+
+  back10(number) {
+    if (number <= 10) {
+      return
+    }
+
+    let newNumber
+    if (number % 10 === 0) {
+      newNumber = number - 10
+    } else {
+      newNumber = number - (number % 10)
+    }
+
+    return (
+      <button className="btn btn-sm btn-primary" onClick={() => { this.props.onChangePage(newNumber) }}>
+        <FontAwesomeIcon icon={faFastBackward} />
+      </button>
+    )
+  }
+
+  forward(number, lastNumber) {
+    if (number === lastNumber) {
+      return
+    }
+
+    return (
+      <button className="btn btn-sm btn-primary" onClick={() => { this.props.onChangePage(number + 1) }}>
+        <FontAwesomeIcon icon={faStepForward} />
+      </button>
+    )
+  }
+
+  forward10(number, lastNumber) {
+    let newNumber
+    if (number % 10 === 0) {
+      newNumber = number + 1
+    } else {
+      newNumber = number - (number % 10) + 11
+    }
+
+    if (newNumber > lastNumber) {
+      return
+    }
+
+    return (
+      <button className="btn btn-sm btn-primary" onClick={() => { this.props.onChangePage(newNumber) }}>
+        <FontAwesomeIcon icon={faFastForward} />
+      </button>
+    )
+  }
+
+  numbers(number, lastNumber) {
+    const { listPluralLabel } = this.props
+
+    let firstPage
+    if (number % 10 === 0) {
+      firstPage = number - 9
+    } else {
+      firstPage = 1 + (number - number % 10)
+    }
+
+    const lastPage = Math.min(firstPage + 9, lastNumber)
+    const buttons = []
+    for (let pageNumber = firstPage; pageNumber <= lastPage; ++pageNumber) {
+      buttons.push(
+        <button
+          className={`btn btn-sm ${number === pageNumber ? 'btn-outline-primary' : 'btn-primary'}`}
+          disabled={pageNumber === number}
+          key={`${listPluralLabel.toLowerCase()}-page-${pageNumber}`}
+          onClick={() => { this.props.onChangePage(pageNumber) }}>
+          {pageNumber}
+        </button>
+      )
+    }
+
+    return buttons
+  }
+
+  render() {
+    const { page } = this.props
+
+    if (!valueHelper.isValue(page)) {
+      return (<React.Fragment />)
+    }
+
+    const number = parseInt(page.number)
+    const lastNumber = pageHelper.lastNumber(page)
+
+    return (
+      <span>
+        {this.back10(number)}
+        {this.back(number)}
+        {this.numbers(number, lastNumber)}
+        {this.forward(number, lastNumber)}
+        {this.forward10(number, lastNumber)}
+      </span>
+    )
+  }
+}
 class AprexisList extends Component {
   constructor(props) {
     super(props)
@@ -71,14 +194,18 @@ class AprexisList extends Component {
     }
 
     return (
-      <AprexisTable
-        data={data}
-        groups={groups}
-        headings={headings}
-        onMultipleRows={this.props.onMultipleRowsSelection}
-        tableClassName={tableClassName}
-        aprexisTableClassName={aprexisTableClassName}
-      />
+      <div>
+        <AprexisTable
+          data={data}
+          groups={groups}
+          headings={headings}
+          onMultipleRows={this.props.onMultipleRowsSelection}
+          tableClassName={tableClassName}
+          aprexisTableClassName={aprexisTableClassName}
+        />
+
+        <Page listPluralLabel={this.props.listPluralLabel} onChangePage={this.props.onChangePage} page={this.props.page} />
+      </div>
     )
   }
 }

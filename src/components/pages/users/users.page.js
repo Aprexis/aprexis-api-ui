@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
 import { UsersPageViewModel } from '../../view_models/pages/users'
 import { ListView } from '../../../containers'
-import { pathHelper } from '../../../helpers'
+import { pathHelper, valueHelper } from '../../../helpers'
 
 const headings = [
   {
@@ -77,9 +77,13 @@ class UsersPage extends Component {
   }
 
   render() {
-    const { filters } = this.state
+    const { filters, usersHeaders } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
+    let lastPage
+    if (valueHelper.isValue(usersHeaders)) {
+      lastPage = usersHeaders.lastPage
+    }
 
     return (
       <ListView
@@ -93,13 +97,16 @@ class UsersPage extends Component {
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
+        onChangePage={this.vm.changePage}
+        onChangePerPage={this.vm.onChangePerPage}
         onClearAlert={this.vm.clearAlert}
         onClearModal={this.vm.clearModal}
-        onLoadData={this.vm.loadData}
+        onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
         onSubmitFilters={this.vm.submitFilters}
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
+        page={lastPage}
         title="Users"
       />
     )

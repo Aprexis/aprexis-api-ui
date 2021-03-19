@@ -9,6 +9,7 @@ class FiltersItem extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {}
     this.vm = new FiltersItemViewModel({ view: this })
 
     this.addColumnToTableStructure = this.addColumnToTableStructure.bind(this)
@@ -56,8 +57,8 @@ class FiltersItem extends Component {
     return myTableStructure
   }
 
-  buildFilterLabels(filtersDescriptions, filters) {
-    return filtersDescriptions.map((filterDescription) => { return filtersHelper.filterToLabel(filterDescription, filters) })
+  buildFilterLabels(filterDescriptions, filters) {
+    return filterDescriptions.map((filterDescription) => { return filtersHelper.filterToLabel(filterDescription, filters) })
       .filter((filterLabel) => valueHelper.isValue(filterLabel))
   }
 
@@ -66,12 +67,16 @@ class FiltersItem extends Component {
       return buildEmptyTable()
     }
 
-    const filterLabels = this.buildSingleFilterEntry(filterDescriptions, filters)
+    const filterLabels = this.buildFilterLabels(filterDescriptions, filters)
     if (filterLabels.length === 0) {
       return buildEmptyTable()
     }
 
-    const tableStructure = this.addFilterLabelsToTableStructure(filterLabels, onRemoveFilter, { rows: [], cols: [], numberOfColumns: 0 })
+    const tableStructure = this.addFilterLabelsToTableStructure(
+      filterLabels,
+      onRemoveFilter,
+      { rows: [], cols: [], numberOfColumns: 0 }
+    )
     const rows = this.getRowsFromTableStructure(tableStructure)
     if (rows.length === 0) {
       return buildEmptyTable()
@@ -156,7 +161,7 @@ class FiltersItem extends Component {
 
   buildSingleFilterEntry(filterLabel, labelClassName, onRemoveFilter, tableStructure) {
     const { canDelete, label, name, queryParam } = filterLabel
-    const displayLabel = valueHelper.isValue(name) ? `${name} = ${label}` : label
+    const displayLabel = valueHelper.isValue(name) ? `${name} = ${label}` : `${label}`
     const { col, colLength } = buildLabel(canDelete, onRemoveFilter, queryParam, labelClassName, displayLabel)
 
     return this.addColumnToTableStructure(col, colLength, tableStructure)
@@ -191,9 +196,9 @@ class FiltersItem extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { filtersDescriptions, filters } = props
+    const { filterDescriptions, filters } = props
 
-    return { filtersDescriptions, filters }
+    return { filterDescriptions, filters }
   }
 
   getRowsFromTableStructure(tableStructure) {
@@ -215,7 +220,7 @@ class FiltersItem extends Component {
         <Row>
           <Col sm="auto" className="pt-0">
             <Button
-              className="btn btn-outline-secondary btn-xs btn-secondary"
+              className="btn btn-xs btn-secondary"
               onClick={(event) => { this.props.onSelectFilters(filterDescriptions, filters) }}>
               Filters
             </Button>

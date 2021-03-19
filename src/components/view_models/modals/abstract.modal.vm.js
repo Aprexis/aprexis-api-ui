@@ -25,14 +25,13 @@ class AbstractModalViewModel extends AbstractViewModel {
   }
 
   renderSubmitFooter(submitLabel = 'Submit', cancelLabel = 'Cancel') {
-    const { clearModal } = this.props
     const modelName = this.modelName()
 
     return (
       <React.Fragment>
         <button
           className='btn btn-sm btn-secondary mr-auto'
-          onClick={(event) => { clearModal() }}>
+          onClick={(event) => { this.props.onClearModal() }}>
           {cancelLabel}
         </button>
         <button
@@ -51,10 +50,10 @@ class AbstractModalViewModel extends AbstractViewModel {
   }
 
   submitModal(modalModelName, modalModel, modalChangedModel) {
-    const { submitModal } = this.props
+    const { onSubmitModal } = this.props
 
-    if (valueHelper.isFunction(submitModal)) {
-      submitModal(modalModelName, modalModel, modalChangedModel)
+    if (valueHelper.isFunction(onSubmitModal)) {
+      onSubmitModal(modalModelName, modalModel, modalChangedModel)
       return
     }
 

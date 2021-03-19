@@ -1,4 +1,4 @@
-import { alertHelper, dateHelper, history, valueHelper } from '../helpers'
+import { alertHelper, history, valueHelper } from '../helpers'
 
 export const API = {
   buildQueryString,
@@ -8,6 +8,11 @@ export const API = {
 }
 
 const baseApiUrl = process.env.REACT_APP_APREXIS_API
+const knownHeaders = {
+  'X-Page': "lastPage.number",
+  'X-Per-Page': "lastPage.size",
+  'X-Total': "lastPage.total"
+}
 
 function buildQueryString(params) {
   if (!valueHelper.isValue(params)) {
@@ -19,10 +24,9 @@ function buildQueryString(params) {
   Object.keys(params).forEach(
     (key) => {
       const value = params[key]
-
       if (Array.isArray(value)) {
         queryString = addArrayParam(key, value, queryString, delimiter)
-      } else if (typeof value === 'object' && !dateHelper.isDateValue(value)) {
+      } else if (typeof value === 'object' && !(value instanceof Date)) {
         queryString = addHashParam(key, value, queryString, delimiter)
       } else {
         queryString = addSingleParam(key, value, queryString, delimiter)
@@ -121,6 +125,8 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
 
   fetch(fullPath, requestOptions).then(
     (response) => {
+      const parsedHeaders = parseHeaders(response.headers)
+
       switch (response.status) {
         case 200:
         case 201:
@@ -128,7 +134,7 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
             .then(
               (responseJSON) => {
                 const parsedJSON = JSON.parse(JSON.stringify(responseJSON))
-                onSuccess(parsedJSON)
+                onSuccess(parsedJSON, parsedHeaders)
               }
             )
           break
@@ -174,6 +180,21 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
       },
       body: JSON.stringify(body)
     }
+  }
+
+  function parseHeaders(headers) {
+    const parsedHeaders = { date: new Date() }
+
+    Object.keys(knownHeaders).forEach(
+      (key) => {
+        const value = headers.get(key.toLowerCase())
+        if (valueHelper.isValue(value)) {
+          valueHelper.hashSet(parsedHeaders, knownHeaders[key], value)
+        }
+      }
+    )
+
+    return parsedHeaders
   }
 }
 
