@@ -33,6 +33,10 @@ header {
   background-color: $medium-blue;
 }
 
+.aprexis-table-header-cell {
+  background-color: $medium-blue;
+}
+
 .header-nav {
   .nav-link { color: white; }
 }
@@ -40,4 +44,12 @@ header {
 .navbar,
 .navbar-brand {
   padding: 0;
+}
+
+.red {
+  color: $red;
+}
+
+.aprexis-link {
+  text-decoration: underline;
 }

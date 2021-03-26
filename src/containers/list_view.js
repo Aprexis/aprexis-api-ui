@@ -37,7 +37,7 @@ class ListHeader extends Component {
 
 class ListView extends Component {
   render() {
-    const { list, listPluralLabel, timeout } = this.props
+    const { list, listPluralLabel, onRefreshData, onUpdateFilters, timeout } = this.props
     const myTimeout = valueHelper.isValue(timeout) ? timeout : 5 * 60 * 1000
 
     return (
@@ -54,10 +54,9 @@ class ListView extends Component {
           filters={this.props.filters}
           filterOptions={this.props.filterOptions}
           onFilters={this.props.onChangeFilter}
-          onRefresh={this.props.onRefresh}
+          onRefreshData={onRefreshData}
           onSelectFilters={this.props.onSelectFilters}
-          onUpdateFilters={this.props.onUpdateFilters}
-          onSubmitFilters={this.props.onSubmitFilters}
+          onUpdateFilters={onUpdateFilters}
         />
 
         <Modals
@@ -66,7 +65,7 @@ class ListView extends Component {
           onClearModal={this.props.onClearModal}
           onLoadData={this.props.onLoadData}
           onSubmitModal={this.props.submitModal}
-          modalProps={{ filters: { onSubmitFilters: this.props.onSubmitFilters }, ...this.props.modalProps }}
+          modalProps={{ filters: { onRefreshData, onUpdateFilters }, ...this.props.modalProps }}
           parentTitle={listPluralLabel}
         />
 

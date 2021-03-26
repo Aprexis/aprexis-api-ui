@@ -53,7 +53,7 @@ class FiltersModal extends Component {
         key={`filter-${filterIdx}`}
         onChange={this.vm.change}
         onChangeDay={this.vm.changeDay}
-        onMultiChange={this.vm.multiChange}
+        onChangeId={this.vm.changeId}
         readOnly={false}
         setValidDate={this.vm.setValidDate}
       />
@@ -66,7 +66,7 @@ class FiltersModal extends Component {
     }
 
     return filterDescriptions.map(
-      (filterDescription, filterIdx) => { return this.renderFilterRow(filterDescription, fitlers, filterIdx) }
+      (filterDescription, filterIdx) => { return this.renderFilterRow(filterDescription, filters, filterIdx) }
     )
   }
 
@@ -80,7 +80,7 @@ class FiltersModal extends Component {
         </button>
         <button
           className='btn btn-sm btn-primary'
-          onClick={this.vm.submitModal}>
+          onClick={(event) => { this.vm.submitFilters() }}>
           Filter
         </button>
       </React.Fragment>

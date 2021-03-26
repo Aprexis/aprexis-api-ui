@@ -9,7 +9,7 @@ class UsersRouting extends Component {
 
     return (
       <Switch>
-        <Route path='/users' component={UsersPage} />
+        <Route exact path='/users' component={UsersPage} />
         <Route path='/users/:user_id' component={UserRouting} />
         <Route component={NoMatch} />
       </Switch>

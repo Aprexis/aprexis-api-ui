@@ -6,7 +6,7 @@ class StringFilter extends Component {
   render() {
     const { filters, filterDescription, readOnly } = this.props
     const { disabled, name } = filterDescription
-    const value = valueHelper.makeString(filtersHelper.filterValue(filters, filterDescription.queryParam))
+    const value = valueHelper.makeString(filtersHelper.filterToValue(filters, filterDescription.queryParam))
 
     return (
       <div className="form-group row">
@@ -47,7 +47,7 @@ class StringFilter extends Component {
     function buildLabel(filterDescription, filters) {
       const { queryParam } = filterDescription
 
-      return valueHelper.makeString(filtersHelper.filterValue(filters, queryParam))
+      return filtersHelper.filterToValue(filters, queryParam)
     }
   }
 }

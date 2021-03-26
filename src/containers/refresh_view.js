@@ -25,12 +25,6 @@ class RefreshView extends Component {
     }
   }
 
-  componentWillUpdate() {
-    if (valueHelper.isValue(this._idleTimer)) {
-      this._idleTimer.pause()
-    }
-  }
-
   onIdle(event) {
     const { location, ticks } = this.state
     if (window.location != location) {

@@ -10,7 +10,7 @@ class BooleanFilter extends Component {
       (<option value="false">{filterDescription.falseLabel}</option>)
     ]
 
-    let value = filtersHelper.filterValue(filters, filterDescription.queryParam)
+    let value = filtersHelper.filterToValue(filters, filterDescription.queryParam)
     const { name, unselectedLabel } = filterDescription
     if (valueHelper.isValue(unselectedLabel)) {
       options.push(<option value="">{unselectedLabel}</option>)
@@ -56,12 +56,24 @@ class BooleanFilter extends Component {
 
     function buildLabel(filterDescription, filters) {
       const { queryParam } = filterDescription
-      const value = filtersHelper.filterValue(filters, queryParam)
+      const value = filtersHelper.filterToValue(filters, queryParam)
       if (!valueHelper.isValue(value)) {
-        return filterDescription.unsetLabel
+        return
       }
 
-      return valueHelper.isSet(value) ? filterDescription.trueLabel : filterDescription.falseLabel
+      if (!valueHelper.isSet(value)) {
+        return pickLabel(filterDescription.falseLabel, 'False')
+      }
+
+      return pickLabel(filterDescription.trueLabel, 'True')
+
+      function pickLabel(override, base) {
+        if (valueHelper.isStringValue(override)) {
+          return override
+        }
+
+        return base
+      }
     }
   }
 }

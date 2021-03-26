@@ -37,7 +37,7 @@ class FiltersItem extends Component {
       <td key={`filter-column-${rows.length}-${cols.length + 1}`} colSpan={colSpan}>{col}</td>
     )
 
-    return (rows, cols, numberOfColumns)
+    return { rows, cols, numberOfColumns }
   }
 
   addFilterLabelsToTableStructure(filterLabels, onRemoveFilter, tableStructure) {
@@ -145,7 +145,8 @@ class FiltersItem extends Component {
   }
 
   buildRemoveFilter() {
-    if (!valueHelper.isFunction(this.props.onUpdateFilters)) {
+    const { onUpdateFilters } = this.props
+    if (!valueHelper.isFunction(onUpdateFilters)) {
       return
     }
 
@@ -153,15 +154,14 @@ class FiltersItem extends Component {
       if (valueHelper.isValue(queryParam)) {
         const filters = { ...this.state.filters }
         delete filters[queryParam]
-        this.props.onUpdateFilters(filters)
-        this.props.onRefresh()
+        onUpdateFilters(filters, this.props.onRefreshData)
       }
     }
   }
 
   buildSingleFilterEntry(filterLabel, labelClassName, onRemoveFilter, tableStructure) {
     const { canDelete, label, name, queryParam } = filterLabel
-    const displayLabel = valueHelper.isValue(name) ? `${name} = ${label}` : `${label}`
+    const displayLabel = valueHelper.isStringValue(name) ? `${name} = ${label}` : `${label}`
     const { col, colLength } = buildLabel(canDelete, onRemoveFilter, queryParam, labelClassName, displayLabel)
 
     return this.addColumnToTableStructure(col, colLength, tableStructure)
@@ -212,6 +212,10 @@ class FiltersItem extends Component {
 
   render() {
     const { filterDescriptions, filters } = this.state
+    if (!valueHelper.isValue(filterDescriptions) || !valueHelper.isValue(filters)) {
+      return (<React.Fragment />)
+    }
+
     const onRemoveFilter = this.buildRemoveFilter()
     const filtersTable = this.buildFiltersTable(filterDescriptions, filters, onRemoveFilter)
 

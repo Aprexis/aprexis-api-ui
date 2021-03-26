@@ -17,16 +17,19 @@ class AppViewModel extends AbstractViewModel {
 
   getCurrentUser(nextOperation) {
     const userCredentials = userCredentialsHelper.get()
-    if (valueHelper.isValue(userCredentials)) {
-      userApi.show(
-        userCredentials,
-        userCredentials.id,
-        (currentUser) => {
-          this.addField('currentUser', currentUser, nextOperation)
-        },
-        this.onError
-      )
+    if (!valueHelper.isValue(userCredentials)) {
+      nextOperation()
+      return
     }
+
+    userApi.show(
+      userCredentials,
+      userCredentials.id,
+      (currentUser) => {
+        this.addField('currentUser', currentUser, nextOperation)
+      },
+      this.onError
+    )
   }
 
   home() {
@@ -41,7 +44,7 @@ class AppViewModel extends AbstractViewModel {
 
   loadData() {
     this.clearData(false)
-    this.getCurrentUser()
+    this.getCurrentUser(this.redrawView)
   }
 
   signIn() {

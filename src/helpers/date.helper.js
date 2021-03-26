@@ -30,6 +30,15 @@ function makeDate(value) {
     return
   }
 
+  if (!valueHelper.isStringValue(value)) {
+    return
+  }
+
+  const dateValue = Date.parse(value)
+  if (!isNaN(dateValue)) {
+    return new Date(dateValue)
+  }
+
   const dateMoment = moment(value)
   if (!dateMoment.isValid()) {
     return

@@ -2,9 +2,17 @@ import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
 import { UsersPageViewModel } from '../../view_models/pages/users'
 import { ListView } from '../../../containers'
-import { pathHelper, valueHelper } from '../../../helpers'
+import { pathHelper, userHelper, valueHelper } from '../../../helpers'
 
 const headings = [
+  {
+    name: "Username",
+    field: "username"
+  },
+  {
+    name: "Role",
+    field: "role"
+  },
   {
     name: "First Name",
     field: "first_name"
@@ -12,10 +20,6 @@ const headings = [
   {
     name: "Last Name",
     field: "last_name"
-  },
-  {
-    name: "Username",
-    field: "Username"
   },
   {
     name: "Email",
@@ -55,6 +59,7 @@ class UsersPage extends Component {
         return (
           <TableColumnHeader
             key={`users-table-heading-${field}`}
+            className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -68,9 +73,13 @@ class UsersPage extends Component {
 
   generateTableRow(user) {
     return [
+      {
+        content: <React.Fragment>{user.username}{userHelper.renderAccess(user)}</React.Fragment>,
+        onClick: (event) => { this.vm.gotoUser(user) }
+      },
+      userHelper.displayRole(user),
       user.first_name,
       user.last_name,
-      user.username,
       user.email,
       user.phone
     ]
@@ -103,7 +112,6 @@ class UsersPage extends Component {
         onClearModal={this.vm.clearModal}
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
-        onSubmitFilters={this.vm.submitFilters}
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         page={lastPage}

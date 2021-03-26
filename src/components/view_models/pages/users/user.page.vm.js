@@ -15,7 +15,7 @@ class UserPageViewModel extends AbstractPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     const { pathEntries } = this.props
     const user_id = pathEntries.users.value
-    userApi.show(userCredentials, user_id, (user) => { this.addField('user', user, this.redraw) }, this.onError)
+    userApi.account(userCredentials, user_id, (user) => { this.addField('user', user, this.redraw) }, this.onError)
   }
 }
 

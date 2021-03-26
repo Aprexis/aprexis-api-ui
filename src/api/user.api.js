@@ -1,8 +1,19 @@
 import { API } from './'
 
 export const userApi = {
+  account,
   index,
   show
+}
+
+function account(userCredentials, id, onSuccess, onFailure) {
+  if (!API.validateId('user ID', id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/admin/users/${id}/account`
+  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
 }
 
 function index(userCredentials, params, onSuccess, onFailure) {

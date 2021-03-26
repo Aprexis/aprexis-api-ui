@@ -112,7 +112,7 @@ class Header extends Component {
     )
 
     return (
-      <tr className="aprexis-table-header">{renderedHeadings}</tr>
+      <tr className="aprexis-table-header-row">{renderedHeadings}</tr>
     )
   }
 }

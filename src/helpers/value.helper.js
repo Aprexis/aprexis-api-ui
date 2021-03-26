@@ -1,5 +1,6 @@
 export const valueHelper = {
   capitalizeWords,
+  getCircularReplacer,
   hashGet,
   hashSet,
   isFunction,
@@ -11,6 +12,21 @@ export const valueHelper = {
 
 function capitalizeWords(str) {
   return str.replace(/\w\S*/g, (txt) => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+}
+
+function getCircularReplacer() {
+  const seen = new WeakSet()
+  return (key, value) => {
+    if (typeof value === 'object' && valueHelper.isValue(value)) {
+      if (seen.has(value)) {
+        return
+      }
+
+      seen.add(value)
+    }
+
+    return value
+  }
 }
 
 function hashSet(hash, field, value) {

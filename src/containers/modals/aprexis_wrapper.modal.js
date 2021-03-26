@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import moment from 'moment'
 import { dateHelper, valueHelper } from '../../helpers'
 
 export function aprexisWrapperModal(WrappedModal) {
@@ -56,12 +55,12 @@ export function aprexisWrapperModal(WrappedModal) {
 function deriveStateFromProps(props, state) {
   let modalDate
   if (dateHelper.isDateValue(state.modalDate)) {
-    modalDate = Date(moment(state.modalDate))
+    modalDate = dateHelper.makeDate(state.modalDate)
   }
 
   let propsDate
   if (dateHelper.isDateValue(props.date)) {
-    propsDate = Date(moment(props.date))
+    propsDate = dateHelper.makeDate(props.date)
   }
 
   let { modalVisible } = state

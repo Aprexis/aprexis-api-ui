@@ -54,7 +54,7 @@ class App extends Component {
           onUsersPage={this.vm.usersPage}
         />
 
-        <Main currentUser={currentUser} history={history} match={match} />
+        <Main clearAlert={this.vm.clearAlert} currentUser={currentUser} history={history} match={match} />
 
         <Footer currentUser={currentUser} history={history} match={match} />
 

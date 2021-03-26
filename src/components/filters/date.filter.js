@@ -28,7 +28,7 @@ class DateFilter extends Component {
   render() {
     const { filterDescription, filters } = this.props
     const { allowBlank, from, name, to } = filterDescription
-    const value = filtersHelper.filterValue(filters, filterDescription.queryParam)
+    const value = filtersHelper.filterToValue(filters, filterDescription.queryParam)
     const date = allowBlank ? valueHelper.makeDate(value) : this.initialDate(from, value, to)
 
     return (
@@ -52,7 +52,7 @@ class DateFilter extends Component {
 
   static toLabel(filterDescription, filters) {
     const { field, name, queryParam } = filterDescription
-    const value = filtersHelper.filterValue(filters, queryParam)
+    const value = filtersHelper.filterToValue(filters, queryParam)
     if (!valueHelper.isValue(value)) {
       return
     }

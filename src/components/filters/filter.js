@@ -12,13 +12,11 @@ class Filter extends Component {
     }
 
     const onChange = filtersHelper.filterToOnChange(filterDescription)
-
     return (
       <FilterClass
         filterDescription={filterDescription}
         filters={this.props.filters}
         onChange={this.props[onChange]}
-        onMultiChange={this.props.onMultiChange}
         readOnly={this.props.readOnly}
       />
     )

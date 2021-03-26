@@ -13,6 +13,9 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     this.changePerPage = this.changePerPage.bind(this)
     this.defaultPage = this.defaultPage.bind(this)
     this.lastPageNumber = this.lastPageNumber.bind(this)
+    this.selectFilters = this.selectFilters.bind(this)
+    this.updateFilters = this.updateFilters.bind(this)
+    this.updateSorting = this.updateSorting.bind(this)
   }
 
   changePage(number) {
@@ -54,6 +57,19 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     }
 
     return pageHelper.lastNumber(page)
+  }
+
+  selectFilters(filterDescriptions, filters) {
+    this.addData({ modal: { modalName: 'filters', filterDescriptions, filters } })
+    this.redrawView()
+  }
+
+  updateFilters(filters, nextOperation) {
+    this.addData({ filters }, nextOperation)
+  }
+
+  updateSorting(sort, nextOperation) {
+    this.addData({ sorting: { sort } }, nextOperation)
   }
 }
 

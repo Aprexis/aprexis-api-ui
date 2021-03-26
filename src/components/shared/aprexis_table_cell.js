@@ -4,9 +4,13 @@ import { valueHelper } from '../../helpers'
 class AprexisHeaderCell extends Component {
   render() {
     const { colSpan, content, onCellClick } = this.props
+    let className = "aprexis-table-header-cell"
+    if (valueHelper.isValue(onCellClick)) {
+      className = `${className} aprexis-link`
+    }
 
     return (
-      <th className="aprexis-table-header-cell" colSpan={colSpan} onClick={onCellClick} scope="col">{content}</th>
+      <th className={className} colSpan={colSpan} onClick={onCellClick} scope="col">{content}</th>
     )
   }
 }
@@ -14,7 +18,15 @@ class AprexisHeaderCell extends Component {
 class AprexisCell extends Component {
   render() {
     const { content, colSpan, onCellClick, group } = this.props
-    const className = valueHelper.isSet(group) ? "aprexis-table-group-cell" : "aprexis-table-cell"
+    let className
+    if (valueHelper.isSet(group)) {
+      className = "aprexis-table-group-cell"
+    } else {
+      className = "aprexis-table-cell"
+    }
+    if (valueHelper.isValue(onCellClick)) {
+      className = `${className} aprexis-link`
+    }
 
     return (
       <td className={className} colSpan={colSpan} onClick={onCellClick}>{content}</td>

@@ -1,4 +1,4 @@
-import { alertHelper, history, valueHelper } from '../helpers'
+import { alertHelper, valueHelper } from '../helpers'
 
 export const API = {
   buildQueryString,
@@ -74,8 +74,7 @@ function buildQueryString(params) {
 
 function handleError(method, path, error, onFailure) {
   if (error.message.includes("You need to sign in or sign up before continuing.")) {
-    alertHelper.error("You are not signed in. You may have been signed out due to lack of activity or your username may have been changed by another user. Please sign in.")
-    history.push('/sign-in')
+    onFailure("You are not signed in. You may have been signed out due to lack of activity or your username may have been changed by another user. Please sign in.")
     return
   }
 

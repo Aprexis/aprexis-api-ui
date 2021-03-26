@@ -1,9 +1,10 @@
-import { BooleanFilter, DateFilter, StringFilter } from '../components/filters'
+import { BooleanFilter, DateFilter, SelectIdFilter, StringFilter } from '../components/filters'
 
 export const filterTypes = {
   'boolean': {
     filterClass: BooleanFilter,
-    onChange: 'onChange'
+    onChange: 'onChange',
+    optional: ['disabled', 'falseLabel', 'trueLabel', 'unselectedLabel']
   },
   'date': {
     filterClass: DateFilter,
@@ -11,6 +12,12 @@ export const filterTypes = {
   },
   'string': {
     filterClass: StringFilter,
-    onChange: 'onChange'
+    onChange: 'onChange',
+    optional: ['disabled']
+  },
+  'select-id': {
+    filterClass: SelectIdFilter,
+    onChange: 'onChangeId',
+    optional: ['disabled', 'multiple', 'options', 'requireUnselected', 'unselectedLabel']
   }
 }
