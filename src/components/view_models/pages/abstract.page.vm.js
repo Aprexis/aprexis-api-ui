@@ -1,6 +1,5 @@
 import { AbstractViewModel } from '../'
 import { valueHelper } from '../../../helpers'
-
 class AbstractPageViewModel extends AbstractViewModel {
   constructor(props) {
     if (new.target === AbstractPageViewModel) {

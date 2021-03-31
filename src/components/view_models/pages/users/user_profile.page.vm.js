@@ -2,7 +2,7 @@ import { AbstractPageViewModel } from '../'
 import { userApi } from '../../../../api'
 import { userCredentialsHelper } from '../../../../helpers'
 
-class UserPageViewModel extends AbstractPageViewModel {
+class UserProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
@@ -19,4 +19,4 @@ class UserPageViewModel extends AbstractPageViewModel {
   }
 }
 
-export { UserPageViewModel }
+export { UserProfilePageViewModel }

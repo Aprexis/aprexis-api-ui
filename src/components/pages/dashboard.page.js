@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DashboardPageViewModel } from '../view_models/pages'
-import { pathHelper } from '../../helpers'
+import { pathHelper, userHelper, valueHelper } from '../../helpers'
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -17,9 +17,15 @@ class DashboardPage extends Component {
   }
 
   render() {
+    const { currentUser } = this.props
+    let name = 'No current user'
+    if (valueHelper.isValue(currentUser)) {
+      name = userHelper.fullName(currentUser)
+    }
+
     return (
       <div>
-        DASHBOARD PAGE
+        Dashboard for {name}
       </div>
     )
   }

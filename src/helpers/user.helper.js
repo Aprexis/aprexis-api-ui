@@ -7,13 +7,19 @@ import { userRoles } from '../types'
 
 export const userHelper = {
   canHaveNpi,
+  canIndexAll,
   canModifyUsers,
   displayRole,
   fullName,
+  getCurrentUser,
+  hasRole,
   isAccessLocked,
   isExpired,
   isLoginAllowed,
-  renderAccess
+  renderAccess,
+  rolesToOptions,
+  setCurrentUser,
+  toBreadcrumb
 }
 
 function canHaveNpi(user) {
@@ -22,6 +28,9 @@ function canHaveNpi(user) {
   }
 
   return userRoles[user.role].has_npi
+}
+
+function canIndexAll(currentUser) {
 }
 
 function canModifyUsers(user) {
@@ -46,6 +55,28 @@ function fullName(user) {
   }
 
   return `${user.first_name} ${user.last_name}`
+}
+
+function getCurrentUser() {
+  const currentUserJson = sessionStorage.getItem("aprexis-api-ui-current-user")
+
+  return JSON.parse(currentUserJson)
+}
+
+function hasRole(user, role) {
+  if (!valueHelper.isValue(user)) {
+    return false
+  }
+
+  if (!valueHelper.isValue(role)) {
+    return false
+  }
+
+  if (Array.isArray(role)) {
+    return role.includes(user.role)
+  }
+
+  return user.role == role
 }
 
 function isAccessLocked(user) {
@@ -73,6 +104,10 @@ function isLoginAllowed(user) {
 }
 
 function renderAccess(user) {
+  if (!valueHelper.isValue(user)) {
+    return
+  }
+
   const accessLocked = renderAccessLocked(user)
   const allowLogin = renderAllowLogin(user)
   const expired = renderExpired(user)
@@ -126,4 +161,25 @@ function renderAccess(user) {
       </span>
     )
   }
+}
+
+function rolesToOptions() {
+  return Object.keys(userRoles).map(
+    (key) => {
+      return {
+        id: key,
+        value: userRoles[key].label
+      }
+    }
+  )
+}
+
+function setCurrentUser(currentUser) {
+  const currentUserJson = JSON.stringify(currentUser)
+
+  sessionStorage.setItem("aprexis-api-ui-current-user", currentUserJson)
+}
+
+function toBreadcrumb(user) {
+  return user.username
 }

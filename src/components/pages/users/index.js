@@ -1,2 +1,2 @@
-export * from './user.page'
+export * from './user_profile.page'
 export * from './users.page'

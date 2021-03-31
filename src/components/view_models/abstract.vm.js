@@ -1,4 +1,4 @@
-import { alertHelper, jsEventHelper, valueHelper } from "../../helpers"
+import { alertHelper, jsEventHelper, pathHelper, valueHelper } from "../../helpers"
 
 class AbstractViewModel {
   constructor(props) {
@@ -15,6 +15,7 @@ class AbstractViewModel {
     this.clearData = this.clearData.bind(this)
     this.clearModal = this.clearModal.bind(this)
     this.onError = this.onError.bind(this)
+    this.orderedPathEntries = this.orderedPathEntries.bind(this)
     this.redrawView = this.redrawView.bind(this)
     this.removeField = this.removeField.bind(this)
     this.setFieldFromEvent = this.setFieldFromEvent.bind(this)
@@ -66,6 +67,10 @@ class AbstractViewModel {
   onError(message) {
     alertHelper.error(message)
     this.redrawView()
+  }
+
+  orderedPathEntries() {
+    return pathHelper.orderedPathEntries(this.props.pathEntries)
   }
 
   redrawView() {

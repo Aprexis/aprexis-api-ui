@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     const { match } = this.props
-    const { currentUser, modal } = this.state
+    const { context, currentUser, modal } = this.state
 
     return (
       <div>
@@ -46,15 +46,21 @@ class App extends Component {
 
         <Header
           currentUser={currentUser}
+          gotoAccount={this.vm.gotoAccount}
+          gotoHealthPlansPage={this.vm.gotoHealthPlansPage}
+          gotoUsersPage={this.vm.gotoUsersPage}
           history={history}
           match={match}
           onSignIn={this.vm.signIn}
           onSignOut={this.vm.signOut}
-          onUserPage={this.vm.userPage}
-          onUsersPage={this.vm.usersPage}
         />
 
-        <Main clearAlert={this.vm.clearAlert} currentUser={currentUser} history={history} match={match} />
+        <Main
+          clearAlert={this.vm.clearAlert}
+          context={context}
+          currentUser={currentUser}
+          history={history} match={match}
+        />
 
         <Footer currentUser={currentUser} history={history} match={match} />
 

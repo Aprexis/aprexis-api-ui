@@ -1,18 +1,20 @@
 import { AbstractViewModel } from './'
 import { authenticationApi, userApi } from '../../api'
-import { alertHelper, history, userCredentialsHelper, valueHelper } from '../../helpers'
+import { alertHelper, contextHelper, history, pathHelper, userCredentialsHelper, valueHelper } from '../../helpers'
 
 class AppViewModel extends AbstractViewModel {
   constructor(props) {
     super(props)
 
     this.getCurrentUser = this.getCurrentUser.bind(this)
+    this.gotoAccount = this.gotoAccount.bind(this)
+    this.gotoHealthPlansPage = this.gotoHealthPlansPage.bind(this)
+    this.gotoUsersPage = this.gotoUsersPage.bind(this)
     this.home = this.home.bind(this)
+    this.loadContext = this.loadContext.bind(this)
     this.loadData = this.loadData.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
-    this.userPage = this.userPage.bind(this)
-    this.usersPage = this.usersPage.bind(this)
   }
 
   getCurrentUser(nextOperation) {
@@ -32,6 +34,19 @@ class AppViewModel extends AbstractViewModel {
     )
   }
 
+  gotoAccount() {
+    const userCredentials = userCredentialsHelper.get()
+    pathHelper.gotoPage(['users', userCredentials.id, 'profile'])
+  }
+
+  gotoHealthPlansPage() {
+    pathHelper.gotoPage(['health-plans'])
+  }
+
+  gotoUsersPage() {
+    pathHelper.gotoPage(['users'])
+  }
+
   home() {
     const userCredentials = userCredentialsHelper.get()
     if (valueHelper.isValue(userCredentials)) {
@@ -42,9 +57,22 @@ class AppViewModel extends AbstractViewModel {
     history.push('/')
   }
 
+  loadContext(nextOperation) {
+    contextHelper.updateContext(nextOperation)
+  }
+
   loadData() {
     this.clearData(false)
-    this.getCurrentUser(this.redrawView)
+    this.getCurrentUser(
+      () => {
+        this.loadContext(
+          (context) => {
+            this.addField('context', context)
+            this.redrawView()
+          }
+        )
+      }
+    )
   }
 
   signIn() {
@@ -57,16 +85,6 @@ class AppViewModel extends AbstractViewModel {
 
     const userCredentials = userCredentialsHelper.remove()
     authenticationApi.signOut(userCredentials, this.home)
-  }
-
-  userPage() {
-    const userCredentials = userCredentialsHelper.get()
-
-    history.push(`/users/${userCredentials.id}`)
-  }
-
-  usersPage() {
-    history.push('/users')
   }
 }
 

@@ -21,7 +21,7 @@ class UserDropdown extends Component {
         </DropdownToggle>
 
         <DropdownMenu right>
-          <DropdownItem className='btn-uppercase' onClick={this.props.onUserPage}>
+          <DropdownItem className='btn-uppercase' onClick={this.props.gotoAccount}>
             Account
           </DropdownItem>
 

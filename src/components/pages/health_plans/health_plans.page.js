@@ -1,29 +1,33 @@
 import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
-import { UsersPageViewModel } from '../../view_models/pages/users'
+import { HealthPlansPageViewModel } from '../../view_models/pages/health_plans'
 import { ListView } from '../../../containers'
-import { pathHelper, userHelper, valueHelper } from '../../../helpers'
+import { pathHelper, valueHelper } from '../../../helpers'
 
 const headings = [
   {
-    name: "Username",
-    field: "username"
+    name: "Name",
+    field: "name"
   },
   {
-    name: "Role",
-    field: "role"
+    name: "Code",
+    field: "code"
   },
   {
-    name: "First Name",
-    field: "first_name"
+    name: "Address",
+    field: "address"
   },
   {
-    name: "Last Name",
-    field: "last_name"
+    name: "City",
+    field: "city"
   },
   {
-    name: "Email",
-    field: "email"
+    name: "State",
+    field: "state"
+  },
+  {
+    name: 'ZIP Code',
+    field: "zip_code"
   },
   {
     name: "Phone",
@@ -31,12 +35,12 @@ const headings = [
   }
 ]
 
-class UsersPage extends Component {
+class HealthPlansPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new UsersPageViewModel(
+    this.vm = new HealthPlansPageViewModel(
       {
         pathEntries: pathHelper.parsePathEntries(window.location),
         ...this.props,
@@ -49,16 +53,17 @@ class UsersPage extends Component {
   }
 
   componentDidMount() {
+    console.log(`Doing HP load`)
     this.vm.loadData(window.location)
   }
 
-  generateTableHeadings(users) {
+  generateTableHeadings(HealthPlans) {
     return headings.map(
       (heading) => {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`users-table-heading-${field}`}
+            key={`HealthPlans-table-heading-${field}`}
             className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
@@ -71,27 +76,28 @@ class UsersPage extends Component {
     )
   }
 
-  generateTableRow(user) {
+  generateTableRow(healthPlan) {
     return [
       {
-        content: <React.Fragment>{user.username}{userHelper.renderAccess(user)}</React.Fragment>,
-        onClick: (event) => { this.vm.gotoUserProfile(user) }
+        content: healthPlan.name,
+        onClick: (event) => { this.vm.gotoHealthPlanProfile(healthPlan) }
       },
-      userHelper.displayRole(user),
-      user.first_name,
-      user.last_name,
-      user.email,
-      user.phone
+      healthPlan.code,
+      healthPlan.address,
+      healthPlan.city,
+      healthPlan.state,
+      healthPlan.zip_code,
+      healthPlan.phone
     ]
   }
 
   render() {
-    const { filters, usersHeaders } = this.state
+    const { filters, healthPlansHeaders } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
     let lastPage
-    if (valueHelper.isValue(usersHeaders)) {
-      lastPage = usersHeaders.lastPage
+    if (valueHelper.isValue(healthPlansHeaders)) {
+      lastPage = healthPlansHeaders.lastPage
     }
 
     return (
@@ -101,9 +107,9 @@ class UsersPage extends Component {
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
         lastPage={lastPage}
-        list={this.state.users}
-        listLabel="User"
-        listPluralLabel="Users"
+        list={this.state.healthPlans}
+        listLabel="Health Plan"
+        listPluralLabel="Health Plans"
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
@@ -116,10 +122,10 @@ class UsersPage extends Component {
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         page={lastPage}
-        title="Users"
+        title="Health Plans"
       />
     )
   }
 }
 
-export { UsersPage }
+export { HealthPlansPage }

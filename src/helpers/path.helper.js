@@ -1,13 +1,40 @@
-import { valueHelper } from './'
+import { history, valueHelper } from './'
 
 export const pathHelper = {
+  gotoPage,
+  haveProfile,
   orderedPathEntries,
   pageName,
   parsePathEntries
 }
 
+function gotoPage(pathArray) {
+  let path = ""
+  pathArray.forEach(
+    (pathEntry) => {
+      if (typeof pathEntry === 'object') {
+        path = `${path}/${pathEntry.id}`
+      } else if (!isNaN(pathEntry)) {
+        path = `${path}/${pathEntry}`
+      } else if (valueHelper.isStringValue(pathEntry)) {
+        path = `${path}/${pathEntry}`
+      }
+    }
+  )
+
+  history.push(path)
+}
+
+function haveProfile(orderedPathEntries) {
+  if (!Array.isArray(orderedPathEntries) || orderedPathEntries.length === 0 || !valueHelper.isValue(orderedPathEntries[orderedPathEntries.length - 1])) {
+    return false
+  }
+
+  return orderedPathEntries[orderedPathEntries.length - 1].key == 'profile'
+}
+
 function orderedPathEntries(pathEntries) {
-  const ordered = Array(pathEntries.length).fill()
+  const ordered = Array(Object.keys(pathEntries).length).fill()
 
   Object.keys(pathEntries).forEach(
     (key) => {
@@ -38,9 +65,12 @@ function pageName(pathEntries) {
 
 function parsePathEntries(location) {
   const { pathname } = location
-  const parts = pathname.split('/')
-  const pathEntries = {}
+  if (pathname == '/') {
+    return {}
+  }
 
+  const pathEntries = {}
+  const parts = pathname.split('/')
   let index = 1
   for (let idx = 0; idx < parts.length; ++idx) {
     const part = parts[idx]

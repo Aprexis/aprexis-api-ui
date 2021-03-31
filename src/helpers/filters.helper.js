@@ -97,21 +97,19 @@ function dateRangeToLabel(filterDescription, filters) {
   }
 }
 
-function filterToClass(filterDescription) {
+function filterToClass(filterDescription, filterClasses) {
   checkValidFilterDescription(filterDescription)
 
-  return filterTypes[filterDescription.type].filterClass
+  return filterClasses[filterDescription.type]
 }
 
-function filterToLabel(filterDescription, filters) {
-  checkValidFilterDescription(filterDescription)
-
-  const { canDelete } = filterDescription
-  const label = filterTypes[filterDescription.type].filterClass.toLabel(filterDescription, filters)
+function filterToLabel(filterDescription, filters, filterClasses) {
+  const label = filtersHelper.filterToClass(filterDescription, filterClasses).toLabel(filterDescription, filters, filterClasses)
   if (!valueHelper.isValue(label)) {
     return
   }
 
+  const { canDelete } = filterDescription
   return { canDelete, ...label }
 }
 

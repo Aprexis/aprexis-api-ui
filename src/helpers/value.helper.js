@@ -3,11 +3,13 @@ export const valueHelper = {
   getCircularReplacer,
   hashGet,
   hashSet,
+  humanize,
   isFunction,
   isSet,
   isStringValue,
   isValue,
-  makeString
+  makeString,
+  splitCapitalized
 }
 
 function capitalizeWords(str) {
@@ -58,6 +60,15 @@ function hashGet(hash, field) {
   return valueHelper.hashGet(hash[field[0]], field.slice(1))
 }
 
+function humanize(str) {
+  if (!valueHelper.isStringValue(str)) {
+    return ''
+  }
+
+  const myStr = str.replaceAll("_", " ").replace(/\s{2,}/g, ' ')
+  return valueHelper.capitalizeWords(valueHelper.splitCapitalized(myStr).join(' '))
+}
+
 function isFunction(value) {
   return valueHelper.isValue(value) && typeof value === 'function'
 }
@@ -97,4 +108,8 @@ function makeString(value) {
   }
 
   return value
+}
+
+function splitCapitalized(str) {
+  return str.split(/(?=[A-Z ])/)
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Col, Row } from 'reactstrap'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { filterClasses } from './filter_classes'
 import { FiltersItemViewModel } from '../view_models/filters'
 import { filtersHelper, valueHelper } from '../../helpers'
 
@@ -58,8 +59,9 @@ class FiltersItem extends Component {
   }
 
   buildFilterLabels(filterDescriptions, filters) {
-    return filterDescriptions.map((filterDescription) => { return filtersHelper.filterToLabel(filterDescription, filters) })
-      .filter((filterLabel) => valueHelper.isValue(filterLabel))
+    return filterDescriptions.map(
+      (filterDescription) => { return filtersHelper.filterToLabel(filterDescription, filters, filterClasses) }
+    ).filter((filterLabel) => valueHelper.isValue(filterLabel))
   }
 
   buildFiltersTable(filterDescriptions, filters, onRemoveFilter) {

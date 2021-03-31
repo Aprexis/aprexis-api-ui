@@ -1,9 +1,9 @@
+import React, { Component } from 'react'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { Component } from 'react'
 import { Collapse, Nav, Navbar, NavbarBrand } from 'reactstrap'
-import { UserDropdown, UserHeaders } from './header_nav'
-import { valueHelper } from '../helpers'
+import { HealthPlanHeaders, UserDropdown, UserHeaders } from './header_nav'
+
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -40,17 +40,15 @@ class Header extends Component {
 
               <Collapse isOpen={!this.state.collapsed} navbar>
                 <Nav className='header-nav ml-md-auto' navbar>
-                  {
-                    valueHelper.isValue(currentUser) &&
-                    <UserHeaders currentUser={currentUser} onUsersPage={this.props.onUsersPage} />
-                  }
+                  <HealthPlanHeaders currentUser={currentUser} gotoHealthPlansPage={this.props.gotoHealthPlansPage} />
+                  <UserHeaders currentUser={currentUser} gotoUsersPage={this.props.gotoUsersPage} />
 
                   <UserDropdown
                     currentUser={currentUser}
+                    gotoAccount={this.props.gotoAccount}
                     history={history}
                     onSignIn={this.props.onSignIn}
                     onSignOut={(event) => { this.props.onSignOut('Logged out') }}
-                    onUserPage={this.props.onUserPage}
                   />
                 </Nav>
               </Collapse>

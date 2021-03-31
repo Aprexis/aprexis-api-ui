@@ -33,6 +33,10 @@ header {
   background-color: $medium-blue;
 }
 
+.aprexis-link {
+  text-decoration: underline;
+}
+
 .aprexis-table-header-cell {
   background-color: $medium-blue;
 }
@@ -50,6 +54,33 @@ header {
   color: $red;
 }
 
-.aprexis-link {
-  text-decoration: underline;
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 145px);
+  flex: 1;
+  padding-top: 2.15rem;
+}
+
+.main-content.sidebar {
+  padding-top: 0;
+}
+
+.sidebar-nav {
+  background-color: $light-gray;
+  padding-top: 58px !important;
+  min-height: calc(100vh - 144px);
+
+  .inner:first-child {
+    border-top: solid rgba(0, 0, 0, 0.125) 1px;
+  }
+
+  h6,
+  .nav-inner {
+    border-bottom: solid rgba(0, 0, 0, 0.125) 1px;
+  }
+
+  h6:hover { cursor: pointer; }
+
+  .nav-inner { background-color: #f9f9f9; }
 }

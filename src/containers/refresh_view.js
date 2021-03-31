@@ -46,13 +46,15 @@ class RefreshView extends Component {
   }
 
   render() {
-    const { objects, label, pluralLabel } = this.props
+    const { label, lastPage, objects, pluralLabel } = this.props
     let count = ''
 
     if (valueHelper.isValue(label)) {
       let objectCount = 0
 
-      if (valueHelper.isValue(objects)) {
+      if (valueHelper.isValue(lastPage)) {
+        objectCount = lastPage.total
+      } else if (valueHelper.isValue(objects)) {
         objectCount = objects.length
       }
 
