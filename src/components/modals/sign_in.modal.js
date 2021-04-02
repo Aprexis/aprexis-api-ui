@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Col, Container, Form, Row } from 'reactstrap'
 import { SignInModalViewModel } from '../view_models/modals'
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
-import { pathHelper } from '../../helpers'
 import { UsernamePassword } from './shared'
 
 class SignInModal extends Component {
@@ -12,8 +11,7 @@ class SignInModal extends Component {
     this.state = {}
     this.vm = new SignInModalViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )

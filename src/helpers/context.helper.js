@@ -99,12 +99,7 @@ function updateContext(nextOperation) {
         return false
       }
 
-      if (!valueHelper.isValue(context)) {
-        return true
-      }
-
-      const existingModel = context[pathKey]
-      return !valueHelper.isValue(existingModel) || existingModel.id != value
+      return true
     }
   )
 

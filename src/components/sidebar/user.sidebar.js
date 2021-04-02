@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { valueHelper } from '../../helpers'
 
-const RenderSidebarElements = ({ context, currentUser, vm }) => {
+const RenderSidebarElements = ({ sidebarOpen, vm }) => {
+  if (!valueHelper.isSet(sidebarOpen)) {
+    return (<React.Fragment />)
+  }
+
   return (
     <div className="py-2 nav-inner w-100">
       <button
@@ -25,14 +29,10 @@ class UserSidebar extends Component {
           </h6>
         </nav>
 
-        {
-          valueHelper.isSet(this.props.sidebarOpen) &&
-          <RenderSidebarElements
-            context={this.props.context}
-            currentUser={this.props.currentUser}
-            vm={this.props.vm}
-          />
-        }
+        <RenderSidebarElements
+          sidebarOpen={this.props.sidebarOpen}
+          vm={this.props.vm}
+        />
       </div>
     )
   }

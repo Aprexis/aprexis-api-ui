@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DashboardPageViewModel } from '../view_models/pages'
-import { pathHelper, userHelper, valueHelper } from '../../helpers'
+import { userHelper, valueHelper } from '../../helpers'
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -9,8 +9,7 @@ class DashboardPage extends Component {
     this.state = {}
     this.vm = new DashboardPageViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )

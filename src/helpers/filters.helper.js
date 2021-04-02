@@ -49,12 +49,25 @@ function checkValidFilter(type, name, queryParam, options = {}) {
   )
 }
 
+function ensureFilterOptions(options, defaultOptions = {}) {
+  const fullOptions = { ...options }
+
+  Object.keys(defaultOptions).forEach(
+    (optionName) => {
+      if (!valueHelper.isValue(options[optionName])) {
+        fullOptions[optionName] = defaultOptions[optionName]
+      }
+    }
+  )
+
+  return fullOptions
+}
+
 function booleanFilter(name, queryParam, options = {}) {
   checkValidFilter('boolean', name, queryParam, options)
 
-  return { type: 'boolean', name, queryParam, ...options }
+  return { type: 'boolean', name, queryParam, ...ensureFilterOptions(options, { falseLabel: "false", trueLabel: "true" }) }
 }
-
 
 function dateLabel(value) {
   if (typeof value === 'string') {

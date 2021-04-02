@@ -3,7 +3,7 @@ import { Container } from 'reactstrap'
 import { Filter } from '../filters'
 import { FiltersModalViewModel } from '../view_models/modals'
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
-import { pathHelper, valueHelper } from '../../helpers'
+import { valueHelper } from '../../helpers'
 
 class FiltersModal extends Component {
   constructor(props) {
@@ -12,8 +12,7 @@ class FiltersModal extends Component {
     this.state = {}
     this.vm = new FiltersModalViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )

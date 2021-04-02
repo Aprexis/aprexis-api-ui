@@ -3,7 +3,7 @@ import { BreadcrumbsViewModel } from './view_models'
 import { valueHelper } from '../helpers'
 
 const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey }) => {
-  const crumb = `${valueHelper.humanize(pathKey.replaceAll('-', ' '))}`
+  const crumb = `${valueHelper.titleize(pathKey.replaceAll('-', ' '))}`
 
   return (
     <li className="plural-breadcrumb">
@@ -44,7 +44,7 @@ class Breadcrumbs extends Component {
     this.state = {}
     this.vm = new BreadcrumbsViewModel(
       {
-        ...this.props,
+        ...props,
         view: this
       }
     )

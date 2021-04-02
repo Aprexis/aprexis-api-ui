@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { HomePageViewModel } from '../view_models/pages'
-import { pathHelper } from '../../helpers'
 
 class HomePage extends Component {
   constructor(props) {
@@ -9,8 +8,7 @@ class HomePage extends Component {
     this.state = {}
     this.vm = new HomePageViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )

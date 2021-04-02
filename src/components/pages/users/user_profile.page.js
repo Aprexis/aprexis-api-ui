@@ -4,7 +4,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AprexisTable, Spinner } from '../../shared'
 import { UserProfilePageViewModel } from '../../view_models/pages/users'
-import { pathHelper, userHelper, valueHelper } from '../../../helpers'
+import { userHelper, valueHelper } from '../../../helpers'
 
 class UserNpi extends Component {
   render() {
@@ -299,7 +299,6 @@ class UserProfile extends Component {
   }
 }
 
-
 class UserProfilePage extends Component {
   constructor(props) {
     super(props)
@@ -307,15 +306,14 @@ class UserProfilePage extends Component {
     this.state = {}
     this.vm = new UserProfilePageViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )
   }
 
   componentDidMount() {
-    this.vm.loadData(window.location)
+    this.vm.loadData()
   }
 
   render() {

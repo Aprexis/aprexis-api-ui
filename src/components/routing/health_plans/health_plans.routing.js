@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-//import { HealthPlanRouting } from './'
+import { HealthPlanRouting } from './'
 import { NoMatch } from '../'
 import { HealthPlansPage } from '../../pages/health_plans'
 
@@ -15,12 +15,10 @@ class HealthPlansRouting extends Component {
           path='/health-plans'
           render={(props) => (<HealthPlansPage {...props} context={context} currentUser={currentUser} />)}
         />
-        {/*
         <Route
           path='/health-plans/:health_plan_id'
-          render={(props) => (<HealthPlanRouting {...props} context={context} currentHealthPlan={currentUser} />)}
+          render={(props) => (<HealthPlanRouting {...props} context={context} currentUser={currentUser} />)}
         />
-        */}
         <Route component={NoMatch} />
       </Switch>
     )

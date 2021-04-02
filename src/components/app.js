@@ -14,20 +14,16 @@ class App extends Component {
     this.state = {}
     this.vm = new AppViewModel(
       {
-        ...this.props,
+        ...props,
         view: this
       }
     )
 
-    history.listen(
-      (location, action) => {
-        this.vm.loadData(location)
-      }
-    )
+    history.listen((location, action) => { this.vm.loadData() })
   }
 
   componentDidMount() {
-    this.vm.loadData(window.location)
+    this.vm.loadData()
   }
 
   render() {

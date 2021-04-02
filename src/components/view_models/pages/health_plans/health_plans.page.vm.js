@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from '../'
 import { healthPlanApi } from '../../../../api'
-import { filtersHelper, pageHelper, userCredentialsHelper } from '../../../../helpers'
+import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from '../../../../helpers'
 
 class HealthPlansPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -9,25 +9,31 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
+    this.gotoHealthPlanProfile = this.gotoHealthPlanProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
   }
 
   defaultParameters() {
-    const filters = { for_state: "active" }
+    const filters = { for_active: true }
     const sorting = { sort: "name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
   filterDescriptions(filters, filtersOptions) {
     return [
-      filtersHelper.stringFilter('Name', 'for_name'),
-      filtersHelper.stringFilter('Code', 'for_code')
+      filtersHelper.booleanFilter("Status", "for_active", { falseLabel: "Inactive", trueLabel: "Active" }),
+      filtersHelper.stringFilter("Name", "for_name"),
+      filtersHelper.stringFilter("Code", "for_code")
     ]
   }
 
   filtersOptions() {
     return {}
+  }
+
+  gotoHealthPlanProfile(healthPlan) {
+    pathHelper.gotoPage(['health-plans', healthPlan, 'profile'])
   }
 
   loadData() {

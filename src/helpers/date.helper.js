@@ -1,10 +1,21 @@
+import { format } from 'date-fns'
 import moment from 'moment'
 import { valueHelper } from './'
 
 export const dateHelper = {
+  displayDateTime,
   isDateValue,
   isValidDate,
   makeDate
+}
+
+function displayDateTime(dateTime) {
+  if (!valueHelper.isValue(dateTime)) {
+    return ''
+  }
+
+  const time = makeDate(dateTime)
+  return format(time, "Ppp")
 }
 
 function isDateValue(value) {

@@ -16,6 +16,7 @@ class AbstractViewModel {
     this.clearModal = this.clearModal.bind(this)
     this.onError = this.onError.bind(this)
     this.orderedPathEntries = this.orderedPathEntries.bind(this)
+    this.pathEntries = this.pathEntries.bind(this)
     this.redrawView = this.redrawView.bind(this)
     this.removeField = this.removeField.bind(this)
     this.setFieldFromEvent = this.setFieldFromEvent.bind(this)
@@ -70,7 +71,11 @@ class AbstractViewModel {
   }
 
   orderedPathEntries() {
-    return pathHelper.orderedPathEntries(this.props.pathEntries)
+    return pathHelper.orderedPathEntries(this.pathEntries())
+  }
+
+  pathEntries() {
+    return pathHelper.parsePathEntries(window.location)
   }
 
   redrawView() {

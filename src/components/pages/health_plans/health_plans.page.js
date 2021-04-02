@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
 import { HealthPlansPageViewModel } from '../../view_models/pages/health_plans'
 import { ListView } from '../../../containers'
-import { pathHelper, valueHelper } from '../../../helpers'
+import { valueHelper } from '../../../helpers'
 
 const headings = [
   {
@@ -32,6 +32,10 @@ const headings = [
   {
     name: "Phone",
     field: "phone"
+  },
+  {
+    name: "Status",
+    field: "active"
   }
 ]
 
@@ -42,8 +46,7 @@ class HealthPlansPage extends Component {
     this.state = {}
     this.vm = new HealthPlansPageViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )
@@ -53,17 +56,16 @@ class HealthPlansPage extends Component {
   }
 
   componentDidMount() {
-    console.log(`Doing HP load`)
-    this.vm.loadData(window.location)
+    this.vm.loadData()
   }
 
-  generateTableHeadings(HealthPlans) {
+  generateTableHeadings() {
     return headings.map(
       (heading) => {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`HealthPlans-table-heading-${field}`}
+            key={`health-plans-table-heading-${field}`}
             className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
@@ -87,7 +89,8 @@ class HealthPlansPage extends Component {
       healthPlan.city,
       healthPlan.state,
       healthPlan.zip_code,
-      healthPlan.phone
+      healthPlan.phone,
+      valueHelper.isSet(healthPlan.active) ? 'Active' : 'Inactive'
     ]
   }
 

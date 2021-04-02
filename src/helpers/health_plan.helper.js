@@ -1,9 +1,23 @@
-import { userHelper } from './'
+import { userHelper, valueHelper } from './'
 
 export const healthPlanHelper = {
-  canViewHealthPlans
+  canConfigure,
+  canIndex,
+  name
 }
 
-function canViewHealthPlans(user) {
-  return userHelper.hasRole(user, ['aprexis_admin', 'health_plan_admin', 'health_plan_user'])
+function canConfigure(user) {
+  return userHelper.hasRole(user, 'aprexis_admin')
+}
+
+function canIndex(user) {
+  return true
+}
+
+function name(healthPlan) {
+  if (!valueHelper.isValue(healthPlan)) {
+    return 'No health plan'
+  }
+
+  return healthPlan.name
 }

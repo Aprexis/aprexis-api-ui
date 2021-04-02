@@ -5,7 +5,7 @@ import { healthPlanHelper } from '../../helpers'
 class HealthPlanHeaders extends Component {
   render() {
     const { currentUser } = this.props
-    if (!healthPlanHelper.canViewHealthPlans(currentUser)) {
+    if (!healthPlanHelper.canIndex(currentUser)) {
       return (<React.Fragment />)
     }
 

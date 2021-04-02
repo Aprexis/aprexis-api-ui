@@ -11,7 +11,7 @@ class FiltersItem extends Component {
     super(props)
 
     this.state = {}
-    this.vm = new FiltersItemViewModel({ view: this })
+    this.vm = new FiltersItemViewModel({ ...props, view: this })
 
     this.addColumnToTableStructure = this.addColumnToTableStructure.bind(this)
     this.addFilterLabelsToTableStructure = this.addFilterLabelsToTableStructure.bind(this)

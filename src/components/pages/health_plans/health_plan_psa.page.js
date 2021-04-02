@@ -1,50 +1,36 @@
 import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
-import { UsersPageViewModel } from '../../view_models/pages/users'
+import { HealthPlanPatientSearchAlgorithmsPageViewModel } from '../../view_models/pages/health_plans'
 import { ListView } from '../../../containers'
-import { userHelper, valueHelper } from '../../../helpers'
+import { dateHelper, valueHelper } from '../../../helpers'
 
 const headings = [
   {
-    name: "Username",
-    field: "username"
+    name: 'Name'
   },
   {
-    name: "Role",
-    field: "role"
+    name: 'Type'
   },
   {
-    name: "First Name",
-    field: "first_name"
-  },
-  {
-    name: "Last Name",
-    field: "last_name"
-  },
-  {
-    name: "Email",
-    field: "email"
-  },
-  {
-    name: "Phone",
-    field: "phone"
+    name: 'Last Run'
   }
 ]
 
-class UsersPage extends Component {
+class HealthPlanPatientSearchAlgorithmsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new UsersPageViewModel(
+    this.vm = new HealthPlanPatientSearchAlgorithmsPageViewModel(
       {
-        ...this.props,
+        ...props,
         view: this
       }
     )
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
+    this.orderedPatientSearchAlgorithms = this.orderedPatientSearchAlgorithms.bind(this)
   }
 
   componentDidMount() {
@@ -57,7 +43,7 @@ class UsersPage extends Component {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`users-table-heading-${field}`}
+            key={`patient-search-algorithms-table-heading-${field}`}
             className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
@@ -70,28 +56,28 @@ class UsersPage extends Component {
     )
   }
 
-  generateTableRow(user) {
+  generateTableRow(patientSearchAlgorithm) {
     return [
-      {
-        content: <React.Fragment>{user.username}{userHelper.renderAccess(user)}</React.Fragment>,
-        onClick: (event) => { this.vm.gotoUserProfile(user) }
-      },
-      userHelper.displayRole(user),
-      user.first_name,
-      user.last_name,
-      user.email,
-      user.phone
+      valueHelper.titleize(patientSearchAlgorithm.name),
+      valueHelper.titleize(patientSearchAlgorithm.type),
+      dateHelper.displayDateTime(patientSearchAlgorithm.lastRun)
     ]
   }
 
+  orderedPatientSearchAlgorithms() {
+    const { healthPlanPatientSearchAlgorithms, patientSearchAlgorithms } = this.state
+    if (!valueHelper.isValue(patientSearchAlgorithms) || !valueHelper.isValue(healthPlanPatientSearchAlgorithms)) {
+      return []
+    }
+
+    return patientSearchAlgorithms.map((psa) => healthPlanPatientSearchAlgorithms.find((hpPsa) => hpPsa.type == psa))
+      .filter((hpPsa) => valueHelper.isValue(hpPsa))
+  }
+
   render() {
-    const { filters, usersHeaders } = this.state
+    const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
-    let lastPage
-    if (valueHelper.isValue(usersHeaders)) {
-      lastPage = usersHeaders.lastPage
-    }
 
     return (
       <ListView
@@ -99,10 +85,9 @@ class UsersPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        lastPage={lastPage}
-        list={this.state.users}
-        listLabel="User"
-        listPluralLabel="Users"
+        list={this.orderedPatientSearchAlgorithms()}
+        listLabel="Patient Search Algorithm"
+        listPluralLabel="Patient Search Algorithms"
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
@@ -114,11 +99,10 @@ class UsersPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
-        page={lastPage}
-        title="Users"
+        title="Patient Search Algorithms"
       />
     )
   }
 }
 
-export { UsersPage }
+export { HealthPlanPatientSearchAlgorithmsPage }

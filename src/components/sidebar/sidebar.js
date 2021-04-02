@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Col } from 'reactstrap'
 import { HealthPlanSidebar, UserSidebar } from './'
 import { SidebarViewModel } from '../view_models/sidebar'
-import { pathHelper, valueHelper } from '../../helpers'
+import { valueHelper } from '../../helpers'
 
 class Sidebar extends Component {
   constructor(props) {
@@ -14,8 +14,7 @@ class Sidebar extends Component {
     }
     this.vm = new SidebarViewModel(
       {
-        pathEntries: pathHelper.parsePathEntries(window.location),
-        ...this.props,
+        ...props,
         view: this
       }
     )
@@ -50,7 +49,6 @@ class Sidebar extends Component {
       }
     ).map(
       (pathEntry, sidebarIndex) => {
-        console.log(`Path entry: ${JSON.stringify(pathEntry, null, 2)}`)
         switch (pathEntry.key) {
           case 'health-plans':
             return (

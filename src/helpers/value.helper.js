@@ -1,5 +1,6 @@
 export const valueHelper = {
   capitalizeWords,
+  getField,
   getCircularReplacer,
   hashGet,
   hashSet,
@@ -9,7 +10,9 @@ export const valueHelper = {
   isStringValue,
   isValue,
   makeString,
-  splitCapitalized
+  splitCapitalized,
+  titleize,
+  yesNo
 }
 
 function capitalizeWords(str) {
@@ -31,9 +34,21 @@ function getCircularReplacer() {
   }
 }
 
+function getField(object, fieldName, prefix) {
+  if (!valueHelper.isValue(object)) {
+    return
+  }
+
+  if (!valueHelper.isStringValue(prefix)) {
+    return object[fieldName]
+  }
+
+  return object[`${prefix}_${fieldName}`]
+}
+
 function hashSet(hash, field, value) {
   if (typeof field === 'string') {
-    valueHelper.hashSet(hash, field.split('.'), value)
+    valueHelper.hashSet(hash, field.split("."), value)
     return
   }
 
@@ -50,7 +65,7 @@ function hashSet(hash, field, value) {
 
 function hashGet(hash, field) {
   if (typeof field === 'string') {
-    return valueHelper.hashGet(hash, field.split('.'))
+    return valueHelper.hashGet(hash, field.split("."))
   }
 
   if (field.length === 1) {
@@ -62,11 +77,21 @@ function hashGet(hash, field) {
 
 function humanize(str) {
   if (!valueHelper.isStringValue(str)) {
-    return ''
+    return ""
   }
 
-  const myStr = str.replaceAll("_", " ").replace(/\s{2,}/g, ' ')
-  return valueHelper.capitalizeWords(valueHelper.splitCapitalized(myStr).join(' '))
+  const myStr = str.replaceAll("_", " ").replace(/\s{2,}/g, " ")
+  const myStrSplit = valueHelper.splitCapitalized(myStr)
+  if (myStrSplit.length === 0) {
+    return ""
+  }
+  const firstWord = valueHelper.capitalizeWords(myStrSplit.shift())
+  if (myStrSplit.length === 0) {
+    return firstWord
+  }
+
+  const additionalWords = myStrSplit.map((word) => word.toLowerCase())
+  return `${firstWord} ${additionalWords.join(" ")}`
 }
 
 function isFunction(value) {
@@ -112,4 +137,16 @@ function makeString(value) {
 
 function splitCapitalized(str) {
   return str.split(/(?=[A-Z ])/)
+}
+
+function titleize(str) {
+  return valueHelper.capitalizeWords(valueHelper.humanize(str))
+}
+
+function yesNo(value) {
+  if (valueHelper.isSet(value)) {
+    return "Yes"
+  }
+
+  return "No"
 }

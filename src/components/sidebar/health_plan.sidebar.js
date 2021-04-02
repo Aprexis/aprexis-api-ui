@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
-import { valueHelper } from '../../helpers'
+import { healthPlanHelper, valueHelper } from '../../helpers'
 
-const RenderSidebarElements = ({ context, currentUser, vm }) => {
+const RenderSidebarElements = ({ currentUser, sidebarOpen, vm }) => {
+  if (!valueHelper.isSet(sidebarOpen)) {
+    return (<React.Fragment />)
+  }
+
   return (
     <div className="py-2 nav-inner w-100">
       <button
         className="rounded-0 btn-sm btn-link w-100 pl-5"
-        onClick={vm.gotoUserProfile}>
+        onClick={vm.gotoHealthPlanProfile}>
         Profile
       </button>
+
+      {
+        healthPlanHelper.canConfigure(currentUser) &&
+        <button
+          className="rounded-0 btn-sm btn-link w-100 pl-5"
+          onClick={vm.gotoHealthPlanPatientSearchAlgorithms}>
+          Patient Search Algorithms
+        </button>
+      }
     </div>
   )
 }
@@ -25,14 +38,11 @@ class HealthPlanSidebar extends Component {
           </h6>
         </nav>
 
-        {
-          valueHelper.isSet(this.props.sidebarOpen) &&
-          <RenderSidebarElements
-            context={this.props.context}
-            currentUser={this.props.currentUser}
-            vm={this.props.vm}
-          />
-        }
+        <RenderSidebarElements
+          currentUser={this.props.currentUser}
+          sidebarOpen={this.props.sidebarOpen}
+          vm={this.props.vm}
+        />
       </div>
     )
   }
