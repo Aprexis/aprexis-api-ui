@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { NoMatch } from './'
-import { HealthPlansRouting } from './health_plans'
-import { UsersRouting } from './users'
-import { DashboardPage, HomePage } from '../pages'
+import React, { Component } from "react"
+import { Route, Switch } from "react-router-dom"
+import { NoMatch } from "./"
+import { HealthPlansRouting } from "./health_plans"
+import { PharmacyChainsRouting } from "./pharmacy_chains"
+import { UsersRouting } from "./users"
+import { DashboardPage, HomePage } from "../pages"
 
 class MainRouting extends Component {
   render() {
@@ -13,20 +14,24 @@ class MainRouting extends Component {
       <Switch>
         <Route
           exact
-          path='/'
+          path="/"
           render={(props) => (<HomePage {...props} context={context} currentUser={currentUser} />)}
         />
         <Route
           exact
-          path='/dashboard'
+          path="/dashboard"
           render={(props) => (<DashboardPage {...props} context={context} currentUser={currentUser} />)}
         />
         <Route
-          path='/health-plans'
+          path="/health-plans"
           render={(props) => (<HealthPlansRouting {...props} context={context} currentUser={currentUser} />)}
         />
         <Route
-          path='/users'
+          path="/pharmacy-chains"
+          render={(props) => (<PharmacyChainsRouting {...props} context={context} currentUser={currentUser} />)}
+        />
+        <Route
+          path="/users"
           render={(props) => (<UsersRouting {...props} context={context} currentUser={currentUser} />)}
         />
         <Route component={NoMatch} />

@@ -72,7 +72,7 @@ const HealthPlanNotes = ({ healthPlan }) => {
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Health Plan Contract Instructions</h3>
+          <h3>Contract Instructions</h3>
         </CardTitle>
 
         <CardBody>
@@ -88,7 +88,7 @@ const HealthPlanProfile = ({ healthPlan }) => {
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Health Plan Profile</h3>
+          <h3>Profile</h3>
         </CardTitle>
 
         <CardBody>

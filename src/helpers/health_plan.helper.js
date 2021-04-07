@@ -11,7 +11,7 @@ function canConfigure(user) {
 }
 
 function canIndex(user) {
-  return true
+  return valueHelper.isValue(user)
 }
 
 function name(healthPlan) {

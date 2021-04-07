@@ -67,6 +67,13 @@ class AbstractViewModel {
 
   onError(message) {
     alertHelper.error(message)
+    let { errorCount } = this.data
+    if (valueHelper.isValue(errorCount)) {
+      errorCount = errorCount + 1
+    } else {
+      errorCount = 1
+    }
+    this.addField("errorCount", errorCount)
     this.redrawView()
   }
 

@@ -1,5 +1,5 @@
 import { AbstractViewModel } from './'
-import { contextHelper, pathHelper, userHelper } from '../../helpers'
+import { contextHelper, healthPlanHelper, pathHelper, pharmacyChainHelper, userHelper } from '../../helpers'
 
 class BreadcrumbsViewModel extends AbstractViewModel {
   constructor(props) {
@@ -27,6 +27,12 @@ class BreadcrumbsViewModel extends AbstractViewModel {
 
   modelToBreadcrumb(modelName, model) {
     switch (modelName) {
+      case 'HealthPlan':
+        return healthPlanHelper.toBreadcrumb(model)
+
+      case 'PharmacyChain':
+        return pharmacyChainHelper.toBreadcrumb(model)
+
       case 'User':
         return userHelper.toBreadcrumb(model)
 

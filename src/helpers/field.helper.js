@@ -5,6 +5,7 @@ export const fieldHelper = {
   booleanDisplay,
   display,
   displayOptional,
+  imageDisplay,
   optionDisplay,
   titleDisplay
 }
@@ -25,6 +26,10 @@ function displayOptional(name, value) {
   }
 
   return fieldHelper.display(name, value)
+}
+
+function imageDisplay(name, value) {
+  return fieldHelper.display(name, <img src={`data:image/jpeg;base64,${value}`} alt="logo" />)
 }
 
 function optionDisplay(name, options, value) {

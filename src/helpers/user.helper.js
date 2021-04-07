@@ -19,7 +19,8 @@ export const userHelper = {
   renderAccess,
   rolesToOptions,
   setCurrentUser,
-  toBreadcrumb
+  toBreadcrumb,
+  username
 }
 
 function canHaveNpi(user) {
@@ -181,5 +182,17 @@ function setCurrentUser(currentUser) {
 }
 
 function toBreadcrumb(user) {
-  return user.username
+  if (!valueHelper.isValue(user)) {
+    return '(no user)'
+  }
+
+  return valueHelper.makeString(user.username)
+}
+
+function username(user) {
+  if (!valueHelper.isValue(user)) {
+    return ""
+  }
+
+  return valueHelper.makeString(user.username)
 }

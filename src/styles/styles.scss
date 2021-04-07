@@ -33,12 +33,23 @@ header {
   background-color: $medium-blue;
 }
 
+.aprexis-admin-act-as {
+  text-align: left;
+  min-width: 600px;
+}
+
 .aprexis-link {
   text-decoration: underline;
 }
 
 .aprexis-table-header-cell {
   background-color: $medium-blue;
+}
+
+.btn-uppercase {
+  border:none;
+  text-transform: uppercase;
+  font-size: .8rem;
 }
 
 .header-nav {

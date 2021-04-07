@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
-import { HealthPlansPageViewModel } from '../../view_models/pages/health_plans'
+import { PharmacyChainsPageViewModel } from '../../view_models/pages/pharmacy_chains'
 import { ListView } from '../../../containers'
 import { valueHelper } from '../../../helpers'
 
@@ -8,10 +8,6 @@ const headings = [
   {
     name: "Name",
     field: "name"
-  },
-  {
-    name: "Code",
-    field: "code"
   },
   {
     name: "Address",
@@ -30,21 +26,16 @@ const headings = [
     field: "zip_code"
   },
   {
-    name: "Phone",
-    field: "phone"
-  },
-  {
-    name: "Status",
-    field: "active"
+    name: "Pharmacy Stores"
   }
 ]
 
-class HealthPlansPage extends Component {
+class PharmacyChainsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new HealthPlansPageViewModel(
+    this.vm = new PharmacyChainsPageViewModel(
       {
         ...props,
         view: this
@@ -65,7 +56,7 @@ class HealthPlansPage extends Component {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`health-plans-table-heading-${field}`}
+            key={`pharmacy-chains-table-heading-${field}`}
             className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
@@ -78,29 +69,27 @@ class HealthPlansPage extends Component {
     )
   }
 
-  generateTableRow(healthPlan) {
+  generateTableRow(pharmacyChain) {
     return [
       {
-        content: healthPlan.name,
-        onClick: (event) => { this.vm.gotoHealthPlanProfile(healthPlan) }
+        content: pharmacyChain.name,
+        onClick: (event) => { this.vm.gotoPharmacyChainProfile(pharmacyChain) }
       },
-      healthPlan.code,
-      healthPlan.address,
-      healthPlan.city,
-      healthPlan.state,
-      healthPlan.zip_code,
-      healthPlan.phone,
-      valueHelper.isSet(healthPlan.active) ? 'Active' : 'Inactive'
+      pharmacyChain.address,
+      pharmacyChain.city,
+      pharmacyChain.state,
+      pharmacyChain.zip_code,
+      `${pharmacyChain.pharmacy_store_count}`
     ]
   }
 
   render() {
-    const { filters, healthPlansHeaders } = this.state
+    const { filters, pharmacyChainsHeaders } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
     let lastPage
-    if (valueHelper.isValue(healthPlansHeaders)) {
-      lastPage = healthPlansHeaders.lastPage
+    if (valueHelper.isValue(pharmacyChainsHeaders)) {
+      lastPage = pharmacyChainsHeaders.lastPage
     }
 
     return (
@@ -110,9 +99,9 @@ class HealthPlansPage extends Component {
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
         lastPage={lastPage}
-        list={this.state.healthPlans}
-        listLabel="Health Plan"
-        listPluralLabel="Health Plans"
+        list={this.state.pharmacyChains}
+        listLabel="Pharmacy Chain"
+        listPluralLabel="Pharmacy Chains"
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
@@ -125,10 +114,10 @@ class HealthPlansPage extends Component {
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         page={lastPage}
-        title="Health Plans"
+        title="Pharmacy Chains"
       />
     )
   }
 }
 
-export { HealthPlansPage }
+export { PharmacyChainsPage }

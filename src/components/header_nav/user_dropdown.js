@@ -11,13 +11,13 @@ class UserDropdown extends Component {
   }
 
   renderCurrentUser(userCredentials) {
-    const { currentUser, } = this.props
+    const { currentUser } = this.props
     const name = valueHelper.isValue(currentUser) ? userHelper.fullName(currentUser) : userCredentials.username
 
     return (
       <UncontrolledDropdown className='user-dropdown'>
-        <DropdownToggle nav caret>
-          {name}
+        <DropdownToggle nav caret className="pt-1 mt-0">
+          <label className="btn-uppercase">{name}</label>
         </DropdownToggle>
 
         <DropdownMenu right>

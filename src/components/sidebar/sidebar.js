@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Col } from 'reactstrap'
-import { HealthPlanSidebar, UserSidebar } from './'
+import { HealthPlanSidebar, PharmacyChainSidebar, UserSidebar } from './'
 import { SidebarViewModel } from '../view_models/sidebar'
 import { valueHelper } from '../../helpers'
 
@@ -53,6 +53,18 @@ class Sidebar extends Component {
           case 'health-plans':
             return (
               <HealthPlanSidebar
+                context={context}
+                currentUser={currentUser}
+                key={`sidebar-${pathEntry.key}`}
+                sidebarOpen={sidebarIndex === selectedIndex}
+                onToggleSidebar={this.selectSidebar(sidebarIndex)}
+                vm={this.vm}
+              />
+            )
+
+          case 'pharmacy-chains':
+            return (
+              <PharmacyChainSidebar
                 context={context}
                 currentUser={currentUser}
                 key={`sidebar-${pathEntry.key}`}

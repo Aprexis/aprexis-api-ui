@@ -1,4 +1,4 @@
-import { alertHelper, valueHelper } from '../helpers'
+import { alertHelper, /*userCredentialsHelper,*/ valueHelper } from '../helpers'
 
 export const API = {
   buildQueryString,
@@ -156,11 +156,21 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
     }
 
     const { username, auth_token } = userCredentials
-    return {
+    const newHeaders = {
       ...existingHeaders,
       'X-User-Username': username,
       'X-User-Token': auth_token
     }
+
+    /*
+    const adminCredentials = userCredentialsHelper.getAdmin()
+    if (valueHelper.isValue(adminCredentials)) {
+      newHeaders['X-Admin-Username'] = adminCredentials.username
+      newHeaders['X-Admin-Token'] = adminCredentials.auth_token
+    }
+    */
+
+    return newHeaders
   }
 
   function jsonBody(existingHeaders, body) {

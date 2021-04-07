@@ -1,0 +1,61 @@
+import { AbstractListPageViewModel } from "../"
+import { pharmacyChainApi } from "../../../../api"
+import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+
+class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
+  constructor(props) {
+    super(props)
+
+    this.defaultParameters = this.defaultParameters.bind(this)
+    this.filterDescriptions = this.filterDescriptions.bind(this)
+    this.filtersOptions = this.filtersOptions.bind(this)
+    //this.gotoPharmacyChainProfile = this.gotoPharmacyChainProfile.bind(this)
+    this.loadData = this.loadData.bind(this)
+    this.refreshData = this.refreshData.bind(this)
+  }
+
+  defaultParameters() {
+    const filters = {}
+    const sorting = { sort: "name" }
+    this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  filterDescriptions(filters, filtersOptions) {
+    return [
+      filtersHelper.stringFilter("Name", "for_name")
+    ]
+  }
+
+  filtersOptions() {
+    return {}
+  }
+
+  gotoPharmacyChainProfile(pharmacyChain) {
+    pathHelper.gotoPage(["pharmacy-chains", pharmacyChain, "profile"])
+  }
+
+  loadData() {
+    this.clearData()
+    this.defaultParameters()
+    this.refreshData()
+  }
+
+  refreshData() {
+    const userCredentials = userCredentialsHelper.get()
+    this.removeField("pharmacyChainHeaders")
+    const { filters, sorting, page } = this.data
+
+    pharmacyChainApi.list(
+      userCredentials,
+      { ...filters, ...sorting, page },
+      (pharmacyChains, pharmacyChainHeaders) => {
+        this.addData({ pharmacyChains, pharmacyChainHeaders })
+        this.addField("page", pageHelper.updatePageFromLastPage(pharmacyChainHeaders))
+        this.redrawView()
+      },
+      this.onError
+    )
+  }
+}
+
+export { PharmacyChainsPageViewModel }

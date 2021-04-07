@@ -15,7 +15,12 @@ class HealthPlanProfilePageViewModel extends AbstractPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const health_plan_id = pathEntries['health-plans'].value
-    healthPlanApi.show(userCredentials, health_plan_id, (healthPlan) => { this.addField('healthPlan', healthPlan, this.redraw) }, this.onError)
+    healthPlanApi.show(
+      userCredentials,
+      health_plan_id,
+      (healthPlan) => { this.addField('healthPlan', healthPlan, this.redraw) },
+      this.onError
+    )
   }
 }
 

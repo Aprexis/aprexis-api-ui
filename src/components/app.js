@@ -41,9 +41,13 @@ class App extends Component {
         />
 
         <Header
+          actAs={this.vm.actAs}
+          actAsUsers={this.state.actAsUsers}
+          currentAdminUser={this.state.currentAdminUser}
           currentUser={currentUser}
           gotoAccount={this.vm.gotoAccount}
           gotoHealthPlansPage={this.vm.gotoHealthPlansPage}
+          gotoPharmacyChainsPage={this.vm.gotoPharmacyChainsPage}
           gotoUsersPage={this.vm.gotoUsersPage}
           history={history}
           match={match}

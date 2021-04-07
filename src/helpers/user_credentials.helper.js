@@ -2,36 +2,72 @@ import CryptoJS from "crypto-js"
 import { valueHelper } from "./value.helper"
 
 export const userCredentialsHelper = {
-  clear,
+  actAs,
   get,
+  getAdmin,
   remove,
-  set
+  set,
+  setAdmin
 }
 
 const mySecretKey = process.env.REACT_APP_APREXIS_KEY
 
-function clear() {
-  sessionStorage.removeItem("aprexis-user-credentials")
-}
-
-function get() {
-  const ciphertext = sessionStorage.getItem("aprexis-user-credentials")
-  if (!valueHelper.isValue(ciphertext)) {
+function decode(cipherText) {
+  if (!valueHelper.isValue(cipherText)) {
     return
   }
 
-  const bytes = CryptoJS.AES.decrypt(ciphertext, mySecretKey);
+  const bytes = CryptoJS.AES.decrypt(cipherText, mySecretKey);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 }
 
-function remove() {
-  const userCredentials = userCredentialsHelper.get()
-  userCredentialsHelper.clear()
+function encode(credentials) {
+  return CryptoJS.AES.encrypt(JSON.stringify(credentials), mySecretKey).toString()
+}
 
-  return userCredentials
+function actAs(userCredentials) {
+  let adminCredentials = userCredentialsHelper.getAdmin()
+  if (!valueHelper.isValue(adminCredentials)) {
+    userCredentialsHelper.setAdmin(userCredentialsHelper.get())
+  }
+
+  userCredentialsHelper.set(userCredentials)
+}
+
+function get() {
+  return decode(sessionStorage.getItem("aprexis-user-credentials"))
+}
+
+function getAdmin() {
+  const adminCipherText = sessionStorage.getItem("aprexis-admin-credentials")
+
+  if (!valueHelper.isValue(adminCipherText)) {
+    return userCredentialsHelper.get()
+  }
+
+  return decode(adminCipherText)
+}
+
+function remove() {
+  let credentials = userCredentialsHelper.getAdmin()
+  if (!valueHelper.isValue(credentials)) {
+    credentials = userCredentialsHelper.get()
+  }
+
+  clear()
+
+  return credentials
+
+  function clear() {
+    sessionStorage.removeItem("aprexis-admin-credentials")
+    sessionStorage.removeItem("aprexis-user-credentials")
+  }
 }
 
 function set(userCredentials) {
-  const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(userCredentials), mySecretKey).toString()
-  sessionStorage.setItem("aprexis-user-credentials", ciphertext)
+  sessionStorage.setItem("aprexis-user-credentials", encode(userCredentials))
+}
+
+function setAdmin(adminCredentials) {
+  sessionStorage.setItem("aprexis-admin-credentials", encode(adminCredentials))
 }
