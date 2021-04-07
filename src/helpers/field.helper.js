@@ -29,7 +29,11 @@ function displayOptional(name, value) {
 }
 
 function imageDisplay(name, value) {
-  return fieldHelper.display(name, <img src={`data:image/jpeg;base64,${value}`} alt="logo" />)
+  if (valueHelper.isStringValue(value)) {
+    return fieldHelper.display(name, <img src={`data:image/jpeg;base64,${value}`} alt="logo" />)
+  }
+
+  return fieldHelper.display(name, "")
 }
 
 function optionDisplay(name, options, value) {

@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from '../'
-import { userApi } from '../../../../api'
-import { userCredentialsHelper } from '../../../../helpers'
+import { AbstractPageViewModel } from "../"
+import { userApi } from "../../../../api"
+import { userCredentialsHelper } from "../../../../helpers"
 
 class UserProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -15,7 +15,7 @@ class UserProfilePageViewModel extends AbstractPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const user_id = pathEntries.users.value
-    userApi.account(userCredentials, user_id, (user) => { this.addField('user', user, this.redraw) }, this.onError)
+    userApi.account(userCredentials, user_id, (user) => { this.addField("user", user, this.redraw) }, this.onError)
   }
 }
 

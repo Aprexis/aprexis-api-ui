@@ -9,7 +9,7 @@ class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    //this.gotoPharmacyChainProfile = this.gotoPharmacyChainProfile.bind(this)
+    this.gotoPharmacyChainProfile = this.gotoPharmacyChainProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
   }
@@ -31,7 +31,9 @@ class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
   }
 
   gotoPharmacyChainProfile(pharmacyChain) {
-    pathHelper.gotoPage(["pharmacy-chains", pharmacyChain, "profile"])
+    const pathArray = pathHelper.buildPathArray(window.location, pharmacyChain, "profile")
+
+    pathHelper.gotoPage(pathArray)
   }
 
   loadData() {

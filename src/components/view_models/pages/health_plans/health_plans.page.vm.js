@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from '../'
-import { healthPlanApi } from '../../../../api'
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from '../../../../helpers'
+import { AbstractListPageViewModel } from "../"
+import { healthPlanApi } from "../../../../api"
+import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class HealthPlansPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -33,7 +33,9 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
   }
 
   gotoHealthPlanProfile(healthPlan) {
-    pathHelper.gotoPage(['health-plans', healthPlan, 'profile'])
+    const pathArray = pathHelper.buildPathArray(window.location, healthPlan, "profile")
+
+    pathHelper.gotoPage(pathArray)
   }
 
   loadData() {
@@ -44,7 +46,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
-    this.removeField('healthPlanHeaders')
+    this.removeField("healthPlanHeaders")
     const { filters, sorting, page } = this.data
 
     healthPlanApi.index(
@@ -52,7 +54,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
       { ...filters, ...sorting, page },
       (healthPlans, healthPlanHeaders) => {
         this.addData({ healthPlans, healthPlanHeaders })
-        this.addField('page', pageHelper.updatePageFromLastPage(healthPlanHeaders))
+        this.addField("page", pageHelper.updatePageFromLastPage(healthPlanHeaders))
         this.redrawView()
       },
       this.onError

@@ -8,6 +8,7 @@ class SidebarViewModel extends AbstractViewModel {
     this.buildPathToModel = this.buildPathToModel.bind(this)
     this.gotoHealthPlanPatientSearchAlgorithms = this.gotoHealthPlanPatientSearchAlgorithms.bind(this)
     this.gotoHealthPlanProfile = this.gotoHealthPlanProfile.bind(this)
+    this.gotoPharmacyStores = this.gotoPharmacyStores.bind(this)
     this.gotoUserProfile = this.gotoUserProfile.bind(this)
   }
 
@@ -48,6 +49,14 @@ class SidebarViewModel extends AbstractViewModel {
 
   gotoHealthPlanProfile() {
     const pathArray = this.buildPathToModel("health-plans").concat(['profile'])
+
+    if (valueHelper.isValue(pathArray)) {
+      pathHelper.gotoPage(pathArray)
+    }
+  }
+
+  gotoPharmacyStores() {
+    const pathArray = this.buildPathToModel("pharmacy-chains").concat(['pharmacy-stores'])
 
     if (valueHelper.isValue(pathArray)) {
       pathHelper.gotoPage(pathArray)

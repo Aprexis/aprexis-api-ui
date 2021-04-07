@@ -13,6 +13,12 @@ const RenderSidebarElements = ({ currentUser, sidebarOpen, vm }) => {
         onClick={vm.gotoPharmacyChainProfile}>
         Profile
       </button>
+
+      <button
+        className="rounded-0 btn-sm btn-link w-100 pl-5"
+        onClick={vm.gotoPharmacyStores}>
+        Pharmacy Stores
+      </button>
     </div>
   )
 }

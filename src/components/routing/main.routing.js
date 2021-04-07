@@ -8,32 +8,31 @@ import { DashboardPage, HomePage } from "../pages"
 
 class MainRouting extends Component {
   render() {
-    const { context, currentUser } = this.props
+    const { context, currentAdminUser, currentUser } = this.props
+    const contextProps = {
+      context,
+      currentAdminUser,
+      currentUser
+    }
 
     return (
       <Switch>
         <Route
           exact
           path="/"
-          render={(props) => (<HomePage {...props} context={context} currentUser={currentUser} />)}
+          render={(props) => (<HomePage {...props} {...contextProps} />)}
         />
         <Route
           exact
           path="/dashboard"
-          render={(props) => (<DashboardPage {...props} context={context} currentUser={currentUser} />)}
+          render={(props) => (<DashboardPage {...props} {...contextProps} />)}
         />
-        <Route
-          path="/health-plans"
-          render={(props) => (<HealthPlansRouting {...props} context={context} currentUser={currentUser} />)}
-        />
+        <Route path="/health-plans" render={(props) => (<HealthPlansRouting {...props} {...contextProps} />)} />
         <Route
           path="/pharmacy-chains"
-          render={(props) => (<PharmacyChainsRouting {...props} context={context} currentUser={currentUser} />)}
+          render={(props) => (<PharmacyChainsRouting {...props} {...contextProps} />)}
         />
-        <Route
-          path="/users"
-          render={(props) => (<UsersRouting {...props} context={context} currentUser={currentUser} />)}
-        />
+        <Route path="/users" render={(props) => (<UsersRouting {...props} {...contextProps} />)} />
         <Route component={NoMatch} />
       </Switch>
     )

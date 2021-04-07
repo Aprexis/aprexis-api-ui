@@ -1,18 +1,32 @@
-import { history, valueHelper } from './'
+import { history, valueHelper } from "./"
 
 export const pathHelper = {
+  buildPathArray,
   gotoPage,
   haveProfile,
   orderedPathEntries,
   pageName,
-  parsePathEntries
+  parsePathEntries,
+  pluralPrefix,
+  singularPrefix
+}
+
+function buildPathArray(location, ...pathParts) {
+  const { pathname } = location
+  const pathnameParts = pathname.split("/")
+
+  if (pathnameParts.length > 0 && pathnameParts[0].trim() == '') {
+    pathnameParts.shift()
+  }
+
+  return pathnameParts.concat(pathParts)
 }
 
 function gotoPage(pathArray) {
   let path = ""
   pathArray.forEach(
     (pathEntry) => {
-      if (typeof pathEntry === 'object') {
+      if (typeof pathEntry === "object") {
         path = `${path}/${pathEntry.id}`
       } else if (!isNaN(pathEntry)) {
         path = `${path}/${pathEntry}`
@@ -30,7 +44,7 @@ function haveProfile(orderedPathEntries) {
     return false
   }
 
-  return orderedPathEntries[orderedPathEntries.length - 1].key == 'profile'
+  return orderedPathEntries[orderedPathEntries.length - 1].key == "profile"
 }
 
 function orderedPathEntries(pathEntries) {
@@ -56,7 +70,7 @@ function pageName(pathEntries) {
   let group = ordered[length - 2].key
   const page = ordered[length - 1].key
 
-  if (group.endsWith('s')) {
+  if (group.endsWith("s")) {
     group = group.slice(0, -1)
   }
 
@@ -65,12 +79,12 @@ function pageName(pathEntries) {
 
 function parsePathEntries(location) {
   const { pathname } = location
-  if (pathname == '/') {
+  if (pathname == "/") {
     return {}
   }
 
   const pathEntries = {}
-  const parts = pathname.split('/')
+  const parts = pathname.split("/")
   let index = 1
   for (let idx = 0; idx < parts.length; ++idx) {
     const part = parts[idx]
@@ -81,7 +95,7 @@ function parsePathEntries(location) {
     pathEntries[part] = { index }
 
     const valueIdx = idx + 1
-    if (valueIdx < parts.length && (parts[valueIdx] == 'new' || !isNaN(parts[valueIdx]))) {
+    if (valueIdx < parts.length && (parts[valueIdx] == "new" || !isNaN(parts[valueIdx]))) {
       pathEntries[part].value = parts[valueIdx]
       idx = valueIdx
     }
@@ -90,4 +104,15 @@ function parsePathEntries(location) {
   }
 
   return pathEntries
+}
+
+function pluralPrefix(location, pluralName) {
+  const { pathname } = location
+  const ppIdx = pathname.indexOf(pluralName)
+
+  return `${pathname.substring(0, ppIdx)}${pluralName}`
+}
+
+function singularPrefix(location, pluralName, singularId) {
+  return `${pathHelper.pluralPrefix(location, pluralName)}/${singularId}`
 }

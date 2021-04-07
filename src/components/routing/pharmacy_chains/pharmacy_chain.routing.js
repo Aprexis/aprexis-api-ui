@@ -1,18 +1,30 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
+import { PharmacyStoresRouting } from "../pharmacy_stores"
 import { PharmacyChainProfilePage } from "../../pages/pharmacy_chains"
+import { pathHelper } from "../../../helpers"
 
 class PharmacyChainRouting extends Component {
   render() {
-    const { context, currentUser } = this.props
+    const { context, currentAdminUser, currentUser } = this.props
+    const contextProps = {
+      context,
+      currentAdminUser,
+      currentUser
+    }
+    const pharmacyChainPrefix = pathHelper.singularPrefix(window.location, "pharmacy-chains", ":pharmacy_chain_id")
 
     return (
       <Switch>
         <Route
           exact
-          path="/pharmacy-chains/:pharmacy_chain_id/profile"
-          render={(props) => (<PharmacyChainProfilePage {...props} context={context} currentUser={currentUser} />)}
+          path={`${pharmacyChainPrefix}/profile`}
+          render={(props) => (<PharmacyChainProfilePage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${pharmacyChainPrefix}/pharmacy-stores`}
+          render={(props) => (<PharmacyStoresRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>
