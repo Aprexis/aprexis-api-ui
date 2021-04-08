@@ -21,6 +21,7 @@ class AppViewModel extends AbstractViewModel {
     this.gotoAccount = this.gotoAccount.bind(this)
     this.gotoHealthPlansPage = this.gotoHealthPlansPage.bind(this)
     this.gotoPharmacyChainsPage = this.gotoPharmacyChainsPage.bind(this)
+    this.gotoPharmacyStoresPage = this.gotoPharmacyStoresPage.bind(this)
     this.gotoUsersPage = this.gotoUsersPage.bind(this)
     this.home = this.home.bind(this)
     this.loadContext = this.loadContext.bind(this)
@@ -109,6 +110,10 @@ class AppViewModel extends AbstractViewModel {
     pathHelper.gotoPage(["pharmacy-chains"])
   }
 
+  gotoPharmacyStoresPage() {
+    pathHelper.gotoPage(["pharmacy-stores"])
+  }
+
   gotoUsersPage() {
     pathHelper.gotoPage(["users"])
   }
@@ -128,7 +133,7 @@ class AppViewModel extends AbstractViewModel {
   }
 
   loadData() {
-    this.clearData(false)
+    this.clearData(false, ["actAsUsers"])
     this.getCurrentUser(
       () => {
         this.getCurrentAdminUser(

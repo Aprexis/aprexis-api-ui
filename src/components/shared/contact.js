@@ -7,9 +7,9 @@ class Contact extends Component {
 
     return (
       <React.Fragment>
-        {fieldHelper.displayOptional("Contact Person", contactHelper.person(contactable, prefix))}
-        {fieldHelper.displayOptional("Contact Name", contactHelper.name(contactable, prefix))}
-        {fieldHelper.displayOptional("Contact Info", contactHelper.info(contactable, prefix))}
+        {fieldHelper.display("Contact Person", contactHelper.person(contactable, prefix))}
+        {fieldHelper.display("Contact Name", contactHelper.name(contactable, prefix))}
+        {fieldHelper.display("Contact Info", contactHelper.info(contactable, prefix))}
         {fieldHelper.display("Phone", contactHelper.phone(contactable, prefix))}
         {fieldHelper.display("Fax", contactHelper.fax(contactable, prefix))}
         {fieldHelper.display("Email", contactHelper.email(contactable, prefix))}

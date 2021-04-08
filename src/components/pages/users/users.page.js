@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
 import { UsersPageViewModel } from '../../view_models/pages/users'
 import { ListView } from '../../../containers'
-import { userHelper, valueHelper } from '../../../helpers'
+import { userHelper } from '../../../helpers'
 
 const headings = [
   {

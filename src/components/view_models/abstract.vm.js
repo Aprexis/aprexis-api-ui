@@ -49,8 +49,12 @@ class AbstractViewModel {
     this.redrawView()
   }
 
-  clearData(redraw = true) {
-    this.data = {}
+  clearData(redraw = true, fieldsToKeep = []) {
+    if (fieldsToKeep.length === 0) {
+      this.data = {}
+    } else {
+      Object.keys(this.data).filter((key) => !fieldsToKeep.includes(key)).forEach((key) => { delete this.data[key] })
+    }
 
     if (valueHelper.isSet(redraw)) {
       this.redrawView()

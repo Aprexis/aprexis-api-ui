@@ -48,6 +48,7 @@ class App extends Component {
           gotoAccount={this.vm.gotoAccount}
           gotoHealthPlansPage={this.vm.gotoHealthPlansPage}
           gotoPharmacyChainsPage={this.vm.gotoPharmacyChainsPage}
+          gotoPharmacyStoresPage={this.vm.gotoPharmacyStoresPage}
           gotoUsersPage={this.vm.gotoUsersPage}
           history={history}
           match={match}

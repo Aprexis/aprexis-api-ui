@@ -1,7 +1,9 @@
-import { userHelper } from "./"
+import { userHelper, valueHelper } from "./"
 
 export const pharmacyStoreHelper = {
-  canIndex
+  canIndex,
+  name,
+  storeNumber
 }
 
 function canIndex(user) {
@@ -17,4 +19,20 @@ function canIndex(user) {
       'pharmacy_store_user'
     ]
   )
+}
+
+function name(pharmacyStore) {
+  if (!valueHelper.isValue(pharmacyStore)) {
+    return "No pharmacy store"
+  }
+
+  return pharmacyStore.name
+}
+
+function storeNumber(pharmacyStore) {
+  if (!valueHelper.isValue(pharmacyStore)) {
+    return ""
+  }
+
+  return pharmacyStore.store_number
 }

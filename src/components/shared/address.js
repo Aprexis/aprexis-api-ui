@@ -11,7 +11,7 @@ class Address extends Component {
         {fieldHelper.display("City", addressHelper.city(addressable, prefix))}
         {fieldHelper.display("State", addressHelper.state(addressable, prefix))}
         {fieldHelper.display("ZIP Code", addressHelper.zipCode(addressable, prefix))}
-        {fieldHelper.displayOptional("Country", addressHelper.country(addressable, prefix))}
+        {fieldHelper.display("Country", addressHelper.country(addressable, prefix))}
       </React.Fragment>
     )
   }

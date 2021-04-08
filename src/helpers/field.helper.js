@@ -1,10 +1,10 @@
 import React from 'react'
-import { valueHelper } from './'
+import { dateHelper, valueHelper } from './'
 
 export const fieldHelper = {
   booleanDisplay,
+  dateDisplay,
   display,
-  displayOptional,
   imageDisplay,
   optionDisplay,
   titleDisplay
@@ -14,18 +14,21 @@ function booleanDisplay(name, value) {
   return fieldHelper.display(name, valueHelper.yesNo(value))
 }
 
-function display(name, value) {
-  return (
-    <React.Fragment><strong className="text-muted">{name}:</strong> {value}<br /></React.Fragment>
-  )
+function dateDisplay(name, value) {
+  return fieldHelper.display(name, dateHelper.displayDate(value))
 }
 
-function displayOptional(name, value) {
-  if (!valueHelper.isStringValue(value)) {
+function display(name, value) {
+  if (!valueHelper.isValue(value)) {
+    return (<React.Fragment />)
+  }
+  if (typeof value === 'string' && !valueHelper.isStringValue(value)) {
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, value)
+  return (
+    <React.Fragment><strong className="text-muted">{name}:</strong> {value}<br /></React.Fragment>
+  )
 }
 
 function imageDisplay(name, value) {

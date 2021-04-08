@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
 import { PharmacyChainsPageViewModel } from '../../view_models/pages/pharmacy_chains'
 import { ListView } from '../../../containers'
-import { valueHelper } from '../../../helpers'
 
 const headings = [
   {
