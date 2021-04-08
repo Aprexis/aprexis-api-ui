@@ -5,15 +5,15 @@ import { filtersHelper, valueHelper } from '../../helpers'
 class BooleanFilter extends Component {
   render() {
     const { filterDescription, filters } = this.props
+    const { name, unselectedLabel } = filterDescription
     const options = [
-      (<option value="true">{filterDescription.trueLabel}</option>),
-      (<option value="false">{filterDescription.falseLabel}</option>)
+      (<option key={`filter-${name}-true`} value="true">{filterDescription.trueLabel}</option>),
+      (<option key={`filter-${name}-false`} value="false">{filterDescription.falseLabel}</option>)
     ]
 
     let value = filtersHelper.filterToValue(filters, filterDescription.queryParam)
-    const { name, unselectedLabel } = filterDescription
     if (valueHelper.isValue(unselectedLabel)) {
-      options.push(<option value="">{unselectedLabel}</option>)
+      options.push(<option key={`filter-${name}-unselected`} value="">{unselectedLabel}</option>)
       if (!valueHelper.isValue(value)) {
         value = ''
       }
@@ -28,7 +28,7 @@ class BooleanFilter extends Component {
           <Input
             bsSize="sm"
             disabled={valueHelper.isSet(filterDescription.disabled) || valueHelper.isSet(this.props.readOnly)}
-            mutliple={false}
+            mutliple="false"
             name={name}
             onChange={this.props.onChange}
             type="select"
