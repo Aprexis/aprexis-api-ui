@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { valueHelper } from "../../helpers"
 
-const RenderSidebarElements = ({ currentUser, sidebarOpen, vm }) => {
+const RenderSidebarElements = ({ pathPrefixArray, sidebarOpen, vm }) => {
   if (!valueHelper.isSet(sidebarOpen)) {
     return (<React.Fragment />)
   }
@@ -10,13 +10,13 @@ const RenderSidebarElements = ({ currentUser, sidebarOpen, vm }) => {
     <div className="py-2 nav-inner w-100">
       <button
         className="rounded-0 btn-sm btn-link w-100 pl-5"
-        onClick={vm.gotoPharmacyChainProfile}>
+        onClick={(event) => { vm.gotoProfile(pathPrefixArray) }}>
         Profile
       </button>
 
       <button
         className="rounded-0 btn-sm btn-link w-100 pl-5"
-        onClick={vm.gotoPharmacyStores}>
+        onClick={(event) => { vm.gotoPharmacyStores(pathPrefixArray) }}>
         Pharmacy Stores
       </button>
     </div>
@@ -36,7 +36,7 @@ class PharmacyChainSidebar extends Component {
         </nav>
 
         <RenderSidebarElements
-          currentUser={this.props.currentUser}
+          pathPrefixArray={this.props.pathPrefixArray}
           sidebarOpen={this.props.sidebarOpen}
           vm={this.props.vm}
         />

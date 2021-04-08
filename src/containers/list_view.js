@@ -43,7 +43,7 @@ class ListView extends Component {
     return (
       <RefreshView
         label={this.props.listLabel}
-        lastPage={this.props.lastPage}
+        lastPage={this.props.page}
         objects={list}
         onIdle={this.props.refreshData}
         pluralList={listPluralLabel}

@@ -80,19 +80,15 @@ class PharmacyStoresPage extends Component {
       pharmacyStore.address,
       pharmacyStore.city,
       pharmacyStore.state,
-      pharmacyStore.zip_code,
-      `${pharmacyStore.pharmacy_store_count}`
+      pharmacyStore.zip_code
     ]
   }
 
   render() {
-    const { filters, pharmacyStoresHeaders } = this.state
+    const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
-    let lastPage
-    if (valueHelper.isValue(pharmacyStoresHeaders)) {
-      lastPage = pharmacyStoresHeaders.lastPage
-    }
+
 
     return (
       <ListView
@@ -100,7 +96,6 @@ class PharmacyStoresPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        lastPage={lastPage}
         list={this.state.pharmacyStores}
         listLabel="Pharmacy Store"
         listPluralLabel="Pharmacy Stores"
@@ -115,7 +110,7 @@ class PharmacyStoresPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
-        page={lastPage}
+        page={this.state.page}
         title="Pharmacy Stores"
       />
     )

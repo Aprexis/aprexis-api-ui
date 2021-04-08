@@ -53,7 +53,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (healthPlans, healthPlanHeaders) => {
-        this.addData({ healthPlans, healthPlanHeaders })
+        this.addData({ healthPlans })
         this.addField("page", pageHelper.updatePageFromLastPage(healthPlanHeaders))
         this.redrawView()
       },

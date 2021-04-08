@@ -1,74 +1,31 @@
 import { AbstractViewModel } from '../'
-import { pathHelper, valueHelper } from '../../../helpers'
+import { pathHelper } from '../../../helpers'
 
 class SidebarViewModel extends AbstractViewModel {
   constructor(props) {
     super(props)
 
-    this.buildPathToModel = this.buildPathToModel.bind(this)
-    this.gotoHealthPlanPatientSearchAlgorithms = this.gotoHealthPlanPatientSearchAlgorithms.bind(this)
-    this.gotoHealthPlanProfile = this.gotoHealthPlanProfile.bind(this)
+    this.gotoPatientSearchAlgorithms = this.gotoPatientSearchAlgorithms.bind(this)
     this.gotoPharmacyStores = this.gotoPharmacyStores.bind(this)
-    this.gotoUserProfile = this.gotoUserProfile.bind(this)
+    this.gotoProfile = this.gotoProfile.bind(this)
   }
 
-  buildPathToModel(modelPath) {
-    const orderedPathEntries = this.orderedPathEntries()
-    const pathArray = []
+  gotoPatientSearchAlgorithms(pathPrefixArray) {
+    const pathArray = pathPrefixArray.concat(['patient-search-algorithms'])
 
-    let pathEntryIdx
-    for (pathEntryIdx = 0; pathEntryIdx < orderedPathEntries.length; ++pathEntryIdx) {
-      const pathEntry = orderedPathEntries[pathEntryIdx]
-      if (pathEntry.key == 'profile') {
-        break
-      }
-
-      pathArray.push(pathEntry.key)
-      if (valueHelper.isValue(pathEntry.value) && !isNaN(pathEntry.value)) {
-        pathArray.push(pathEntry.value)
-      }
-
-      if (pathEntry.key == modelPath) {
-        break
-      }
-    }
-    if (pathEntryIdx === orderedPathEntries || (orderedPathEntries[pathEntryIdx].key != modelPath)) {
-      return
-    }
-
-    return pathArray
+    pathHelper.gotoPage(pathArray)
   }
 
-  gotoHealthPlanPatientSearchAlgorithms() {
-    const pathArray = this.buildPathToModel("health-plans").concat(['patient-search-algorithms'])
+  gotoPharmacyStores(pathPrefixArray) {
+    const pathArray = pathPrefixArray.concat(['pharmacy-stores'])
 
-    if (valueHelper.isValue(pathArray)) {
-      pathHelper.gotoPage(pathArray)
-    }
+    pathHelper.gotoPage(pathArray)
   }
 
-  gotoHealthPlanProfile() {
-    const pathArray = this.buildPathToModel("health-plans").concat(['profile'])
+  gotoProfile(pathPrefixArray) {
+    const pathArray = pathPrefixArray.concat(['profile'])
 
-    if (valueHelper.isValue(pathArray)) {
-      pathHelper.gotoPage(pathArray)
-    }
-  }
-
-  gotoPharmacyStores() {
-    const pathArray = this.buildPathToModel("pharmacy-chains").concat(['pharmacy-stores'])
-
-    if (valueHelper.isValue(pathArray)) {
-      pathHelper.gotoPage(pathArray)
-    }
-  }
-
-  gotoUserProfile() {
-    const pathArray = this.buildPathToModel("users").concat(['profile'])
-
-    if (valueHelper.isValue(pathArray)) {
-      pathHelper.gotoPage(pathArray)
-    }
+    pathHelper.gotoPage(pathArray)
   }
 }
 

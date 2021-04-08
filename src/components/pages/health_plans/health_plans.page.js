@@ -95,13 +95,9 @@ class HealthPlansPage extends Component {
   }
 
   render() {
-    const { filters, healthPlansHeaders } = this.state
+    const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
-    let lastPage
-    if (valueHelper.isValue(healthPlansHeaders)) {
-      lastPage = healthPlansHeaders.lastPage
-    }
 
     return (
       <ListView
@@ -109,7 +105,6 @@ class HealthPlansPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        lastPage={lastPage}
         list={this.state.healthPlans}
         listLabel="Health Plan"
         listPluralLabel="Health Plans"
@@ -124,7 +119,7 @@ class HealthPlansPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
-        page={lastPage}
+        page={this.state.page}
         title="Health Plans"
       />
     )

@@ -162,14 +162,6 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
       'X-User-Token': auth_token
     }
 
-    /*
-    const adminCredentials = userCredentialsHelper.getAdmin()
-    if (valueHelper.isValue(adminCredentials)) {
-      newHeaders['X-Admin-Username'] = adminCredentials.username
-      newHeaders['X-Admin-Token'] = adminCredentials.auth_token
-    }
-    */
-
     return newHeaders
   }
 

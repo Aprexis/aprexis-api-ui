@@ -81,7 +81,7 @@ class RefreshView extends Component {
 
           <div className="float-right">
             <small>
-              {count} Last Updated: {new Date().toLocaleDateString("en-US")}
+              {count} Last Updated: {new Date().toLocaleString("en-US")}
             </small>
           </div>
         </div>

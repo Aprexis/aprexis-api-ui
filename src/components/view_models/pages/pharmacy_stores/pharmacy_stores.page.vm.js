@@ -51,7 +51,7 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (pharmacyStores, pharmacyStoreHeaders) => {
-        this.addData({ pharmacyStores, pharmacyStoreHeaders })
+        this.addData({ pharmacyStores })
         this.addField("page", pageHelper.updatePageFromLastPage(pharmacyStoreHeaders))
         this.redrawView()
       },
