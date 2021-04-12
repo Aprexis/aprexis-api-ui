@@ -1,4 +1,5 @@
 export * from "./health_plan.sidebar"
+export * from './patient.sidebar'
 export * from "./pharmacy_chain.sidebar"
 export * from "./pharmacy_store.sidebar"
 export * from "./user.sidebar"

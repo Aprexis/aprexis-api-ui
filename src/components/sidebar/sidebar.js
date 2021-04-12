@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Col } from "reactstrap"
 import {
   HealthPlanSidebar,
+  PatientSidebar,
   PharmacyChainSidebar,
   PharmacyStoreSidebar,
   UserSidebar
@@ -39,11 +40,26 @@ class Sidebar extends Component {
           <HealthPlanSidebar
             context={context}
             currentUser={currentUser}
+            gotoList={this.vm.gotoList}
+            gotoProfile={this.vm.gotoProfile}
             key={`sidebar-${pathEntry.key}`}
             pathPrefixArray={pathPrefixArray}
             sidebarOpen={sidebarIndex === selectedIndex}
             onToggleSidebar={this.selectSidebar(sidebarIndex)}
-            vm={this.vm}
+          />
+        )
+
+      case "patients":
+        return (
+          <PatientSidebar
+            context={context}
+            currentUser={currentUser}
+            gotoList={this.vm.gotoList}
+            gotoProfile={this.vm.gotoProfile}
+            key={`sidebar-${pathEntry.key}`}
+            pathPrefixArray={pathPrefixArray}
+            sidebarOpen={sidebarIndex === selectedIndex}
+            onToggleSidebar={this.selectSidebar(sidebarIndex)}
           />
         )
 
@@ -52,11 +68,12 @@ class Sidebar extends Component {
           <PharmacyChainSidebar
             context={context}
             currentUser={currentUser}
+            gotoList={this.vm.gotoList}
+            gotoProfile={this.vm.gotoProfile}
             key={`sidebar-${pathEntry.key}`}
             pathPrefixArray={pathPrefixArray}
             sidebarOpen={sidebarIndex === selectedIndex}
             onToggleSidebar={this.selectSidebar(sidebarIndex)}
-            vm={this.vm}
           />
         )
 
@@ -65,11 +82,12 @@ class Sidebar extends Component {
           <PharmacyStoreSidebar
             context={context}
             currentUser={currentUser}
+            gotoList={this.vm.gotoList}
+            gotoProfile={this.vm.gotoProfile}
             key={`sidebar-${pathEntry.key}`}
             pathPrefixArray={pathPrefixArray}
             sidebarOpen={sidebarIndex === selectedIndex}
             onToggleSidebar={this.selectSidebar(sidebarIndex)}
-            vm={this.vm}
           />
         )
 
@@ -78,11 +96,12 @@ class Sidebar extends Component {
           <UserSidebar
             context={context}
             currentUser={currentUser}
+            gotoList={this.vm.gotoList}
+            gotoProfile={this.vm.gotoProfile}
             key={`sidebar-${pathEntry.key}`}
             pathPrefixArray={pathPrefixArray}
             sidebarOpen={sidebarIndex === selectedIndex}
             onToggleSidebar={this.selectSidebar(sidebarIndex)}
-            vm={this.vm}
           />
         )
 

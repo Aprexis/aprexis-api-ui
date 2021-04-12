@@ -16,6 +16,10 @@ export const valueHelper = {
 }
 
 function capitalizeWords(str) {
+  if (!valueHelper.isStringValue(str)) {
+    return str
+  }
+
   return str.replace(/\w\S*/g, (txt) => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
 }
 

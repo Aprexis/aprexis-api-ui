@@ -17,7 +17,7 @@ const RenderSidebarElements = ({ gotoProfile, pathPrefixArray, sidebarOpen }) =>
   )
 }
 
-class PharmacyStoreSidebar extends Component {
+class PatientSidebar extends Component {
   render() {
     return (
       <div className="inner">
@@ -25,7 +25,7 @@ class PharmacyStoreSidebar extends Component {
           <h6
             className="text-uppercase w-100 py-2 pl-4 mr-0 mb-0"
             onClick={this.props.onToggleSidebar}>
-            Pharmacy Store
+            Patient
           </h6>
         </nav>
 
@@ -35,4 +35,4 @@ class PharmacyStoreSidebar extends Component {
   }
 }
 
-export { PharmacyStoreSidebar }
+export { PatientSidebar }

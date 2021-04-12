@@ -57,13 +57,6 @@ class Header extends Component {
                   />
                   <UserHeaders currentUser={currentUser} gotoUsersPage={this.props.gotoUsersPage} />
 
-                  <AprexisAdminHeaders
-                    actAs={this.props.actAs}
-                    actAsUsers={this.props.actAsUsers}
-                    currentAdminUser={currentAdminUser}
-                    currentUser={currentUser}
-                  />
-
                   <UserDropdown
                     currentUser={currentAdminUser}
                     gotoAccount={this.props.gotoAccount}
@@ -76,6 +69,13 @@ class Header extends Component {
             </div>
           </div>
         </Navbar>
+
+        <AprexisAdminHeaders
+          actAs={this.props.actAs}
+          actAsUsers={this.props.actAsUsers}
+          currentAdminUser={currentAdminUser}
+          currentUser={currentUser}
+        />
       </header>
     )
   }

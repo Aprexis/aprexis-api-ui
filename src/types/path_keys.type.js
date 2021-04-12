@@ -1,11 +1,13 @@
 import {
   healthPlanApi,
+  patientApi,
   pharmacyChainApi,
   pharmacyStoreApi,
   userApi
 } from '../api'
 import {
   healthPlanHelper,
+  patientHelper,
   pharmacyChainHelper,
   pharmacyStoreHelper,
   userHelper
@@ -16,6 +18,11 @@ export const pathKeys = {
     api: healthPlanApi,
     helper: healthPlanHelper,
     modelName: "HealthPlan"
+  },
+  "patients": {
+    api: patientApi,
+    helper: patientHelper,
+    modelName: "Patient"
   },
   "pharmacy-chains": {
     api: pharmacyChainApi,

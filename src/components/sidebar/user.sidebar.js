@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { valueHelper } from "../../helpers"
 
-const RenderSidebarElements = ({ pathPrefixArray, sidebarOpen, vm }) => {
+const RenderSidebarElements = ({ gotoProfile, pathPrefixArray, sidebarOpen }) => {
   if (!valueHelper.isSet(sidebarOpen)) {
     return (<React.Fragment />)
   }
@@ -10,7 +10,7 @@ const RenderSidebarElements = ({ pathPrefixArray, sidebarOpen, vm }) => {
     <div className="py-2 nav-inner w-100">
       <button
         className="rounded-0 btn-sm btn-link w-100 pl-5"
-        onClick={(event) => { vm.gotoProfile(pathPrefixArray) }}>
+        onClick={(event) => { gotoProfile(pathPrefixArray) }}>
         Profile
       </button>
     </div>
@@ -29,11 +29,7 @@ class UserSidebar extends Component {
           </h6>
         </nav>
 
-        <RenderSidebarElements
-          pathPrefixArray={this.props.pathPrefixArray}
-          sidebarOpen={this.props.sidebarOpen}
-          vm={this.props.vm}
-        />
+        <RenderSidebarElements {...this.props} />
       </div>
     )
   }

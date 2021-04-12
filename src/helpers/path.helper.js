@@ -27,7 +27,7 @@ function gotoPage(pathArray) {
   pathArray.forEach(
     (pathEntry) => {
       if (typeof pathEntry === "object") {
-        path = `${path}/${pathEntry.id}`
+        path = `${path}/${pathEntry.value}`
       } else if (!isNaN(pathEntry)) {
         path = `${path}/${pathEntry}`
       } else if (valueHelper.isStringValue(pathEntry)) {
@@ -40,7 +40,9 @@ function gotoPage(pathArray) {
 }
 
 function haveProfile(orderedPathEntries) {
-  if (!Array.isArray(orderedPathEntries) || orderedPathEntries.length === 0 || !valueHelper.isValue(orderedPathEntries[orderedPathEntries.length - 1])) {
+  if (!Array.isArray(orderedPathEntries) ||
+    orderedPathEntries.length === 0 ||
+    !valueHelper.isValue(orderedPathEntries[orderedPathEntries.length - 1])) {
     return false
   }
 

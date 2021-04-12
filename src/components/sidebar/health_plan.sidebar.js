@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { healthPlanHelper, valueHelper } from "../../helpers"
 
-const RenderSidebarElements = ({ currentUser, pathPrefixArray, sidebarOpen, vm }) => {
+const RenderSidebarElements = ({ currentUser, gotoList, gotoProfile, pathPrefixArray, sidebarOpen }) => {
   if (!valueHelper.isSet(sidebarOpen)) {
     return (<React.Fragment />)
   }
@@ -10,15 +10,21 @@ const RenderSidebarElements = ({ currentUser, pathPrefixArray, sidebarOpen, vm }
     <div className="py-2 nav-inner w-100">
       <button
         className="rounded-0 btn-sm btn-link w-100 pl-5"
-        onClick={(event) => { vm.gotoProfile(pathPrefixArray) }}>
+        onClick={(event) => { gotoProfile(pathPrefixArray) }}>
         Profile
+      </button>
+
+      <button
+        className="rounded-0 btn-sm btn-link w-100 pl-5"
+        onClick={(event) => { gotoList(pathPrefixArray, "patients") }}>
+        Patients
       </button>
 
       {
         healthPlanHelper.canConfigure(currentUser) &&
         <button
           className="rounded-0 btn-sm btn-link w-100 pl-5"
-          onClick={(event) => { vm.gotoPatientSearchAlgorithms(pathPrefixArray) }}>
+          onClick={(event) => { gotoList(pathPrefixArray, "patient-search-algorithms") }}>
           Patient Search Algorithms
         </button>
       }
@@ -38,12 +44,7 @@ class HealthPlanSidebar extends Component {
           </h6>
         </nav>
 
-        <RenderSidebarElements
-          currentUser={this.props.currentUser}
-          pathPrefixArray={this.props.pathPrefixArray}
-          sidebarOpen={this.props.sidebarOpen}
-          vm={this.props.vm}
-        />
+        <RenderSidebarElements {...this.props} />
       </div>
     )
   }
