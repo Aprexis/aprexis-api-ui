@@ -18,6 +18,14 @@ class TableColumnHeader extends Component {
       return sortFieldName
     }
 
+    if (sortFieldName.includes(",")) {
+      return sortFieldName.split(",").map(
+        (sortFieldNamePart) => {
+          return `${sortFieldNamePart}-`
+        }
+      ).join(",")
+    }
+
     return `${sortFieldName}-`
   }
 
@@ -32,7 +40,9 @@ class TableColumnHeader extends Component {
 
   isSortingColumn() {
     const { sortFieldName } = this.props
-    if (!valueHelper.isValue(this.props.sorting) || !valueHelper.isValue(sortFieldName) || !valueHelper.isFunction(this.props.onUpdateSorting)) {
+    if (!valueHelper.isValue(this.props.sorting) ||
+      !valueHelper.isValue(sortFieldName) ||
+      !valueHelper.isFunction(this.props.onUpdateSorting)) {
       return false
     }
 
@@ -41,7 +51,7 @@ class TableColumnHeader extends Component {
       return false
     }
 
-    const comparisonFieldName = sort.endsWith('-') ? sort.slice(0, -1) : sort
+    const comparisonFieldName = sort.replaceAll("-", "")
     return comparisonFieldName == sortFieldName
   }
 

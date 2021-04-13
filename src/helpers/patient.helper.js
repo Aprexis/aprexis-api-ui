@@ -9,6 +9,7 @@ export const patientHelper = {
   middleName,
   name,
   requiresPersonNumber,
+  toBreadcrumb
 }
 
 function firstName(patient, prefix = "") {
@@ -98,4 +99,12 @@ function requiresPersonNumber(patient) {
   }
 
   return valueHelper.isSet(patient.requires_person_number)
+}
+
+function toBreadcrumb(patient) {
+  if (!valueHelper.isValue(patient)) {
+    return "(no patient)"
+  }
+
+  return patientHelper.name(patient)
 }

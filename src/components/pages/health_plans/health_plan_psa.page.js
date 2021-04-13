@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { TableColumnHeader } from '../../shared'
-import { HealthPlanPatientSearchAlgorithmsPageViewModel } from '../../view_models/pages/health_plans'
-import { ListView } from '../../../containers'
-import { dateHelper, valueHelper } from '../../../helpers'
+import React, { Component } from "react"
+import { TableColumnHeader } from "../../shared"
+import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plans"
+import { ListView } from "../../../containers"
+import { dateHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
-    name: 'Name'
+    name: "Name"
   },
   {
-    name: 'Type'
+    name: "Type"
   },
   {
-    name: 'Last Run'
+    name: "Last Run"
   }
 ]
 
@@ -44,7 +44,7 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
         return (
           <TableColumnHeader
             key={`patient-search-algorithms-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -70,8 +70,9 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
       return []
     }
 
-    return patientSearchAlgorithms.map((psa) => healthPlanPatientSearchAlgorithms.find((hpPsa) => hpPsa.type == psa))
-      .filter((hpPsa) => valueHelper.isValue(hpPsa))
+    return patientSearchAlgorithms.patient_search_algorithms.names.map(
+      (psa) => healthPlanPatientSearchAlgorithms.find((hpPsa) => hpPsa.type == psa)
+    ).filter((hpPsa) => valueHelper.isValue(hpPsa))
   }
 
   render() {

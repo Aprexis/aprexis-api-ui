@@ -28,7 +28,7 @@ function getCircularReplacer() {
   return (key, value) => {
     if (typeof value === 'object' && valueHelper.isValue(value)) {
       if (seen.has(value)) {
-        return
+        return key
       }
 
       seen.add(value)

@@ -16,7 +16,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "name" }
+    const sorting = { sort: "last_name,first_name,middle_name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 

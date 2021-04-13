@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "./"
+import { AdminRouting } from "./admin"
 import { HealthPlansRouting } from "./health_plans"
 import { PharmacyChainsRouting } from "./pharmacy_chains"
 import { PharmacyStoresRouting } from "./pharmacy_stores"
@@ -28,6 +29,7 @@ class MainRouting extends Component {
           path="/dashboard"
           render={(props) => (<DashboardPage {...props} {...contextProps} />)}
         />
+        <Route path="/admin" render={(props) => (<AdminRouting {...props} {...contextProps} />)} />
         <Route path="/health-plans" render={(props) => (<HealthPlansRouting {...props} {...contextProps} />)} />
         <Route
           path="/pharmacy-chains"

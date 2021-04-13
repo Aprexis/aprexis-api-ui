@@ -6,16 +6,8 @@ import { addressHelper, patientHelper } from '../../../helpers'
 
 const headings = [
   {
-    name: "First Name",
-    field: "first_name"
-  },
-  {
-    name: "Middle Name",
-    field: "middle_name"
-  },
-  {
-    name: "Last Name",
-    field: "last_name"
+    name: "Name",
+    field: "last_name,first_name,middle_name"
   },
   {
     name: "Member Number",
@@ -56,7 +48,7 @@ class PatientsPage extends Component {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`health-plans-table-heading-${field}`}
+            key={`patients-table-heading-${field}`}
             className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
@@ -72,17 +64,10 @@ class PatientsPage extends Component {
   generateTableRow(patient) {
     return [
       {
-        content: patientHelper.firstName(patient),
+        content: patientHelper.name(patient),
         onClick: (event) => { this.vm.gotoPatientProfile(patient) }
       },
-      {
-        content: patientHelper.middleName(patient),
-        onClick: (event) => { this.vm.gotoPatientProfile(patient) }
-      },
-      {
-        content: patientHelper.lastName(patient),
-        onClick: (event) => { this.vm.gotoPatientProfile(patient) }
-      },
+
       patient.member_number,
       patient.person_number,
       addressHelper.fullAddress(patient)

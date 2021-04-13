@@ -54,6 +54,14 @@ header {
 
 .header-nav {
   .nav-link { color: white; }
+  .dropdown-toggle {
+    border: none !important;
+    font-size: .8rem !important;
+    text-transform: uppercase !important;
+    color: white !important;
+    background-color: transparent !important;
+    padding: 0.5rem 1rem !important;
+  }
 }
 
 .navbar,

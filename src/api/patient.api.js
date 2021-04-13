@@ -6,7 +6,7 @@ export const patientApi = {
   show
 }
 
-function list(userCredentials, health_plan_id, params, onSuccess, onFailure) {
+function list(userCredentials, params, onSuccess, onFailure) {
   const method = "GET"
   const path = `/patients/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)

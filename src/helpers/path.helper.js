@@ -19,7 +19,27 @@ function buildPathArray(location, ...pathParts) {
     pathnameParts.shift()
   }
 
-  return pathnameParts.concat(pathParts)
+  pathParts.forEach(
+    (part) => {
+      let value
+      switch (typeof part) {
+        case 'object':
+          value = part.id
+          break
+
+        case 'string':
+          value = part
+          break
+
+        default:
+          value = `${part}`
+      }
+
+      pathnameParts.push(value)
+    }
+  )
+
+  return pathnameParts
 }
 
 function gotoPage(pathArray) {

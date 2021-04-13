@@ -46,6 +46,7 @@ class App extends Component {
           currentAdminUser={this.state.currentAdminUser}
           currentUser={currentUser}
           gotoAccount={this.vm.gotoAccount}
+          gotoDiseasesPage={this.vm.gotoDiseasesPage}
           gotoHealthPlansPage={this.vm.gotoHealthPlansPage}
           gotoPharmacyChainsPage={this.vm.gotoPharmacyChainsPage}
           gotoPharmacyStoresPage={this.vm.gotoPharmacyStoresPage}

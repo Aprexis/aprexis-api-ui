@@ -1,5 +1,6 @@
-import { AbstractViewModel } from './'
-import { contextHelper, healthPlanHelper, pathHelper, pharmacyChainHelper, userHelper } from '../../helpers'
+import { AbstractViewModel } from "./"
+import { contextHelper, pathHelper, valueHelper } from "../../helpers"
+import { pathKeys } from '../../types'
 
 class BreadcrumbsViewModel extends AbstractViewModel {
   constructor(props) {
@@ -25,20 +26,17 @@ class BreadcrumbsViewModel extends AbstractViewModel {
     this.redrawView()
   }
 
-  modelToBreadcrumb(modelName, model) {
-    switch (modelName) {
-      case 'HealthPlan':
-        return healthPlanHelper.toBreadcrumb(model)
+  modelToBreadcrumb(pathKey, model) {
+    const pathKeyEntry = pathKeys[pathKey]
 
-      case 'PharmacyChain':
-        return pharmacyChainHelper.toBreadcrumb(model)
-
-      case 'User':
-        return userHelper.toBreadcrumb(model)
-
-      default:
-        return `${model.id}`
+    if (!valueHelper.isValue(pathKeyEntry) ||
+      !valueHelper.isValue(pathKeyEntry) ||
+      !valueHelper.isValue(pathKeyEntry.helper) ||
+      !valueHelper.isFunction(pathKeyEntry.helper.toBreadcrumb)) {
+      return `${model.id}`
     }
+
+    return pathKeyEntry.helper.toBreadcrumb(model)
   }
 
   pathInformation(location) {

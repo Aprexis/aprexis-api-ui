@@ -3,6 +3,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Collapse, Nav, Navbar, NavbarBrand } from "reactstrap"
 import {
+  AdminHeaders,
   AprexisAdminHeaders,
   HealthPlanHeaders,
   PharmacyChainHeaders,
@@ -56,6 +57,7 @@ class Header extends Component {
                     gotoPharmacyStoresPage={this.props.gotoPharmacyStoresPage}
                   />
                   <UserHeaders currentUser={currentUser} gotoUsersPage={this.props.gotoUsersPage} />
+                  <AdminHeaders currentUser={currentUser} gotoDiseasesPage={this.props.gotoDiseasesPage} />
 
                   <UserDropdown
                     currentUser={currentAdminUser}

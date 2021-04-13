@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { BreadcrumbsViewModel } from './view_models'
 import { valueHelper } from '../helpers'
 
+const cannotGotoKeys = [
+  'admin'
+]
+
 const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey }) => {
   const crumb = `${valueHelper.titleize(pathKey.replaceAll('-', ' '))}`
 
@@ -14,6 +18,7 @@ const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey 
       <button
         className="btn btn-link"
         onClick={(event) => { gotoPage(orderedPathEntries, pathKey) }}
+        disabled={cannotGotoKeys.includes(pathKey)}
         type="button">
         {crumb}
       </button>

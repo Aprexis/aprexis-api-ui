@@ -1,14 +1,58 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
-import {
-  HealthPlanSidebar,
-  PatientSidebar,
-  PharmacyChainSidebar,
-  PharmacyStoreSidebar,
-  UserSidebar
-} from "./"
+import { EntrySidebar } from "./"
 import { SidebarViewModel } from "../view_models/sidebar"
 import { valueHelper } from "../../helpers"
+
+const sidebarDescriptions = {
+  "diseases": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ],
+    entryLabel: "Disease",
+    entryName: "diseases"
+  },
+  "health-plans": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
+      { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" }
+    ],
+    entryLabel: "Health Plan",
+    entryName: "health-plans"
+  },
+  "interventions": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ],
+    entryLabel: "Intervention",
+    entryName: "interventions"
+  },
+  "patients": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" }
+    ],
+    entryLabel: "Patient",
+    entryName: "patients"
+  },
+  "pharmacy-chains": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Pharmacy Stores", buttonType: "List", listName: "pharmacy-stores" }
+    ],
+    entryLabel: "Pharmacy Chain",
+    entryName: "pharmacy-chains"
+  },
+  "pharmacy-stores": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" }
+    ],
+    entryLabel: "Pharmacy Store",
+    entryName: "pharmacy-stores"
+  }
+}
 
 class Sidebar extends Component {
   constructor(props) {
@@ -34,80 +78,24 @@ class Sidebar extends Component {
   }
 
   buildSidebarComponent(context, currentUser, sidebarIndex, selectedIndex, pathEntry, pathPrefixArray) {
-    switch (pathEntry.key) {
-      case "health-plans":
-        return (
-          <HealthPlanSidebar
-            context={context}
-            currentUser={currentUser}
-            gotoList={this.vm.gotoList}
-            gotoProfile={this.vm.gotoProfile}
-            key={`sidebar-${pathEntry.key}`}
-            pathPrefixArray={pathPrefixArray}
-            sidebarOpen={sidebarIndex === selectedIndex}
-            onToggleSidebar={this.selectSidebar(sidebarIndex)}
-          />
-        )
-
-      case "patients":
-        return (
-          <PatientSidebar
-            context={context}
-            currentUser={currentUser}
-            gotoList={this.vm.gotoList}
-            gotoProfile={this.vm.gotoProfile}
-            key={`sidebar-${pathEntry.key}`}
-            pathPrefixArray={pathPrefixArray}
-            sidebarOpen={sidebarIndex === selectedIndex}
-            onToggleSidebar={this.selectSidebar(sidebarIndex)}
-          />
-        )
-
-      case "pharmacy-chains":
-        return (
-          <PharmacyChainSidebar
-            context={context}
-            currentUser={currentUser}
-            gotoList={this.vm.gotoList}
-            gotoProfile={this.vm.gotoProfile}
-            key={`sidebar-${pathEntry.key}`}
-            pathPrefixArray={pathPrefixArray}
-            sidebarOpen={sidebarIndex === selectedIndex}
-            onToggleSidebar={this.selectSidebar(sidebarIndex)}
-          />
-        )
-
-      case "pharmacy-stores":
-        return (
-          <PharmacyStoreSidebar
-            context={context}
-            currentUser={currentUser}
-            gotoList={this.vm.gotoList}
-            gotoProfile={this.vm.gotoProfile}
-            key={`sidebar-${pathEntry.key}`}
-            pathPrefixArray={pathPrefixArray}
-            sidebarOpen={sidebarIndex === selectedIndex}
-            onToggleSidebar={this.selectSidebar(sidebarIndex)}
-          />
-        )
-
-      case "users":
-        return (
-          <UserSidebar
-            context={context}
-            currentUser={currentUser}
-            gotoList={this.vm.gotoList}
-            gotoProfile={this.vm.gotoProfile}
-            key={`sidebar-${pathEntry.key}`}
-            pathPrefixArray={pathPrefixArray}
-            sidebarOpen={sidebarIndex === selectedIndex}
-            onToggleSidebar={this.selectSidebar(sidebarIndex)}
-          />
-        )
-
-      default:
-        throw new Error(`Cannot find sidebar component for ${pathEntry.key}`)
+    const entryDescription = sidebarDescriptions[pathEntry.key]
+    if (!valueHelper.isValue(entryDescription)) {
+      throw new Error(`Cannot find sidebar component for ${pathEntry.key}`)
     }
+
+    return (
+      <EntrySidebar
+        context={context}
+        currentUser={currentUser}
+        entryDescription={entryDescription}
+        gotoList={this.vm.gotoList}
+        gotoProfile={this.vm.gotoProfile}
+        key={`sidebar-entry-${pathEntry.key}`}
+        pathPrefixArray={pathPrefixArray}
+        sidebarOpen={sidebarIndex === selectedIndex}
+        onToggleSidebar={this.selectSidebar(sidebarIndex)}
+      />
+    )
   }
 
   buildSidebarComponents() {
@@ -115,7 +103,6 @@ class Sidebar extends Component {
     const { selectedIndex } = this.state
     const orderedPathEntries = this.vm.orderedPathEntries()
     const sidebarComponents = []
-    let sidebarIndex = 0
     let pathPrefixArray = []
 
     for (let pathEntryIdx = 0; pathEntryIdx < orderedPathEntries.length; ++pathEntryIdx) {
@@ -131,13 +118,12 @@ class Sidebar extends Component {
         this.buildSidebarComponent(
           context,
           currentUser,
-          sidebarIndex,
+          pathEntryIdx,
           selectedIndex,
           pathEntry,
           [...pathPrefixArray]
         )
       )
-      ++sidebarIndex
     }
 
     return sidebarComponents
@@ -190,6 +176,10 @@ class Sidebar extends Component {
         if (valueHelper.isValue(orderedPathEntries[selectedIndex].value)) {
           break
         }
+      }
+
+      if (selectedIndex === orderedPathEntries.length) {
+        --selectedIndex
       }
     }
 

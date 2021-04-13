@@ -1,9 +1,9 @@
-import React from 'react'
-import { UncontrolledTooltip } from 'reactstrap'
-import { faCalendarMinus, faLock, faUserSlash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { valueHelper } from './'
-import { userRoles } from '../types'
+import React from "react"
+import { UncontrolledTooltip } from "reactstrap"
+import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { valueHelper } from "./"
+import { userRoles } from "../types"
 
 export const userHelper = {
   canHaveNpi,
@@ -39,12 +39,12 @@ function canModifyUsers(user) {
     return false
   }
 
-  return ['aprexis_admin', 'aprexis_user_admin', 'health_plan_admin', 'pharmacy_chain_admin', 'pharmacy_store_admin'].includes(user.role)
+  return ["aprexis_admin", "aprexis_user_admin", "health_plan_admin", "pharmacy_chain_admin", "pharmacy_store_admin"].includes(user.role)
 }
 
 function displayRole(user) {
   if (!valueHelper.isValue(user)) {
-    return '(no user)'
+    return "(no user)"
   }
 
   return userRoles[user.role].label
@@ -52,7 +52,7 @@ function displayRole(user) {
 
 function fullName(user) {
   if (!valueHelper.isValue(user)) {
-    return ''
+    return ""
   }
 
   return `${user.first_name} ${user.last_name}`
@@ -123,7 +123,7 @@ function renderAccess(user) {
     return (
       <span>
         &nbsp;
-        <FontAwesomeIcon className='ml-1 red' icon={faLock} id={`access-locked-${user.id}`} />
+        <FontAwesomeIcon className="ml-1 red" icon={faLock} id={`access-locked-${user.id}`} />
         <UncontrolledTooltip placement="top" boundariesElement="window" target={`access-locked-${user.id}`}>
           Account is temporarily locked
         </UncontrolledTooltip>
@@ -139,7 +139,7 @@ function renderAccess(user) {
     return (
       <span>
         &nbsp;
-        <FontAwesomeIcon className='ml-1 red' icon={faUserSlash} id={`disallow-login-${user.id}`} />
+        <FontAwesomeIcon className="ml-1 red" icon={faUserSlash} id={`disallow-login-${user.id}`} />
         <UncontrolledTooltip placement="top" boundariesElement="window" target={`disallow-login-${user.id}`}>
           Login not allowed
         </UncontrolledTooltip>
@@ -155,7 +155,7 @@ function renderAccess(user) {
     return (
       <span>
         &nbsp;
-        <FontAwesomeIcon className='ml-1 red' icon={faCalendarMinus} id={`disallow-login-${user.id}`} />
+        <FontAwesomeIcon className="ml-1 red" icon={faCalendarMinus} id={`disallow-login-${user.id}`} />
         <UncontrolledTooltip placement="top" boundariesElement="window" target={`disallow-login-${user.id}`}>
           Account has expired
         </UncontrolledTooltip>
@@ -183,10 +183,10 @@ function setCurrentUser(currentUser) {
 
 function toBreadcrumb(user) {
   if (!valueHelper.isValue(user)) {
-    return '(no user)'
+    return "(no user)"
   }
 
-  return valueHelper.makeString(user.username)
+  return userHelper.username(user)
 }
 
 function username(user) {

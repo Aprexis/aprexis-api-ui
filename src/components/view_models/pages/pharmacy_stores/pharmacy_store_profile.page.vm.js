@@ -1,4 +1,4 @@
-import { AbstractPageViewModel } from ".."
+import { AbstractPageViewModel } from "../"
 import { pharmacyStoreApi } from "../../../../api"
 import { userCredentialsHelper } from "../../../../helpers"
 
