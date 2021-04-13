@@ -19,6 +19,7 @@ class AppViewModel extends AbstractViewModel {
     this.getCurrentAdminUser = this.getCurrentAdminUser.bind(this)
     this.getCurrentUser = this.getCurrentUser.bind(this)
     this.gotoAccount = this.gotoAccount.bind(this)
+    this.gotoDiagnosisCodesPage = this.gotoDiagnosisCodesPage.bind(this)
     this.gotoDiseasesPage = this.gotoDiseasesPage.bind(this)
     this.gotoHealthPlansPage = this.gotoHealthPlansPage.bind(this)
     this.gotoPharmacyChainsPage = this.gotoPharmacyChainsPage.bind(this)
@@ -101,6 +102,10 @@ class AppViewModel extends AbstractViewModel {
   gotoAccount() {
     const userCredentials = userCredentialsHelper.get()
     pathHelper.gotoPage(["users", userCredentials.id, "profile"])
+  }
+
+  gotoDiagnosisCodesPage() {
+    pathHelper.gotoPage(["admin", "diagnosis-codes"])
   }
 
   gotoDiseasesPage() {

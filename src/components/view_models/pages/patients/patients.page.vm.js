@@ -62,7 +62,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
       const pathEntries = pathHelper.parsePathEntries(window.location)
       const healthPlan = pathEntries['health-plans']
 
-      if (valueHelper.isValue(healthPlan)) {
+      if (valueHelper.isValue(healthPlan) && valueHelper.isValue(healthPlan.value)) {
         patientApi.listForHealthPlan(userCredentials, healthPlan.value, params, onSuccess, onError)
         return
       }

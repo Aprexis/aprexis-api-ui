@@ -23,7 +23,7 @@ class DiseasesRouting extends Component {
           render={(props) => (<DiseasesPage {...props} {...contextProps} />)}
         />
         <Route
-          path={`${diseasesPrefix}/:health_plan_id`}
+          path={`${diseasesPrefix}/:disease_id`}
           render={(props) => (<DiseaseRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />

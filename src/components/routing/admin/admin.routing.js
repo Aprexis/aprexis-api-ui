@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
+import { DiagnosisCodesRouting } from "./diagnosis_codes"
 import { DiseasesRouting } from "./diseases"
 import { NoMatch } from "../"
 import { pathHelper } from "../../../helpers"
@@ -16,6 +17,10 @@ class AdminRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          path={`${adminPrefix}/diagnosis-codes`}
+          render={(props) => (<DiagnosisCodesRouting {...props} {...contextProps} />)}
+        />
         <Route
           path={`${adminPrefix}/diseases`}
           render={(props) => (<DiseasesRouting {...props} {...contextProps} />)}

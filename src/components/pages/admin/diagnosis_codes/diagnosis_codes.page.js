@@ -1,30 +1,35 @@
 import React, { Component } from "react"
 import { TableColumnHeader } from "../../../shared"
-import { DiseasesPageViewModel } from "../../../view_models/pages/admin/diseases"
+import { DiagnosisCodesPageViewModel } from "../../../view_models/pages/admin/diagnosis_codes"
 import { ListView } from "../../../../containers"
-import { diseaseHelper } from "../../../../helpers/admin"
+import { valueHelper } from "../../../../helpers"
+import { diagnosisCodeHelper } from "../../../../helpers/admin"
 
 const headings = [
   {
-    name: "Question Key",
-    field: "question_key"
+    name: "Type",
+    field: "type"
   },
   {
-    name: "Name",
-    field: "name"
+    name: "Code",
+    field: "Code"
   },
   {
-    name: "Description",
-    field: "description"
+    name: "Short Description",
+    field: "short_description"
+  },
+  {
+    name: "Billable",
+    field: "billable"
   }
 ]
 
-class DiseasesPage extends Component {
+class DiagnosisCodesPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new DiseasesPageViewModel(
+    this.vm = new DiagnosisCodesPageViewModel(
       {
         ...props,
         view: this
@@ -45,7 +50,7 @@ class DiseasesPage extends Component {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`diseases-table-heading-${field}`}
+            key={`diagnosis-codes-table-heading-${field}`}
             className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
@@ -58,14 +63,15 @@ class DiseasesPage extends Component {
     )
   }
 
-  generateTableRow(disease) {
+  generateTableRow(diagnosisCode) {
     return [
+      diagnosisCodeHelper.typeLabel(diagnosisCode),
       {
-        content: diseaseHelper.questionKey(disease),
-        onClick: (event) => { this.vm.gotoDiseaseProfile(disease) }
+        content: diagnosisCodeHelper.code(diagnosisCode),
+        onClick: (event) => { this.vm.gotoDiagnosisCodeProfile(diagnosisCode) }
       },
-      diseaseHelper.name(disease),
-      disease.description
+      diagnosisCode.short_description,
+      valueHelper.yesNo(diagnosisCode.billable)
     ]
   }
 
@@ -80,9 +86,9 @@ class DiseasesPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.diseases}
-        listLabel="Disease"
-        listPluralLabel="Diseases"
+        list={this.state.diagnosisCodes}
+        listLabel="Diagnosis Code"
+        listPluralLabel="Diagnosis Codes"
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
@@ -95,10 +101,10 @@ class DiseasesPage extends Component {
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Diseases"
+        title="Diagnosis Codes"
       />
     )
   }
 }
 
-export { DiseasesPage }
+export { DiagnosisCodesPage }

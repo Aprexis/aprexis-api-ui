@@ -5,9 +5,17 @@ import { SidebarViewModel } from "../view_models/sidebar"
 import { valueHelper } from "../../helpers"
 
 const sidebarDescriptions = {
-  "diseases": {
+  "diagnosis-codes": {
     entryButtons: [
       { buttonType: "Profile" }
+    ],
+    entryLabel: "Diagnosis Code",
+    entryName: "diagnosis-codes"
+  },
+  "diseases": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Diagnosis Codes", buttonType: "List", listName: "diagnosis-codes" }
     ],
     entryLabel: "Disease",
     entryName: "diseases"

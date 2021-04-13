@@ -1,8 +1,8 @@
 import { AbstractPageViewModel } from "../../"
-import { diseaseApi } from "../../../../../api/admin"
+import { diagnosisCodeApi } from "../../../../../api/admin"
 import { userCredentialsHelper } from "../../../../../helpers"
 
-class DiseaseProfilePageViewModel extends AbstractPageViewModel {
+class DiagnosisCodeProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
@@ -14,15 +14,15 @@ class DiseaseProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const disease_id = pathEntries["diseases"].value
+    const diagnosis_code_id = pathEntries["diagnosis-codes"].value
 
-    diseaseApi.show(
+    diagnosisCodeApi.show(
       userCredentials,
-      disease_id,
-      (disease) => { this.addField("disease", disease, this.redraw) },
+      diagnosis_code_id,
+      (diagnosisCode) => { this.addField("diagnosisCode", diagnosisCode, this.redraw) },
       this.onError
     )
   }
 }
 
-export { DiseaseProfilePageViewModel }
+export { DiagnosisCodeProfilePageViewModel }

@@ -18,6 +18,9 @@ class AdminHeaders extends Component {
           <DropdownItem onClick={(event) => { this.props.gotoDiseasesPage() }}>
             Diseases
           </DropdownItem>
+          <DropdownItem onClick={(event) => { this.props.gotoDiagnosisCodesPage() }}>
+            Diagnosis Codes
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     )
