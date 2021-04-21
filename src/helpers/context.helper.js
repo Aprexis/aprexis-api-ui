@@ -5,10 +5,17 @@ export const contextHelper = {
   currentContext,
   gotoPlural,
   gotoSingular,
+  inContext,
   modelNameFromPathKey,
   modelToBreadcrumb,
   putModelIntoContext,
   updateContext
+}
+
+function currentContext() {
+  const contextJSON = sessionStorage.getItem("aprexis-api-ui-context")
+
+  return JSON.parse(contextJSON)
 }
 
 function gotoPlural(orderedPathEntries, pathKey) {
@@ -30,7 +37,7 @@ function gotoPlural(orderedPathEntries, pathKey) {
   pathHelper.gotoPage(pathParts)
 }
 
-function gotoSingular(orderedPathEntries, pathKey, model) {
+function gotoSingular(orderedPathEntries, pathKey) {
   const pathParts = []
   for (let pathEntryIdx = 0; pathEntryIdx < orderedPathEntries.length; ++pathEntryIdx) {
     const pathEntry = orderedPathEntries[pathEntryIdx]
@@ -50,10 +57,13 @@ function gotoSingular(orderedPathEntries, pathKey, model) {
   pathHelper.gotoPage(pathParts)
 }
 
-function currentContext() {
-  const contextJSON = sessionStorage.getItem("aprexis-api-ui-context")
+function inContext(pathKey) {
+  if (!valueHelper.isStringValue(pathKey)) {
+    return
+  }
 
-  return JSON.parse(contextJSON)
+  const context = contextHelper.currentContext()
+  return valueHelper.isValue(context[pathKey])
 }
 
 function modelNameFromPathKey(pathKey) {

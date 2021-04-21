@@ -1,4 +1,4 @@
-import { alertHelper, /*userCredentialsHelper,*/ valueHelper } from '../helpers'
+import { alertHelper, /*userCredentialsHelper,*/ valueHelper } from "../helpers"
 
 export const API = {
   buildQueryString,
@@ -9,9 +9,9 @@ export const API = {
 
 const baseApiUrl = process.env.REACT_APP_APREXIS_API
 const knownHeaders = {
-  'X-Page': "lastPage.number",
-  'X-Per-Page': "lastPage.size",
-  'X-Total': "lastPage.total"
+  "X-Page": "lastPage.number",
+  "X-Per-Page": "lastPage.size",
+  "X-Total": "lastPage.total"
 }
 
 function buildQueryString(params) {
@@ -26,7 +26,7 @@ function buildQueryString(params) {
       const value = params[key]
       if (Array.isArray(value)) {
         queryString = addArrayParam(key, value, queryString, delimiter)
-      } else if (typeof value === 'object' && !(value instanceof Date)) {
+      } else if (typeof value === "object" && !(value instanceof Date)) {
         queryString = addHashParam(key, value, queryString, delimiter)
       } else {
         queryString = addSingleParam(key, value, queryString, delimiter)
@@ -45,7 +45,7 @@ function buildQueryString(params) {
     array.forEach(
       (value) => {
         myQueryString = `${myQueryString}${myDelimiter}${key}[]=${encodeURIComponent(value)}`
-        myDelimiter = '&'
+        myDelimiter = "&"
       }
     )
 
@@ -60,7 +60,7 @@ function buildQueryString(params) {
       (hashKey) => {
         const value = hash[hashKey]
         myQueryString = `${myQueryString}${myDelimiter}${key}[${hashKey}]=${encodeURIComponent(value)}`
-        myDelimiter = '&'
+        myDelimiter = "&"
       }
     )
 
@@ -94,7 +94,7 @@ function handleError(method, path, error, onFailure) {
 
     const parsedJSON = JSON.parse(error.message)
     return Object.keys(parsedJSON)
-      .filter((key) => typeof parsedJSON[key] === 'string' || Array.isArray(parsedJSON[key]))
+      .filter((key) => typeof parsedJSON[key] === "string" || Array.isArray(parsedJSON[key]))
       .map(
         (key) => {
           const part = parsedJSON[key]
@@ -158,8 +158,8 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
     const { username, auth_token } = userCredentials
     const newHeaders = {
       ...existingHeaders,
-      'X-User-Username': username,
-      'X-User-Token': auth_token
+      "X-User-Username": username,
+      "X-User-Token": auth_token
     }
 
     return newHeaders

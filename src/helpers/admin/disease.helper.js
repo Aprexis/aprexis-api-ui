@@ -7,19 +7,11 @@ export const diseaseHelper = {
 }
 
 function name(disease) {
-  if (!valueHelper.isValue(disease)) {
-    return ""
-  }
-
-  return disease.name
+  return valueHelper.getField(disease, "name")
 }
 
 function questionKey(disease) {
-  if (!valueHelper.isValue(disease)) {
-    return ""
-  }
-
-  return disease.question_key
+  return valueHelper.getField(disease, "question_key")
 }
 
 function toBreadcrumb(disease) {

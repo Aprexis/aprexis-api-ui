@@ -19,11 +19,7 @@ function canIndex(user) {
 }
 
 function name(pharmacyChain) {
-  if (!valueHelper.isValue(pharmacyChain)) {
-    return "No pharmacy chain"
-  }
-
-  return pharmacyChain.name
+  return valueHelper.getField(pharmacyChain, "name")
 }
 
 function toBreadcrumb(pharmacyChain) {

@@ -10,13 +10,16 @@ export const userHelper = {
   canIndexAll,
   canModifyUsers,
   displayRole,
+  firstName,
   fullName,
   getCurrentUser,
   hasRole,
   isAccessLocked,
   isExpired,
   isLoginAllowed,
+  lastName,
   renderAccess,
+  role,
   rolesToOptions,
   setCurrentUser,
   toBreadcrumb,
@@ -24,30 +27,26 @@ export const userHelper = {
 }
 
 function canHaveNpi(user) {
-  if (!valueHelper.isValue(user)) {
-    return false
-  }
-
-  return userRoles[user.role].has_npi
+  return userRoles[userHelper.role(user)].has_npi
 }
 
-function canIndexAll(currentUser) {
+function canIndexAll(user) {
+  return userHelper.hasRole(user, ["aprexis_admin", "aprexis_observer", "aprexis_user_admin"])
 }
 
 function canModifyUsers(user) {
-  if (!valueHelper.isValue(user)) {
-    return false
-  }
-
-  return ["aprexis_admin", "aprexis_user_admin", "health_plan_admin", "pharmacy_chain_admin", "pharmacy_store_admin"].includes(user.role)
+  return userHelper.hasRole(
+    user,
+    ["aprexis_admin", "aprexis_user_admin", "health_plan_admin", "pharmacy_chain_admin", "pharmacy_store_admin"]
+  )
 }
 
 function displayRole(user) {
-  if (!valueHelper.isValue(user)) {
-    return "(no user)"
-  }
+  return userRoles[userHelper.role(user)]
+}
 
-  return userRoles[user.role].label
+function firstName(user) {
+  return valueHelper.getField(user, "first_name")
 }
 
 function fullName(user) {
@@ -55,7 +54,7 @@ function fullName(user) {
     return ""
   }
 
-  return `${user.first_name} ${user.last_name}`
+  return `${userHelper.firstName(user)} ${userHelper.lastName(user)}`
 }
 
 function getCurrentUser() {
@@ -65,43 +64,29 @@ function getCurrentUser() {
 }
 
 function hasRole(user, role) {
-  if (!valueHelper.isValue(user)) {
-    return false
-  }
-
-  if (!valueHelper.isValue(role)) {
-    return false
-  }
+  const userRole = userHelper.role(user)
 
   if (Array.isArray(role)) {
-    return role.includes(user.role)
+    return role.includes(userRole)
   }
 
-  return user.role == role
+  return userRole == role
 }
 
 function isAccessLocked(user) {
-  if (!valueHelper.isValue(user)) {
-    return false
-  }
-
-  return valueHelper.isSet(user.access_locked)
+  return valueHelper.isSet(valueHelper.getField(user, "access_locked"))
 }
 
 function isExpired(user) {
-  if (!valueHelper.isValue(user)) {
-    return false
-  }
-
-  return valueHelper.isSet(user.expired)
+  return valueHelper.isSet(valueHelper.getField(user, "expired"))
 }
 
 function isLoginAllowed(user) {
-  if (!valueHelper.isValue(user)) {
-    return false
-  }
+  return valueHelper.isSet(valueHelper.getField(user, "allow_login"))
+}
 
-  return valueHelper.isSet(user.allow_login)
+function lastName(user) {
+  return valueHelper.getField(user, "last_name")
 }
 
 function renderAccess(user) {
@@ -164,6 +149,10 @@ function renderAccess(user) {
   }
 }
 
+function role(user) {
+  return valueHelper.getField(user, "role")
+}
+
 function rolesToOptions() {
   return Object.keys(userRoles).map(
     (key) => {
@@ -190,9 +179,5 @@ function toBreadcrumb(user) {
 }
 
 function username(user) {
-  if (!valueHelper.isValue(user)) {
-    return ""
-  }
-
-  return valueHelper.makeString(user.username)
+  return valueHelper.getField(user, "username")
 }

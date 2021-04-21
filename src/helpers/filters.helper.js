@@ -66,7 +66,7 @@ function ensureFilterOptions(options, defaultOptions = {}) {
 function booleanFilter(name, queryParam, options = {}) {
   checkValidFilter('boolean', name, queryParam, options)
 
-  return { type: 'boolean', name, queryParam, ...ensureFilterOptions(options, { falseLabel: "false", trueLabel: "true" }) }
+  return { type: 'boolean', name, queryParam, ...ensureFilterOptions(options, { falseLabel: "No", trueLabel: "Yes" }) }
 }
 
 function dateLabel(value) {

@@ -9,11 +9,7 @@ export const diagnosisCodeHelper = {
 }
 
 function code(diagnosisCode) {
-  if (!valueHelper.isValue(diagnosisCode)) {
-    return ""
-  }
-
-  return diagnosisCode.code
+  return valueHelper.getField(diagnosisCode, code)
 }
 
 function toBreadcrumb(diagnosisCode) {
@@ -25,11 +21,7 @@ function toBreadcrumb(diagnosisCode) {
 }
 
 function type(diagnosisCode) {
-  if (!valueHelper.isValue(diagnosisCode)) {
-    return ""
-  }
-
-  return diagnosisCode.type
+  return valueHelper.getField(diagnosisCode, "type")
 }
 
 function typeLabel(diagnosisCode) {

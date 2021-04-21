@@ -27,21 +27,21 @@ function listForPharmacyStore(userCredentials, pharmacy_store_id, params, onSucc
 }
 
 function profile(userCredentials, id, onSuccess, onFailure) {
-  if (!API.validateId('intervention ID', id, onFailure)) {
+  if (!API.validateId("intervention ID", id, onFailure)) {
     return
   }
 
   const method = "GET"
   const path = `/interventions/${id}/profile`
-  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function show(userCredentials, id, onSuccess, onFailure) {
-  if (!API.validateId('intervention ID', id, onFailure)) {
+  if (!API.validateId("intervention ID", id, onFailure)) {
     return
   }
 
   const method = "GET"
   const path = `/interventions/${id}`
-  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }

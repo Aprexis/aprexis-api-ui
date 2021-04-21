@@ -5,5 +5,6 @@ export * from "./intervention.api"
 export * from "./patient.api"
 export * from "./patient_search_algorithm.api"
 export * from "./pharmacy_chain.api"
-export * from './pharmacy_store.api'
+export * from "./pharmacy_store.api"
+export * from "./program.api"
 export * from "./user.api"

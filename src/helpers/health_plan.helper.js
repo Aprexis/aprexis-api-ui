@@ -16,11 +16,7 @@ function canIndex(user) {
 }
 
 function name(healthPlan) {
-  if (!valueHelper.isValue(healthPlan)) {
-    return "No health plan"
-  }
-
-  return healthPlan.name
+  return valueHelper.getField(healthPlan, "name")
 }
 
 function toBreadcrumb(healthPlan) {

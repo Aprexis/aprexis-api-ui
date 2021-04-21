@@ -13,7 +13,7 @@ function list(userCredentials, params, onSuccess, onFailure) {
 }
 
 function listForHealthPlan(userCredentials, health_plan_id, params, onSuccess, onFailure) {
-  if (!API.validateId('health plan ID', health_plan_id, onFailure)) {
+  if (!API.validateId("health plan ID", health_plan_id, onFailure)) {
     return
   }
 
@@ -23,11 +23,11 @@ function listForHealthPlan(userCredentials, health_plan_id, params, onSuccess, o
 }
 
 function show(userCredentials, id, onSuccess, onFailure) {
-  if (!API.validateId('patient ID', id, onFailure)) {
+  if (!API.validateId("patient ID", id, onFailure)) {
     return
   }
 
   const method = "GET"
   const path = `/patients/${id}`
-  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }

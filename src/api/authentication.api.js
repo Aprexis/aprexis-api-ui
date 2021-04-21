@@ -1,4 +1,4 @@
-import { API } from './'
+import { API } from "./"
 
 export const authenticationApi = {
   signIn,
@@ -15,12 +15,12 @@ function signIn(username, password, onSuccess, onFailure) {
     }
   }
 
-  API.perform(method, path, '', undefined, body, onSuccess, onFailure)
+  API.perform(method, path, "", undefined, body, onSuccess, onFailure)
 }
 
 function signOut(userCredentials, onSuccess, onFailure) {
   const method = "DELETE"
   const path = "/users/sign_out"
 
-  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }

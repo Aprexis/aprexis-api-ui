@@ -23,19 +23,11 @@ function canIndex(user) {
 }
 
 function name(pharmacyStore) {
-  if (!valueHelper.isValue(pharmacyStore)) {
-    return "No pharmacy store"
-  }
-
-  return pharmacyStore.name
+  return valueHelper.getField(pharmacyStore, "name")
 }
 
 function storeNumber(pharmacyStore) {
-  if (!valueHelper.isValue(pharmacyStore)) {
-    return ""
-  }
-
-  return pharmacyStore.store_number
+  return valueHelper.getField(pharmacyStore, "store_number")
 }
 
 function toBreadcrumb(pharmacyStore) {
@@ -43,5 +35,5 @@ function toBreadcrumb(pharmacyStore) {
     return "(no pharmacy store)"
   }
 
-  return pharmacyStoreHelper.name(pharmacyStore)
+  return `${pharmacyStoreHelper.name(pharmacyStore)} #${pharmacyStoreHelper.storeNumber(pharmacyStore)}`
 }

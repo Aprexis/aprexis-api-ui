@@ -5,9 +5,6 @@ export const interventionHelper = {
 }
 
 function name(intervention) {
-  if (!valueHelper.isValue(intervention)) {
-    return "No intervention"
-  }
-
-  return patientHelper.name(intervention.patient)
+  return patientHelper.name(valueHelper.getField(intervention, "patient"))
 }
+

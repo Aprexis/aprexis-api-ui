@@ -15,7 +15,9 @@ function fromInputEvent(event) {
   return { name, value }
 
   function inputEventValue(event) {
-    if (valueHelper.isValue(event.target.attributes) && valueHelper.isValue(event.target.attributes.type) && event.target.attributes.type.nodeValue === 'checkbox') {
+    if (valueHelper.isValue(event.target.attributes) &&
+      valueHelper.isValue(event.target.attributes.type) &&
+      event.target.attributes.type.nodeValue === 'checkbox') {
       return event.target.checked
     }
 

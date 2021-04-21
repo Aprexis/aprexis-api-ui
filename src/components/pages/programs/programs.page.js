@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
-import { PharmacyStoresPageViewModel } from '../../view_models/pages/pharmacy_stores'
+import { ProgramsPageViewModel } from '../../view_models/pages/programs'
 import { ListView } from '../../../containers'
+import { contextHelper, dateHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -9,33 +10,37 @@ const headings = [
     field: "name"
   },
   {
-    name: "Store Number",
-    field: "store_number"
+    name: "Active",
+    field: "active"
   },
   {
-    name: "Address",
-    field: "address"
+    name: "Health Plan",
+    field: "health_plan.name"
   },
   {
-    name: "City",
-    field: "city"
+    name: "Kind",
+    field: "is_clinical,is_transactional"
   },
   {
-    name: "State",
-    field: "state"
+    name: "Type",
+    field: "type"
   },
   {
-    name: "ZIP Code",
-    field: "zip_code"
+    name: "Start Date",
+    field: "start date"
+  },
+  {
+    name: "End Date",
+    field: "end_date"
   }
 ]
 
-class PharmacyStoresPage extends Component {
+class ProgramsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new PharmacyStoresPageViewModel(
+    this.vm = new ProgramsPageViewModel(
       {
         ...props,
         view: this
@@ -51,12 +56,17 @@ class PharmacyStoresPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
+    let workingHeadings = headings
+    if (contextHelper.inContext('health-plans')) {
+      workingHeadings = headings.filter((heading) => heading.name != 'Health Plan')
+    }
+
+    return workingHeadings.map(
       (heading) => {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`pharmacy-stores-table-heading-${field}`}
+            key={`programs-table-heading-${field}`}
             className='aprexis-table-header-cell'
             label={name}
             sortFieldName={field}
@@ -69,18 +79,24 @@ class PharmacyStoresPage extends Component {
     )
   }
 
-  generateTableRow(pharmacyStore) {
-    return [
+  generateTableRow(program) {
+    const row = [
       {
-        content: pharmacyStore.name,
-        onClick: (event) => { this.vm.gotoPharmacyStoreProfile(pharmacyStore) }
+        content: program.name,
+        onClick: (event) => { this.vm.gotoProgramProfile(program) }
       },
-      pharmacyStore.store_number,
-      pharmacyStore.address,
-      pharmacyStore.city,
-      pharmacyStore.state,
-      pharmacyStore.zip_code
+      valueHelper.yesNo(program.active),
+      program.kind,
+      valueHelper.titleize(program.type),
+      dateHelper.displayDate(program.start_date),
+      dateHelper.displayDate(program.end_date)
     ]
+
+    if (!contextHelper.inContext('health-plans')) {
+      row.splice(headings.findIndex((heading) => heading.name == 'Health Plan', 0, program.health_plan.name))
+    }
+
+    return row
   }
 
   render() {
@@ -94,9 +110,9 @@ class PharmacyStoresPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.pharmacyStores}
-        listLabel="Pharmacy Store"
-        listPluralLabel="Pharmacy Stores"
+        list={this.state.programs}
+        listLabel="Program"
+        listPluralLabel="Programs"
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
@@ -109,10 +125,10 @@ class PharmacyStoresPage extends Component {
         onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Pharmacy Stores"
+        title="Programs"
       />
     )
   }
 }
 
-export { PharmacyStoresPage }
+export { ProgramsPage }

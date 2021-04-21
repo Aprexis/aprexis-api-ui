@@ -13,10 +13,6 @@ export const patientHelper = {
 }
 
 function firstName(patient, prefix = "") {
-  if (!valueHelper.isValue(patient)) {
-    return ""
-  }
-
   return valueHelper.getField(patient, "first_name", prefix)
 }
 
@@ -50,18 +46,10 @@ function hasUser(patient) {
 }
 
 function lastName(patient, prefix = "") {
-  if (!valueHelper.isValue(patient)) {
-    return ""
-  }
-
   return valueHelper.getField(patient, "last_name", prefix)
 }
 
 function middleName(patient, prefix = "") {
-  if (!valueHelper.isValue(patient)) {
-    return ""
-  }
-
   return valueHelper.getField(patient, "middle_name", prefix)
 }
 

@@ -24,6 +24,7 @@ const sidebarDescriptions = {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
+      { buttonLabel: "Programs", buttonType: "List", listName: "programs" },
       { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" }
     ],
     entryLabel: "Health Plan",
@@ -59,6 +60,13 @@ const sidebarDescriptions = {
     ],
     entryLabel: "Pharmacy Store",
     entryName: "pharmacy-stores"
+  },
+  "programs": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ],
+    entryLabel: "Program",
+    entryName: "programs"
   }
 }
 

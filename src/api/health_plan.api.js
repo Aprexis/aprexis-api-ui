@@ -1,4 +1,4 @@
-import { API } from './'
+import { API } from "./"
 
 export const healthPlanApi = {
   index,
@@ -12,11 +12,11 @@ function index(userCredentials, params, onSuccess, onFailure) {
 }
 
 function show(userCredentials, id, onSuccess, onFailure) {
-  if (!API.validateId('health plan ID', id, onFailure)) {
+  if (!API.validateId("health plan ID", id, onFailure)) {
     return
   }
 
   const method = "GET"
   const path = `/health_plans/${id}`
-  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }

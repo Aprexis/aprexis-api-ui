@@ -1,4 +1,4 @@
-import { API } from './'
+import { API } from "./"
 
 export const patientSearchAlgorithmApi = {
   forHealthPlan,
@@ -6,7 +6,7 @@ export const patientSearchAlgorithmApi = {
 }
 
 function forHealthPlan(userCredentials, healthPlanId, params, onSuccess, onFailure) {
-  if (!API.validateId('health plan ID', healthPlanId, onFailure)) {
+  if (!API.validateId("health plan ID", healthPlanId, onFailure)) {
     return
   }
 
@@ -18,5 +18,5 @@ function forHealthPlan(userCredentials, healthPlanId, params, onSuccess, onFailu
 function legitimate(userCredentials, onSuccess, onFailure) {
   const method = "GET"
   const path = "/patient_search_algorithms/legitimate"
-  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }

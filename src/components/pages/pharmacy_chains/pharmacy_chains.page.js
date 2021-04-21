@@ -87,7 +87,6 @@ class PharmacyChainsPage extends Component {
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
 
-
     return (
       <ListView
         filterDescriptions={filterDescriptions}
