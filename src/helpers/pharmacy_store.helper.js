@@ -1,7 +1,8 @@
-import { userHelper, valueHelper } from "./"
+import { pharmacyChainHelper, userHelper, valueHelper } from "./"
 
 export const pharmacyStoreHelper = {
   canIndex,
+  display,
   name,
   storeNumber,
   toBreadcrumb
@@ -22,6 +23,26 @@ function canIndex(user) {
   )
 }
 
+function display(pharmacyStore) {
+  if (!valueHelper.isValue(pharmacyStore)) {
+    return "(no pharmacy store)"
+  }
+
+  const pharmacyChainName = pharmacyChainHelper.name(valueHelper.getField(pharmacyStore, "pharmacy"))
+  const pharmacyStoreName = pharmacyStoreHelper.name(pharmacyStore)
+  const pharmacyStoreNumber = pharmacyStoreHelper.storeNumber(pharmacyStore)
+  let pharmacyStoreId = pharmacyStoreName
+  if (valueHelper.isStringValue(pharmacyStoreNumber)) {
+    pharmacyStoreId = `${pharmacyStoreId} #${pharmacyStoreNumber}`
+  }
+
+  if (!valueHelper.isStringValue(pharmacyChainName)) {
+    return pharmacyStoreId
+  }
+
+  return `${pharmacyChainName} - ${pharmacyStoreId}`
+}
+
 function name(pharmacyStore) {
   return valueHelper.getField(pharmacyStore, "name")
 }
@@ -35,5 +56,12 @@ function toBreadcrumb(pharmacyStore) {
     return "(no pharmacy store)"
   }
 
-  return `${pharmacyStoreHelper.name(pharmacyStore)} #${pharmacyStoreHelper.storeNumber(pharmacyStore)}`
+  const pharmacyStoreName = pharmacyStoreHelper.name(pharmacyStore)
+  const pharmacyStoreNumber = pharmacyStoreHelper.storeNumber(pharmacyStore)
+  let pharmacyStoreId = pharmacyStoreName
+  if (valueHelper.isStringValue(pharmacyStoreNumber)) {
+    pharmacyStoreId = `${pharmacyStoreId} #${pharmacyStoreNumber}`
+  }
+
+  return pharmacyStoreId
 }

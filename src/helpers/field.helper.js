@@ -1,11 +1,12 @@
 import React from 'react'
-import { dateHelper, valueHelper } from './'
+import { contextHelper, dateHelper, valueHelper } from './'
 
 export const fieldHelper = {
   booleanDisplay,
   dateDisplay,
   display,
   imageDisplay,
+  notInContextDisplay,
   optionDisplay,
   titleDisplay
 }
@@ -37,6 +38,14 @@ function imageDisplay(name, value) {
   }
 
   return fieldHelper.display(name, "")
+}
+
+function notInContextDisplay(pathKey, name, value) {
+  if (contextHelper.inContext(pathKey)) {
+    return (<React.Fragment />)
+  }
+
+  return fieldHelper.display(name, value)
 }
 
 function optionDisplay(name, options, value) {

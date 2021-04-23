@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { TableColumnHeader } from '../../shared'
 import { ProgramsPageViewModel } from '../../view_models/pages/programs'
 import { ListView } from '../../../containers'
-import { contextHelper, dateHelper, valueHelper } from "../../../helpers"
+import { contextHelper, dateHelper, programHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -82,12 +82,12 @@ class ProgramsPage extends Component {
   generateTableRow(program) {
     const row = [
       {
-        content: program.name,
+        content: programHelper.name(program),
         onClick: (event) => { this.vm.gotoProgramProfile(program) }
       },
       valueHelper.yesNo(program.active),
       program.kind,
-      valueHelper.titleize(program.type),
+      programHelper.type(program),
       dateHelper.displayDate(program.start_date),
       dateHelper.displayDate(program.end_date)
     ]

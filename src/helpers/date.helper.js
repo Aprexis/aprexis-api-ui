@@ -1,6 +1,6 @@
-import { format } from 'date-fns'
-import moment from 'moment'
-import { valueHelper } from './'
+import { format } from "date-fns"
+import moment from "moment"
+import { valueHelper } from "./"
 
 export const dateHelper = {
   displayDate,
@@ -12,7 +12,7 @@ export const dateHelper = {
 
 function displayDate(dateValue) {
   if (!valueHelper.isValue(dateValue)) {
-    return ''
+    return ""
   }
 
   const date = makeDate(dateValue)
@@ -21,7 +21,7 @@ function displayDate(dateValue) {
 
 function displayDateTime(dateTime) {
   if (!valueHelper.isValue(dateTime)) {
-    return ''
+    return ""
   }
 
   const time = makeDate(dateTime)
@@ -43,7 +43,7 @@ function isValidDate(date, allowBlank = false) {
 }
 
 function makeDate(value) {
-  if (typeof value === 'object') {
+  if (typeof value === "object") {
     if (valueHelper.isFunction(value.getMonth)) {
       return value
     }

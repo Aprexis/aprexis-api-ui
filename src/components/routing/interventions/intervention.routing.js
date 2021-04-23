@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
-//import { InterventionProfilePage } from "../../pages/interventions"
+import { InterventionProfilePage } from "../../pages/interventions"
 import { pathHelper } from "../../../helpers"
 
 class InterventionRouting extends Component {
@@ -16,13 +16,11 @@ class InterventionRouting extends Component {
 
     return (
       <Switch>
-        {/*
         <Route
           exact
           path={`${interventionPrefix}/profile`}
           render={(props) => (<InterventionProfilePage {...props} {...contextProps} />)}
         />
-        */}
         <Route component={NoMatch} />
       </Switch>
     )

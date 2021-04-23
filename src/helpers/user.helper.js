@@ -18,6 +18,8 @@ export const userHelper = {
   isExpired,
   isLoginAllowed,
   lastName,
+  pharmacistDisplay,
+  pharmacistNPI,
   renderAccess,
   role,
   rolesToOptions,
@@ -87,6 +89,18 @@ function isLoginAllowed(user) {
 
 function lastName(user) {
   return valueHelper.getField(user, "last_name")
+}
+
+function pharmacistDisplay(user) {
+  if (userHelper.hasRole(user, ['pharmacy_store_admin', 'pharmacy_store_user'])) {
+    return "(no pharmacist)"
+  }
+
+  return `${userHelper.fullName(user)} - #${userHelper.pharmacistNPI(user)}`
+}
+
+function pharmacistNPI(user) {
+  return valueHelper.getField(user, "pharmacist_npi")
 }
 
 function renderAccess(user) {

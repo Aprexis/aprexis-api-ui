@@ -19,11 +19,15 @@ const headings = [
   },
   {
     name: "Program",
-    field: "programs.type"
+    field: "programs.name"
   },
   {
     name: "State",
     field: "state"
+  },
+  {
+    name: "Date of Service",
+    field: "date_of_service"
   },
   {
     name: "Consult Start",
@@ -77,15 +81,16 @@ class InterventionsPage extends Component {
   generateTableRow(intervention) {
     return [
       {
-        content: interventionHelper.name(intervention),
+        content: interventionHelper.patientName(intervention),
         onClick: (event) => { this.vm.gotoInterventionProfile(intervention) }
       },
       intervention.member_number,
       intervention.person_number,
-      intervention.program.type,
-      intervention.state,
-      dateHelper.displayDateTime(intervention.consult_start_date),
-      dateHelper.displayDateTime(intervention.consult_end_date)
+      interventionHelper.programType(intervention),
+      interventionHelper.state(intervention),
+      dateHelper.displayDate(intervention.date_of_service),
+      interventionHelper.consultStarted(intervention),
+      interventionHelper.consultEnded(intervention)
     ]
   }
 
