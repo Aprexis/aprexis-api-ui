@@ -1,0 +1,21 @@
+export const interventionStates = {
+  accept_program: "Accept Program",
+  claim_information: "Claim Information",
+  closed: "Closed",
+  closed_by_admin: "Closed by Administrator",
+  closed_by_system: "Closed by System",
+  completed: "Completed",
+  consult: "Consult",
+  contact_patient: "Contact Patient",
+  contact_patient_with_program_rejection: "Contact Patient with Program Rejection",
+  finish_billing: "Finish Billing",
+  follow_up: "Follow Up",
+  patient_notified_of_physicians_approval: "Patient Notified of Physician's Approval",
+  patient_notified_of_physicians_rejection: "Patient Notified of Physicial's Rejection",
+  physicians_rejection_reason: "Physician's Rejection Reason",
+  record_physicians_response: "Record Physician's Response",
+  remind_patient: "Remind Patient",
+  resume_consult: "Resume Consult",
+  transferred: "Transferred",
+  waiting_for_authorization: "Waiting for Authorization"
+}

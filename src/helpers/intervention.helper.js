@@ -1,5 +1,4 @@
 import {
-  dateHelper,
   healthPlanHelper,
   patientHelper,
   pharmacyStoreHelper,
@@ -11,8 +10,15 @@ import {
 export const interventionHelper = {
   closedReason,
   closedReasonDetail,
+  consentFormInitiatedAt,
+  consentFormInitiator,
+  consentFormOnFile,
   consultEnded,
+  consultSessionDuration,
+  consultSessionDurationExact,
+  consultSessionDurationFaceToFace,
   consultStarted,
+  dateOfService,
   healthPlanName,
   patientName,
   pharmacistDisplay,
@@ -34,12 +40,41 @@ function closedReasonDetail(intervention) {
   return valueHelper.getField(intervention, "closed_reason_detail")
 }
 
-function consultEnded(intervention) {
-  return dateHelper.displayDateTime(valueHelper.getField(intervention, "consult_end_date"))
+function consentFormInitiatedAt(intervention) {
+  return valueHelper.getField(intervention, "consent_form_initiated_at")
 }
 
+function consentFormInitiator(intervention) {
+  return userHelper.fullName(valueHelper.getField(intervention, "consent_form_initiator"))
+}
+
+function consentFormOnFile(intervention) {
+  return valueHelper.getField(intervention, "consent_form_on_file")
+}
+
+function consultEnded(intervention) {
+  return valueHelper.getField(intervention, "consult_end_date")
+}
+
+function consultSessionDuration(intervention) {
+  return valueHelper.getField(intervention, "consult_session_duration")
+}
+
+function consultSessionDurationExact(intervention) {
+  return valueHelper.getField(intervention, "consult_session_duration_exact")
+}
+
+function consultSessionDurationFaceToFace(intervention) {
+  return valueHelper.getField(intervention, "consult_session_duration_face_to_face")
+}
+
+
 function consultStarted(intervention) {
-  return dateHelper.displayDateTime(valueHelper.getField(intervention, "consult_start_date"))
+  return valueHelper.getField(intervention, "consult_start_date")
+}
+
+function dateOfService(intervention) {
+  return valueHelper.getField(intervention, "date_of_service")
 }
 
 function healthPlanName(intervention) {
@@ -75,7 +110,7 @@ function state(intervention) {
 }
 
 function userEnded(intervention) {
-  return dateHelper.displayDateTime(valueHelper.getField(intervention, "user_end_date"))
+  return valueHelper.getField(intervention, "user_end_date")
 }
 
 function userName(intervention) {
@@ -83,5 +118,5 @@ function userName(intervention) {
 }
 
 function userStarted(intervention) {
-  return dateHelper.displayDateTime(valueHelper.getField(intervention, "user_start_date"))
+  return valueHelper.getField(intervention, "user_start_date")
 }

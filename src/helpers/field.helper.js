@@ -4,7 +4,9 @@ import { contextHelper, dateHelper, valueHelper } from './'
 export const fieldHelper = {
   booleanDisplay,
   dateDisplay,
+  dateTimeDisplay,
   display,
+  displayWithUnits,
   imageDisplay,
   notInContextDisplay,
   optionDisplay,
@@ -19,6 +21,10 @@ function dateDisplay(name, value) {
   return fieldHelper.display(name, dateHelper.displayDate(value))
 }
 
+function dateTimeDisplay(name, value) {
+  return fieldHelper.display(name, dateHelper.displayDateTime(value))
+}
+
 function display(name, value) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
@@ -29,6 +35,19 @@ function display(name, value) {
 
   return (
     <React.Fragment><strong className="text-muted">{name}:</strong> {value}<br /></React.Fragment>
+  )
+}
+
+function displayWithUnits(name, value, units) {
+  if (!valueHelper.isValue(value)) {
+    return (<React.Fragment />)
+  }
+  if (typeof value === 'string' && !valueHelper.isStringValue(value)) {
+    return (<React.Fragment />)
+  }
+
+  return (
+    <React.Fragment><strong className="text-muted">{name}:</strong> {value} {units}<br /></React.Fragment>
   )
 }
 

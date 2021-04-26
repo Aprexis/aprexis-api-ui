@@ -2,24 +2,27 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { Spinner } from '../../shared'
 import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions'
-import { contextHelper, fieldHelper, interventionHelper, valueHelper } from '../../../helpers'
+import { fieldHelper, interventionHelper, valueHelper } from '../../../helpers'
 
-const InterventionState = ({ intervention }) => {
+const InterventionConfiguration = ({ intervention }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Status</h3>
+          <h3>Configuration</h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("State", interventionHelper.state(intervention))}
-          {fieldHelper.display("Closed Reason", interventionHelper.closedReason(intervention))}
-          {fieldHelper.display("Closed Reason Detail", interventionHelper.closedReasonDetail(intervention))}
-          {fieldHelper.display("User Started", interventionHelper.userStarted(intervention))}
-          {fieldHelper.display("Consult Started", interventionHelper.consultStarted(intervention))}
-          {fieldHelper.display("Consult Ended", interventionHelper.consultEnded(intervention))}
-          {fieldHelper.display("User Ended", interventionHelper.userEnded(intervention))}
+          {
+            fieldHelper.dateTimeDisplay(
+              "Consent Form Initiated At",
+              interventionHelper.consentFormInitiatedAt(intervention)
+            )
+          }
+          {
+            fieldHelper.display("Consent Form Initiator", interventionHelper.consentFormInitiator(intervention))
+          }
+          {fieldHelper.booleanDisplay("Consent Form on File", interventionHelper.consentFormOnFile(intervention))}
         </CardBody>
       </Card>
     </Col>
@@ -53,6 +56,47 @@ const InterventionProfile = ({ intervention }) => {
   )
 }
 
+const InterventionStatus = ({ intervention }) => {
+  return (
+    <Col className="col-sm d-flex">
+      <Card className="card flex-fill">
+        <CardTitle>
+          <h3>Status</h3>
+        </CardTitle>
+
+        <CardBody>
+          {fieldHelper.dateDisplay("Date of Service", interventionHelper.dateOfService(intervention))}
+          {fieldHelper.display("State", interventionHelper.state(intervention))}
+          {fieldHelper.display("Closed Reason", interventionHelper.closedReason(intervention))}
+          {fieldHelper.display("Closed Reason Detail", interventionHelper.closedReasonDetail(intervention))}
+          {fieldHelper.dateTimeDisplay("User Started", interventionHelper.userStarted(intervention))}
+          {fieldHelper.dateTimeDisplay("Consult Started", interventionHelper.consultStarted(intervention))}
+          {fieldHelper.dateTimeDisplay("Consult Ended", interventionHelper.consultEnded(intervention))}
+          {
+            fieldHelper.displayWithUnits(
+              "Consult Session Duration",
+              interventionHelper.consultSessionDuration(intervention),
+              "minutes")
+          }
+          {
+            fieldHelper.displayWithUnits(
+              "Consult Session Duration (Exact)",
+              interventionHelper.consultSessionDurationExact(intervention),
+              "minutes")
+          }
+          {
+            fieldHelper.displayWithUnits(
+              "Face-to-Face",
+              interventionHelper.consultSessionDurationFaceToFace(intervention),
+              "minutes")
+          }
+          {fieldHelper.dateTimeDisplay("User Ended", interventionHelper.userEnded(intervention))}
+        </CardBody>
+      </Card>
+    </Col>
+  )
+}
+
 const InterventionDisplay = ({ intervention }) => {
   if (!valueHelper.isValue(intervention)) {
     return (<Spinner />)
@@ -62,7 +106,11 @@ const InterventionDisplay = ({ intervention }) => {
     <React.Fragment>
       <Row>
         <InterventionProfile intervention={intervention} />
-        <InterventionState intervention={intervention} />
+        <InterventionStatus intervention={intervention} />
+      </Row>
+
+      <Row>
+        <InterventionConfiguration intervention={intervention} />
       </Row>
     </React.Fragment>
   )

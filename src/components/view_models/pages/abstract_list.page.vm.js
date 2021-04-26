@@ -65,7 +65,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
   }
 
   updateFilters(filters, nextOperation) {
-    this.addData({ filters }, nextOperation)
+    this.addData({ filters, page: this.defaultPage(), lastPage: undefined }, nextOperation)
   }
 
   updateSorting(sort, nextOperation) {

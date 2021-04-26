@@ -1,6 +1,7 @@
 import { AbstractListPageViewModel } from "../"
 import { interventionApi } from "../../../../api"
 import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { interventionStates } from "../../../../types"
 
 class InterventionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -10,19 +11,28 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoInterventionProfile = this.gotoInterventionProfile.bind(this)
+    this.interventionStateOptions = this.interventionStateOptions.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
   }
 
   defaultParameters() {
-    const filters = {}
+    const filters = { for_state: "active" }
     const sorting = { sort: "patients.last_name,patients.first_name,patients.middle_name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
   filterDescriptions(filters, filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name", "for_name")
+      filtersHelper.stringFilter("Name", "for_name"),
+      filtersHelper.selectIdFilter(
+        "State",
+        "for_state",
+        {
+          options: this.interventionStateOptions(),
+          unselectedLabel: "All"
+        }
+      )
     ]
   }
 
@@ -34,6 +44,20 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     const pathArray = pathHelper.buildPathArray(window.location, intervention, "profile")
 
     pathHelper.gotoPage(pathArray)
+  }
+
+  interventionStateOptions() {
+    const specialOptions = [
+      { id: "active", value: "Active" },
+      { id: "inactive", value: "Inactive" },
+      { id: "terminated", value: "Terminated" },
+      { id: "unstarted", value: "Not Started" }
+    ]
+    const standardOptions = Object.keys(interventionStates).map(
+      (key) => { return { id: key, value: interventionStates[key] } }
+    )
+
+    return specialOptions.concat(standardOptions)
   }
 
   loadData() {
@@ -60,14 +84,14 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
 
     function list(userCredentials, params, onSuccess, onError) {
       const pathEntries = pathHelper.parsePathEntries(window.location)
-      const patient = pathEntries['patients']
+      const patient = pathEntries["patients"]
 
       if (valueHelper.isValue(patient)) {
         interventionApi.listForPatient(userCredentials, patient.value, params, onSuccess, onError)
         return
       }
 
-      const pharmacyStore = pathEntries['pharmacy-stores']
+      const pharmacyStore = pathEntries["pharmacy-stores"]
       if (valueHelper.isValue(pharmacyStore)) {
         interventionApi.listForPharmacyStore(userCredentials, pharmacyStore.value, params, onSuccess, onError)
         return
