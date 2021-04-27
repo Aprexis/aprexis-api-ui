@@ -2,7 +2,7 @@ import React from "react"
 import { UncontrolledTooltip } from "reactstrap"
 import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { valueHelper } from "./"
+import { fieldHelper, valueHelper } from "./"
 import { userRoles } from "../types"
 
 export const userHelper = {
@@ -48,7 +48,7 @@ function displayRole(user) {
 }
 
 function firstName(user) {
-  return valueHelper.getField(user, "first_name")
+  return fieldHelper.getField(user, "first_name")
 }
 
 function fullName(user) {
@@ -76,19 +76,19 @@ function hasRole(user, role) {
 }
 
 function isAccessLocked(user) {
-  return valueHelper.isSet(valueHelper.getField(user, "access_locked"))
+  return valueHelper.isSet(fieldHelper.getField(user, "access_locked"))
 }
 
 function isExpired(user) {
-  return valueHelper.isSet(valueHelper.getField(user, "expired"))
+  return valueHelper.isSet(fieldHelper.getField(user, "expired"))
 }
 
 function isLoginAllowed(user) {
-  return valueHelper.isSet(valueHelper.getField(user, "allow_login"))
+  return valueHelper.isSet(fieldHelper.getField(user, "allow_login"))
 }
 
 function lastName(user) {
-  return valueHelper.getField(user, "last_name")
+  return fieldHelper.getField(user, "last_name")
 }
 
 function pharmacistDisplay(user) {
@@ -100,7 +100,7 @@ function pharmacistDisplay(user) {
 }
 
 function pharmacistNPI(user) {
-  return valueHelper.getField(user, "pharmacist_npi")
+  return fieldHelper.getField(user, "pharmacist_npi")
 }
 
 function renderAccess(user) {
@@ -164,7 +164,7 @@ function renderAccess(user) {
 }
 
 function role(user) {
-  return valueHelper.getField(user, "role")
+  return fieldHelper.getField(user, "role")
 }
 
 function rolesToOptions() {
@@ -193,5 +193,5 @@ function toBreadcrumb(user) {
 }
 
 function username(user) {
-  return valueHelper.getField(user, "username")
+  return fieldHelper.getField(user, "username")
 }

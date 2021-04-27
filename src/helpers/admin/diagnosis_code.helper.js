@@ -1,15 +1,20 @@
-import { valueHelper } from "../"
+import { fieldHelper, valueHelper } from "../"
 import { diagnosisCodes } from "../../types"
 
 export const diagnosisCodeHelper = {
   code,
+  longDescription,
   toBreadcrumb,
   type,
   typeLabel
 }
 
 function code(diagnosisCode) {
-  return valueHelper.getField(diagnosisCode, code)
+  return fieldHelper.getField(diagnosisCode, "code")
+}
+
+function longDescription(diagnosisCode) {
+  return fieldHelper.getField(diagnosisCode, "long_description")
 }
 
 function toBreadcrumb(diagnosisCode) {
@@ -21,7 +26,7 @@ function toBreadcrumb(diagnosisCode) {
 }
 
 function type(diagnosisCode) {
-  return valueHelper.getField(diagnosisCode, "type")
+  return fieldHelper.getField(diagnosisCode, "type")
 }
 
 function typeLabel(diagnosisCode) {

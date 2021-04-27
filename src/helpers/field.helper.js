@@ -1,4 +1,7 @@
 import React from 'react'
+import { UncontrolledTooltip } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { contextHelper, dateHelper, valueHelper } from './'
 
 export const fieldHelper = {
@@ -7,25 +10,27 @@ export const fieldHelper = {
   dateTimeDisplay,
   display,
   displayWithUnits,
+  dollarDisplay,
+  getField,
   imageDisplay,
   notInContextDisplay,
   optionDisplay,
   titleDisplay
 }
 
-function booleanDisplay(name, value) {
-  return fieldHelper.display(name, valueHelper.yesNo(value))
+function booleanDisplay(name, value, description) {
+  return fieldHelper.display(name, valueHelper.yesNo(value), description, "?")
 }
 
-function dateDisplay(name, value) {
-  return fieldHelper.display(name, dateHelper.displayDate(value))
+function dateDisplay(name, value, description) {
+  return fieldHelper.display(name, dateHelper.displayDate(value), description)
 }
 
-function dateTimeDisplay(name, value) {
-  return fieldHelper.display(name, dateHelper.displayDateTime(value))
+function dateTimeDisplay(name, value, description) {
+  return fieldHelper.display(name, dateHelper.displayDateTime(value), description)
 }
 
-function display(name, value) {
+function display(name, value, description, suffix = ":") {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
@@ -33,12 +38,26 @@ function display(name, value) {
     return (<React.Fragment />)
   }
 
+  if (!valueHelper.isValue(description)) {
+    return (
+      <React.Fragment><strong className="text-muted">{name}{suffix}</strong> {value}<br /></React.Fragment>
+    )
+  }
+
+  const targetId = `description-${name.toLowerCase().replaceAll(" ", "-")}`
   return (
-    <React.Fragment><strong className="text-muted">{name}:</strong> {value}<br /></React.Fragment>
+    <span>
+      <strong className="text-muted">{name}{suffix}</strong> {value}&nbsp;
+      <FontAwesomeIcon className='ml-1' icon={faInfoCircle} id={targetId} />
+      <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>
+        {description}
+      </UncontrolledTooltip>
+      <br />
+    </span>
   )
 }
 
-function displayWithUnits(name, value, units) {
+function displayWithUnits(name, value, units, description) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
@@ -46,31 +65,52 @@ function displayWithUnits(name, value, units) {
     return (<React.Fragment />)
   }
 
-  return (
-    <React.Fragment><strong className="text-muted">{name}:</strong> {value} {units}<br /></React.Fragment>
-  )
+  return fieldHelper.display(name, `${value} ${units}`, description)
 }
 
-function imageDisplay(name, value) {
+function dollarDisplay(name, value, description) {
+  if (!valueHelper.isValue(value)) {
+    return (<React.Fragment />)
+  }
+  if (typeof value === 'string' && !valueHelper.isStringValue(value)) {
+    return (<React.Fragment />)
+  }
+
+  return fieldHelper.display(name, `$${value}`, description)
+}
+
+function getField(object, fieldName, prefix) {
+  if (!valueHelper.isValue(object)) {
+    return
+  }
+
+  if (!valueHelper.isStringValue(prefix)) {
+    return object[fieldName]
+  }
+
+  return object[`${prefix}_${fieldName}`]
+}
+
+function imageDisplay(name, value, description) {
   if (valueHelper.isStringValue(value)) {
-    return fieldHelper.display(name, <img src={`data:image/jpeg;base64,${value}`} alt="logo" />)
+    return fieldHelper.display(name, <img src={`data:image/jpeg;base64,${value}`} alt="logo" />, description)
   }
 
   return fieldHelper.display(name, "")
 }
 
-function notInContextDisplay(pathKey, name, value) {
+function notInContextDisplay(pathKey, name, value, description) {
   if (contextHelper.inContext(pathKey)) {
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, value)
+  return fieldHelper.display(name, value, description)
 }
 
-function optionDisplay(name, options, value) {
-  return fieldHelper.display(name, options[valueHelper.makeString(value)])
+function optionDisplay(name, options, value, description) {
+  return fieldHelper.display(name, options[valueHelper.makeString(value)], description)
 }
 
-function titleDisplay(name, value) {
-  return fieldHelper.display(name, valueHelper.titleize(value))
+function titleDisplay(name, value, description) {
+  return fieldHelper.display(name, valueHelper.titleize(value), description)
 }

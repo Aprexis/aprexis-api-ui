@@ -1,4 +1,4 @@
-import { userHelper, valueHelper } from "./"
+import { fieldHelper, userHelper, valueHelper } from "./"
 
 export const pharmacyChainHelper = {
   canIndex,
@@ -19,7 +19,7 @@ function canIndex(user) {
 }
 
 function name(pharmacyChain) {
-  return valueHelper.getField(pharmacyChain, "name")
+  return fieldHelper.getField(pharmacyChain, "name")
 }
 
 function toBreadcrumb(pharmacyChain) {

@@ -1,4 +1,4 @@
-import { userHelper, valueHelper } from "./"
+import { fieldHelper, userHelper, valueHelper } from "./"
 
 export const healthPlanHelper = {
   canConfigure,
@@ -16,7 +16,7 @@ function canIndex(user) {
 }
 
 function name(healthPlan) {
-  return valueHelper.getField(healthPlan, "name")
+  return fieldHelper.getField(healthPlan, "name")
 }
 
 function toBreadcrumb(healthPlan) {

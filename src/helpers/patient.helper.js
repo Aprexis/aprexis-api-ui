@@ -1,4 +1,4 @@
-import { addressHelper, contactHelper, valueHelper } from "./"
+import { addressHelper, contactHelper, fieldHelper, valueHelper } from "./"
 
 export const patientHelper = {
   firstName,
@@ -13,7 +13,7 @@ export const patientHelper = {
 }
 
 function firstName(patient, prefix = "") {
-  return valueHelper.getField(patient, "first_name", prefix)
+  return fieldHelper.getField(patient, "first_name", prefix)
 }
 
 function gender(patient, prefix = "") {
@@ -21,7 +21,7 @@ function gender(patient, prefix = "") {
     return ""
   }
 
-  return valueHelper.getField(patient, "gender", prefix)
+  return fieldHelper.getField(patient, "gender", prefix)
 }
 
 function hasSubscriber(patient) {
@@ -46,11 +46,11 @@ function hasUser(patient) {
 }
 
 function lastName(patient, prefix = "") {
-  return valueHelper.getField(patient, "last_name", prefix)
+  return fieldHelper.getField(patient, "last_name", prefix)
 }
 
 function middleName(patient, prefix = "") {
-  return valueHelper.getField(patient, "middle_name", prefix)
+  return fieldHelper.getField(patient, "middle_name", prefix)
 }
 
 function name(patient, prefix = "") {

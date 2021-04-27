@@ -1,6 +1,5 @@
 export const valueHelper = {
   capitalizeWords,
-  getField,
   getCircularReplacer,
   hashGet,
   hashSet,
@@ -36,18 +35,6 @@ function getCircularReplacer() {
 
     return value
   }
-}
-
-function getField(object, fieldName, prefix) {
-  if (!valueHelper.isValue(object)) {
-    return
-  }
-
-  if (!valueHelper.isStringValue(prefix)) {
-    return object[fieldName]
-  }
-
-  return object[`${prefix}_${fieldName}`]
 }
 
 function hashSet(hash, field, value) {

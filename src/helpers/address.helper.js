@@ -1,4 +1,4 @@
-import { valueHelper } from './'
+import { fieldHelper, valueHelper } from './'
 
 export const addressHelper = {
   address,
@@ -10,15 +10,15 @@ export const addressHelper = {
 }
 
 function address(address, prefix) {
-  return valueHelper.getField(address, 'address', prefix)
+  return fieldHelper.getField(address, 'address', prefix)
 }
 
 function city(address, prefix) {
-  return valueHelper.getField(address, 'city', prefix)
+  return fieldHelper.getField(address, 'city', prefix)
 }
 
 function country(address, prefix) {
-  return valueHelper.getField(address, 'country', prefix)
+  return fieldHelper.getField(address, 'country', prefix)
 }
 
 function fullAddress(address, prefix) {
@@ -50,9 +50,9 @@ function fullAddress(address, prefix) {
 }
 
 function state(address, prefix) {
-  return valueHelper.getField(address, 'state', prefix)
+  return fieldHelper.getField(address, 'state', prefix)
 }
 
 function zipCode(address, prefix) {
-  return valueHelper.getField(address, 'zip_code', prefix)
+  return fieldHelper.getField(address, 'zip_code', prefix)
 }

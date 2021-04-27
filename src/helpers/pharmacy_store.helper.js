@@ -1,4 +1,4 @@
-import { pharmacyChainHelper, userHelper, valueHelper } from "./"
+import { fieldHelper, pharmacyChainHelper, userHelper, valueHelper } from "./"
 
 export const pharmacyStoreHelper = {
   canIndex,
@@ -28,7 +28,7 @@ function display(pharmacyStore) {
     return "(no pharmacy store)"
   }
 
-  const pharmacyChainName = pharmacyChainHelper.name(valueHelper.getField(pharmacyStore, "pharmacy"))
+  const pharmacyChainName = pharmacyChainHelper.name(fieldHelper.getField(pharmacyStore, "pharmacy"))
   const pharmacyStoreName = pharmacyStoreHelper.name(pharmacyStore)
   const pharmacyStoreNumber = pharmacyStoreHelper.storeNumber(pharmacyStore)
   let pharmacyStoreId = pharmacyStoreName
@@ -44,11 +44,11 @@ function display(pharmacyStore) {
 }
 
 function name(pharmacyStore) {
-  return valueHelper.getField(pharmacyStore, "name")
+  return fieldHelper.getField(pharmacyStore, "name")
 }
 
 function storeNumber(pharmacyStore) {
-  return valueHelper.getField(pharmacyStore, "store_number")
+  return fieldHelper.getField(pharmacyStore, "store_number")
 }
 
 function toBreadcrumb(pharmacyStore) {

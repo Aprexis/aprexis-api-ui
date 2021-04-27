@@ -1,4 +1,4 @@
-import { valueHelper } from "../"
+import { fieldHelper, valueHelper } from "../"
 
 export const diseaseHelper = {
   name,
@@ -7,11 +7,11 @@ export const diseaseHelper = {
 }
 
 function name(disease) {
-  return valueHelper.getField(disease, "name")
+  return fieldHelper.getField(disease, "name")
 }
 
 function questionKey(disease) {
-  return valueHelper.getField(disease, "question_key")
+  return fieldHelper.getField(disease, "question_key")
 }
 
 function toBreadcrumb(disease) {

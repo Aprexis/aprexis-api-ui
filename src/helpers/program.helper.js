@@ -1,4 +1,4 @@
-import { valueHelper } from "./value.helper"
+import { fieldHelper, valueHelper } from "./"
 
 export const programHelper = {
   display,
@@ -16,7 +16,7 @@ function display(program) {
 }
 
 function name(program) {
-  return valueHelper.titleize(valueHelper.getField(program, "name"))
+  return valueHelper.titleize(fieldHelper.getField(program, "name"))
 }
 
 function toBreadcrumb(program) {
@@ -24,5 +24,5 @@ function toBreadcrumb(program) {
 }
 
 function type(program) {
-  return valueHelper.titleize(valueHelper.getField(program, "type"))
+  return valueHelper.titleize(fieldHelper.getField(program, "type"))
 }

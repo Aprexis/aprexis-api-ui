@@ -65,7 +65,7 @@ const PatientSubscriber = ({ patient }) => {
 
         <CardBody>
           <Address addressable={patient} prefix="subscriber" />
-          {fieldHelper.display("Name", valueHelper.getField(patient, "name", "subscriber"))}
+          {fieldHelper.display("Name", fieldHelper.getField(patient, "name", "subscriber"))}
           <Contact contactable={patient} prefix="subscriber" />
         </CardBody>
       </Card>
