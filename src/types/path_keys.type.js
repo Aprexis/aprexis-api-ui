@@ -7,19 +7,20 @@ import {
   pharmacyStoreApi,
   userApi
 } from "../api"
-import { diagnosisCodeApi, diseaseApi } from "../api/admin"
+import { diagnosisCodeApi, diseaseApi, labTestApi } from "../api/admin"
 
 // The explicit filenames is necessary because pathKeys is imported into some of the helpers, which causes a circular
 // import that fails to properly load these files if the import is done through the index.js file.
 import { answerHelper } from "../helpers/answer.helper"
-import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
-import { diseaseHelper } from "../helpers/admin/disease.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
 import { interventionHelper } from "../helpers/intervention.helper"
 import { patientHelper } from "../helpers/patient.helper"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
 import { userHelper } from "../helpers/user.helper"
+import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
+import { diseaseHelper } from "../helpers/admin/disease.helper"
+import { labTestHelper } from "../helpers/admin/lab_test.helper"
 
 export const pathKeys = {
   "answers": {
@@ -46,6 +47,11 @@ export const pathKeys = {
     api: interventionApi,
     helper: interventionHelper,
     modelName: "Intervention"
+  },
+  "lab-test": {
+    api: labTestApi,
+    helper: labTestHelper,
+    modelName: "LabTest"
   },
   "patients": {
     api: patientApi,

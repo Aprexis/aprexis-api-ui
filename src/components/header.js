@@ -61,6 +61,7 @@ class Header extends Component {
                     currentUser={currentUser}
                     gotoDiagnosisCodesPage={this.props.gotoDiagnosisCodesPage}
                     gotoDiseasesPage={this.props.gotoDiseasesPage}
+                    gotoLabTestsPage={this.props.gotoLabTestsPage}
                   />
 
                   <UserDropdown
