@@ -103,3 +103,9 @@ header {
 
   .nav-inner { background-color: #f9f9f9; }
 }
+
+.table-responsive-sm {
+  td {
+    padding: 0;
+  }
+}
