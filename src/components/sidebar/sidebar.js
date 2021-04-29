@@ -44,6 +44,13 @@ const sidebarDescriptions = {
     entryLabel: "Intervention",
     entryName: "interventions"
   },
+  "lab-tests": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ],
+    entryLabel: "Lab Test",
+    entryName: "lab-tests"
+  },
   "patients": {
     entryButtons: [
       { buttonType: "Profile" },

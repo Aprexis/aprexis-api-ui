@@ -6,16 +6,16 @@ import { labTestHelper } from "../../../../helpers/admin"
 
 const headings = [
   {
+    name: "Key Code",
+    field: "key_code"
+  },
+  {
     name: "Name",
     field: "name"
   },
   {
     name: "Full Name",
     field: "full_name"
-  },
-  {
-    name: "Key Code",
-    field: "key_code"
   },
   {
     name: "Category",
@@ -70,11 +70,11 @@ class LabTestsPage extends Component {
   generateTableRow(labTest) {
     return [
       {
-        content: labTestHelper.name(labTest),
+        content: labTestHelper.keyCode(labTest),
         onClick: (event) => { this.vm.gotoLabTestProfile(labTest) }
       },
+      labTestHelper.name(labTest),
       labTestHelper.fullName(labTest),
-      labTestHelper.keyCode(labTest),
       labTestHelper.category(labTest),
       labTestHelper.units(labTest)
     ]

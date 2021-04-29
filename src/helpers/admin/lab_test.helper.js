@@ -5,7 +5,9 @@ export const labTestHelper = {
   fullName,
   keyCode,
   name,
-  units
+  normalValue,
+  units,
+  vital
 }
 
 function category(labTest) {
@@ -24,6 +26,14 @@ function name(labTest) {
   return fieldHelper.getField(labTest, "name")
 }
 
+function normalValue(labTest) {
+  return fieldHelper.getField(labTest, "normal_value")
+}
+
 function units(labTest) {
   return fieldHelper.getField(labTest, "units")
+}
+
+function vital(labTest) {
+  return fieldHelper.getField(labTest, "vital")
 }

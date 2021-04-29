@@ -16,12 +16,13 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "name" }
+    const sorting = { sort: "key_code" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
   filterDescriptions(filters, filtersOptions) {
     return [
+      filtersHelper.stringFilter("Key Code", "for_key_code"),
       filtersHelper.stringFilter("Name", "for_name")
     ]
   }
