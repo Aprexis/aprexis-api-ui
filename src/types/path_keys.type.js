@@ -2,6 +2,7 @@ import {
   answerApi,
   healthPlanApi,
   interventionApi,
+  labTestValueApi,
   patientApi,
   pharmacyChainApi,
   pharmacyStoreApi,
@@ -14,6 +15,7 @@ import { diagnosisCodeApi, diseaseApi, labTestApi } from "../api/admin"
 import { answerHelper } from "../helpers/answer.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
 import { interventionHelper } from "../helpers/intervention.helper"
+import { labTestValueHelper } from "../helpers/lab_test_value.helper"
 import { patientHelper } from "../helpers/patient.helper"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
@@ -52,6 +54,11 @@ export const pathKeys = {
     api: labTestApi,
     helper: labTestHelper,
     modelName: "LabTest"
+  },
+  "lab-test-value": {
+    api: labTestValueApi,
+    helper: labTestValueHelper,
+    modelName: "LabTestValue"
   },
   "patients": {
     api: patientApi,

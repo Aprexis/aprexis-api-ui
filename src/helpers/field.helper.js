@@ -13,6 +13,7 @@ export const fieldHelper = {
   dollarDisplay,
   getField,
   imageDisplay,
+  includeField,
   notInContextDisplay,
   optionDisplay,
   titleDisplay
@@ -97,6 +98,75 @@ function imageDisplay(name, value, description) {
   }
 
   return fieldHelper.display(name, "")
+}
+
+function includeField(pathEntries, filters, fieldHeader) {
+  return includeIf(pathEntries, fieldHeader) &&
+    includeIfFilters(filters, fieldHeader) &&
+    includeUnless(pathEntries, fieldHeader) &&
+    includeUnlessFilters(filters, fieldHeader)
+
+  function includeCheckPathEntry(pathEntries, pathKeys) {
+    if (!valueHelper.isValue(pathEntries)) {
+      return false
+    }
+
+    const pathKeyEntries = pathKeys.split(",")
+
+    return !valueHelper.isValue(
+      pathKeyEntries.find(
+        (pathKey) => {
+          return !valueHelper.isValue(pathEntries[pathKey])
+        }
+      )
+    )
+  }
+
+  function includeCheckFilters(filters, filtersToCheck) {
+    if (!valueHelper.isValue(filters)) {
+      return false
+    }
+
+    return !valueHelper.isValue(
+      filtersToCheck.find(
+        (filterToCheck) => {
+          return filters[filterToCheck.queryParam] != filterToCheck.value
+        }
+      )
+    )
+  }
+
+  function includeIf(pathEntries, fieldHeader) {
+    if (!valueHelper.isValue(fieldHeader["if"])) {
+      return true
+    }
+
+    return includeCheckPathEntry(pathEntries, fieldHeader["if"])
+  }
+
+  function includeIfFilters(filters, fieldHeader) {
+    if (!valueHelper.isValue(fieldHeader["ifFilters"])) {
+      return true
+    }
+
+    return includeCheckFilters(filters, fieldHelper["ifFilters"])
+  }
+
+  function includeUnless(pathEntries, fieldHeader) {
+    if (!valueHelper.isValue(fieldHeader["unless"])) {
+      return true
+    }
+
+    return !includeCheckPathEntry(pathEntries, fieldHeader["unless"])
+  }
+
+  function includeUnlessFilters(filters, fieldHeader) {
+    if (!valueHelper.isValue(fieldHeader["unlessFilters"])) {
+      return true
+    }
+
+    return !includeCheckFilters(filters, fieldHeader["unlessFilters"])
+  }
 }
 
 function notInContextDisplay(pathKey, name, value, description) {

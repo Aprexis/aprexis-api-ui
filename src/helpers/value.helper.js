@@ -1,5 +1,6 @@
 export const valueHelper = {
   capitalizeWords,
+  compareWithCast,
   getCircularReplacer,
   hashGet,
   hashSet,
@@ -20,6 +21,19 @@ function capitalizeWords(str) {
   }
 
   return str.replace(/\w\S*/g, (txt) => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+}
+
+function compareWithCast(value1, value2) {
+  switch (typeof value1) {
+    case "undefined":
+      return !valueHelper.isValue(value2)
+
+    case "boolean":
+      return value1 == valueHelper.isSet(value2)
+
+    default:
+      return value1 == value2
+  }
 }
 
 function getCircularReplacer() {
@@ -90,20 +104,11 @@ function isFunction(value) {
 }
 
 function isSet(value) {
-  if (!valueHelper.isValue(value)) {
-    return false
-  }
-
   if (valueHelper.isStringValue(value)) {
-    return ['TRUE', 'YES'].includes(value.trim().toUpperCase())
+    return !['FALSE', 'NO', 'F'].includes(value.trim().toUpperCase())
   }
 
-  const intValue = parseInt(value)
-  if (!isNaN(intValue)) {
-    return intValue !== 0
-  }
-
-  return value
+  return !!value
 }
 
 function isStringValue(value) {

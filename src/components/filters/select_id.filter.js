@@ -133,7 +133,10 @@ class SelectIdFilter extends Component {
 
       function findLabel(filterDefinition, value) {
         const { options } = filterDescription
-        const option = options.find((option) => option.id == value)
+        const option = options.find((option) => valueHelper.compareWithCast(option.id, value))
+        if (!valueHelper.isValue(option)) {
+          return filterDescription.unselectedLabel
+        }
 
         return option.value
       }

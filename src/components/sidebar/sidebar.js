@@ -39,7 +39,8 @@ const sidebarDescriptions = {
   "interventions": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Answers", buttonType: "List", listName: "answers" }
+      { buttonLabel: "Answers", buttonType: "List", listName: "answers" },
+      { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" }
     ],
     entryLabel: "Intervention",
     entryName: "interventions"
@@ -54,7 +55,8 @@ const sidebarDescriptions = {
   "patients": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" }
+      { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
+      { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" }
     ],
     entryLabel: "Patient",
     entryName: "patients"
