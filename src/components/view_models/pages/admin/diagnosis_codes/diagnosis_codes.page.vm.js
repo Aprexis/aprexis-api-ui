@@ -52,8 +52,10 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("diagnosisCodeHeaders")
     const { filters, sorting, page } = this.data
+    const pathEntries = this.pathEntries()
 
     list(
+      pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
       (diagnosisCodes, diagnosisCodeHeaders) => {
@@ -64,8 +66,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(userCredentials, params, onSuccess, onError) {
-      const pathEntries = pathHelper.parsePathEntries(window.location)
+    function list(pathEntries, userCredentials, params, onSuccess, onError) {
       const disease = pathEntries['diseases']
 
       if (valueHelper.isValue(disease) && valueHelper.isValue(disease.value)) {

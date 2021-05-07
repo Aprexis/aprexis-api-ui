@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Container } from 'reactstrap'
-import { Filter } from '../filters'
+import { Form } from 'reactstrap'
+import { Filter } from '../filters/filter'
 import { FiltersModalViewModel } from '../view_models/modals'
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
 import { valueHelper } from '../../helpers'
@@ -37,24 +37,27 @@ class FiltersModal extends Component {
         modalClassName='filters modal-w'
         modalFooterComponents={this.renderFooter()}
         modalHeaderComponents={this.renderHeader()}>
-        <Container>
+        <Form>
           {filterRows}
-        </Container>
+        </Form>
       </AprexisModal>
     )
   }
 
   renderFilterRow(filterDescription, filters, filterIdx) {
+    const { filterValidations } = this.state
+
     return (
       <Filter
         filters={filters}
         filterDescription={filterDescription}
+        filterValidations={filterValidations}
         key={`filter-${filterIdx}`}
         onChange={this.vm.change}
         onChangeDay={this.vm.changeDay}
+        onChangeDateTime={this.vm.changeDateTime}
         onChangeId={this.vm.changeId}
         readOnly={false}
-        setValidDate={this.vm.setValidDate}
       />
     )
   }
@@ -71,7 +74,7 @@ class FiltersModal extends Component {
 
   renderFooter() {
     return (
-      <React.Fragment>
+      <div>
         <button
           className='btn btn-sm btn-secondary mr-auto'
           onClick={this.vm.clearModal}>
@@ -82,7 +85,7 @@ class FiltersModal extends Component {
           onClick={(event) => { this.vm.submitFilters() }}>
           Filter
         </button>
-      </React.Fragment>
+      </div>
     )
   }
 

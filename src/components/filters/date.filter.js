@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Col, Label } from 'reactstrap'
-import { DateEditor } from '../shared'
+import { DatePicker } from '../shared'
 import { dateHelper, filtersHelper, valueHelper } from '../../helpers'
+
+// TODO: rewrite to properly use DatePicker.
 
 class DateFilter extends Component {
   constructor(props) {
@@ -35,36 +37,38 @@ class DateFilter extends Component {
       <div className="form-group row">
         <Label className="col-3 col-form-label text-nowrap mr-2 pt-1" htmlFor={name}>{name}</Label>
         <Col className="pt-0 pl-2">
-          <DateEditor
+          <DatePicker
             allowBlank={allowBlank}
             allowEdit={!valueHelper.isSet(filterDescription.disabled) && !valueHelper.isSet(this.props.readOnly)}
             className=""
+            dayChange={this.props.dayChange}
             date={date}
             disabledDays={filterDescription.disabledDays}
             earliestDate={from}
             latestDate={to}
-            setValidDate={this.props.setValidDate}
           />
         </Col>
       </div>
     )
   }
 
-  static toLabel(filterDescription, filters) {
-    const { field, name, queryParam } = filterDescription
+  static toLabel(filterDescription, filters, nextOperation) {
+    const { name, queryParam } = filterDescription
     const value = filtersHelper.filterToValue(filters, queryParam)
     if (!valueHelper.isValue(value)) {
+      nextOperation()
       return
     }
 
     const label = filtersHelper.dateLabel(value)
-    return {
-      canDelete: true,
-      field,
-      label,
-      name,
-      queryParam
-    }
+    nextOperation(
+      {
+        canDelete: filterDescription.canDelete ?? true,
+        label,
+        name,
+        queryParam
+      }
+    )
   }
 }
 

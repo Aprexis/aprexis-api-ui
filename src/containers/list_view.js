@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { RefreshView } from './'
-import { FiltersItem } from '../components/filters'
+import { FiltersItem } from '../components/filters/filters_item'
 import { Modals } from '../components/modals'
 import { AprexisList } from '../components/shared'
 import { valueHelper } from '../helpers'

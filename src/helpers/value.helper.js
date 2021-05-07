@@ -10,6 +10,7 @@ export const valueHelper = {
   isStringValue,
   isValue,
   makeString,
+  snakeCase,
   splitCapitalized,
   titleize,
   yesNo
@@ -129,6 +130,10 @@ function makeString(value) {
   }
 
   return value
+}
+
+function snakeCase(str) {
+  return str.replace(" ", "_").replace("-", "_").toLowerCase()
 }
 
 function splitCapitalized(str) {

@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
 import { InterventionsRouting } from "../interventions"
+import { PatientsRouting } from "../patients"
 import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores"
 import { pathHelper } from "../../../helpers"
 
@@ -20,6 +21,10 @@ class PharmacyStoreRouting extends Component {
         <Route
           path={`${pharmacyStorePrefix}/interventions`}
           render={(props) => (<InterventionsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${pharmacyStorePrefix}/patients`}
+          render={(props) => (<PatientsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact

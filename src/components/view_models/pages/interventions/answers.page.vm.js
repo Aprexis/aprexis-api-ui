@@ -39,8 +39,10 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("answerHeaders")
     const { filters, sorting, page } = this.data
+    const pathEntries = this.pathEntries()
 
     list(
+      pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
       (answers, answerHeaders) => {
@@ -51,8 +53,7 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(userCredentials, params, onSuccess, onError) {
-      const pathEntries = pathHelper.parsePathEntries(window.location)
+    function list(pathEntries, userCredentials, params, onSuccess, onError) {
       const intervention = pathEntries["interventions"]
 
       if (valueHelper.isValue(intervention)) {

@@ -9,6 +9,7 @@ export const fieldHelper = {
   dateDisplay,
   dateTimeDisplay,
   display,
+  displayListField,
   displayWithUnits,
   dollarDisplay,
   getField,
@@ -55,6 +56,24 @@ function display(name, value, description, suffix = ":") {
       </UncontrolledTooltip>
       <br />
     </span>
+  )
+}
+
+function displayListField(model, helper, heading) {
+  const longValue = helper[heading.method](model)
+  if (!valueHelper.isValue(heading.maximum) || longValue.length <= heading.maximum) {
+    return longValue
+  }
+
+  const targetId = `${heading.field.replaceAll(",", "_")}_${model.id}`
+  return (
+    <td>
+      {longValue.substring(0, heading.maximum)}...
+      <FontAwesomeIcon className='ml-1' icon={faInfoCircle} id={targetId} />
+      <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>
+        {longValue}
+      </UncontrolledTooltip>
+    </td>
   )
 }
 

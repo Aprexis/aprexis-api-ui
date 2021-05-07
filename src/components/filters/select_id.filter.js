@@ -105,19 +105,23 @@ class SelectIdFilter extends Component {
     onChange(name, multipleValues.join(','))
   }
 
-  static toLabel(filterDescription, filters) {
+  static toLabel(filterDescription, filters, nextOperation) {
     const { name, queryParam } = filterDescription
     const label = buildLabel(queryParam, filters)
     if (!valueHelper.isValue(label)) {
+      nextOperation()
       return
     }
 
-    return {
-      canDelete: true,
-      label,
-      name,
-      queryParam
-    }
+    nextOperation(
+      {
+        canDelete: filterDescription.canDelete ?? true,
+        label,
+        name,
+        queryParam
+      }
+    )
+    return
 
     function buildLabel(queryParam, filters) {
       const value = filtersHelper.filterToValue(filters, queryParam)
@@ -131,7 +135,7 @@ class SelectIdFilter extends Component {
 
       return value.split(",").map((individual) => findLabel(filterDescription, individual)).join(",")
 
-      function findLabel(filterDefinition, value) {
+      function findLabel(filterDescription, value) {
         const { options } = filterDescription
         const option = options.find((option) => valueHelper.compareWithCast(option.id, value))
         if (!valueHelper.isValue(option)) {

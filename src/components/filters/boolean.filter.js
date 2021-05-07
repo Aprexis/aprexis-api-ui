@@ -30,7 +30,7 @@ class BooleanFilter extends Component {
             disabled={valueHelper.isSet(filterDescription.disabled) || valueHelper.isSet(this.props.readOnly)}
             mutliple="false"
             name={name}
-            onChange={this.props.onChange}
+            onChange={(event) => { this.props.onChange(filterDescription, event) }}
             type="select"
             value={value}>
             {options}
@@ -40,19 +40,23 @@ class BooleanFilter extends Component {
     )
   }
 
-  static toLabel(filterDescription, filters) {
+  static toLabel(filterDescription, filters, nextOperation) {
     const { name, queryParam } = filterDescription
     const label = buildLabel(filterDescription, filters)
     if (!valueHelper.isValue(label)) {
+      nextOperation()
       return
     }
 
-    return {
-      canDelete: true,
-      label,
-      name,
-      queryParam
-    }
+    nextOperation(
+      {
+        canDelete: filterDescription.canDelete ?? true,
+        label,
+        name,
+        queryParam
+      }
+    )
+    return
 
     function buildLabel(filterDescription, filters) {
       const { queryParam } = filterDescription

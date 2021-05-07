@@ -46,8 +46,10 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("pharmacyStoreHeaders")
     const { filters, sorting, page } = this.data
+    const pathEntries = this.pathEntries()
 
     list(
+      pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
       (pharmacyStores, pharmacyStoreHeaders) => {
@@ -58,8 +60,7 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(userCredentials, params, onSuccess, onError) {
-      const pathEntries = pathHelper.parsePathEntries(window.location)
+    function list(pathEntries, userCredentials, params, onSuccess, onError) {
       const pharmacyChain = pathEntries['pharmacy-chains']
 
       if (valueHelper.isValue(pharmacyChain)) {

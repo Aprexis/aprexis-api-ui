@@ -90,15 +90,16 @@ class AbstractViewModel {
   }
 
   redrawView() {
-    const { view } = this.props
     let keepKeys = []
     if (valueHelper.isFunction(this.keysToKeep)) {
       keepKeys = this.keysToKeep()
     }
 
-    view.setState(
+    this.props.view.setState(
       (oldState, oldProps) => {
-        const stateReset = Object.keys(oldState).filter((key) => !keepKeys.includes(key)).reduce((acc, v) => ({ ...acc, [v]: undefined }), {})
+        const stateReset = Object.keys(oldState)
+          .filter((key) => !keepKeys.includes(key))
+          .reduce((acc, v) => ({ ...acc, [v]: undefined }), {})
         return {
           ...stateReset,
           redraw: true,

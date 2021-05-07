@@ -3,6 +3,8 @@ import { fieldHelper, pharmacyChainHelper, userHelper, valueHelper } from "./"
 export const pharmacyStoreHelper = {
   canIndex,
   display,
+  id,
+  identification,
   name,
   storeNumber,
   toBreadcrumb
@@ -29,18 +31,23 @@ function display(pharmacyStore) {
   }
 
   const pharmacyChainName = pharmacyChainHelper.name(fieldHelper.getField(pharmacyStore, "pharmacy"))
-  const pharmacyStoreName = pharmacyStoreHelper.name(pharmacyStore)
-  const pharmacyStoreNumber = pharmacyStoreHelper.storeNumber(pharmacyStore)
-  let pharmacyStoreId = pharmacyStoreName
-  if (valueHelper.isStringValue(pharmacyStoreNumber)) {
-    pharmacyStoreId = `${pharmacyStoreId} #${pharmacyStoreNumber}`
+  return `${pharmacyChainName} - ${identification(pharmacyStore)}`
+}
+
+function id(pharmacyStore) {
+  return fieldHelper.getField(pharmacyStore, "id")
+}
+
+function identification(pharmacyStore) {
+  const id = pharmacyStoreHelper.id(pharmacyStore)
+  const name = pharmacyStoreHelper.name(pharmacyStore)
+  const number = pharmacyStoreHelper.storeNumber(pharmacyStore)
+
+  if (valueHelper.isStringValue(number)) {
+    return `${name} ${number}`
   }
 
-  if (!valueHelper.isStringValue(pharmacyChainName)) {
-    return pharmacyStoreId
-  }
-
-  return `${pharmacyChainName} - ${pharmacyStoreId}`
+  return `${name} (#${id})`
 }
 
 function name(pharmacyStore) {

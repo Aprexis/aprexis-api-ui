@@ -3,6 +3,7 @@ import { API } from "./"
 export const pharmacyStoreApi = {
   list,
   listForPharmacyChain,
+  search,
   show
 }
 
@@ -19,6 +20,12 @@ function listForPharmacyChain(userCredentials, pharmacy_chain_id, params, onSucc
 
   const method = "GET"
   const path = `/pharmacies/${pharmacy_chain_id}/pharmacy_stores/list`
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function search(userCredentials, params, onSuccess, onFailure) {
+  const method = "GET"
+  const path = "/pharmacy_stores/search"
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 

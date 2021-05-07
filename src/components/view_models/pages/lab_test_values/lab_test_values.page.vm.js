@@ -15,7 +15,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
   }
 
   defaultParameters() {
-    const pathEntries = pathHelper.parsePathEntries(window.location)
+    const pathEntries = this.pathEntries()
     const filters = {}
     if (valueHelper.isValue(pathEntries['patients']) && !valueHelper.isValue(pathEntries['interventions'])) {
       filters['for_interventions'] = false
@@ -27,7 +27,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
   }
 
   filterDescriptions(filters, filtersOptions) {
-    const pathEntries = pathHelper.parsePathEntries(window.location)
+    const pathEntries = this.pathEntries()
     const filterDescriptions = [filtersHelper.stringFilter("Key Code", "for_key_code")]
 
     if (valueHelper.isValue(pathEntries['patients']) && !valueHelper.isValue(pathEntries['interventions'])) {
@@ -67,8 +67,10 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("labTestValueHeaders")
     const { filters, sorting, page } = this.data
+    const pathEntries = this.pathEntries()
 
     list(
+      pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
       (labTestValues, labTestValueHeaders) => {
@@ -79,9 +81,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(userCredentials, params, onSuccess, onError) {
-      const pathEntries = pathHelper.parsePathEntries(window.location)
-
+    function list(pathEntries, userCredentials, params, onSuccess, onError) {
       const intervention = pathEntries['interventions']
       if (valueHelper.isValue(intervention)) {
         labTestValueApi.listForIntervention(userCredentials, intervention.value, params, onSuccess, onError)

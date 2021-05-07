@@ -40,8 +40,8 @@ class BreadcrumbsViewModel extends AbstractViewModel {
   }
 
   pathInformation(location) {
-    const pathEntries = pathHelper.parsePathEntries(window.location)
-    const orderedPathEntries = pathHelper.orderedPathEntries(pathEntries)
+    const pathEntries = this.pathEntries()
+    const orderedPathEntries = this.orderedPathEntries(pathEntries)
     const haveProfile = pathHelper.haveProfile(orderedPathEntries)
     if (haveProfile) {
       orderedPathEntries.pop()

@@ -1,79 +1,63 @@
 import { AbstractListPageViewModel } from "../"
-import { healthPlanApi, patientApi, pharmacyStoreApi } from "../../../../api"
+import { patientApi, patientNoteApi, pharmacyStoreApi } from "../../../../api"
 import { filtersHelper, pageHelper, pathHelper, pharmacyStoreHelper, valueHelper } from "../../../../helpers"
 
-const patientListMethods = [
-  { pathKey: "health-plans", method: patientApi.listForHealthPlan },
-  { pathKey: "pharmacy-stores", method: patientApi.listForPharmacyStore }
+const patientNoteListMethods = [
+  { pathKey: "patients", method: patientNoteApi.listForPatient }
 ]
 
-class PatientsPageViewModel extends AbstractListPageViewModel {
+class PatientNotesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoPatientProfile = this.gotoPatientProfile.bind(this)
+    this.gotoPatientNoteProfile = this.gotoPatientNoteProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
   }
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "last_name,first_name,middle_name" }
-    const pathEntries = this.pathEntries()
-    const pharmacyStore = pathEntries["pharmacy-stores"]
-
-    if (valueHelper.isValue(pharmacyStore) && valueHelper.isValue(pharmacyStore.value)) {
-      filters.for_pharmacy_store_patient = pharmacyStore.value
-    }
+    const sorting = { sort: "updated_at-" }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
   filterDescriptions(filters, filtersOptions) {
     const filterDescriptions = [
-      filtersHelper.stringFilter("Name", "for_name")
+      filtersHelper.dateTimeRangeFilter("Date/Time", "for_updated_at_between", { to: new Date() })
     ]
     const pathEntries = this.pathEntries()
     const healthPlan = pathEntries["health-plans"]
+    const patient = pathEntries["patients"]
     const pharmacyStore = pathEntries["pharmacy-stores"]
 
-    if (!valueHelper.isValue(healthPlan)) {
+    if (!valueHelper.isValue(patient)) {
       filterDescriptions.push(
         filtersHelper.nameIdFilter(
-          "Health Plan",
-          "for_health_plan",
+          "Patient",
+          "for_patient",
           {
-            fields: ["name", "code"],
-            findMethod: healthPlanApi.show,
+            fields: ["name", "date_of_birth", "health_plan_name"],
+            findMethod: patientApi.show,
             minLength: 3,
             otherFilters: {
-              ...this.buildFilterFor("for_pharmacy_store_patient", pharmacyStore),
+              ...this.buildFilterFor("for_health_plan", healthPlan),
+              ...this.buildFilterFor("for_pharmacy_store", pharmacyStore),
               page: { number: 1, size: 10 }
             },
-            searchMethod: healthPlanApi.search,
+            searchMethod: patientApi.search,
             searchParam: "for_name",
-            sorting: { sort: "name" }
+            sorting: { sort: "last_name,first_name,middle_name" }
           }
         )
       )
     }
 
-    if (valueHelper.isValue(pharmacyStore)) {
-      filterDescriptions.push(
-        filtersHelper.selectIdFilter(
-          "Only Current",
-          "for_pharmacy_store_patient",
-          {
-            options: [{ id: pharmacyStore.value, value: "Yes" }],
-            requireUnselected: true,
-            unselectedLabel: "No"
-          }
-        )
-      )
-    } else {
+    if (!valueHelper.isValue(pharmacyStore)) {
+      // Limit by pharmacy if in path
       filterDescriptions.push(
         filtersHelper.nameIdFilter(
           "Pharmacy Store",
@@ -84,7 +68,8 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
             labelMethod: pharmacyStoreHelper.identification,
             minLength: 3,
             otherFilters: {
-              ...this.buildFilterFor("for-health-plan", healthPlan),
+              ...this.buildFilterFor("for_health_plan", healthPlan),
+              ...this.buildFilterFor("for_patient", patient),
               page: { number: 1, size: 10 }
             },
             searchMethod: pharmacyStoreApi.search,
@@ -102,8 +87,8 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoPatientProfile(patient) {
-    const pathArray = pathHelper.buildPathArray(window.location, patient, "profile")
+  gotoPatientNoteProfile(patient_note) {
+    const pathArray = pathHelper.buildPathArray(window.location, patient_note, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -115,12 +100,12 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
   }
 
   refreshData() {
-    this.removeField("patientHeaders")
+    this.removeField("patientNoteHeaders")
     this.fetchList(
-      patientListMethods,
-      (patients, patientHeaders) => {
-        this.addData({ patients })
-        this.addField("page", pageHelper.updatePageFromLastPage(patientHeaders))
+      patientNoteListMethods,
+      (patientNotes, patientNoteHeaders) => {
+        this.addData({ patientNotes })
+        this.addField("page", pageHelper.updatePageFromLastPage(patientNoteHeaders))
         this.redrawView()
       },
       this.onError
@@ -128,4 +113,4 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
   }
 }
 
-export { PatientsPageViewModel }
+export { PatientNotesPageViewModel }

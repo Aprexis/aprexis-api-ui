@@ -30,19 +30,23 @@ class StringFilter extends Component {
     )
   }
 
-  static toLabel(filterDescription, filters) {
+  static toLabel(filterDescription, filters, nextOperation) {
     const { name, queryParam } = filterDescription
     const label = buildLabel(filterDescription, filters)
     if (!valueHelper.isValue(label)) {
+      nextOperation()
       return
     }
 
-    return {
-      canDelete: true,
-      label,
-      name,
-      queryParam
-    }
+    nextOperation(
+      {
+        canDelete: filterDescription.canDelete ?? true,
+        label,
+        name,
+        queryParam
+      }
+    )
+    return
 
     function buildLabel(filterDescription, filters) {
       const { queryParam } = filterDescription

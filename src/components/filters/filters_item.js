@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import { Button, Col, Row } from 'reactstrap'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { filterClasses } from './filter_classes'
-import { FiltersItemViewModel } from '../view_models/filters'
-import { filtersHelper, valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { Button, Col, Row } from "reactstrap"
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FiltersItemViewModel } from "../view_models/filters"
+import { valueHelper } from "../../helpers"
 
 class FiltersItem extends Component {
   constructor(props) {
@@ -15,7 +14,6 @@ class FiltersItem extends Component {
 
     this.addColumnToTableStructure = this.addColumnToTableStructure.bind(this)
     this.addFilterLabelsToTableStructure = this.addFilterLabelsToTableStructure.bind(this)
-    this.buildFilterLabels = this.buildFilterLabels.bind(this)
     this.buildFiltersTable = this.buildFiltersTable.bind(this)
     this.buildMultipleFilterEntry = this.buildMultipleFilterEntry.bind(this)
     this.buildRemoveFilter = this.buildRemoveFilter.bind(this)
@@ -42,7 +40,7 @@ class FiltersItem extends Component {
   }
 
   addFilterLabelsToTableStructure(filterLabels, onRemoveFilter, tableStructure) {
-    const labelClassName = 'rounded-pill text-small py-1 px-2 mb-1 mt-n1'
+    const labelClassName = "rounded-pill text-small py-1 px-2 mb-1 mt-n1"
     let myTableStructure = tableStructure
 
     filterLabels.forEach(
@@ -58,19 +56,13 @@ class FiltersItem extends Component {
     return myTableStructure
   }
 
-  buildFilterLabels(filterDescriptions, filters) {
-    return filterDescriptions.map(
-      (filterDescription) => { return filtersHelper.filterToLabel(filterDescription, filters, filterClasses) }
-    ).filter((filterLabel) => valueHelper.isValue(filterLabel))
-  }
-
   buildFiltersTable(filterDescriptions, filters, onRemoveFilter) {
     if (!valueHelper.isValue(filterDescriptions)) {
       return buildEmptyTable()
     }
 
-    const filterLabels = this.buildFilterLabels(filterDescriptions, filters)
-    if (filterLabels.length === 0) {
+    const { filterLabels } = this.state
+    if (!valueHelper.isValue(filterLabels) || filterLabels.length === 0) {
       return buildEmptyTable()
     }
 
@@ -85,8 +77,8 @@ class FiltersItem extends Component {
     }
 
     return (
-      <table className='filters-table'>
-        <tbody className='filters-table-body'>
+      <table className="filters-table">
+        <tbody className="filters-table-body">
           {rows}
         </tbody>
       </table>
@@ -122,7 +114,7 @@ class FiltersItem extends Component {
 
     function buildPrefix(filterLabelIdx) {
       if (filterLabelIdx === 0) {
-        return { prefix: '', prefixLength: 0 }
+        return { prefix: "", prefixLength: 0 }
       }
 
       return { prefix: (<React.Fragment>&nbsp;</React.Fragment>), prefixLength: 1 }
@@ -137,10 +129,10 @@ class FiltersItem extends Component {
 
       return (
         <label
-          className='mt-0 pt-0 mb-0 pb-0'
+          className="mt-0 pt-0 mb-0 pb-0"
           key={key}
           onClick={(event) => onRemoveFilter(queryParam)}>
-          {prefix}{label} <FontAwesomeIcon icon={faTimesCircle} style={{ verticalAlign: 'middle' }} />
+          {prefix}{label} <FontAwesomeIcon icon={faTimesCircle} style={{ verticalAlign: "middle" }} />
         </label>
       )
     }
@@ -185,7 +177,7 @@ class FiltersItem extends Component {
             className={labelClassName}
             key={key}
             onClick={(event) => onRemoveFilter(queryParam)}>
-            {displayLabel} <FontAwesomeIcon icon={faTimesCircle} style={{ verticalAlign: 'middle' }} />
+            {displayLabel} <FontAwesomeIcon icon={faTimesCircle} style={{ verticalAlign: "middle" }} />
           </label>
         )
       }
@@ -193,13 +185,20 @@ class FiltersItem extends Component {
   }
 
   componentDidMount() {
-    const { filterDescriptions, filters } = this.props
-    this.vm.loadData({ filterDescriptions, filters })
+    this.vm.loadData()
+  }
+
+  componentDidUpdate() {
+    if (!valueHelper.isSet(this.needUpdate)) {
+      return
+    }
+
+    this.needUpdate = false
+    this.vm.loadData()
   }
 
   static getDerivedStateFromProps(props, state) {
     const { filterDescriptions, filters } = props
-
     return { filterDescriptions, filters }
   }
 
@@ -240,6 +239,58 @@ class FiltersItem extends Component {
         </Row>
       </React.Fragment>
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    this.needUpdate = this.needUpdate || valueHelper.isSet(findMismatchedStateFilter(this.state, nextState))
+    return true
+
+    function findMismatchedStateFilter(currentState, nextState) {
+      const currentFilters = currentState.filters
+      const nextFilters = nextState.filters
+
+      return findMismatchedFilterValue(currentFilters, nextFilters)
+    }
+
+    function findMismatchedArrayValue(currentArray, nextArray) {
+      if (nextArray.length != currentArray.length) {
+        return true
+      }
+      if (nextArray.length === 0) {
+        return false
+      }
+
+      const currentSorted = [...currentArray].sort()
+      const nextSorted = [...nextArray].sort()
+      return valueHelper.isValue(nextSorted.find((nextValue, idx) => nextValue != currentSorted[idx]))
+    }
+
+    function findMismatchedFilterValue(currentValue, nextValue) {
+      if (!valueHelper.isValue(currentValue)) {
+        return valueHelper.isValue(nextValue)
+      }
+      if (!valueHelper.isValue(nextValue)) {
+        return true
+      }
+      if (Array.isArray(nextValue)) {
+        return findMismatchedArrayValue(currentValue, nextValue)
+      }
+      if (typeof nextValue !== 'object') {
+        return nextValue != currentValue
+      }
+
+      return findMismatchedObjectValue(currentValue, nextValue)
+    }
+
+    function findMismatchedObjectValue(currentObject, nextObject) {
+      const nextKeys = Object.keys(nextObject)
+      if (findMismatchedArrayValue(Object.keys(currentObject), nextKeys)) {
+        return true
+      }
+
+      return valueHelper.isValue(nextKeys.find((key) => findMismatchedFilterValue(currentObject[key], nextObject[key])))
+    }
   }
 }
 

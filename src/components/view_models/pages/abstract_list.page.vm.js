@@ -1,5 +1,5 @@
 import { AbstractPageViewModel } from './'
-import { alertHelper, MAXIMUM_PER_PAGE, pageHelper, valueHelper } from '../../../helpers'
+import { alertHelper, MAXIMUM_PER_PAGE, pageHelper, userCredentialsHelper, valueHelper } from '../../../helpers'
 
 class AbstractListPageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -9,13 +9,23 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
 
     super(props)
 
+    this.buildFilteFor = this.buildFilterFor.bind(this)
     this.changePage = this.changePage.bind(this)
     this.changePerPage = this.changePerPage.bind(this)
     this.defaultPage = this.defaultPage.bind(this)
+    this.fetchList = this.fetchList.bind(this)
     this.lastPageNumber = this.lastPageNumber.bind(this)
     this.selectFilters = this.selectFilters.bind(this)
     this.updateFilters = this.updateFilters.bind(this)
     this.updateSorting = this.updateSorting.bind(this)
+  }
+
+  buildFilterFor(queryParam, model) {
+    if (!valueHelper.isValue(model) || !valueHelper.isValue(model.value)) {
+      return {}
+    }
+
+    return { [queryParam]: model.value }
   }
 
   changePage(number) {
@@ -48,6 +58,32 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
 
   defaultPage() {
     return pageHelper.updatePageFromLastPage()
+  }
+
+  fetchList(listMethods, onSuccess, onError) {
+    const userCredentials = userCredentialsHelper.get()
+    const { filters, sorting, page } = this.data
+    const pathEntries = this.pathEntries()
+    const params = { ...filters, ...sorting, page }
+
+    for (let idx = 0; idx < listMethods.length; ++idx) {
+      const { pathKey, method } = listMethods[idx]
+      if (listFor(pathEntries, pathKey, method, userCredentials, params, onSuccess, onError)) {
+        return
+      }
+    }
+
+    throw new Error(`Internal Error: unregonized path ${window.location.pathname}`)
+
+    function listFor(pathEntries, pathKey, method, userCredentials, params, onSuccess, onError) {
+      const model = pathEntries[pathKey]
+      if (!valueHelper.isValue(model) || !valueHelper.isValue(model.value)) {
+        return false
+      }
+
+      method(userCredentials, model.value, params, onSuccess, onError)
+      return true
+    }
   }
 
   lastPageNumber() {

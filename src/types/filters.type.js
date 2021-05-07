@@ -1,17 +1,40 @@
 export const filterTypes = {
-  'boolean': {
-    onChange: 'onChange',
-    optional: ['disabled', 'falseLabel', 'trueLabel', 'unselectedLabel']
+  "boolean": {
+    onChange: "onChange",
+    optional: ["disabled", "falseLabel", "trueLabel", "unselectedLabel"]
   },
-  'date': {
-    onChange: 'onChangeDay'
+  "date-time-range": {
+    onChange: "onChangeDateTime",
+    optional: [
+      "disabled",
+      "disabledDays",
+      "from",
+      "label",
+      "startFieldLabel",
+      "stopFieldLabel",
+      "to"
+    ]
   },
-  'string': {
-    onChange: 'onChange',
-    optional: ['disabled']
+  "name-id": {
+    onChange: "onChange",
+    optional: [
+      "disabled",
+      "fields",
+      "findMethod",
+      "labelMethod",
+      "minLength",
+      "otherFilters",
+      "searchMethod",
+      "searchParam",
+      "sorting"
+    ]
   },
-  'select-id': {
-    onChange: 'onChangeId',
-    optional: ['disabled', 'multiple', 'options', 'requireUnselected', 'unselectedLabel']
+  "string": {
+    onChange: "onChange",
+    optional: ["disabled"]
+  },
+  "select-id": {
+    onChange: "onChangeId",
+    optional: ["disabled", "multiple", "options", "requireUnselected", "unselectedLabel"]
   }
 }

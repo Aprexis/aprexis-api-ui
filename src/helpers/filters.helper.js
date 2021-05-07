@@ -1,22 +1,23 @@
-import { format } from 'date-fns'
-import { valueHelper } from './'
-import { filterTypes } from '../types'
+import { format } from "date-fns"
+import { valueHelper } from "./"
+import { filterTypes } from "../types"
 
 export const filtersHelper = {
   booleanFilter,
   dateLabel,
-  dateRangeToLabel,
+  dateTimeRangeFilter,
   filterToClass,
   filterToLabel,
   filterToOnChange,
   filterToValue,
+  nameIdFilter,
   selectIdFilter,
   stringFilter
 }
 
 function checkValidFilterType(name, type) {
   if (!valueHelper.isStringValue(type) || !valueHelper.isValue(filterTypes[type])) {
-    throw new Error(`Unrecognized filter type ${type}${valueHelper.isStringValue(name) ? `for ${name}` : ''}`)
+    throw new Error(`Unrecognized filter type ${type}${valueHelper.isStringValue(name) ? `for ${name}` : ""}`)
   }
 }
 
@@ -64,49 +65,34 @@ function ensureFilterOptions(options, defaultOptions = {}) {
 }
 
 function booleanFilter(name, queryParam, options = {}) {
-  checkValidFilter('boolean', name, queryParam, options)
+  checkValidFilter("boolean", name, queryParam, options)
 
-  return { type: 'boolean', name, queryParam, ...ensureFilterOptions(options, { falseLabel: "No", trueLabel: "Yes" }) }
+  return { type: "boolean", name, queryParam, ...ensureFilterOptions(options, { falseLabel: "No", trueLabel: "Yes" }) }
 }
 
 function dateLabel(value) {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     return value
   }
 
-  return format(value, 'MM/dd/yyyy')
+  return format(value, "MM/dd/yyyy")
 }
 
-function dateRangeToLabel(filterDescription, filters) {
-  const { stopRange, startRange } = filterDescription
-  const start = buildLabel('start', startRange, filters)
-  const stop = buildLabel('stop', stopRange, filters)
+function dateTimeRangeFilter(name, queryParam, options = {}) {
+  checkValidFilter("date-time-range", name, queryParam, options)
 
-  return [
-    start,
-    {
-      canDelete: false,
-      label: ' to '
-    },
-    stop
-  ]
-
-  function buildLabel(part, rangeEntry, filters) {
-    const { queryParam } = rangeEntry
-    const value = filtersHelper.filterToValue(filters, queryParam)
-    if (!valueHelper.isValue(value)) {
-      return {
-        canDelete: false,
-        label: `${valueHelper.capitalizeWords(part)} of time`,
-        queryParam
+  return {
+    type: "date-time-range",
+    name,
+    queryParam,
+    ...ensureFilterOptions(
+      options,
+      {
+        label: "Date/Time Range",
+        startFieldLabel: "Start",
+        stopFieldLabel: "Stop"
       }
-    }
-
-    return {
-      canDelete: true,
-      label: dateLabel(value),
-      queryParam
-    }
+    )
   }
 }
 
@@ -116,14 +102,9 @@ function filterToClass(filterDescription, filterClasses) {
   return filterClasses[filterDescription.type]
 }
 
-function filterToLabel(filterDescription, filters, filterClasses) {
-  const label = filtersHelper.filterToClass(filterDescription, filterClasses).toLabel(filterDescription, filters, filterClasses)
-  if (!valueHelper.isValue(label)) {
-    return
-  }
-
-  const { canDelete } = filterDescription
-  return { canDelete, ...label }
+function filterToLabel(filterDescription, filters, filterClasses, nextOperation) {
+  filtersHelper.filterToClass(filterDescription, filterClasses)
+    .toLabel(filterDescription, filters, nextOperation)
 }
 
 function filterToOnChange(filterDescription) {
@@ -140,14 +121,20 @@ function filterToValue(filters, queryParam) {
   return filters[queryParam]
 }
 
-function selectIdFilter(name, queryParam, options = {}) {
-  checkValidFilter('select-id', name, queryParam, options)
+function nameIdFilter(name, queryParam, options = {}) {
+  checkValidFilter("name-id", name, queryParam, options)
 
-  return { type: 'select-id', name, queryParam, ...options }
+  return { type: "name-id", name, queryParam, ...options }
+}
+
+function selectIdFilter(name, queryParam, options = {}) {
+  checkValidFilter("select-id", name, queryParam, options)
+
+  return { type: "select-id", name, queryParam, ...options }
 }
 
 function stringFilter(name, queryParam, options = {}) {
-  checkValidFilter('string', name, queryParam, options)
+  checkValidFilter("string", name, queryParam, options)
 
-  return { type: 'string', name, queryParam, ...options }
+  return { type: "string", name, queryParam, ...options }
 }
