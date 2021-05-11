@@ -1,5 +1,6 @@
 export const valueHelper = {
   capitalizeWords,
+  changedModelName,
   compareWithCast,
   getCircularReplacer,
   hashGet,
@@ -22,6 +23,10 @@ function capitalizeWords(str) {
   }
 
   return str.replace(/\w\S*/g, (txt) => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() })
+}
+
+function changedModelName(modelName) {
+  return `changed${modelName.charAt(0).toUpperCase()}${modelName.substring(1)}`
 }
 
 function compareWithCast(value1, value2) {

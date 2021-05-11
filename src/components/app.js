@@ -28,7 +28,7 @@ class App extends Component {
 
   render() {
     const { match } = this.props
-    const { context, currentUser, modal } = this.state
+    const { context, currentAdminUser, currentUser, modal } = this.state
 
     return (
       <div>
@@ -43,7 +43,7 @@ class App extends Component {
         <Header
           actAs={this.vm.actAs}
           actAsUsers={this.state.actAsUsers}
-          currentAdminUser={this.state.currentAdminUser}
+          currentAdminUser={currentAdminUser}
           currentUser={currentUser}
           gotoAccount={this.vm.gotoAccount}
           gotoDiagnosisCodesPage={this.vm.gotoDiagnosisCodesPage}
@@ -62,6 +62,7 @@ class App extends Component {
         <Main
           clearAlert={this.vm.clearAlert}
           context={context}
+          currentAdminUser={currentAdminUser}
           currentUser={currentUser}
           history={history} match={match}
         />
@@ -72,6 +73,9 @@ class App extends Component {
           {...modal}
           clearAlert={this.vm.clearAlert}
           clearModal={this.vm.clearModal}
+          context={this.props.context}
+          currentAdminUser={this.props.currentAdminUser}
+          currentUser={this.props.currentUser}
           modalProps={{ 'sign-in': { updateView: this.vm.home } }}
         />
       </div>

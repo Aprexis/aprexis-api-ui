@@ -2,10 +2,11 @@ import React from "react"
 import { UncontrolledTooltip } from "reactstrap"
 import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { fieldHelper, valueHelper } from "./"
+import { fieldHelper, pathHelper, valueHelper } from "./"
 import { userRoles } from "../types"
 
 export const userHelper = {
+  canCreatePatientNote,
   canHaveNpi,
   canIndexAll,
   canModifyUsers,
@@ -26,6 +27,21 @@ export const userHelper = {
   setCurrentUser,
   toBreadcrumb,
   username
+}
+
+function canCreatePatientNote(user, pathEntries) {
+  if (userHelper.hasRole(user, "aprexis_admin")) {
+    return true
+  }
+
+  if (!userHelper.hasRole(user, "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_admin")) {
+    return false
+  }
+
+  const { pharmacyStores } = user
+  const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
+
+  return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
 }
 
 function canHaveNpi(user) {

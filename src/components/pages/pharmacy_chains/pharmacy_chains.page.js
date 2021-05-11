@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { TableColumnHeader } from '../../shared'
-import { PharmacyChainsPageViewModel } from '../../view_models/pages/pharmacy_chains'
-import { ListView } from '../../../containers'
+import React, { Component } from "react"
+import { TableColumnHeader } from "../../shared"
+import { PharmacyChainsPageViewModel } from "../../view_models/pages/pharmacy_chains"
+import { ListView } from "../../../containers"
 
 const headings = [
   {
@@ -56,7 +56,7 @@ class PharmacyChainsPage extends Component {
         return (
           <TableColumnHeader
             key={`pharmacy-chains-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -89,6 +89,9 @@ class PharmacyChainsPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

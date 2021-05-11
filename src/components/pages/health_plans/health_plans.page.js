@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { TableColumnHeader } from '../../shared'
-import { HealthPlansPageViewModel } from '../../view_models/pages/health_plans'
-import { ListView } from '../../../containers'
-import { valueHelper } from '../../../helpers'
+import React, { Component } from "react"
+import { TableColumnHeader } from "../../shared"
+import { HealthPlansPageViewModel } from "../../view_models/pages/health_plans"
+import { ListView } from "../../../containers"
+import { valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -66,7 +66,7 @@ class HealthPlansPage extends Component {
         return (
           <TableColumnHeader
             key={`health-plans-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -90,7 +90,7 @@ class HealthPlansPage extends Component {
       healthPlan.state,
       healthPlan.zip_code,
       healthPlan.phone,
-      valueHelper.isSet(healthPlan.active) ? 'Active' : 'Inactive'
+      valueHelper.isSet(healthPlan.active) ? "Active" : "Inactive"
     ]
   }
 
@@ -101,6 +101,9 @@ class HealthPlansPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

@@ -1,6 +1,14 @@
 import { AbstractListPageViewModel } from "../"
 import { patientApi, patientNoteApi, pharmacyStoreApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, pharmacyStoreHelper, valueHelper } from "../../../../helpers"
+import {
+  filtersHelper,
+  pageHelper,
+  pathHelper,
+  patientNoteHelper,
+  pharmacyStoreHelper,
+  userHelper,
+  valueHelper
+} from "../../../../helpers"
 
 const patientNoteListMethods = [
   { pathKey: "patients", method: patientNoteApi.listForPatient }
@@ -10,12 +18,39 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.canCreate = this.canCreate.bind(this)
+    this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoPatientNoteProfile = this.gotoPatientNoteProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+  }
+
+  canCreate(event) {
+    const { currentUser } = this.props
+    const pathEntries = this.pathEntries()
+
+    if (!userHelper.canCreatePatientNote(currentUser, pathEntries)) {
+      return false
+    }
+
+    return patientNoteHelper.canBeCreated(pathEntries)
+  }
+
+  createModal(event) {
+    const pathEntries = this.pathEntries()
+    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
+    const patientId = pathHelper.id(pathEntries, "patients")
+    const patientNote = {
+      pharmacy_store_patient: {
+        patient_id: patientId,
+        pharmacy_store_id: pharmacyStoreId
+      }
+    }
+
+    this.addField("modal", { modalName: "patient-note", operation: "create", patientNote })
   }
 
   defaultParameters() {

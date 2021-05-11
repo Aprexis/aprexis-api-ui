@@ -27,7 +27,7 @@ const headings = [
     unless: "interventions",
     unlessFilters: [
       {
-        queryParam: 'for_interventions',
+        queryParam: "for_interventions",
         value: false
       }
     ],
@@ -107,6 +107,9 @@ class LabTestValuesPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

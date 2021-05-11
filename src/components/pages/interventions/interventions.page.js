@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from '../../shared'
+import { TableColumnHeader } from "../../shared"
 import { InterventionsPageViewModel } from "../../view_models/pages/interventions"
-import { ListView } from '../../../containers'
-import { dateHelper, interventionHelper } from '../../../helpers'
+import { ListView } from "../../../containers"
+import { dateHelper, interventionHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -66,7 +66,7 @@ class InterventionsPage extends Component {
         return (
           <TableColumnHeader
             key={`interventions-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -101,6 +101,9 @@ class InterventionsPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

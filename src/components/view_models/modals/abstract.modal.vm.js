@@ -1,6 +1,6 @@
 import React from 'react'
 import { AbstractViewModel } from '../'
-import { alertHelper, valueHelper } from '../../../helpers'
+import { alertHelper, fieldHelper, valueHelper } from '../../../helpers'
 
 class AbstractModalViewModel extends AbstractViewModel {
   constructor(props) {
@@ -17,8 +17,10 @@ class AbstractModalViewModel extends AbstractViewModel {
   }
 
   changeField(event) {
-    const { changedModel, modal } = this.model()
-    const updated = this.helper().changeField(modal, changedModel, event)
+    const modelData = this.model()
+    const { model, modelName } = modelData
+    const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+    const updated = fieldHelper.changeField(modelName, model, changedModel, event)
 
     this.addData(updated)
     this.redrawView()

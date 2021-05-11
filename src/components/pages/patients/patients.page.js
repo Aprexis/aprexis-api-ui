@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from '../../shared'
+import { TableColumnHeader } from "../../shared"
 import { PatientsPageViewModel } from "../../view_models/pages/patients"
-import { ListView } from '../../../containers'
-import { addressHelper, patientHelper } from '../../../helpers'
+import { ListView } from "../../../containers"
+import { addressHelper, patientHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -49,7 +49,7 @@ class PatientsPage extends Component {
         return (
           <TableColumnHeader
             key={`patients-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -81,6 +81,9 @@ class PatientsPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

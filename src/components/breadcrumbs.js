@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
-import { BreadcrumbsViewModel } from './view_models'
-import { valueHelper } from '../helpers'
+import React, { Component } from "react"
+import { BreadcrumbsViewModel } from "./view_models"
+import { valueHelper } from "../helpers"
+import { pathKeys } from "../types"
 
 const cannotGotoKeys = [
-  'admin'
+  "admin"
 ]
 
 const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey }) => {
-  const crumb = `${valueHelper.titleize(pathKey.replaceAll('-', ' '))}`
+  const crumb = breadcrumbLabel(pathKey)
 
   return (
     <li className="plural-breadcrumb">
@@ -16,7 +17,7 @@ const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey 
         <label>/</label>
       }
       <button
-        className="btn btn-link"
+        className="btn btn-link ml-0 mr-0 pl-0 pr-0"
         onClick={(event) => { gotoPage(orderedPathEntries, pathKey) }}
         disabled={cannotGotoKeys.includes(pathKey)}
         type="button">
@@ -24,6 +25,17 @@ const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey 
       </button>
     </li>
   )
+
+  function breadcrumbLabel(pathKey) {
+    if (valueHelper.isValue(pathKeys[pathKey])) {
+      const pkBreadcrumb = pathKeys[pathKey].breadcrumb
+      if (valueHelper.isValue(pkBreadcrumb)) {
+        return pkBreadcrumb
+      }
+    }
+
+    return valueHelper.titleize(pathKey.replaceAll("-", " "))
+  }
 }
 
 const SingularBreadcrumb = ({ gotoPage, model, modelToBreadcrumb, orderedPathEntries, pathKey }) => {
@@ -33,7 +45,7 @@ const SingularBreadcrumb = ({ gotoPage, model, modelToBreadcrumb, orderedPathEnt
     <li className="singular-breadcrumb">
       <label>/</label>
       <button
-        className="btn btn-link"
+        className="btn btn-link ml-0 mr-0 pl-0 pr-0"
         onClick={(event) => { gotoPage(orderedPathEntries, pathKey, model) }}
         type="button">
         {crumb}

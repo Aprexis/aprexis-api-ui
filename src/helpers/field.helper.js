@@ -1,11 +1,14 @@
-import React from 'react'
-import { UncontrolledTooltip } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { contextHelper, dateHelper, valueHelper } from './'
+import React from "react"
+import { UncontrolledTooltip } from "reactstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
+import { contextHelper, dateHelper, jsEventHelper, valueHelper } from "./"
 
 export const fieldHelper = {
   booleanDisplay,
+  changeField,
+  changeValue,
+  changeValues,
   dateDisplay,
   dateTimeDisplay,
   display,
@@ -24,6 +27,38 @@ function booleanDisplay(name, value, description) {
   return fieldHelper.display(name, valueHelper.yesNo(value), description, "?")
 }
 
+function changeField(modelName, model, changedModel, event) {
+  const { name, value } = jsEventHelper.fromInputEvent(event)
+
+  return fieldHelper.changeValue(modelName, model, changedModel, name, value)
+}
+
+function changeValue(modelName, model, changedModel, name, value) {
+  return {
+    [modelName]: {
+      ...model,
+      [name]: value
+    },
+    [valueHelper.changedModelName(modelName)]: {
+      ...changedModel,
+      [name]: value
+    }
+  }
+}
+
+function changeValues(modelName, model, changedModel, changedValues) {
+  const newModel = { ...model }
+  const newChangedModel = { ...changedModel }
+
+  changedValues.forEach(
+    (name, value) => {
+
+    }
+  )
+
+  return { [modelName]: newModel, [valueHelper.changedModelName(modelName)]: newChangedModel }
+}
+
 function dateDisplay(name, value, description) {
   return fieldHelper.display(name, dateHelper.displayDate(value), description)
 }
@@ -36,7 +71,7 @@ function display(name, value, description, suffix = ":") {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
-  if (typeof value === 'string' && !valueHelper.isStringValue(value)) {
+  if (typeof value === "string" && !valueHelper.isStringValue(value)) {
     return (<React.Fragment />)
   }
 
@@ -50,7 +85,7 @@ function display(name, value, description, suffix = ":") {
   return (
     <span>
       <strong className="text-muted">{name}{suffix}</strong> {value}&nbsp;
-      <FontAwesomeIcon className='ml-1' icon={faInfoCircle} id={targetId} />
+      <FontAwesomeIcon className="ml-1" icon={faInfoCircle} id={targetId} />
       <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>
         {description}
       </UncontrolledTooltip>
@@ -69,7 +104,7 @@ function displayListField(model, helper, heading) {
   return (
     <td>
       {longValue.substring(0, heading.maximum)}...
-      <FontAwesomeIcon className='ml-1' icon={faInfoCircle} id={targetId} />
+      <FontAwesomeIcon className="ml-1" icon={faInfoCircle} id={targetId} />
       <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>
         {longValue}
       </UncontrolledTooltip>
@@ -81,7 +116,7 @@ function displayWithUnits(name, value, units, description) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
-  if (typeof value === 'string' && !valueHelper.isStringValue(value)) {
+  if (typeof value === "string" && !valueHelper.isStringValue(value)) {
     return (<React.Fragment />)
   }
 
@@ -92,7 +127,7 @@ function dollarDisplay(name, value, description) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
-  if (typeof value === 'string' && !valueHelper.isStringValue(value)) {
+  if (typeof value === "string" && !valueHelper.isStringValue(value)) {
     return (<React.Fragment />)
   }
 

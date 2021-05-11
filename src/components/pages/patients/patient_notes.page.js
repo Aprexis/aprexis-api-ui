@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from '../../shared'
+import { TableColumnHeader } from "../../shared"
 import { PatientNotesPageViewModel } from "../../view_models/pages/patients"
-import { ListView } from '../../../containers'
-import { fieldHelper, patientNoteHelper } from '../../../helpers'
+import { ListView } from "../../../containers"
+import { fieldHelper, patientNoteHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -36,11 +36,13 @@ class PatientNotesPage extends Component {
       }
     )
 
+    this.nav = this.nav.bind(this)
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
   }
 
   componentDidMount() {
+    this.vm.props = { ...this.vm.props, ...this.props }
     this.vm.loadData()
   }
 
@@ -55,7 +57,7 @@ class PatientNotesPage extends Component {
         return (
           <TableColumnHeader
             key={`patient-notes-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -84,6 +86,22 @@ class PatientNotesPage extends Component {
     return row
   }
 
+  nav(list) {
+    if (!this.vm.canCreate()) {
+      return
+    }
+
+    return (
+      <nav className="btn-toolbar mb-2 mb-md-0">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={this.vm.createModal}>
+          <strong>+</strong> Add Note
+        </button>
+      </nav>
+    )
+  }
+
   render() {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
@@ -91,6 +109,9 @@ class PatientNotesPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
@@ -100,6 +121,7 @@ class PatientNotesPage extends Component {
         listPluralLabel="Patient Notes"
         modal={this.state.modal}
         multipleRowsSelection={this.vm.multipleRowsSelection}
+        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
@@ -107,12 +129,18 @@ class PatientNotesPage extends Component {
         onClearModal={this.vm.clearModal}
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
-        onsubmitModal={this.vm.submitModal}
+        onSubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
+        onUpdateView={this.vm.loadData}
         page={this.state.page}
         title="Patient Notes"
       />
     )
+  }
+
+  shouldComponentUpdate() {
+    this.vm.props = { ...this.vm.props, ...this.props }
+    return true
   }
 }
 

@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { TableColumnHeader } from '../../shared'
-import { ProgramsPageViewModel } from '../../view_models/pages/programs'
-import { ListView } from '../../../containers'
+import React, { Component } from "react"
+import { TableColumnHeader } from "../../shared"
+import { ProgramsPageViewModel } from "../../view_models/pages/programs"
+import { ListView } from "../../../containers"
 import { contextHelper, dateHelper, programHelper, valueHelper } from "../../../helpers"
 
 const headings = [
@@ -57,8 +57,8 @@ class ProgramsPage extends Component {
 
   generateTableHeadings() {
     let workingHeadings = headings
-    if (contextHelper.inContext('health-plans')) {
-      workingHeadings = headings.filter((heading) => heading.name != 'Health Plan')
+    if (contextHelper.inContext("health-plans")) {
+      workingHeadings = headings.filter((heading) => heading.name != "Health Plan")
     }
 
     return workingHeadings.map(
@@ -67,7 +67,7 @@ class ProgramsPage extends Component {
         return (
           <TableColumnHeader
             key={`programs-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -92,8 +92,8 @@ class ProgramsPage extends Component {
       dateHelper.displayDate(program.end_date)
     ]
 
-    if (!contextHelper.inContext('health-plans')) {
-      row.splice(headings.findIndex((heading) => heading.name == 'Health Plan', 0, program.health_plan.name))
+    if (!contextHelper.inContext("health-plans")) {
+      row.splice(headings.findIndex((heading) => heading.name == "Health Plan", 0, program.health_plan.name))
     }
 
     return row
@@ -106,6 +106,9 @@ class ProgramsPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

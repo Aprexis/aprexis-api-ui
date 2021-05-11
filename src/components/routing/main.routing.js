@@ -28,7 +28,7 @@ class MainRouting extends Component {
         <Route
           exact
           path="/dashboard"
-          render={(props) => (<DashboardPage {...props} {...contextProps} />)}
+          render={(props) => (<DashboardPage {...this.props} {...contextProps} />)}
         />
         <Route path="/admin" render={(props) => (<AdminRouting {...props} {...contextProps} />)} />
         <Route path="/health-plans" render={(props) => (<HealthPlansRouting {...props} {...contextProps} />)} />

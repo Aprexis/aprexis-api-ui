@@ -48,7 +48,12 @@ class ListView extends Component {
         onIdle={this.props.refreshData}
         pluralList={listPluralLabel}
         timeout={myTimeout} >
-        <ListHeader list={this.props.list} nav={this.props.nav} title={this.props.title} titleChildren={this.props.titleChildren} />
+        <ListHeader
+          list={this.props.list}
+          nav={this.props.nav}
+          title={this.props.title}
+          titleChildren={this.props.titleChildren}
+        />
 
         <FiltersItem
           filterDescriptions={this.props.filterDescriptions}
@@ -62,10 +67,14 @@ class ListView extends Component {
 
         <Modals
           {...this.props.modal}
+          context={this.props.context}
+          currentAdminUser={this.props.currentAdminUser}
+          currentUser={this.props.currentUser}
           onClearAlert={this.props.onClearAlert}
           onClearModal={this.props.onClearModal}
           onLoadData={this.props.onLoadData}
-          onSubmitModal={this.props.submitModal}
+          onSubmitModal={this.props.onSubmitModal}
+          onUpdateView={this.props.onUpdateView}
           modalProps={{ filters: { onRefreshData, onUpdateFilters }, ...this.props.modalProps }}
           parentTitle={listPluralLabel}
         />

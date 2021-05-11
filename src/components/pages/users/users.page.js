@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { TableColumnHeader } from '../../shared'
-import { UsersPageViewModel } from '../../view_models/pages/users'
-import { ListView } from '../../../containers'
-import { userHelper } from '../../../helpers'
+import React, { Component } from "react"
+import { TableColumnHeader } from "../../shared"
+import { UsersPageViewModel } from "../../view_models/pages/users"
+import { ListView } from "../../../containers"
+import { userHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -58,7 +58,7 @@ class UsersPage extends Component {
         return (
           <TableColumnHeader
             key={`users-table-heading-${field}`}
-            className='aprexis-table-header-cell'
+            className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
             sorting={this.state.sorting}
@@ -91,6 +91,9 @@ class UsersPage extends Component {
 
     return (
       <ListView
+        context={this.props.context}
+        currentAdminUser={this.props.currentAdminUser}
+        currentUser={this.props.currentUser}
         filterDescriptions={filterDescriptions}
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}

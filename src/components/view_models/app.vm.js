@@ -73,7 +73,7 @@ class AppViewModel extends AbstractViewModel {
       return
     }
 
-    userApi.show(
+    userApi.account(
       adminCredentials,
       adminCredentials.id,
       (currentAdminUser) => {
@@ -90,7 +90,7 @@ class AppViewModel extends AbstractViewModel {
       return
     }
 
-    userApi.show(
+    userApi.account(
       userCredentials,
       userCredentials.id,
       (currentUser) => {

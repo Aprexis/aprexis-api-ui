@@ -14,6 +14,7 @@ function clear() {
 
 function error(message) {
   console.log(`ERROR: ${message}`)
+  console.trace()
   sessionStorage.setItem('alert-type', 'danger')
   sessionStorage.setItem('alert-message', message)
 }
@@ -39,6 +40,7 @@ function success(message) {
 
 function warning(message) {
   console.log(`WARNING: ${message}`)
+  console.trace()
   sessionStorage.setItem('alert-type', 'warning')
   sessionStorage.setItem('alert-message', message)
 }

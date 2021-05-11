@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import { FiltersModal, SignInModal } from './'
-import { valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { FiltersModal, SignInModal } from "./"
+import { PatientNoteModal } from "./patients"
+import { valueHelper } from "../../helpers"
 
 const modalList = {
   Filters: FiltersModal,
+  PatientNote: PatientNoteModal,
   SignIn: SignInModal
 }
 
@@ -14,8 +16,8 @@ class Modals extends Component {
       return (<React.Fragment />)
     }
 
-    const modalNameParts = modalName.split('-')
-    const modal = modalNameParts.map((modalNamePart) => { return valueHelper.capitalizeWords(modalNamePart) }).join('')
+    const modalNameParts = modalName.split("-")
+    const modal = modalNameParts.map((modalNamePart) => { return valueHelper.capitalizeWords(modalNamePart) }).join("")
     const Modal = modalList[modal]
     if (!valueHelper.isValue(Modal)) {
       return (

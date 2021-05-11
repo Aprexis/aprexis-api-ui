@@ -4,6 +4,9 @@ export const pathHelper = {
   buildPathArray,
   gotoPage,
   haveProfile,
+  id,
+  isPlural,
+  isSingular,
   orderedPathEntries,
   pageName,
   parsePathEntries,
@@ -67,6 +70,26 @@ function haveProfile(orderedPathEntries) {
   }
 
   return orderedPathEntries[orderedPathEntries.length - 1].key == "profile"
+}
+
+function id(pathEntries, pathKey) {
+  const model = pathEntries[pathKey]
+
+  if (!valueHelper.isValue(model)) {
+    return
+  }
+
+  return model.value
+}
+
+function isPlural(pathEntries, pathKey) {
+  const model = pathEntries[pathKey]
+
+  return valueHelper.isValue(model) && !valueHelper.isValue(model.value)
+}
+
+function isSingular(pathEntries, pathKey) {
+  return valueHelper.isValue(pathHelper.id(pathEntries, pathKey))
 }
 
 function orderedPathEntries(pathEntries) {
