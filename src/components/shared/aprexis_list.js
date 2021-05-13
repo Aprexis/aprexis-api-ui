@@ -145,12 +145,21 @@ class AprexisList extends Component {
   }
 
   generateTableData(list) {
-    const { generateTableRow } = this.props
+    const { generateTableRow, onSelectRow } = this.props
     if (!valueHelper.isValue(list) || !Array.isArray(list) || !valueHelper.isFunction(generateTableRow)) {
       return
     }
 
-    return list.map((entry) => { return generateTableRow(entry) })
+    return list.map(
+      (entry) => {
+        const cells = generateTableRow(entry, this.props.onSelectRow)
+        if (!valueHelper.isFunction(onSelectRow)) {
+          return cells
+        }
+
+        return { cells, click: (event) => { onSelectRow(event, entry) } }
+      }
+    )
   }
 
   generateTableGroups(list) {
@@ -167,7 +176,11 @@ class AprexisList extends Component {
       return
     }
 
-    return list.map((entry, entryIdx) => { return generateGroupRow(entry, entryIdx) }).filter((groupRow) => valueHelper.isValue(groupRow))
+    return list.map(
+      (entry, entryIdx) => {
+        return generateGroupRow(entry, entryIdx)
+      }
+    ).filter((groupRow) => valueHelper.isValue(groupRow))
   }
 
   generateTableHeader(list) {
@@ -199,7 +212,6 @@ class AprexisList extends Component {
           data={data}
           groups={groups}
           headings={headings}
-          onMultipleRows={this.props.onMultipleRowsSelection}
           tableClassName={tableClassName}
           aprexisTableClassName={aprexisTableClassName}
         />

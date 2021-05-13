@@ -16,7 +16,6 @@ class PatientNoteModal extends Component {
       }
     )
 
-    this.renderDateTime = this.renderDateTime.bind(this)
     this.renderFooter = this.renderFooter.bind(this)
     this.renderHeader = this.renderHeader.bind(this)
   }
@@ -25,22 +24,10 @@ class PatientNoteModal extends Component {
     this.vm.loadData()
   }
 
-  renderDateTime(patientNote, dateMethodName) {
-    const dateTime = patientNoteHelper[dateMethodName](patientNote)
-
-    if (valueHelper.isValue(dateTime)) {
-      return dateHelper.displayDateTime(dateTime)
-    }
-
-    if (dateMethodName == "createdAt") {
-      return "New Note"
-    }
-
-    return ""
-  }
-
   render() {
     const { patientNote } = this.state
+    const createdAt = patientNoteHelper.createdAt(patientNote)
+    const updatedAt = patientNoteHelper.updatedAt(patientNote)
 
     return (
       <AprexisModal
@@ -53,25 +40,37 @@ class PatientNoteModal extends Component {
             <Col className='d-flex justify-content-center'>
               <Form>
                 <div className='justify-content-center'>
-                  <FormGroup row>
-                    <Label htmlFor="created_at">Created At</Label>
-                    <label
-                      className={`mb-2 form-control`}
-                      id="created_at"
-                      name="created_at">
-                      {this.renderDateTime(patientNote, "createdAt")}
-                    </label>
-                  </FormGroup>
+                  {
+                    !valueHelper.isValue(createdAt) &&
+                    <FormGroup row>
+                      <Label>New Note</Label>
+                    </FormGroup>
+                  }
 
-                  <FormGroup row>
-                    <Label htmlFor="updated_at">Updated At</Label>
-                    <label
-                      className={`mb-2 form-control`}
-                      id="updated_at"
-                      name="updated_at">
-                      {this.renderDateTime(patientNote, "updatedAt")}
-                    </label>
-                  </FormGroup>
+                  {
+                    valueHelper.isValue(createdAt) &&
+                    <React.Fragment>
+                      <FormGroup row>
+                        <Label htmlFor="created_at">Created At</Label>
+                        <label
+                          className={`mb-2 form-control`}
+                          id="created_at"
+                          name="created_at">
+                          {dateHelper.displayDateTime(createdAt)}
+                        </label>
+                      </FormGroup>
+
+                      <FormGroup row>
+                        <Label htmlFor="updated_at">Updated At</Label>
+                        <label
+                          className={`mb-2 form-control`}
+                          id="updated_at"
+                          name="updated_at">
+                          {dateHelper.displayDateTime(updatedAt)}
+                        </label>
+                      </FormGroup>
+                    </React.Fragment>
+                  }
 
                   <FormGroup row>
                     <Label htmlFor="note">Note</Label>
@@ -85,7 +84,7 @@ class PatientNoteModal extends Component {
                       placeholder={'note'}
                       rows={8}
                       type="textarea"
-                      value={patientNoteHelper.note(patientNote)}
+                      value={valueHelper.makeString(patientNoteHelper.note(patientNote))}
                     />
                   </FormGroup>
                 </div>

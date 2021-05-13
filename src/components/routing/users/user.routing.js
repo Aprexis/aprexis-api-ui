@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
 import { UserProfilePage } from "../../pages/users"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class UserRouting extends Component {
   render() {
@@ -10,7 +10,8 @@ class UserRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const userPrefix = pathHelper.singularPrefix(window.location, "users", ":user_id")
 

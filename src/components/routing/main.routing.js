@@ -8,14 +8,15 @@ import { PharmacyChainsRouting } from "./pharmacy_chains"
 import { PharmacyStoresRouting } from "./pharmacy_stores"
 import { UsersRouting } from "./users"
 import { DashboardPage, HomePage } from "../pages"
-
+import { valueHelper } from "../../helpers"
 class MainRouting extends Component {
   render() {
     const { context, currentAdminUser, currentUser } = this.props
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
 
     return (

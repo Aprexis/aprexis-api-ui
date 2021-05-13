@@ -5,6 +5,7 @@ import { filterTypes } from "../types"
 export const filtersHelper = {
   booleanFilter,
   dateLabel,
+  dateRangeFilter,
   dateTimeRangeFilter,
   filterToClass,
   filterToLabel,
@@ -17,7 +18,7 @@ export const filtersHelper = {
 
 function checkValidFilterType(name, type) {
   if (!valueHelper.isStringValue(type) || !valueHelper.isValue(filterTypes[type])) {
-    throw new Error(`Unrecognized filter type ${type}${valueHelper.isStringValue(name) ? `for ${name}` : ""}`)
+    throw new Error(`Unrecognized filter type ${type}${valueHelper.isStringValue(name) ? ` for ${name}` : ""}`)
   }
 }
 
@@ -76,6 +77,24 @@ function dateLabel(value) {
   }
 
   return format(value, "MM/dd/yyyy")
+}
+
+function dateRangeFilter(name, queryParam, options = {}) {
+  checkValidFilter("date-range", name, queryParam, options)
+
+  return {
+    type: "date-range",
+    name,
+    queryParam,
+    ...ensureFilterOptions(
+      options,
+      {
+        label: "Date Range",
+        startFieldLabel: "Start",
+        stopFieldLabel: "Stop"
+      }
+    )
+  }
 }
 
 function dateTimeRangeFilter(name, queryParam, options = {}) {

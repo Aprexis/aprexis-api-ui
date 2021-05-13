@@ -199,7 +199,11 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
   }
 }
 
-function validateId(idType, id, onFailure) {
+function validateId(idType, id, onFailure, allowUndefined = false) {
+  if (allowUndefined && !valueHelper.isValue(id)) {
+    return true
+  }
+
   if (!isNaN(id) && id > 0) {
     return true
   }

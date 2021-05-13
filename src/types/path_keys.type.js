@@ -4,6 +4,7 @@ import {
   interventionApi,
   labTestValueApi,
   patientApi,
+  patientMedicationApi,
   patientNoteApi,
   pharmacyChainApi,
   pharmacyStoreApi,
@@ -21,7 +22,8 @@ import { interventionHelper } from "../helpers/intervention.helper"
 import { labTestHelper } from "../helpers/admin/lab_test.helper"
 import { labTestValueHelper } from "../helpers/lab_test_value.helper"
 import { patientHelper } from "../helpers/patient.helper"
-import { patientNoteHelper } from "../helpers"
+import { patientMedicationHelper } from "../helpers/patient_medication.helper"
+import { patientNoteHelper } from "../helpers/patient_note.helper"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
 import { userHelper } from "../helpers/user.helper"
@@ -62,6 +64,12 @@ export const pathKeys = {
     breadcrumb: "Tests",
     helper: labTestValueHelper,
     modelName: "LabTestValue"
+  },
+  "patient-medications": {
+    api: patientMedicationApi,
+    breadcrumb: "Medications",
+    helper: patientMedicationHelper,
+    modelName: "PatientMedication"
   },
   "patient-notes": {
     api: patientNoteApi,

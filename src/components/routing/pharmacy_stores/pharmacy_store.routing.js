@@ -4,7 +4,7 @@ import { NoMatch } from "../"
 import { InterventionsRouting } from "../interventions"
 import { PatientsRouting } from "../patients"
 import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class PharmacyStoreRouting extends Component {
   render() {
@@ -12,7 +12,8 @@ class PharmacyStoreRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const pharmacyStorePrefix = pathHelper.singularPrefix(window.location, "pharmacy-stores", ":pharmacy_store_id")
 

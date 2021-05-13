@@ -6,6 +6,7 @@ export const valueHelper = {
   hashGet,
   hashSet,
   humanize,
+  importantProps,
   isFunction,
   isSet,
   isStringValue,
@@ -103,6 +104,24 @@ function humanize(str) {
 
   const additionalWords = myStrSplit.map((word) => word.toLowerCase())
   return `${firstWord} ${additionalWords.join(" ")}`
+}
+
+function importantProps(props) {
+  const {
+    clearAlert,
+    error,
+    modalClose,
+    modalIsOpen,
+    modalOpen
+  } = props
+
+  return {
+    clearAlert,
+    error,
+    modalClose,
+    modalIsOpen,
+    modalOpen
+  }
 }
 
 function isFunction(value) {

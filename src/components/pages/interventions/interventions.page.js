@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { TableColumnHeader } from "../../shared"
 import { InterventionsPageViewModel } from "../../view_models/pages/interventions"
 import { ListView } from "../../../containers"
-import { dateHelper, interventionHelper } from "../../../helpers"
+import { dateHelper, interventionHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -101,6 +101,7 @@ class InterventionsPage extends Component {
 
     return (
       <ListView
+        {...valueHelper.importantProps(this.props)}
         context={this.props.context}
         currentAdminUser={this.props.currentAdminUser}
         currentUser={this.props.currentUser}
@@ -112,7 +113,6 @@ class InterventionsPage extends Component {
         listLabel="Intervention"
         listPluralLabel="Interventions"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

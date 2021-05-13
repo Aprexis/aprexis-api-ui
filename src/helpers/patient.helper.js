@@ -1,4 +1,4 @@
-import { addressHelper, contactHelper, fieldHelper, valueHelper } from "./"
+import { addressHelper, contactHelper, fieldHelper, nameHelper, valueHelper } from "./"
 
 export const patientHelper = {
   firstName,
@@ -13,7 +13,7 @@ export const patientHelper = {
 }
 
 function firstName(patient, prefix = "") {
-  return fieldHelper.getField(patient, "first_name", prefix)
+  return nameHelper.firstName(patient, prefix)
 }
 
 function gender(patient, prefix = "") {
@@ -46,39 +46,15 @@ function hasUser(patient) {
 }
 
 function lastName(patient, prefix = "") {
-  return fieldHelper.getField(patient, "last_name", prefix)
+  return nameHelper.lastName(patient, prefix)
 }
 
 function middleName(patient, prefix = "") {
-  return fieldHelper.getField(patient, "middle_name", prefix)
+  return nameHelper.middleName(patient, prefix)
 }
 
 function name(patient, prefix = "") {
-  if (!valueHelper.isValue(patient)) {
-    return "No patient"
-  }
-
-  const firstName = patientHelper.firstName(patient, prefix)
-  const middleName = patientHelper.middleName(patient, prefix)
-  const lastName = patientHelper.lastName(patient, prefix)
-  let result = ""
-  let resultPrefix = ""
-
-  if (valueHelper.isStringValue(firstName)) {
-    result = firstName
-    resultPrefix = " "
-  }
-
-  if (valueHelper.isStringValue(middleName)) {
-    result = `${result}${resultPrefix}${middleName}`
-    resultPrefix = " "
-  }
-
-  if (valueHelper.isStringValue(lastName)) {
-    result = `${result}${resultPrefix}${lastName}`
-  }
-
-  return result
+  return nameHelper.name(patient, "patient", prefix)
 }
 
 function requiresPersonNumber(patient) {

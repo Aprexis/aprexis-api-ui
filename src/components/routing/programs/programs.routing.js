@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { ProgramRouting } from "./"
 import { NoMatch } from "../"
 import { ProgramsPage } from "../../pages/programs"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class ProgramsRouting extends Component {
   render() {
@@ -11,7 +11,8 @@ class ProgramsRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const programsPrefix = pathHelper.pluralPrefix(window.location, "programs")
 

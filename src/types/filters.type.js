@@ -3,6 +3,18 @@ export const filterTypes = {
     onChange: "onChange",
     optional: ["disabled", "falseLabel", "trueLabel", "unselectedLabel"]
   },
+  "date-range": {
+    onChange: "onChangeDate",
+    optional: [
+      "disabled",
+      "disabledDays",
+      "from",
+      "label",
+      "startFieldLabel",
+      "stopFieldLabel",
+      "to"
+    ]
+  },
   "date-time-range": {
     onChange: "onChangeDateTime",
     optional: [

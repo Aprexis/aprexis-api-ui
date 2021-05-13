@@ -1,4 +1,4 @@
-import { alertHelper, jsEventHelper, pathHelper, valueHelper } from "../../helpers"
+import { jsEventHelper, pathHelper, valueHelper } from "../../helpers"
 
 class AbstractViewModel {
   constructor(props) {
@@ -11,7 +11,6 @@ class AbstractViewModel {
 
     this.addData = this.addData.bind(this)
     this.addField = this.addField.bind(this)
-    this.clearAlert = this.clearAlert.bind(this)
     this.clearData = this.clearData.bind(this)
     this.clearModal = this.clearModal.bind(this)
     this.onError = this.onError.bind(this)
@@ -44,11 +43,6 @@ class AbstractViewModel {
     nextOperation()
   }
 
-  clearAlert() {
-    alertHelper.clear()
-    this.redrawView()
-  }
-
   clearData(redraw = true, fieldsToKeep = []) {
     if (fieldsToKeep.length === 0) {
       this.data = {}
@@ -70,15 +64,7 @@ class AbstractViewModel {
   }
 
   onError(message) {
-    alertHelper.error(message)
-    let { errorCount } = this.data
-    if (valueHelper.isValue(errorCount)) {
-      errorCount = errorCount + 1
-    } else {
-      errorCount = 1
-    }
-    this.addField("errorCount", errorCount)
-    this.redrawView()
+    this.props.error(message, this.redrawView)
   }
 
   orderedPathEntries() {
@@ -89,7 +75,7 @@ class AbstractViewModel {
     return pathHelper.parsePathEntries(window.location)
   }
 
-  redrawView() {
+  redrawView(nextOperation) {
     let keepKeys = []
     if (valueHelper.isFunction(this.keysToKeep)) {
       keepKeys = this.keysToKeep()
@@ -107,6 +93,10 @@ class AbstractViewModel {
         }
       }
     )
+
+    if (valueHelper.isFunction(nextOperation)) {
+      nextOperation()
+    }
   }
 
   removeField(fieldName, nextOperation) {

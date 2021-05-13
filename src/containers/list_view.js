@@ -66,6 +66,7 @@ class ListView extends Component {
         />
 
         <Modals
+          {...valueHelper.importantProps(this.props)}
           {...this.props.modal}
           context={this.props.context}
           currentAdminUser={this.props.currentAdminUser}
@@ -86,9 +87,9 @@ class ListView extends Component {
           generateTableRow={this.props.generateTableRow}
           list={list}
           listPluralLabel={listPluralLabel}
-          multipleRowsSelection={this.props.multipleRowsSelection}
           onChangePage={this.props.onChangePage}
           onChangePerPage={this.props.onChangePerPage}
+          onSelectRow={this.props.onSelectRow}
           page={this.props.page}
           tableClassName={this.props.tableClassName}
         />

@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { DiagnosisCodesRouting } from "./diagnosis_codes"
 import { DiseasesRouting } from "./diseases"
 import { NoMatch } from "../"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class AdminRouting extends Component {
   render() {
@@ -11,7 +11,8 @@ class AdminRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const adminPrefix = pathHelper.pluralPrefix(window.location, "admin")
 

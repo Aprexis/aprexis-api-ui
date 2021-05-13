@@ -4,7 +4,7 @@ import { NoMatch } from "../"
 import { PatientsRouting } from "../patients"
 import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
 import { ProgramsRouting } from "../programs"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class HealthPlanRouting extends Component {
   render() {
@@ -12,7 +12,8 @@ class HealthPlanRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const healthPlanPrefix = pathHelper.singularPrefix(window.location, "health-plans", ":health_plan_id")
 

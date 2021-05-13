@@ -15,6 +15,8 @@ class AppViewModel extends AbstractViewModel {
     super(props)
 
     this.actAs = this.actAs.bind(this)
+    this.clearAlert = this.clearAlert.bind(this)
+    this.error = this.error.bind(this)
     this.fetchActAsUsers = this.fetchActAsUsers.bind(this)
     this.getCurrentAdminUser = this.getCurrentAdminUser.bind(this)
     this.getCurrentUser = this.getCurrentUser.bind(this)
@@ -29,9 +31,18 @@ class AppViewModel extends AbstractViewModel {
     this.home = this.home.bind(this)
     this.loadContext = this.loadContext.bind(this)
     this.loadData = this.loadData.bind(this)
+    this.modalClose = this.modalClose.bind(this)
+    this.modalOpen = this.modalOpen.bind(this)
     this.selectCurrentUser = this.selectCurrentUser.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
+
+    this.props = {
+      ...this.props,
+      error: this.error,
+      modalClose: this.modalClose,
+      modalOpen: this.modalOpen
+    }
   }
 
   actAs(selected) {
@@ -50,6 +61,23 @@ class AppViewModel extends AbstractViewModel {
       this.onError
     )
     return
+  }
+
+  clearAlert() {
+    alertHelper.clear()
+    this.redrawView()
+  }
+
+  error(message, nextOperation) {
+    alertHelper.error(message)
+    let { errorCount } = this.data
+    if (valueHelper.isValue(errorCount)) {
+      errorCount = errorCount + 1
+    } else {
+      errorCount = 1
+    }
+    this.addField("errorCount", errorCount)
+    this.redrawView(nextOperation)
   }
 
   fetchActAsUsers() {
@@ -167,6 +195,14 @@ class AppViewModel extends AbstractViewModel {
         )
       }
     )
+  }
+
+  modalClose(nextOperation) {
+    this.addField("modalIsOpen", false, () => { this.redrawView(nextOperation) })
+  }
+
+  modalOpen(nextOperation) {
+    this.addField("modalIsOpen", true, () => { this.redrawView(nextOperation) })
   }
 
   selectCurrentUser(userCredentials) {

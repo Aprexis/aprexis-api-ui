@@ -1,13 +1,13 @@
 import React, { Component } from "react"
 import { Col, Label } from "reactstrap"
-import { DateTimePicker } from "../shared"
+import { DatePicker } from "../shared"
 import { dateHelper, filtersHelper, valueHelper } from "../../helpers"
 
-class DateTimeRangeFilter extends Component {
+class DateRangeFilter extends Component {
   constructor(props) {
     super(props)
 
-    this.changeDateTime = this.changeDateTime.bind(this)
+    this.changeDate = this.changeDate.bind(this)
     this.determineDateFromValue = this.determineDateFromValue.bind(this)
     this.determineEarliestStartDate = this.determineEarliestStartDate.bind(this)
     this.determineEarliestStopDate = this.determineEarliestStopDate.bind(this)
@@ -19,7 +19,7 @@ class DateTimeRangeFilter extends Component {
     this.determineQueryValue = this.determineQueryValue.bind(this)
   }
 
-  changeDateTime(field, fieldValue, fieldValid) {
+  changeDate(field, fieldValue, fieldValid) {
     const { filterDescription, filters, filterValidations } = this.props
     const { name, queryParam } = filterDescription
     const queryField = this.determineQueryField(field)
@@ -92,10 +92,10 @@ class DateTimeRangeFilter extends Component {
   }
 
   determineQueryField(field) {
-    if (field.endsWith("StartDate") || field.endsWith("StartTime")) {
+    if (field.endsWith("StartDate")) {
       return "start"
     }
-    if (field.endsWith("StopDate") || field.endsWith("StopTime")) {
+    if (field.endsWith("StopDate")) {
       return "stop"
     }
 
@@ -114,18 +114,18 @@ class DateTimeRangeFilter extends Component {
     }
 
     const { start, stop } = filter
-    return { start: validateDateTime(start), stop: validateDateTime(stop) }
+    return { start: validateDate(start), stop: validateDate(stop) }
 
-    function validateDateTime(dateTime) {
-      if (!valueHelper.isValue(dateTime)) {
-        return { validDate: true, validTime: true }
+    function validateDate(date) {
+      if (!valueHelper.isValue(date)) {
+        return { validDate: true }
       }
 
-      if (!dateHelper.isValidDate(dateTime)) {
-        return { validDate: false, validTime: false }
+      if (!dateHelper.isValidDate(date)) {
+        return { validDate: false }
       }
 
-      return { validDate: true, validTime: true }
+      return { validDate: true }
     }
   }
 
@@ -146,32 +146,30 @@ class DateTimeRangeFilter extends Component {
         <Col xs={2} className="col-2 col-form-label test-nowrap pt-1">{label}</Col>
         <Col className="p-0">
           <Label className="ml-3 mr-2">{startFieldLabel}</Label>
-          <DateTimePicker
+          <DatePicker
             allowBlank={true}
             allowEdit={allowEdit}
-            changeDateTime={this.props.onChange}
+            changeDate={this.props.onChange}
+            date={start}
             dateField={`${queryParam}_StartDate`}
-            dateTime={start}
             disabledDays={disabledDays}
             earliestDate={this.determineEarliestStartDate(filterDescription)}
             latestDate={this.determineLatestStartDate(filterDescription, stop)}
             style={{ width: 110 }}
-            timeField={`${queryParam}_StartTime`}
           />
         </Col>
         <Col className="p-0">
           <Label className="ml-3 mr-2">{stopFieldLabel}</Label>
-          <DateTimePicker
+          <DatePicker
             allowBlank={true}
             allowEdit={allowEdit}
-            changeDateTime={this.props.onChange}
+            changeDate={this.props.onChange}
+            date={stop}
             dateField={`${queryParam}_StopDate`}
-            dateTime={stop}
             disabledDays={disabledDays}
             earliestDate={this.determineEarliestStartDate(filterDescription, start)}
             latestDate={this.determineLatestStopDate(filterDescription)}
             style={{ width: 110 }}
-            timeField={`${queryParam}_StopTime`}
           />
         </Col>
       </div>
@@ -206,4 +204,4 @@ class DateTimeRangeFilter extends Component {
   }
 }
 
-export { DateTimeRangeFilter }
+export { DateRangeFilter }

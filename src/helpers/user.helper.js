@@ -6,6 +6,7 @@ import { fieldHelper, pathHelper, valueHelper } from "./"
 import { userRoles } from "../types"
 
 export const userHelper = {
+  canCreatePatientMedication,
   canCreatePatientNote,
   canHaveNpi,
   canIndexAll,
@@ -29,19 +30,41 @@ export const userHelper = {
   username
 }
 
-function canCreatePatientNote(user, pathEntries) {
-  if (userHelper.hasRole(user, "aprexis_admin")) {
-    return true
+function canCreateForHealthPlan(user, pathEntries) {
+  if (!userHelper.hasRole(user, "health_plan_admin", "health_plan_user")) {
+    return false
   }
 
+  const { healthPlans } = user
+  const healthPlanId = pathHelper.id(pathEntries, "health_plans")
+  return valueHelper.isValue(healthPlans.find((hp) => hp.id == healthPlanId))
+}
+
+function canCreateForPharmacyStore(user, pathEntries) {
   if (!userHelper.hasRole(user, "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_admin")) {
     return false
   }
 
   const { pharmacyStores } = user
   const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
-
   return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
+}
+
+function canCreatePatientMedication(user, pathEntries) {
+  if (userHelper.hasRole(user, "aprexis_admin")) {
+    return true
+  }
+
+  return canCreateForHealthPlan(user, pathEntries) || canCreateForPharmacyStore(user, pathEntries)
+}
+
+
+function canCreatePatientNote(user, pathEntries) {
+  if (userHelper.hasRole(user, "aprexis_admin")) {
+    return true
+  }
+
+  return canCreateForPharmacyStore(user, pathEntries)
 }
 
 function canHaveNpi(user) {

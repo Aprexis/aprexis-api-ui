@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { TableColumnHeader } from "..//../shared"
 import { LabTestValuesPageViewModel } from "../../view_models/pages/lab_test_values"
 import { ListView } from "../../../containers"
-import { fieldHelper, labTestValueHelper } from "../../../helpers"
+import { fieldHelper, labTestValueHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -107,6 +107,7 @@ class LabTestValuesPage extends Component {
 
     return (
       <ListView
+        {...valueHelper.importantProps(this.props)}
         context={this.props.context}
         currentAdminUser={this.props.currentAdminUser}
         currentUser={this.props.currentUser}
@@ -118,7 +119,6 @@ class LabTestValuesPage extends Component {
         listLabel="Lab Test Value"
         listPluralLabel="Lab Test Values"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

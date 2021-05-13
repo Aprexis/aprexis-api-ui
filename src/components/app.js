@@ -4,7 +4,7 @@ import IdleTimer from 'react-idle-timer'
 import { Footer, Header, Main } from './'
 import { Modals } from './modals'
 import { AppViewModel } from './view_models'
-import { history } from '../helpers'
+import { history, valueHelper } from '../helpers'
 import 'bootstrap/dist/css/bootstrap.css'
 
 class App extends Component {
@@ -64,12 +64,18 @@ class App extends Component {
           context={context}
           currentAdminUser={currentAdminUser}
           currentUser={currentUser}
+          errorCount={this.state.errorCount}
+          error={this.vm.error}
+          modalClose={this.vm.modalClose}
+          modalIsOpen={this.state.modalIsOpen}
+          modalOpen={this.vm.modalOpen}
           history={history} match={match}
         />
 
         <Footer currentUser={currentUser} history={history} match={match} />
 
         <Modals
+          {...valueHelper.importantProps(this.props)}
           {...modal}
           clearAlert={this.vm.clearAlert}
           clearModal={this.vm.clearModal}

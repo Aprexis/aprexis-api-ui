@@ -1,15 +1,18 @@
-import React, { Component } from 'react'
-import { Alert, Col, Container, Row } from 'reactstrap'
-import { alertHelper, valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { Alert, Col, Container, Row } from "reactstrap"
+import { alertHelper, valueHelper } from "../../helpers"
 
 class DisplayAlert extends Component {
   render() {
-    const { clearAlert } = this.props
-    const { alertMessage, alertType, parentType } = alertHelper.get()
+    const { clearAlert, parentType } = this.props
+    const { alertMessage, alertType } = alertHelper.get()
     if (!valueHelper.isValue(alertType)) {
       return (<React.Fragment />)
     }
 
+    if (valueHelper.isSet(this.props.modalIsOpen) != (parentType == "modal")) {
+      return (<React.Fragment />)
+    }
 
     return (
       <Container className={`${parentType}-alert`}>

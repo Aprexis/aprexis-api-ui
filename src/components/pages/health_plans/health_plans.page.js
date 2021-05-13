@@ -101,6 +101,7 @@ class HealthPlansPage extends Component {
 
     return (
       <ListView
+        {...valueHelper.importantProps(this.props)}
         context={this.props.context}
         currentAdminUser={this.props.currentAdminUser}
         currentUser={this.props.currentUser}
@@ -112,7 +113,6 @@ class HealthPlansPage extends Component {
         listLabel="Health Plan"
         listPluralLabel="Health Plans"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

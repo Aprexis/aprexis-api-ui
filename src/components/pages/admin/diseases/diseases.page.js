@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { TableColumnHeader } from "../../../shared"
 import { DiseasesPageViewModel } from "../../../view_models/pages/admin/diseases"
 import { ListView } from "../../../../containers"
+import { valueHelper } from "../../../../helpers"
 import { diseaseHelper } from "../../../../helpers/admin"
 
 const headings = [
@@ -76,6 +77,7 @@ class DiseasesPage extends Component {
 
     return (
       <ListView
+        {...valueHelper.importantProps(this.props)}
         context={this.props.context}
         currentAdminUser={this.props.currentAdminUser}
         currentUser={this.props.currentUser}
@@ -87,7 +89,6 @@ class DiseasesPage extends Component {
         listLabel="Disease"
         listPluralLabel="Diseases"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

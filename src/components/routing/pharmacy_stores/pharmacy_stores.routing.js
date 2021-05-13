@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { PharmacyStoreRouting } from "./"
 import { NoMatch } from "../"
 import { PharmacyStoresPage } from "../../pages/pharmacy_stores"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class PharmacyStoresRouting extends Component {
   render() {
@@ -11,7 +11,8 @@ class PharmacyStoresRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const pharmacyStoresPrefix = pathHelper.pluralPrefix(window.location, "pharmacy-stores")
 

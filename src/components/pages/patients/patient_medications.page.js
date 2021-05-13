@@ -1,35 +1,60 @@
 import React, { Component } from "react"
 import { TableColumnHeader } from "../../shared"
-import { PatientNotesPageViewModel } from "../../view_models/pages/patients"
+import { PatientMedicationsPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
-import { fieldHelper, patientNoteHelper, valueHelper } from "../../../helpers"
+import { fieldHelper, patientMedicationHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
-    name: "Date/Time",
-    field: "updated_at",
-    method: "displayDateTime"
+    name: "Label",
+    field: "medication.label",
+    method: "medicationLabel"
+  },
+  {
+    name: "Type",
+    field: "type",
+    method: "displayType"
+  },
+  {
+    name: "Strength",
+    field: "strength_units,strength",
+    method: "displayStrength"
+  },
+  {
+    name: "Days Supply",
+    field: "days_supply",
+    method: "daysSupply"
+  },
+  {
+    name: "Filled At",
+    field: "filled_at",
+    method: "filledAt"
+  },
+  {
+    name: "Patient",
+    field: "patient.last_name,patient.first_name,patient.middle_name",
+    method: "patientName",
+    unless: "patients"
+  },
+  {
+    name: "Physician",
+    field: "physician.last_name,physician.first_name",
+    method: "physicianName"
   },
   {
     name: "Pharmacy Store",
-    field: "pharmacy_store.name,pharmacy_store.number,pharmacy_store.id",
-    unless: "pharmacy-stores",
-    method: "pharmacyStoreIdentification"
-  },
-  {
-    name: "Note",
-    field: "note",
-    method: "note",
-    maximum: 24
+    field: "pharmacy_store.name",
+    method: "pharmacyStoreName",
+    unless: "pharmacy-stores"
   }
 ]
 
-class PatientNotesPage extends Component {
+class PatientMedicationsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new PatientNotesPageViewModel(
+    this.vm = new PatientMedicationsPageViewModel(
       {
         ...props,
         view: this
@@ -56,7 +81,7 @@ class PatientNotesPage extends Component {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`patient-notes-table-heading-${field}`}
+            key={`patient-medications-table-heading-${field}`}
             className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
@@ -69,19 +94,19 @@ class PatientNotesPage extends Component {
     )
   }
 
-  generateTableRow(patientNote) {
+  generateTableRow(patientMedication) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
     const row = [
       {
-        content: patientNoteHelper[headings[0].method](patientNote),
-        onClick: (event) => { this.vm.gotoPatientNoteProfile(patientNote) }
+        content: fieldHelper.displayListField(patientMedication, patientMedicationHelper, headings[0]),
+        onClick: (event) => { this.vm.gotoPatientMedicationProfile(patientMedication) }
       },
     ]
 
     headings.filter(
       (heading, idx) => (idx > 0) && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach((heading) => { row.push(fieldHelper.displayListField(patientNote, patientNoteHelper, heading)) })
+    ).forEach((heading) => { row.push(fieldHelper.displayListField(patientMedication, patientMedicationHelper, heading)) })
 
     return row
   }
@@ -96,7 +121,7 @@ class PatientNotesPage extends Component {
         <button
           className="btn btn-sm btn-outline-secondary"
           onClick={this.vm.createModal}>
-          <strong>+</strong> Add Note
+          <strong>+</strong> Add Medication
         </button>
       </nav>
     )
@@ -117,9 +142,9 @@ class PatientNotesPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.patientNotes}
-        listLabel="Note"
-        listPluralLabel="Notes"
+        list={this.state.patientMedications}
+        listLabel="Medication"
+        listPluralLabel="Medications"
         modal={this.state.modal}
         nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
@@ -129,11 +154,12 @@ class PatientNotesPage extends Component {
         onClearModal={this.vm.clearModal}
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
+        onSelectRow={this.vm.editModal}
         onSubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         onUpdateView={this.vm.loadData}
         page={this.state.page}
-        title="Notes"
+        title="Medications"
       />
     )
   }
@@ -144,4 +170,4 @@ class PatientNotesPage extends Component {
   }
 }
 
-export { PatientNotesPage }
+export { PatientMedicationsPage }

@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
 import { answerApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { filtersHelper, pageHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
 
 class AnswersPageViewModel extends AbstractListPageViewModel {
   constructor(props) {

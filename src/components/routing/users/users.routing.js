@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { UserRouting } from "./"
 import { NoMatch } from "../"
 import { UsersPage } from "../../pages/users"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class UsersRouting extends Component {
   render() {
@@ -12,9 +12,10 @@ class UsersRouting extends Component {
       context,
       currentAdminUser,
       currentUser
+      ,
+      ...valueHelper.importantProps(this.props)
     }
     const usersPrefix = pathHelper.pluralPrefix(window.location, "users")
-
 
     return (
       <Switch>

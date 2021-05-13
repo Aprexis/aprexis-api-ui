@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { TableColumnHeader } from "../../shared"
 import { AnswersPageViewModel } from "../../view_models/pages/interventions"
 import { ListView } from "../../../containers"
-import { answerHelper } from "../../../helpers"
+import { answerHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -72,6 +72,7 @@ class AnswersPage extends Component {
 
     return (
       <ListView
+        {...valueHelper.importantProps(this.props)}
         context={this.props.context}
         currentAdminUser={this.props.currentAdminUser}
         currentUser={this.props.currentUser}
@@ -83,7 +84,6 @@ class AnswersPage extends Component {
         listLabel="Answer"
         listPluralLabel="Answers"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

@@ -1,30 +1,31 @@
 import { AbstractListPageViewModel } from "../"
-import { patientApi, patientNoteApi, pharmacyStoreApi } from "../../../../api"
+import { patientApi, patientMedicationApi, pharmacyStoreApi } from "../../../../api"
 import {
   filtersHelper,
   pageHelper,
   pathHelper,
-  patientNoteHelper,
+  patientMedicationHelper,
   pharmacyStoreHelper,
   userCredentialsHelper,
   userHelper,
   valueHelper
 } from "../../../../helpers"
 
-const patientNoteListMethods = [
-  { pathKey: "patients", method: patientNoteApi.listForPatient }
+const patientMedicationListMethods = [
+  { pathKey: "patients", method: patientMedicationApi.listForPatient }
 ]
 
-class PatientNotesPageViewModel extends AbstractListPageViewModel {
+class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.canCreate = this.canCreate.bind(this)
     this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoPatientNoteProfile = this.gotoPatientNoteProfile.bind(this)
+    this.gotoPatientMedicationProfile = this.gotoPatientMedicationProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
   }
@@ -33,24 +34,24 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    if (!userHelper.canCreatePatientNote(currentUser, pathEntries)) {
+    if (!userHelper.canCreatePatientMedication(currentUser, pathEntries)) {
       return false
     }
 
-    return patientNoteHelper.canBeCreated(pathEntries)
+    return patientMedicationHelper.canBeCreated(pathEntries)
   }
 
   createModal(event) {
     const pathEntries = this.pathEntries()
-    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
     const patientId = pathHelper.id(pathEntries, "patients")
+    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy_stores")
 
-    patientNoteApi.buildNew(
+    patientMedicationApi.buildNew(
       userCredentialsHelper.get(),
       patientId,
       pharmacyStoreId,
-      (patientNote) => {
-        this.addField("modal", { modalName: "patient-note", operation: "create", patientNote })
+      (patientMedication) => {
+        this.addField("modal", { modalName: "patient-medication", operation: "create", patientMedication })
       },
       this.onError
     )
@@ -58,14 +59,25 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "updated_at-" }
+    const sorting = { sort: "filled_at-,label" }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
+  editModal(event, patientMedicationToEdit) {
+    patientMedicationApi.edit(
+      userCredentialsHelper.get(),
+      patientMedicationToEdit.id,
+      (patientMedication) => {
+        this.addField("modal", { modalName: "patient-medication", operation: "update", patientMedication })
+      },
+      this.onError
+    )
+  }
+
   filterDescriptions(filters, filtersOptions) {
     const filterDescriptions = [
-      filtersHelper.dateTimeRangeFilter("Date/Time", "for_updated_at_between", { to: new Date() })
+      filtersHelper.dateRangeFilter("Filled At", "for_filled_at_between", { to: new Date() })
     ]
     const pathEntries = this.pathEntries()
     const healthPlan = pathEntries["health-plans"]
@@ -125,8 +137,8 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoPatientNoteProfile(patient_note) {
-    const pathArray = pathHelper.buildPathArray(window.location, patient_note, "profile")
+  gotoPatientMedicationProfile(patient_medication) {
+    const pathArray = pathHelper.buildPathArray(window.location, patient_medication, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -138,12 +150,12 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
   }
 
   refreshData() {
-    this.removeField("patientNoteHeaders")
+    this.removeField("patientMedicationHeaders")
     this.fetchList(
-      patientNoteListMethods,
-      (patientNotes, patientNoteHeaders) => {
-        this.addData({ patientNotes })
-        this.addField("page", pageHelper.updatePageFromLastPage(patientNoteHeaders))
+      patientMedicationListMethods,
+      (patientMedications, patientMedicationHeaders) => {
+        this.addData({ patientMedications })
+        this.addField("page", pageHelper.updatePageFromLastPage(patientMedicationHeaders))
         this.redrawView()
       },
       this.onError
@@ -151,4 +163,4 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
   }
 }
 
-export { PatientNotesPageViewModel }
+export { PatientMedicationsPageViewModel }

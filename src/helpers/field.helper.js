@@ -95,7 +95,12 @@ function display(name, value, description, suffix = ":") {
 }
 
 function displayListField(model, helper, heading) {
-  const longValue = helper[heading.method](model)
+  const value = helper[heading.method](model)
+  if (!valueHelper.isValue(value)) {
+    return ""
+  }
+
+  const longValue = `${value}`
   if (!valueHelper.isValue(heading.maximum) || longValue.length <= heading.maximum) {
     return longValue
   }

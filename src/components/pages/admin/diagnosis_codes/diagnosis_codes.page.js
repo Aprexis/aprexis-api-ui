@@ -82,6 +82,7 @@ class DiagnosisCodesPage extends Component {
 
     return (
       <ListView
+        {...valueHelper.importantProps(this.props)}
         context={this.props.context}
         currentAdminUser={this.props.currentAdminUser}
         currentUser={this.props.currentUser}
@@ -93,7 +94,6 @@ class DiagnosisCodesPage extends Component {
         listLabel="Diagnosis Code"
         listPluralLabel="Diagnosis Codes"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

@@ -92,7 +92,6 @@ class PatientsPage extends Component {
         listLabel="Patient"
         listPluralLabel="Patients"
         modal={this.state.modal}
-        multipleRowsSelection={this.vm.multipleRowsSelection}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

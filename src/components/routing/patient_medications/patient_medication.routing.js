@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
-//import { LabTestValueProfilePage } from "../../pages/admin/lab_test_values"
+//import { PatientMedicationProfilePage } from "../../pages/patients"
 //import { pathHelper, valueHelper } from "../../../helpers"
 
-class LabTestValueRouting extends Component {
+class PatientMedicationRouting extends Component {
   render() {
     /*
     const { context, currentAdminUser, currentUser } = this.props
@@ -14,7 +14,7 @@ class LabTestValueRouting extends Component {
       currentUser,
       ...valueHelper.importantProps(this.props)
     }
-    const labTestPrefix = pathHelper.singularPrefix(window.location, "lab-test-values", ":lab_test_value_id")
+    const patientMedicationPrefix = pathHelper.singularPrefix(window.location, "patient-medications", ":patient_medication_id")
     */
 
     return (
@@ -22,8 +22,8 @@ class LabTestValueRouting extends Component {
         {/*
         <Route
           exact
-          path={`${labTestPrefix}/profile`}
-          render={(props) => (<LabTestValueProfilePage {...props} {...contextProps} />)}
+          path={`${patientMedicationPrefix}/profile`}
+          render={(props) => (<PatientMedicationProfilePage {...props} {...contextProps} />)}
         />
         */}
         <Route component={NoMatch} />
@@ -32,4 +32,4 @@ class LabTestValueRouting extends Component {
   }
 }
 
-export { LabTestValueRouting }
+export { PatientMedicationRouting }

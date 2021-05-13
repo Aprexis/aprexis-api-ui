@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { LabTestRouting } from "./"
 import { NoMatch } from "../"
 import { LabTestsPage } from "../../pages/admin/lab_tests"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class LabTestsRouting extends Component {
   render() {
@@ -11,7 +11,8 @@ class LabTestsRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const labTestsPrefix = pathHelper.pluralPrefix(window.location, "lab-tests")
 

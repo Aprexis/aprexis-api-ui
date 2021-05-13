@@ -18,7 +18,7 @@ class AprexisModal extends Component {
         </ModalHeader>
 
         <ModalBody>
-          <DisplayAlert clearAlert={this.props.onClearAlert} parentType='modal' />
+          <DisplayAlert clearAlert={this.props.clearAlert} modalIsOpen={this.props.modalIsOpen} parentType='modal' />
           {children}
         </ModalBody>
 

@@ -4,7 +4,7 @@ import { AnswersRouting } from "./"
 import { NoMatch } from "../"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { InterventionProfilePage } from "../../pages/interventions"
-import { pathHelper } from "../../../helpers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class InterventionRouting extends Component {
   render() {
@@ -12,7 +12,8 @@ class InterventionRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
+      currentUser,
+      ...valueHelper.importantProps(this.props)
     }
     const interventionPrefix = pathHelper.singularPrefix(window.location, "interventions", ":intervention_id")
 
