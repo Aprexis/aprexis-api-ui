@@ -3,7 +3,7 @@ import { jsEventHelper, pathHelper, valueHelper } from "../../helpers"
 class AbstractViewModel {
   constructor(props) {
     if (new.target === AbstractViewModel) {
-      throw new TypeError('Cannot directly instantiate AbstractViewModel instance; create a subclass instead')
+      throw new TypeError("Cannot directly instantiate AbstractViewModel instance; create a subclass instead")
     }
 
     this.props = props
@@ -56,7 +56,7 @@ class AbstractViewModel {
   }
 
   clearModal(nextOperation) {
-    this.removeField('modal')
+    this.removeField("modal")
 
     if (valueHelper.isFunction(nextOperation)) {
       nextOperation()

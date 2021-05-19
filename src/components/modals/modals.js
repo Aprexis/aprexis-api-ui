@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import { FiltersModal, SignInModal } from "./"
-import { PatientNoteModal } from "./patients"
+import { PatientMedicationModal, PatientNoteModal } from "./patients"
 import { valueHelper } from "../../helpers"
 
 const modalList = {
   Filters: FiltersModal,
+  PatientMedication: PatientMedicationModal,
   PatientNote: PatientNoteModal,
   SignIn: SignInModal
 }

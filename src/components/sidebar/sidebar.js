@@ -63,6 +63,11 @@ const sidebarDescriptions = {
     entryLabel: "Patient",
     entryName: "patients"
   },
+  "patient-notes": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Note",
+    entryName: "patient-notes"
+  },
   "pharmacy-chains": {
     entryButtons: [
       { buttonType: "Profile" },

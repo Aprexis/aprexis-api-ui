@@ -1,11 +1,20 @@
-import React, { Component } from 'react'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
-import { DisplayAlert } from '../../components/shared'
-import { dateHelper, valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import { DisplayAlert } from "../../components/shared"
+import { dateHelper, valueHelper } from "../../helpers"
 
 class AprexisModal extends Component {
   render() {
-    const { children, date, modalClassName, modalDate, modalFooterComponents, modalHeaderComponents, modalVisible, toggleModal } = this.props
+    const {
+      children,
+      date,
+      modalClassName,
+      modalDate,
+      modalFooterComponents,
+      modalHeaderComponents,
+      modalVisible,
+      toggleModal
+    } = this.props
     const openModal = valueHelper.isSet(modalVisible) || (dateHelper.isDateValue(modalDate) && +modalDate != +date)
 
     return (
@@ -18,7 +27,7 @@ class AprexisModal extends Component {
         </ModalHeader>
 
         <ModalBody>
-          <DisplayAlert clearAlert={this.props.clearAlert} modalIsOpen={this.props.modalIsOpen} parentType='modal' />
+          <DisplayAlert clearAlert={this.props.clearAlert} modalIsOpen={openModal} parentType="modal" />
           {children}
         </ModalBody>
 

@@ -9,6 +9,7 @@ export const valueHelper = {
   importantProps,
   isFunction,
   isSet,
+  isNumberValue,
   isStringValue,
   isValue,
   makeString,
@@ -104,6 +105,14 @@ function humanize(str) {
 
   const additionalWords = myStrSplit.map((word) => word.toLowerCase())
   return `${firstWord} ${additionalWords.join(" ")}`
+}
+
+function isNumberValue(value) {
+  if (!valueHelper.isValue(value)) {
+    return false
+  }
+
+  return !isNaN(value)
 }
 
 function importantProps(props) {

@@ -1,10 +1,10 @@
-import { AbstractPageViewModel } from './'
-import { alertHelper, MAXIMUM_PER_PAGE, pageHelper, userCredentialsHelper, valueHelper } from '../../../helpers'
+import { AbstractPageViewModel } from "./"
+import { alertHelper, MAXIMUM_PER_PAGE, pageHelper, userCredentialsHelper, valueHelper } from "../../../helpers"
 
 class AbstractListPageViewModel extends AbstractPageViewModel {
   constructor(props) {
     if (new.target === AbstractListPageViewModel) {
-      throw new TypeError('Cannot directly instantiate AbstractListPageViewModel instance; create a subclass instead')
+      throw new TypeError("Cannot directly instantiate AbstractListPageViewModel instance; create a subclass instead")
     }
 
     super(props)
@@ -36,23 +36,23 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     }
 
     const { page } = this.data
-    this.addField('page', { ...page, number })
+    this.addField("page", { ...page, number })
     this.refreshData()
   }
 
   changePerPage(perPage) {
     if (perPage < 1) {
-      alertHelper.error('Minimum per page size is 1')
+      alertHelper.error("Minimum per page size is 1")
       return
     }
 
     if (perPage > MAXIMUM_PER_PAGE) {
-      alertHelper.error('Maximum per page size is 100')
+      alertHelper.error("Maximum per page size is 100")
       return
     }
 
     const { page } = this.data
-    this.addField('page', { ...page, size: perPage })
+    this.addField("page", { ...page, size: perPage })
     this.refreshData()
   }
 
@@ -96,7 +96,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
   }
 
   selectFilters(filterDescriptions, filters) {
-    this.addData({ modal: { modalName: 'filters', filterDescriptions, filters } })
+    this.addData({ modal: { modalName: "filters", filterDescriptions, filters } })
     this.redrawView()
   }
 

@@ -49,6 +49,7 @@ class FiltersModal extends Component {
 
     return (
       <Filter
+        {...this.props}
         filters={filters}
         filterDescription={filterDescription}
         filterValidations={filterValidations}
@@ -77,7 +78,7 @@ class FiltersModal extends Component {
       <div>
         <button
           className='btn btn-sm btn-secondary mr-auto'
-          onClick={this.vm.clearModal}>
+          onClick={(event) => { this.props.toggleModal(this.props.onClearModal) }}>
           Cancel
         </button>
         <button

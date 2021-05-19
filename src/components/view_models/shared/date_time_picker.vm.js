@@ -1,5 +1,5 @@
 import { AbstractViewModel } from "../"
-import { dateHelper } from "../../../helpers"
+import { dateHelper, valueHelper } from "../../../helpers"
 
 class DateTimePickerViewModel extends AbstractViewModel {
   constructor(props) {
@@ -24,11 +24,21 @@ class DateTimePickerViewModel extends AbstractViewModel {
   }
 
   timeChange(field, timeString, validTime) {
-    const { dateTime, locale, dateFormat } = this.props
+    const { dateFormat, dateTime, earliestDate, latestDate, locale, timeFormat } = this.props
     const dateString = dateHelper.convertDateToDateString(dateTime, dateFormat, locale)
     const dateTimeString = `${dateString} ${timeString}`
+    let myValidTime = validTime
 
-    this.props.changeDateTime(field, dateTimeString, { validTime })
+    if (valueHelper.isSet(validTime)) {
+      const asDate = dateHelper.convertTimeStringToDate(dateTimeString, `${dateFormat} ${timeFormat}`)
+      if (dateHelper.isValidDate(earliestDate) && +asDate < +earliestDate) {
+        myValidTime = false
+      } else if (dateHelper.isValidDate(latestDate) && +asDate > +latestDate) {
+        myValidTime = false
+      }
+    }
+
+    this.props.changeDateTime(field, dateTimeString, { validTime: myValidTime })
   }
 }
 

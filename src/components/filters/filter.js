@@ -36,6 +36,7 @@ class Filter extends Component {
     return (
       <div>
         <FilterClass
+          {...this.props}
           filterDescription={filterDescription}
           filters={this.props.filters}
           filterValidations={this.props.filterValidations}

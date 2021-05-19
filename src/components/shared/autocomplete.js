@@ -1,14 +1,29 @@
 import React, { Component } from "react"
-import { Input, Table } from "reactstrap"
+import { Col, Input, Table } from "reactstrap"
 import { Spinner } from "./"
 import { AutocompleteViewModel } from "../view_models/shared"
 import { valueHelper } from "../../helpers"
 
-const SimpleInputBlock = ({ disabled, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
+function extractPropertyValue(model, property) {
+  if (!valueHelper.isValue(model)) {
+    return
+  }
+
+  const dotIndex = property.indexOf(".")
+
+  if (dotIndex === -1) {
+    return model[property]
+  }
+
+  const subModel = model[property.substring(0, dotIndex - 1)]
+  return extractPropertyValue(subModel, property.substring(dotIndex + 1))
+}
+
+const SimpleInputBlock = ({ disabled, className, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
   return (
     <Input
       autoComplete="off"
-      className="form-control-sm"
+      className={className}
       disabled={disabled || readOnly}
       name={inputName}
       onChange={search}
@@ -21,17 +36,17 @@ const SimpleInputBlock = ({ disabled, inputName, inputPlaceHolder, readOnly, sea
 
 const InFormInputBlock = ({ disabled, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
   return (
-    <div>
+    <Col>
       <SimpleInputBlock
         className="form-control-sm"
-        disabled={disabled || readOnly}
-        name={inputName}
-        onChange={search}
-        placeholder={inputPlaceHolder}
-        readOnly={disabled || readOnly}
-        value={searchText}
+        disabled={disabled}
+        inputName={inputName}
+        inputPlaceHolder={inputPlaceHolder}
+        readOnly={readOnly}
+        search={search}
+        searchText={searchText}
       />
-    </div>
+    </Col>
   )
 }
 
@@ -61,13 +76,22 @@ const InputBlock = ({ disabled, inForm, inputName, inputPlaceHolder, readOnly, s
   )
 }
 
-const TableEmpty = ({ inputName, tableDisplayProps }) => {
+const TableEmpty = ({ inputName, item, searchText, tableDisplayProps }) => {
+  let label = "No matching results found"
+  if (valueHelper.isValue(item) && valueHelper.isValue(searchText)) {
+    const propertyValue = extractPropertyValue(item, tableDisplayProps[0])
+    if (searchText == propertyValue) {
+      label = ""
+    }
+  }
+
   return [
     <tr
+      className="mt-0 mb-0 pt-0 pb-0"
       colSpan={tableDisplayProps.length}
       key={`${inputName}-row-empty`}>
-      <td>
-        No matching results found
+      <td className="mt-0 mb-0 pt-0 pb-0">
+        {label}
       </td>
     </tr>
   ]
@@ -79,8 +103,8 @@ const TableLoading = ({ loading, tableDisplayProps }) => {
   }
 
   return (
-    <tr>
-      <td className="text-center spinner" colSpan={tableDisplayProps.length}>
+    <tr className="mt-0 mb-0 pt-0 pb-0">
+      <td className="text-center spinner mt-0 mb-0 pt-0 pb-0" colSpan={tableDisplayProps.length}>
         <Spinner />
       </td>
     </tr>
@@ -89,22 +113,7 @@ const TableLoading = ({ loading, tableDisplayProps }) => {
 
 const TableColumn = ({ option, property }) => {
   const propertyValue = extractPropertyValue(option, property)
-  return (<td>{propertyValue}</td>)
-
-  function extractPropertyValue(model, property) {
-    if (!valueHelper.isValue(model)) {
-      return
-    }
-
-    const dotIndex = property.indexOf(".")
-
-    if (dotIndex === -1) {
-      return model[property]
-    }
-
-    const subModel = model[property.substring(0, dotIndex - 1)]
-    return extractPropertyValue(subModel, property.substring(dotIndex + 1))
-  }
+  return (<td className="mt-0 mb-0 pt-0 pb-0">{propertyValue}</td>)
 }
 
 const TableColumns = ({ option, rowKey, tableDisplayProps }) => {
@@ -145,7 +154,7 @@ const TableRow = (
   }
 
   return (
-    <tr onClick={onRowClick}>
+    <tr className="mt-0 mb-0 pt-0 pb-0" onClick={onRowClick}>
       <TableColumns
         option={option}
         rowKey={rowKey}
@@ -160,6 +169,7 @@ const TableRows = (
     addField,
     clearFunction,
     inputName,
+    item,
     loading,
     onOptionSelect,
     options,
@@ -177,7 +187,14 @@ const TableRows = (
   }
 
   if (options.length === 0) {
-    return (<TableEmpty inputName={inputName} tableDisplayProps={tableDisplayProps} />)
+    return (
+      <TableEmpty
+        nputName={inputName}
+        item={item}
+        searchText={searchText}
+        tableDisplayProps={tableDisplayProps}
+      />
+    )
   }
 
   return options.filter((option) => valueHelper.isValue(option))
@@ -205,6 +222,7 @@ const TableBody = (
     addField,
     clearFunction,
     inputName,
+    item,
     loading,
     onOptionSelect,
     options,
@@ -221,6 +239,7 @@ const TableBody = (
         addField={addField}
         clearFunction={clearFunction}
         inputName={inputName}
+        item={item}
         loading={loading}
         onOptionSelect={onOptionSelect}
         options={options}
@@ -271,6 +290,42 @@ const TableHeader = ({ inputName, tableHeaders }) => {
   }
 }
 
+const AutocompleteTable = (
+  {
+    addField,
+    clearFunction,
+    inputName,
+    item,
+    loading,
+    onOptionSelect,
+    options,
+    searchMinLength,
+    searchText,
+    selectedOptionString,
+    tableDisplayProps,
+    tableHeaders
+  }
+) => {
+  return (
+    <Table className="table-xs">
+      <TableHeader inputName={inputName} tableHeaders={tableHeaders} />
+      <TableBody
+        addField={addField}
+        clearFunction={clearFunction}
+        inputName={inputName}
+        item={item}
+        loading={loading}
+        onOptionSelect={onOptionSelect}
+        options={options}
+        searchMinLength={searchMinLength}
+        searchText={searchText}
+        selectedOptionString={selectedOptionString}
+        tableDisplayProps={tableDisplayProps}
+      />
+    </Table>
+  )
+}
+
 class Autocomplete extends Component {
   constructor(props) {
     super(props)
@@ -306,6 +361,7 @@ class Autocomplete extends Component {
       inForm,
       inputName,
       inputPlaceHolder,
+      item,
       onOptionSelect,
       options,
       readOnly,
@@ -315,6 +371,22 @@ class Autocomplete extends Component {
       tableHeaders
     } = this.props
     const { loading, searchText } = this.state
+    const autocompleteTable = (
+      <AutocompleteTable
+        addField={this.vm.addField}
+        clearFunction={clearFunction}
+        inputName={inputName}
+        item={item}
+        loading={loading}
+        onOptionSelect={onOptionSelect}
+        options={options}
+        searchMinLength={searchMinLength}
+        searchText={searchText}
+        selectedOptionString={selectedOptionString}
+        tableDisplayProps={tableDisplayProps}
+        tableHeaders={tableHeaders}
+      />
+    )
 
     return (
       <React.Fragment>
@@ -328,23 +400,19 @@ class Autocomplete extends Component {
           searchText={searchText}
         />
 
-        <div className="autocomplete">
-          <Table className="table-xs">
-            <TableHeader inputName={inputName} tableHeaders={tableHeaders} />
-            <TableBody
-              addField={this.vm.addField}
-              clearFunction={clearFunction}
-              inputName={inputName}
-              loading={loading}
-              onOptionSelect={onOptionSelect}
-              options={options}
-              searchMinLength={searchMinLength}
-              searchText={searchText}
-              selectedOptionString={selectedOptionString}
-              tableDisplayProps={tableDisplayProps}
-            />
-          </Table>
-        </div>
+        {
+          valueHelper.isSet(inForm) &&
+          <Col className="autocomplete">
+            {autocompleteTable}
+          </Col>
+        }
+
+        {
+          !valueHelper.isSet(inForm) &&
+          <div className="autocomplete">
+            {autocompleteTable}
+          </div>
+        }
       </React.Fragment>
     )
   }

@@ -4,6 +4,7 @@ import {
   filtersHelper,
   pageHelper,
   pathHelper,
+  patientHelper,
   patientNoteHelper,
   pharmacyStoreHelper,
   userCredentialsHelper,
@@ -80,6 +81,7 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
           {
             fields: ["name", "date_of_birth", "health_plan_name"],
             findMethod: patientApi.show,
+            labelMethod: patientHelper.name,
             minLength: 3,
             otherFilters: {
               ...this.buildFilterFor("for_health_plan", healthPlan),

@@ -6,6 +6,8 @@ import { contextHelper, dateHelper, jsEventHelper, valueHelper } from "./"
 
 export const fieldHelper = {
   booleanDisplay,
+  changeDate,
+  changeDateTime,
   changeField,
   changeValue,
   changeValues,
@@ -25,6 +27,18 @@ export const fieldHelper = {
 
 function booleanDisplay(name, value, description) {
   return fieldHelper.display(name, valueHelper.yesNo(value), description, "?")
+}
+
+function changeDate(modelName, model, changedModel, fieldName, date, dateValid) {
+  const nameValid = `${fieldName}_DVALID`
+  const updatedValid = { ...model[nameValid], ...dateValid }
+  return fieldHelper.changeValues(modelName, model, changedModel, { [fieldName]: date, [nameValid]: updatedValid })
+}
+
+function changeDateTime(modelName, model, changedModel, fieldName, dateTime, dateTimeValid) {
+  const nameValid = `${fieldName}_DTVALID`
+  const updatedValid = { ...model[nameValid], ...dateTimeValid }
+  return fieldHelper.changeValues(modelName, model, changedModel, { [fieldName]: dateTime, [nameValid]: updatedValid })
 }
 
 function changeField(modelName, model, changedModel, event) {
@@ -47,16 +61,29 @@ function changeValue(modelName, model, changedModel, name, value) {
 }
 
 function changeValues(modelName, model, changedModel, changedValues) {
-  const newModel = { ...model }
-  const newChangedModel = { ...changedModel }
+  let updated = {
+    [modelName]: model,
+    [valueHelper.changedModelName(modelName)]: changedModel
+  }
 
-  changedValues.forEach(
-    (name, value) => {
+  Object.keys(changedValues).forEach(
+    (name) => {
+      const value = changedValues[name]
 
+      updated = fieldHelper.changeValue(
+        modelName,
+        updated[modelName],
+        updated[valueHelper.changedModelName(modelName)],
+        name,
+        value
+      )
     }
   )
 
-  return { [modelName]: newModel, [valueHelper.changedModelName(modelName)]: newChangedModel }
+  return {
+    [modelName]: updated[modelName],
+    [valueHelper.changedModelName(modelName)]: updated[valueHelper.changedModelName(modelName)]
+  }
 }
 
 function dateDisplay(name, value, description) {

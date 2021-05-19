@@ -7,6 +7,7 @@ export const pharmacyStoreHelper = {
   identification,
   name,
   storeNumber,
+  store,
   toBreadcrumb
 }
 
@@ -52,6 +53,21 @@ function identification(pharmacyStore) {
 
 function name(pharmacyStore) {
   return fieldHelper.getField(pharmacyStore, "name")
+}
+
+function store(pharmacyStore) {
+  let store = fieldHelper.getField(pharmacyStore, "store")
+  if (valueHelper.isStringValue(store)) {
+    return store
+  }
+
+  const name = pharmacyStoreHelper.name(pharmacyStore)
+  const storeNumber = pharmacyStoreHelper.storeNumber(pharmacyStore)
+  if (!valueHelper.isStringValue(storeNumber)) {
+    return name
+  }
+
+  return `${name} (#${storeNumber})`
 }
 
 function storeNumber(pharmacyStore) {

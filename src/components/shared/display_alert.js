@@ -9,7 +9,6 @@ class DisplayAlert extends Component {
     if (!valueHelper.isValue(alertType)) {
       return (<React.Fragment />)
     }
-
     if (valueHelper.isSet(this.props.modalIsOpen) != (parentType == "modal")) {
       return (<React.Fragment />)
     }

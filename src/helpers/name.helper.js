@@ -24,6 +24,11 @@ function name(namedModel, modelName, prefix = "") {
     return `No ${modelName}`
   }
 
+  const name = fieldHelper.getField(namedModel, "name")
+  if (valueHelper.isStringValue(name)) {
+    return name
+  }
+
   const firstName = nameHelper.firstName(namedModel, prefix)
   const middleName = nameHelper.middleName(namedModel, prefix)
   const lastName = nameHelper.lastName(namedModel, prefix)

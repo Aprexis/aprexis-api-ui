@@ -55,14 +55,6 @@ class NameIdFilterViewModel extends AbstractViewModel {
         onSuccess(searchResults)
       }
     }
-    const onAnError = (error) => {
-      if (valueHelper.isFunction(onFailure)) {
-        onFailure(error)
-        return
-      }
-
-      alertHelper.error(error)
-    }
 
     const allFilters = { ...filters, ...otherFilters }
     searchMethod(
@@ -73,7 +65,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
         ...sorting
       },
       makeDataAvailable,
-      onAnError
+      this.onError
     )
   }
 

@@ -37,7 +37,7 @@ class AutocompleteViewModel extends AbstractViewModel {
           () => {
             if (searchText.length >= searchMinLength) {
               that.addData({ loading: true, searchInput })
-              searchFunction(searchText, filters, sorting, onSuccess, onFailure)
+              searchFunction(searchText, { ...filters, page: { size: 10 } }, sorting, onSuccess, onFailure)
               return
             }
 

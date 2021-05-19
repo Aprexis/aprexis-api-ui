@@ -4,7 +4,8 @@ import { patientNoteHelper } from "../helpers"
 export const patientNoteApi = {
   buildNew,
   create,
-  listForPatient
+  listForPatient,
+  show
 }
 
 function toJSON(patientNote) {
@@ -55,4 +56,14 @@ function listForPatient(userCredentials, patient_id, params, onSuccess, onFailur
   const method = "GET"
   const path = `/patients/${patient_id}/patient_notes/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function show(userCredentials, id, onSuccess, onFailure) {
+  if (!API.validateId("patient note ID", id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patient_notes/${id}`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }

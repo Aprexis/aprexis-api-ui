@@ -8,17 +8,33 @@ import {
   physicianHelper,
   valueHelper
 } from "./"
+import { patientMedications } from "../types"
 
 export const patientMedicationHelper = {
+  additionalInformation,
+  buildChanged,
+  buildNewChanged,
   canBeCreated,
+  changeMedication,
+  changePharmacyStore,
+  changePhysician,
   daysSupply,
+  directions,
   displayStrength,
   displayType,
   filledAt,
+  indication,
+  medication,
+  medicationId,
   medicationLabel,
   patientName,
+  pharmacyStore,
+  pharmacyStoreId,
   pharmacyStoreName,
+  physician,
+  physicianId,
   physicianName,
+  startDate,
   strength,
   strengthUnits,
   toJSON,
@@ -27,24 +43,115 @@ export const patientMedicationHelper = {
 
 const patientMedicationKeys = [
   "id",
+  "additional_information",
   "days_supply",
   "directions",
+  "filled_at",
+  "indication",
   "medication_id",
   "patient_id",
   "pharmacy_store_id",
-  "filled_at",
+  "physician_id",
+  "source_id",
+  "source_type",
   "start_date",
   "strength",
   "strength_units",
   "type"
 ]
 
+function additionalInformation(patientMedication) {
+  return fieldHelper.getField(patientMedication, "additional_information")
+}
+
+function buildChanged(patientMedication, changedPatientMedication) {
+  if (valueHelper.isValue(changedPatientMedication)) {
+    return changedPatientMedication
+  }
+
+  if (valueHelper.isValue(patientMedication.id)) {
+    return copyIdentifiers(patientMedication)
+  }
+
+  return patientMedicationHelper.buildNewChanged(patientMedication)
+
+  function copyIdentifiers(patientMedication) {
+    return {
+      id: patientMedication.id,
+      medication_id: patientMedication.medication_id,
+      patient_id: patientMedication.patient_id,
+      type: patientMedication.type
+    }
+  }
+}
+
+function buildNewChanged(patientMedication) {
+  return {
+    ...patientMedication
+  }
+}
+
 function canBeCreated(pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients")
 }
 
+function changeMedication(patientMedication, changedPatientMedication, medication) {
+  const myChangedPatientMedication = this.buildChanged(patientMedication, changedPatientMedication)
+
+  return {
+    patientMedication: {
+      ...patientMedication,
+      medication_id: medication.id,
+      medication
+    },
+    changedPatientMedication: {
+      ...myChangedPatientMedication,
+      medication_id: medication.id,
+      medication
+    }
+  }
+}
+
+function changePharmacyStore(patientMedication, changedPatientMedication, pharmacyStore) {
+  const myChangedPatientMedication = this.buildChanged(patientMedication, changedPatientMedication)
+
+  return {
+    patientMedication: {
+      ...patientMedication,
+      pharmacy_store_id: pharmacyStore.id,
+      pharmacyStore
+    },
+    changedPatientMedication: {
+      ...myChangedPatientMedication,
+      pharmacy_store_id: pharmacyStore.id,
+      pharmacyStore
+    }
+  }
+}
+
+function changePhysician(patientMedication, changedPatientMedication, physician) {
+  const myChangedPatientMedication = this.buildChanged(patientMedication, changedPatientMedication)
+
+  return {
+    patientMedication: {
+      ...patientMedication,
+      physician_id: physician.id,
+      physician
+    },
+    changedPatientMedication: {
+      ...myChangedPatientMedication,
+      physician_id: physician.id,
+      physician
+    }
+  }
+}
+
 function daysSupply(patientMedication) {
   return fieldHelper.getField(patientMedication, "days_supply")
+}
+
+function directions(patientMedication) {
+  return fieldHelper.getField(patientMedication, "directions")
 }
 
 function displayStrength(patientMedication) {
@@ -73,36 +180,64 @@ function displayType(patientMedication) {
     return
   }
 
-  switch (type) {
-    case 'PatientOtcMedication':
-      return "Over-the-Counter"
-
-    case 'PatientPrescriptionMedication':
-      return "Prescription"
-
-    default:
-      return type
+  const typeLabel = patientMedications[type]
+  if (!valueHelper.isValue(typeLabel)) {
+    return type
   }
+
+  return typeLabel
 }
 
 function filledAt(patientMedication) {
   return fieldHelper.getField(patientMedication, "filled_at")
 }
 
+function indication(patientMedication) {
+  return fieldHelper.getField(patientMedication, "indication")
+}
+
+function medication(patientMedication) {
+  return fieldHelper.getField(patientMedication, "medication")
+}
+
+function medicationId(patientMedication) {
+  return fieldHelper.getField(patientMedication, "medication_id")
+}
+
 function medicationLabel(patientMedication) {
-  return medicationHelper.label(fieldHelper.getField(patientMedication, "medication"))
+  return medicationHelper.label(patientMedicationHelper.medication(patientMedication))
 }
 
 function patientName(patientMedication, prefix = "") {
   return patientHelper.name(fieldHelper.getField(patientMedication, "patient"), prefix)
 }
 
+function pharmacyStore(patientMedication) {
+  return fieldHelper.getField(patientMedication, "pharmacy_store")
+}
+
+function pharmacyStoreId(patientMedication) {
+  return fieldHelper.getField(patientMedication, "id")
+}
+
 function pharmacyStoreName(patientMedication) {
-  return pharmacyStoreHelper.name(patientMedication)
+  return pharmacyStoreHelper.name(patientMedicationHelper.pharmacyStore(patientMedication))
+}
+
+function physician(patientMedication) {
+  return fieldHelper.getField(patientMedication, "physician")
+}
+
+function physicianId(patientMedication) {
+  return fieldHelper.getField(patientMedication, "physician_id")
 }
 
 function physicianName(patientMedication) {
-  return physicianHelper.name(fieldHelper.getField(patientMedication, "physician"))
+  return physicianHelper.name(patientMedicationHelper.physician(patientMedication))
+}
+
+function startDate(patientMedication) {
+  return fieldHelper.getField(patientMedication, "start_date")
 }
 
 function strength(patientMedication) {
