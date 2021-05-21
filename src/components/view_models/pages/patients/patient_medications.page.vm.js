@@ -33,7 +33,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     this.refreshData = this.refreshData.bind(this)
   }
 
-  canCreate(event) {
+  canCreate() {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
@@ -44,7 +44,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     return patientMedicationHelper.canBeCreated(pathEntries)
   }
 
-  createModal(event) {
+  createModal() {
     const pathEntries = this.pathEntries()
     const patientId = pathHelper.id(pathEntries, "patients")
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
@@ -73,7 +73,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  editModal(event, patientMedicationToEdit) {
+  editModal(patientMedicationToEdit) {
     patientMedicationApi.edit(
       userCredentialsHelper.get(),
       patientMedicationToEdit.id,

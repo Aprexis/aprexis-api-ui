@@ -6,6 +6,7 @@ export const patientMedicationApi = {
   create,
   edit,
   listForPatient,
+  show,
   update
 }
 
@@ -73,6 +74,16 @@ function listForPatient(userCredentials, patient_id, params, onSuccess, onFailur
   const method = "GET"
   const path = `/patients/${patient_id}/patient_medications/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function show(userCredentials, patient_medication_id, onSuccess, onFailure) {
+  if (!API.validateId("patient medication ID", patient_medication_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patient_medications/${patient_medication_id}`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function update(userCredentials, patientMedication, onSuccess, onFailure) {

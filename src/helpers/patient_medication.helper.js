@@ -6,6 +6,7 @@ import {
   patientHelper,
   pharmacyStoreHelper,
   physicianHelper,
+  userHelper,
   valueHelper
 } from "./"
 import { patientMedications } from "../types"
@@ -15,6 +16,8 @@ export const patientMedicationHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canEdit,
+  canModifyField,
   changeMedication,
   changePharmacyStore,
   changePhysician,
@@ -23,6 +26,7 @@ export const patientMedicationHelper = {
   displayStrength,
   displayType,
   filledAt,
+  id,
   indication,
   medication,
   medicationId,
@@ -38,8 +42,21 @@ export const patientMedicationHelper = {
   strength,
   strengthUnits,
   toJSON,
-  type
+  type,
+  uploadExternalMedical,
+  user
 }
+
+const patientMedicationEditableFields = [
+  "additional_information",
+  "days_supply",
+  "directions",
+  "filled_at",
+  "indication",
+  "start_date",
+  "strength",
+  "strength_units"
+]
 
 const patientMedicationKeys = [
   "id",
@@ -52,8 +69,6 @@ const patientMedicationKeys = [
   "patient_id",
   "pharmacy_store_id",
   "physician_id",
-  "source_id",
-  "source_type",
   "start_date",
   "strength",
   "strength_units",
@@ -93,6 +108,37 @@ function buildNewChanged(patientMedication) {
 
 function canBeCreated(pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients")
+}
+
+function canEdit(user, patientMedication) {
+  if (valueHelper.isValue(patientMedicationHelper.uploadExternalMedical(patientMedication))) {
+    return false
+  }
+
+  switch (userHelper.role(user)) {
+    case 'aprexis_admin':
+      return true
+
+    case 'health_plan_admin':
+    case 'health_plan_user':
+      return userHelper.forHealthPlan(user, patientMedicationHelper.healthPlanId(patientMedication))
+
+    case 'pharmacy_store_admin':
+    case 'pharmacy_store_tech':
+    case 'pharmacy_store_user':
+      return userHelper.forPharmacyStore(user, patientMedicationHelper.pharmacyStoreId(patientMedication))
+
+    default:
+      return false
+  }
+}
+
+function canModifyField(patientMedication, fieldName) {
+  if (!valueHelper.isValue(patientMedicationHelper.id(patientMedication))) {
+    return true
+  }
+
+  return (patientMedicationEditableFields.includes(fieldName))
 }
 
 function changeMedication(patientMedication, changedPatientMedication, medication) {
@@ -192,6 +238,10 @@ function filledAt(patientMedication) {
   return fieldHelper.getField(patientMedication, "filled_at")
 }
 
+function id(patientMedication) {
+  return fieldHelper.getField(patientMedication, "id")
+}
+
 function indication(patientMedication) {
   return fieldHelper.getField(patientMedication, "indication")
 }
@@ -245,7 +295,7 @@ function strength(patientMedication) {
 }
 
 function strengthUnits(patientMedication) {
-  return fieldHelper.getField(patientMedication, "strengthUnits")
+  return fieldHelper.getField(patientMedication, "strength_units")
 }
 
 
@@ -255,4 +305,12 @@ function toJSON(patientMedication) {
 
 function type(patientMedication) {
   return fieldHelper.getField(patientMedication, "type")
+}
+
+function uploadExternalMedical(patientMedication) {
+  return fieldHelper.getField(patientMedication, "upload_external_medical")
+}
+
+function user(patientMedication) {
+  return fieldHelper.getField(patientMedication, "user")
 }

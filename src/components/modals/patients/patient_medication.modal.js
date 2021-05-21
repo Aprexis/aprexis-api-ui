@@ -59,8 +59,10 @@ class PatientMedicationModal extends Component {
                   <Col xs={10}>
                     <Input
                       className="form-control"
-                      onChange={this.vm.changeField}
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "type")}
                       name="type"
+                      onChange={this.vm.changeField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "type")}
                       type="select"
                       value={valueHelper.makeString(patientMedicationHelper.type(patientMedication))}>
                       <PatientMedicationTypeOptions />
@@ -73,9 +75,9 @@ class PatientMedicationModal extends Component {
                   <SelectPharmacyStore
                     fieldName="Pharmacy Store"
                     inForm={true}
-                    item={patientMedicationHelper.pharmacyStore(patientMedication)}
                     id={patientMedicationHelper.pharmacyStoreId(patientMedication)}
                     onChange={this.vm.selectPharmacyStore}
+                    readOnly={!patientMedicationHelper.canModifyField(patientMedication, "pharmacy_store_id")}
                   />
                 }
 
@@ -83,18 +85,18 @@ class PatientMedicationModal extends Component {
                   baseFilters={{ for_patient: patientId }}
                   fieldName="Physician"
                   inForm={true}
-                  item={patientMedicationHelper.physician(patientMedication)}
                   id={patientMedicationHelper.physicianId(patientMedication)}
                   onChange={this.vm.selectPhysician}
+                  readOnly={!patientMedicationHelper.canModifyField(patientMedication, "physician_id")}
                 />
 
                 <SelectMedication
                   baseFilters={{ for_supersets: true }}
                   fieldName="Medication"
                   inForm={true}
-                  item={patientMedicationHelper.medication(patientMedication)}
                   id={patientMedicationHelper.medicationId(patientMedication)}
                   onChange={this.vm.selectMedication}
+                  readOnly={!patientMedicationHelper.canModifyField(patientMedication, "medication_id")}
                 />
 
                 <FormGroup row>
@@ -109,6 +111,7 @@ class PatientMedicationModal extends Component {
                       dateField="filled_at_Date"
                       dateTime={patientMedicationHelper.filledAt(patientMedication)}
                       latestDate={new Date()}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "filled_at")}
                       timeField="filled_at_Time"
                     />
                   </Col>
@@ -125,6 +128,7 @@ class PatientMedicationModal extends Component {
                       changeDate={this.vm.changeDate}
                       dateField="start_date"
                       date={patientMedicationHelper.startDate(patientMedication)}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "start_date")}
                     />
                   </Col>
                 </FormGroup>
@@ -136,10 +140,12 @@ class PatientMedicationModal extends Component {
                   <Col xs={10}>
                     <NumericInput
                       className="form-control"
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "days_supply")}
                       max={365}
                       min={1}
                       name="days_supply"
                       onChange={this.vm.changeNumericField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "days_supply")}
                       value={valueHelper.makeString(patientMedicationHelper.daysSupply(patientMedication))}
                     />
                   </Col>
@@ -152,8 +158,10 @@ class PatientMedicationModal extends Component {
                   <Col xs={4}>
                     <Input
                       className="form-control"
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "strength")}
                       name="strength"
                       onChange={this.vm.changeField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "strength")}
                       value={valueHelper.makeString(patientMedicationHelper.strength(patientMedication))}
                     />
                   </Col>
@@ -163,8 +171,10 @@ class PatientMedicationModal extends Component {
                   <Col xs={4}>
                     <Input
                       className="form_control"
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "strength_units")}
                       name="strength_units"
                       onChange={this.vm.changeField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "strength_units")}
                       value={valueHelper.makeString(patientMedicationHelper.strengthUnits(patientMedication))}
                     />
                   </Col>
@@ -177,9 +187,11 @@ class PatientMedicationModal extends Component {
                   <Col xs={10}>
                     <Input
                       className="form_control"
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "indication")}
                       maxLength={255}
                       name="indication"
                       onChange={this.vm.changeField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "indication")}
                       value={valueHelper.makeString(patientMedicationHelper.indication(patientMedication))}
                     />
                   </Col>
@@ -192,9 +204,11 @@ class PatientMedicationModal extends Component {
                   <Col xs={10}>
                     <Input
                       className="form_control"
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "directions")}
                       maxLength={255}
                       name="directions"
                       onChange={this.vm.changeField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "directions")}
                       value={valueHelper.makeString(patientMedicationHelper.directions(patientMedication))}
                     />
                   </Col>
@@ -207,9 +221,11 @@ class PatientMedicationModal extends Component {
                   <Col xs={10}>
                     <Input
                       className="form_control"
+                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "additional_information")}
                       maxLength={255}
                       name="additional_information"
                       onChange={this.vm.changeField}
+                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "additional_information")}
                       value={valueHelper.makeString(patientMedicationHelper.additionalInformation(patientMedication))}
                     />
                   </Col>

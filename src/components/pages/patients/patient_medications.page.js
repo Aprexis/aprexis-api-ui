@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
+import { EditButton, TableColumnHeader } from "../../shared"
 import { PatientMedicationsPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
 import { fieldHelper, patientMedicationHelper, valueHelper } from "../../../helpers"
@@ -48,6 +48,20 @@ const headings = [
     unless: "pharmacy-stores"
   }
 ]
+
+const TableIdentificationColumn = ({ currentUser, heading, onClick, onEdit, patientMedication }) => {
+  return (
+    <React.Fragment>
+      <label className="mt-0 mb-0 pt-0 pb-0" onClick={onClick}>
+        {fieldHelper.displayListField(patientMedication, patientMedicationHelper, heading)}
+      </label>
+      {
+        patientMedicationHelper.canEdit(currentUser, patientMedication) &&
+        <EditButton onEdit={onEdit} />
+      }
+    </React.Fragment>
+  )
+}
 
 class PatientMedicationsPage extends Component {
   constructor(props) {
@@ -99,8 +113,15 @@ class PatientMedicationsPage extends Component {
     const pathEntries = this.vm.pathEntries()
     const row = [
       {
-        content: fieldHelper.displayListField(patientMedication, patientMedicationHelper, headings[0]),
-        onClick: (event) => { this.vm.gotoPatientMedicationProfile(patientMedication) }
+        content: (
+          <TableIdentificationColumn
+            currentUser={this.props.currentUser}
+            heading={headings[0]}
+            //TODO: onClick={(event) => { this.vm.gotoPatientMedicationProfile(patientMedication) }}
+            onEdit={(event) => { this.vm.editModal(patientMedication) }}
+            patientMedication={patientMedication}
+          />
+        )
       },
     ]
 
@@ -154,7 +175,6 @@ class PatientMedicationsPage extends Component {
         onClearModal={this.vm.clearModal}
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
-        onSelectRow={this.vm.editModal}
         onSubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         onUpdateView={this.vm.loadData}

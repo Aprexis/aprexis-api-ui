@@ -19,6 +19,10 @@ class SelectMedication extends Component {
     this.state = {}
   }
 
+  componentDidMount() {
+    this.vm.loadData()
+  }
+
   render() {
     const { readOnly } = this.props
     const { enableSearch, item, searchText, searchResults } = this.state
@@ -32,21 +36,23 @@ class SelectMedication extends Component {
           <Col xs={9}>
             <label>{label}</label>
           </Col>
-          <Col xs={1}>
-            <button
-              className="mt-0 mb-0 pt-0 pb-0 mr-auto btn btn-mobile"
-              onClick={this.vm.toggleSearch}
-              type="button">
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
-          </Col>
+          {
+            !valueHelper.isSet(readOnly) &&
+            <Col xs={1}>
+              <button
+                className="mt-0 mb-0 pt-0 pb-0 mr-auto btn btn-mobile"
+                onClick={this.vm.toggleSearch}
+                type="button">
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
+            </Col>
+          }
         </FormGroup>
         {
           valueHelper.isSet(enableSearch) &&
           <FormGroup row className="mt-0 pt-0">
             <Autocomplete
               clearFunction={this.vm.clearSearch}
-              disabled={readOnly}
               filters={this.props.baseFilters}
               inForm={this.props.inForm}
               inputName={this.props.fieldName}
@@ -54,7 +60,6 @@ class SelectMedication extends Component {
               item={item}
               onOptionSelect={this.vm.select}
               options={searchResults}
-              readOnly={readOnly}
               searchFunction={this.vm.search}
               searchMinLength={this.props.minLength ?? 3}
               searchText={searchText}

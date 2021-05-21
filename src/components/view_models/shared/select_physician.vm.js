@@ -12,7 +12,6 @@ class SelectPhysicianViewModel extends AbstractSelectAutocompleteViewModel {
   }
 
   displayModel(model) {
-    console.log(`Model: ${JSON.stringify(model)}`)
     return physicianHelper.name(model)
   }
 
