@@ -82,6 +82,10 @@ class App extends Component {
           context={this.props.context}
           currentAdminUser={this.props.currentAdminUser}
           currentUser={this.props.currentUser}
+          error={this.vm.error}
+          modalClose={this.vm.modalClose}
+          modalIsOpen={this.state.modalIsOpen}
+          modalOpen={this.vm.modalOpen}
           modalProps={{ 'sign-in': { updateView: this.vm.home } }}
         />
       </div>
