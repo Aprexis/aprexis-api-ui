@@ -73,6 +73,7 @@ class PatientMedicationModal extends Component {
                 {
                   !valueHelper.isNumberValue(pharmacyStoreId) &&
                   <SelectPharmacyStore
+                    {...valueHelper.importantProps(this.props)}
                     fieldName="Pharmacy Store"
                     inForm={true}
                     id={patientMedicationHelper.pharmacyStoreId(patientMedication)}
@@ -82,6 +83,7 @@ class PatientMedicationModal extends Component {
                 }
 
                 <SelectPhysician
+                  {...valueHelper.importantProps(this.props)}
                   baseFilters={{ for_patient: patientId }}
                   fieldName="Physician"
                   inForm={true}
@@ -91,6 +93,7 @@ class PatientMedicationModal extends Component {
                 />
 
                 <SelectMedication
+                  {...valueHelper.importantProps(this.props)}
                   baseFilters={{ for_supersets: true }}
                   fieldName="Medication"
                   inForm={true}

@@ -49,7 +49,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
     this.removeField("healthPlanHeaders")
     const { filters, sorting, page } = this.data
 
-    healthPlanApi.index(
+    healthPlanApi.list(
       userCredentials,
       { ...filters, ...sorting, page },
       (healthPlans, healthPlanHeaders) => {

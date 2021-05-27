@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { TableColumnHeader } from "../../shared"
 import { HealthPlansPageViewModel } from "../../view_models/pages/health_plans"
 import { ListView } from "../../../containers"
-import { valueHelper } from "../../../helpers"
+import { healthPlanHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -15,19 +15,7 @@ const headings = [
   },
   {
     name: "Address",
-    field: "address"
-  },
-  {
-    name: "City",
-    field: "city"
-  },
-  {
-    name: "State",
-    field: "state"
-  },
-  {
-    name: "ZIP Code",
-    field: "zip_code"
+    field: "state,city,zip_code,address"
   },
   {
     name: "Phone",
@@ -36,6 +24,9 @@ const headings = [
   {
     name: "Status",
     field: "active"
+  },
+  {
+    name: "Active Patients"
   }
 ]
 
@@ -81,16 +72,14 @@ class HealthPlansPage extends Component {
   generateTableRow(healthPlan) {
     return [
       {
-        content: healthPlan.name,
+        content: healthPlanHelper.name(healthPlan),
         onClick: (event) => { this.vm.gotoHealthPlanProfile(healthPlan) }
       },
-      healthPlan.code,
-      healthPlan.address,
-      healthPlan.city,
-      healthPlan.state,
-      healthPlan.zip_code,
-      healthPlan.phone,
-      valueHelper.isSet(healthPlan.active) ? "Active" : "Inactive"
+      healthPlanHelper.code(healthPlan),
+      healthPlanHelper.fullAddress(healthPlan),
+      healthPlanHelper.phone(healthPlan),
+      valueHelper.isSet(healthPlan.active) ? "Active" : "Inactive",
+      valueHelper.makeString(healthPlanHelper.activePatients(healthPlan))
     ]
   }
 

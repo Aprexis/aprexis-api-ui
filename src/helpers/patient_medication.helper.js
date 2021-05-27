@@ -267,7 +267,7 @@ function pharmacyStore(patientMedication) {
 }
 
 function pharmacyStoreId(patientMedication) {
-  return fieldHelper.getField(patientMedication, "id")
+  return fieldHelper.getField(patientMedication, "pharmacy_store_id")
 }
 
 function pharmacyStoreName(patientMedication) {

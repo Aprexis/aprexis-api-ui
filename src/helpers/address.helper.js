@@ -4,6 +4,7 @@ export const addressHelper = {
   address,
   city,
   country,
+  displayZipCode,
   fullAddress,
   state,
   zipCode
@@ -21,11 +22,24 @@ function country(address, prefix) {
   return fieldHelper.getField(address, 'country', prefix)
 }
 
+function displayZipCode(address, prefix) {
+  const zipCode = addressHelper.zipCode(address, prefix)
+  if (!valueHelper.isStringValue(zipCode)) {
+    return ""
+  }
+
+  if (zipCode.includes("-") || zipCode.length <= 5) {
+    return zipCode
+  }
+
+  return `${zipCode.substring(0, 5)}-${zipCode.substring(5)}`
+}
+
 function fullAddress(address, prefix) {
   const addressLine = addressHelper.address(address, prefix)
   const city = addressHelper.city(address, prefix)
   const state = addressHelper.state(address, prefix)
-  const zipCode = addressHelper.zipCode(address, prefix)
+  const zipCode = addressHelper.displayZipCode(address, prefix)
   const country = addressHelper.country(address, prefix)
   let result = ""
   let resultPrefix = ""
