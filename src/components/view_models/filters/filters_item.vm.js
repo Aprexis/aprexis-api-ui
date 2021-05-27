@@ -11,6 +11,13 @@ class FiltersItemViewModel extends AbstractViewModel {
   }
 
   buildFilterLabel(filterDescriptions, filters, filterIdx, existingFilterLabels, nextOperation) {
+    if (!valueHelper.isValue(filterDescriptions) || filterDescriptions.length === 0) {
+      if (valueHelper.isFunction(nextOperation)) {
+        nextOperation()
+      }
+      return
+    }
+
     const onSuccess = (label) => {
       const filterLabels = [...existingFilterLabels]
       if (valueHelper.isValue(label)) {
@@ -31,6 +38,7 @@ class FiltersItemViewModel extends AbstractViewModel {
 
   loadData() {
     const { filterDescriptions, filters } = this.props
+    console.log(`FDs: ${JSON.stringify(filterDescriptions, null, 2)}`)
     this.clearData(false)
     this.addData(
       { filterDescriptions, filters },
