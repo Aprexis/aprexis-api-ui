@@ -38,7 +38,6 @@ class FiltersItemViewModel extends AbstractViewModel {
 
   loadData() {
     const { filterDescriptions, filters } = this.props
-    console.log(`FDs: ${JSON.stringify(filterDescriptions, null, 2)}`)
     this.clearData(false)
     this.addData(
       { filterDescriptions, filters },
