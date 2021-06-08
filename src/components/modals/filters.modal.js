@@ -74,11 +74,13 @@ class FiltersModal extends Component {
   }
 
   renderFooter() {
+    const { clearModal, toggleModal } = this.props
+
     return (
       <div>
         <button
           className='btn btn-sm btn-secondary mr-auto'
-          onClick={(event) => { this.props.toggleModal(this.props.onClearModal) }}>
+          onClick={(event) => { toggleModal(clearModal) }}>
           Cancel
         </button>
         <button

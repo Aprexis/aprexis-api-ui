@@ -137,11 +137,11 @@ class AprexisList extends Component {
   }
 
   generateEmptyListGroup() {
-    return { content: (<label>No results found</label>) }
+    return { content: (<label>No results found</label>), rowIndex: 0 }
   }
 
   generateNoDataGroup() {
-    return { content: (<Spinner />) }
+    return { content: (<Spinner showAtStart={true} />), rowIndex: 0 }
   }
 
   generateTableData(list) {

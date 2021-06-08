@@ -1,5 +1,4 @@
 import { AbstractViewModel } from "../"
-import { valueHelper } from "../../../helpers"
 class AbstractPageViewModel extends AbstractViewModel {
   constructor(props) {
     if (new.target === AbstractPageViewModel) {
@@ -7,16 +6,6 @@ class AbstractPageViewModel extends AbstractViewModel {
     }
 
     super(props)
-
-    this.clearModal = this.clearModal.bind(this)
-  }
-
-  clearModal(nextOperation) {
-    this.removeField("modal")
-
-    if (valueHelper.isFunction(nextOperation)) {
-      nextOperation()
-    }
   }
 }
 

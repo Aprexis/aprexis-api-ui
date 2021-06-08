@@ -13,9 +13,11 @@ export const userHelper = {
   canModifyUsers,
   displayRole,
   firstName,
+  forHealthPlan,
   fullName,
   getCurrentUser,
   hasRole,
+  healthPlans,
   isAccessLocked,
   isExpired,
   isLoginAllowed,
@@ -58,7 +60,6 @@ function canCreatePatientMedication(user, pathEntries) {
   return canCreateForHealthPlan(user, pathEntries) || canCreateForPharmacyStore(user, pathEntries)
 }
 
-
 function canCreatePatientNote(user, pathEntries) {
   if (userHelper.hasRole(user, "aprexis_admin")) {
     return true
@@ -83,11 +84,15 @@ function canModifyUsers(user) {
 }
 
 function displayRole(user) {
-  return userRoles[userHelper.role(user)]
+  return userRoles[userHelper.role(user)].label
 }
 
 function firstName(user) {
   return fieldHelper.getField(user, "first_name")
+}
+
+function forHealthPlan(user, healthPlanId) {
+
 }
 
 function fullName(user) {
@@ -112,6 +117,10 @@ function hasRole(user, role) {
   }
 
   return userRole == role
+}
+
+function healthPlans(user) {
+  return fieldHelper.getField(user, "health_plans")
 }
 
 function isAccessLocked(user) {

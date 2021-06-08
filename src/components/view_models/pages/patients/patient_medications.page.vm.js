@@ -54,7 +54,10 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
       patientId,
       pharmacyStoreId,
       (patientMedication) => {
-        this.addField("modal", { modalName: "patient-medication", operation: "create", patientMedication })
+        this.props.launchModal(
+          "patient-medication",
+          { operation: "create", onUpdateView: this.refreshData, patientMedication }
+        )
       },
       this.onError
     )
@@ -78,7 +81,9 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
       userCredentialsHelper.get(),
       patientMedicationToEdit.id,
       (patientMedication) => {
-        this.addField("modal", { modalName: "patient-medication", operation: "update", patientMedication })
+        this.props.launchModal(
+          "patient-medication",
+          { operation: "update", onUpdateView: this.refreshData, patientMedication })
       },
       this.onError
     )
@@ -195,9 +200,10 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     this.fetchList(
       patientMedicationListMethods,
       (patientMedications, patientMedicationHeaders) => {
-        this.addData({ patientMedications })
-        this.addField("page", pageHelper.updatePageFromLastPage(patientMedicationHeaders))
-        this.redrawView()
+        this.addData(
+          { patientMedications, page: pageHelper.updatePageFromLastPage(patientMedicationHeaders) },
+          this.redrawView
+        )
       },
       this.onError
     )

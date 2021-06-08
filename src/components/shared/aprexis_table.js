@@ -80,7 +80,7 @@ class Data extends Component {
   render() {
     const { data, groups } = this.props
 
-    if (valueHelper.isValue(data)) {
+    if (valueHelper.isValue(data) && data.length > 0) {
       return (
         <DataRows data={data} groups={groups} />
       )

@@ -242,13 +242,14 @@ class PatientMedicationModal extends Component {
   }
 
   renderFooter() {
+    const { clearModal } = this.props
     const { changedPatientMedication, operation, patientMedication } = this.state
 
     return (
       <div>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={(event) => { this.props.toggleModal(this.props.onClearModal) }}>
+          onClick={(event) => { this.vm.toggleModal(clearModal) }}>
           Cancel
         </button>
         <button

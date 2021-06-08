@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { RefreshView } from './'
 import { FiltersItem } from '../components/filters/filters_item'
-import { Modals } from '../components/modals'
 import { AprexisList } from '../components/shared'
 import { valueHelper } from '../helpers'
 
@@ -63,21 +62,6 @@ class ListView extends Component {
           onRefreshData={onRefreshData}
           onSelectFilters={this.props.onSelectFilters}
           onUpdateFilters={onUpdateFilters}
-        />
-
-        <Modals
-          {...valueHelper.importantProps(this.props)}
-          {...this.props.modal}
-          context={this.props.context}
-          currentAdminUser={this.props.currentAdminUser}
-          currentUser={this.props.currentUser}
-          onClearAlert={this.props.onClearAlert}
-          onClearModal={this.props.onClearModal}
-          onLoadData={this.props.onLoadData}
-          onSubmitModal={this.props.onSubmitModal}
-          onUpdateView={this.props.onUpdateView}
-          modalProps={{ filters: { onRefreshData, onUpdateFilters }, ...this.props.modalProps }}
-          parentTitle={listPluralLabel}
         />
 
         <AprexisList

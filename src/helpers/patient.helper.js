@@ -1,15 +1,64 @@
-import { addressHelper, contactHelper, fieldHelper, nameHelper, valueHelper } from "./"
+import { addressHelper, contactHelper, fieldHelper, healthPlanHelper, nameHelper, userHelper, valueHelper } from "./"
 
 export const patientHelper = {
+  canEdit,
   firstName,
   gender,
   hasSubscriber,
   hasUser,
+  id,
   lastName,
   middleName,
   name,
   requiresPersonNumber,
   toBreadcrumb
+}
+
+function canEdit(user, patient, healthPlan, pharmacyStores) {
+  switch (userHelper.role(user)) {
+    case 'aprexis_admin':
+      return true
+
+    case 'health_plan_admin':
+    case 'health_plan_user':
+      return healthPlanCanEdit(user, patient)
+
+    case 'pharmacy_store_admin':
+    case 'pharmacy_store_tech':
+    case 'pharmacy_store_user':
+      return pharmacyStoreCanEdit(user, patient, healthPlan, pharmacyStores)
+
+    default:
+      return false
+  }
+
+  function healthPlanCanEdit(user, patient) {
+    return userHelper.forHealthPlan(user, patientHelper.healthPlanId(patient))
+  }
+
+  function pharmacyStoreCanEdit(user, patient, healthPlan, pharmacyStores) {
+    if (!valueHelper.isValue(healthPlan)) {
+      return false
+    }
+
+    if (healthPlanHelper.isSegmented(healthPlan)) {
+      return canEditForSegmentedHealthPlan(user, pharmacyStores)
+    }
+
+    return canEditForStandardHealthPlan(user, patient)
+  }
+
+  function canEditForSegmentedHealthPlan(user, pharmacyStores) {
+    if (!valueHelper.isValue(pharmacyStores)) {
+      return false
+    }
+
+    return userHelper.forAnyPharmacyStore(user, pharmacyStores)
+  }
+
+  function canEditForStandardHealthPlan(user, patient) {
+    return userHelper.forHealthPlan(user, patientHelper.healthPlanId(patient))
+  }
 }
 
 function firstName(patient, prefix = "") {
@@ -43,6 +92,10 @@ function hasUser(patient) {
     valueHelper.isStringValue(contactHelper.phone(patient, "user")) ||
     valueHelper.isStringValue(addressHelper.state(patient, "user")) ||
     valueHelper.isStringValue(addressHelper.zipCode(patient, "user"))
+}
+
+function id(patient) {
+  return fieldHelper.getField(patient, "id")
 }
 
 function lastName(patient, prefix = "") {

@@ -176,13 +176,14 @@ class AbstractModalViewModel extends AbstractViewModel {
   }
 
   renderSubmitFooter(submitLabel = "Submit", cancelLabel = "Cancel") {
+    const { clearModal } = this.props
     const modelName = this.modelName()
 
     return (
       <React.Fragment>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={(event) => { this.props.toggleModal(this.props.onClearModal) }}>
+          onClick={(event) => { this.toggleModal(clearModal) }}>
           {cancelLabel}
         </button>
         <button

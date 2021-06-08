@@ -97,13 +97,13 @@ class PatientNoteModal extends Component {
   }
 
   renderFooter() {
-    const { changedPatientNote, operation, patientNote } = this.state
+    const { changedPatientNote, clearModal, operation, patientNote } = this.state
 
     return (
       <div>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={this.vm.clearModal}>
+          onClick={(event) => { this.vm.toggleModal(clearModal) }}>
           Cancel
         </button>
         <button

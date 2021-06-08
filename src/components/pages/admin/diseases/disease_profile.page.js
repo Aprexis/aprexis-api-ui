@@ -25,7 +25,7 @@ const DiseaseProfile = ({ disease }) => {
 
 const DiseaseDisplay = ({ currentUser, disease }) => {
   if (!valueHelper.isValue(disease)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (

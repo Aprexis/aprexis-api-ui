@@ -118,18 +118,16 @@ function isNumberValue(value) {
 function importantProps(props) {
   const {
     clearAlert,
+    clearModal,
     error,
-    modalClose,
-    modalIsOpen,
-    modalOpen
+    launchModal
   } = props
 
   return {
     clearAlert,
+    clearModal,
     error,
-    modalClose,
-    modalIsOpen,
-    modalOpen
+    launchModal
   }
 }
 

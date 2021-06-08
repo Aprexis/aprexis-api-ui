@@ -96,8 +96,10 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
   }
 
   selectFilters(filterDescriptions, filters) {
-    this.addData({ modal: { modalName: "filters", filterDescriptions, filters } })
-    this.redrawView()
+    this.props.launchModal(
+      "filters",
+      { filterDescriptions, filters, onRefreshData: this.refreshData, onUpdateFilters: this.updateFilters }
+    )
   }
 
   updateFilters(filters, nextOperation) {

@@ -7,6 +7,7 @@ class AprexisModal extends Component {
   render() {
     const {
       children,
+      clearModal,
       date,
       modalClassName,
       modalDate,
@@ -21,8 +22,8 @@ class AprexisModal extends Component {
       <Modal
         className={`${modalClassName} modal-dialog dialog-centered`}
         isOpen={openModal}
-        toggle={() => { toggleModal(this.props.onClearModal) }}>
-        <ModalHeader toggle={() => { toggleModal(this.props.onClearModal) }}>
+        toggle={() => { toggleModal(clearModal) }}>
+        <ModalHeader toggle={() => { toggleModal(clearModal) }}>
           {modalHeaderComponents}
         </ModalHeader>
 

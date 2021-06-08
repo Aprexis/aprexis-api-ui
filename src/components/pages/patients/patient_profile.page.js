@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Address, Contact, Spinner } from '../../shared'
+import { Address, Contact, EditButton, Spinner } from '../../shared'
 import { PatientProfilePageViewModel } from "../../view_models/pages/patients"
 import { fieldHelper, patientHelper, valueHelper } from "../../../helpers"
 
@@ -25,12 +25,18 @@ const PatientConfiguration = ({ patient }) => {
   )
 }
 
-const PatientProfile = ({ patient }) => {
+const PatientProfile = ({ currentUser, onEditProfile, patient }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Profile</h3>
+          <h3>
+            Profile
+            {
+              patientHelper.canEdit(currentUser, patient) &&
+              <EditButton onEdit={(event) => { onEditProfile(patient) }} />
+            }
+          </h3>
         </CardTitle>
 
         <CardBody>
@@ -90,15 +96,15 @@ const PatientUser = ({ patient }) => {
   )
 }
 
-const PatientDisplay = ({ patient }) => {
+const PatientDisplay = ({ currentUser, onEditProfile, patient }) => {
   if (!valueHelper.isValue(patient)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (
     <React.Fragment>
       <Row>
-        <PatientProfile patient={patient} />
+        <PatientProfile currentUser={currentUser} onEditProfile={onEditProfile} patient={patient} />
         <PatientSubscriber patient={patient} />
       </Row>
 
@@ -137,7 +143,11 @@ class PatientProfilePage extends Component {
             <h1>{patientHelper.name(patient)}</h1>
           </div>
 
-          <PatientDisplay currentUser={this.props.currentUser} patient={patient} />
+          <PatientDisplay
+            currentUser={this.props.currentUser}
+            onEditProfile={this.vm.editProfileModal}
+            patient={patient}
+          />
         </Col>
       </Container>
     )

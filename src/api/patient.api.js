@@ -1,11 +1,22 @@
 import { API } from "./"
 
 export const patientApi = {
+  edit,
   list,
   listForHealthPlan,
   listForPharmacyStore,
   search,
   show
+}
+
+function edit(userCredentials, id, onSuccess, onFailure) {
+  if (!API.validateId("patient ID", id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patients/${id}/edit`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function list(userCredentials, params, onSuccess, onFailure) {

@@ -28,7 +28,7 @@ const LabTestProfile = ({ labTest }) => {
 
 const LabTestDisplay = ({ currentUser, labTest }) => {
   if (!valueHelper.isValue(labTest)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (

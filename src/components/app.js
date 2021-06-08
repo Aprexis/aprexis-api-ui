@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   render() {
-    const { match } = this.props
     const { context, currentAdminUser, currentUser, modal } = this.state
 
     return (
@@ -54,7 +53,6 @@ class App extends Component {
           gotoPharmacyStoresPage={this.vm.gotoPharmacyStoresPage}
           gotoUsersPage={this.vm.gotoUsersPage}
           history={history}
-          match={match}
           onSignIn={this.vm.signIn}
           onSignOut={this.vm.signOut}
         />
@@ -66,13 +64,11 @@ class App extends Component {
           currentUser={currentUser}
           errorCount={this.state.errorCount}
           error={this.vm.error}
-          modalClose={this.vm.modalClose}
-          modalIsOpen={this.state.modalIsOpen}
-          modalOpen={this.vm.modalOpen}
-          history={history} match={match}
+          launchModal={this.vm.launchModal}
+          modalIsOpen={valueHelper.isValue(modal)}
         />
 
-        <Footer currentUser={currentUser} history={history} match={match} />
+        <Footer currentUser={currentUser} />
 
         <Modals
           {...valueHelper.importantProps(this.props)}
@@ -84,9 +80,7 @@ class App extends Component {
           currentUser={this.props.currentUser}
           error={this.vm.error}
           modalClose={this.vm.modalClose}
-          modalIsOpen={this.state.modalIsOpen}
           modalOpen={this.vm.modalOpen}
-          modalProps={{ 'sign-in': { updateView: this.vm.home } }}
         />
       </div>
     )

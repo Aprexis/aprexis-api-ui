@@ -49,7 +49,7 @@ const PharmacyStoreProfile = ({ pharmacyStore }) => {
 
 const PharmacyStoreDisplay = ({ pharmacyStore }) => {
   if (!valueHelper.isValue(pharmacyStore)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (

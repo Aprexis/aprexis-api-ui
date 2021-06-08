@@ -20,7 +20,7 @@ const InterventionConfiguration = ({ intervention }) => {
             )
           }
           {
-            fieldHelper.dateTimeDisplay(
+            fieldHelper.dateDisplay(
               "Consent Form Initiated At",
               interventionHelper.consentFormInitiatedAt(intervention)
             )
@@ -139,7 +139,7 @@ const InterventionStatus = ({ intervention }) => {
 
 const InterventionDisplay = ({ intervention }) => {
   if (!valueHelper.isValue(intervention)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (

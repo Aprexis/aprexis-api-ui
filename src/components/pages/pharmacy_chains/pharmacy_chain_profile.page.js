@@ -62,7 +62,7 @@ const PharmacyChainStatement = ({ pharmacyChain }) => {
 
 const PharmacyChainDisplay = ({ pharmacyChain }) => {
   if (!valueHelper.isValue(pharmacyChain)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (

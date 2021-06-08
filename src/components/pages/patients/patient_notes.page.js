@@ -126,10 +126,8 @@ class PatientNotesPage extends Component {
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
         onClearAlert={this.vm.clearAlert}
-        onClearModal={this.vm.clearModal}
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
-        onSubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         onUpdateView={this.vm.loadData}
         page={this.state.page}

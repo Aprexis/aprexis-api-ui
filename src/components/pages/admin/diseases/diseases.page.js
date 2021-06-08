@@ -93,10 +93,8 @@ class DiseasesPage extends Component {
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
         onClearAlert={this.vm.clearAlert}
-        onClearModal={this.vm.clearModal}
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
-        onsubmitModal={this.vm.submitModal}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
         title="Diseases"

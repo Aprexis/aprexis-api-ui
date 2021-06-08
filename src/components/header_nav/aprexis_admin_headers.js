@@ -47,7 +47,7 @@ class AprexisAdminHeaders extends Component {
   }
 
   userLabel(user) {
-    return `${userHelper.fullName(user)} (${userHelper.username(user)})`
+    return `${userHelper.fullName(user)} (${userHelper.username(user)}) ${userHelper.displayRole(user)}`
   }
 }
 

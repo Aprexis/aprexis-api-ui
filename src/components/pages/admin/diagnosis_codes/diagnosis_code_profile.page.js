@@ -28,7 +28,7 @@ const DiagnosisCodeProfile = ({ diagnosisCode }) => {
 
 const DiagnosisCodeDisplay = ({ currentUser, diagnosisCode }) => {
   if (!valueHelper.isValue(diagnosisCode)) {
-    return (<Spinner />)
+    return (<Spinner showAtStart={true} />)
   }
 
   return (

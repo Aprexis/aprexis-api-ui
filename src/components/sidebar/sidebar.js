@@ -96,6 +96,13 @@ const sidebarDescriptions = {
     ],
     entryLabel: "Program",
     entryName: "programs"
+  },
+  "users": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ],
+    entryLabel: "User",
+    entryName: "users"
   }
 }
 

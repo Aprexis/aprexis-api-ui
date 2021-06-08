@@ -29,6 +29,7 @@ class AppViewModel extends AbstractViewModel {
     this.gotoPharmacyStoresPage = this.gotoPharmacyStoresPage.bind(this)
     this.gotoUsersPage = this.gotoUsersPage.bind(this)
     this.home = this.home.bind(this)
+    this.launchModal = this.launchModal.bind(this)
     this.loadContext = this.loadContext.bind(this)
     this.loadData = this.loadData.bind(this)
     this.modalClose = this.modalClose.bind(this)
@@ -171,6 +172,11 @@ class AppViewModel extends AbstractViewModel {
     history.push("/")
   }
 
+  launchModal(modalName, propsForModal = {}) {
+    this.addField("modal", { modalName, ...propsForModal })
+    this.clearAlert()
+  }
+
   loadContext(nextOperation) {
     contextHelper.updateContext(nextOperation)
   }
@@ -215,8 +221,8 @@ class AppViewModel extends AbstractViewModel {
   }
 
   signIn() {
+    this.launchModal("sign-in", { modalProps: { updateView: this.home } })
     alertHelper.clear()
-    this.addField("modal", { modalName: "sign-in" })
   }
 
   signOut() {

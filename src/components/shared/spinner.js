@@ -6,7 +6,7 @@ class Spinner extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { show: false }
+    this.state = { show: this.props.showAtStart }
 
     this.refresh = this.refresh.bind(this)
   }

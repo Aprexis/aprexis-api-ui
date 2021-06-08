@@ -155,7 +155,7 @@ class FiltersModalViewModel extends AbstractModalViewModel {
       return
     }
 
-    this.props.onClearModal(() => { this.props.onUpdateFilters(filters, this.props.onRefreshData) })
+    this.props.clearModal(() => { this.props.onUpdateFilters(filters, this.props.onRefreshData) })
   }
 }
 

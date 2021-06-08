@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import { FiltersModal, SignInModal } from "./"
-import { PatientMedicationModal, PatientNoteModal } from "./patients"
+import { PatientMedicationModal, PatientNoteModal, PatientProfileModal } from "./patients"
 import { valueHelper } from "../../helpers"
 
 const modalList = {
   Filters: FiltersModal,
   PatientMedication: PatientMedicationModal,
   PatientNote: PatientNoteModal,
+  PatientProfile: PatientProfileModal,
   SignIn: SignInModal
 }
 
@@ -26,9 +27,8 @@ class Modals extends Component {
       )
     }
 
-    const props = valueHelper.isValue(modalProps) ? modalProps[modalName] : {}
     return (
-      <Modal {...this.props} {...props} date={new Date()} />
+      <Modal {...this.props} {...modalProps} date={new Date()} />
     )
   }
 }

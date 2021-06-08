@@ -20,11 +20,13 @@ class SignInModal extends Component {
   }
 
   renderFooter() {
+    const { clearModal, toggleModal } = this.props
+
     return (
       <React.Fragment>
         <button
           className='btn btn-sm btn-secondary mr-auto'
-          onClick={this.vm.clearModal}>
+          onClick={(event) => { toggleModal(clearModal) }}>
           Cancel
         </button>
         <button
