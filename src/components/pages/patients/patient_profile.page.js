@@ -13,12 +13,12 @@ const PatientConfiguration = ({ patient }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.booleanDisplay("Cognitively Impaired", patient.cognnitively_impaired)}
-          {fieldHelper.booleanDisplay("No Known Allergies", patient.no_known_allergies)}
-          {fieldHelper.display("Primary Care Provider NPI", patient.primary_care_provider_npi)}
-          {fieldHelper.display("Number of Medications", patient.medication_count)}
-          {fieldHelper.display("Latitude", patient.latitude)}
-          {fieldHelper.display("Longitude", patient.longitude)}
+          {fieldHelper.booleanDisplay("Cognitively Impaired", patientHelper.cognnitivelyImpaired(patient))}
+          {fieldHelper.booleanDisplay("No Known Allergies", patientHelper.noKnownAllergies(patient))}
+          {fieldHelper.display("Primary Care Provider NPI", patientHelper.primaryCareProviderNpi(patient))}
+          {fieldHelper.display("Number of Medications", patientHelper.medicationCount(patient))}
+          {fieldHelper.display("Latitude", patientHelper.latitude(patient))}
+          {fieldHelper.display("Longitude", patientHelper.longitude(patient))}
         </CardBody>
       </Card>
     </Col>
@@ -40,17 +40,17 @@ const PatientProfile = ({ currentUser, onEditProfile, patient }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Member Number", patient.member_number)}
+          {fieldHelper.display("Member Number", patientHelper.memberNumber(patient))}
           {
             patientHelper.requiresPersonNumber(patient) &&
-            fieldHelper.display("Person Number", patient.person_number)
+            fieldHelper.display("Person Number", patientHelper.personNumber(patient))
           }
-          {fieldHelper.dateDisplay("Coverage Effective Date", patient.coverage_effective_date)}
-          {fieldHelper.dateDisplay("Coverage End Date", patient.coverage_end_date)}
+          {fieldHelper.dateDisplay("Coverage Effective Date", patientHelper.coverageEffectiveDate(patient))}
+          {fieldHelper.dateDisplay("Coverage End Date", patientHelper.coverageEndDate(patient))}
           <Address addressable={patient} />
           <Contact contactable={patient} />
-          {fieldHelper.display("Preferred Contact Method", patient.preferred_contact_method)}
-          {fieldHelper.display("Race", patient.race)}
+          {fieldHelper.display("Preferred Contact Method", patientHelper.preferredContactMethod(patient))}
+          {fieldHelper.display("Race", patientHelper.race(patient))}
         </CardBody>
       </Card>
     </Col>
@@ -71,7 +71,7 @@ const PatientSubscriber = ({ patient }) => {
 
         <CardBody>
           <Address addressable={patient} prefix="subscriber" />
-          {fieldHelper.display("Name", fieldHelper.getField(patient, "name", "subscriber"))}
+          {fieldHelper.display("Name", patientHelper.subscriberName(patient))}
           <Contact contactable={patient} prefix="subscriber" />
         </CardBody>
       </Card>
@@ -137,10 +137,13 @@ class PatientProfilePage extends Component {
     const { patient } = this.state
 
     return (
-      <Container>
+      <Container className='patient-profile'>
         <Col>
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
-            <h1>{patientHelper.name(patient)}</h1>
+            <h1>
+              {patientHelper.name(patient)}
+            </h1>
+            <label>{fieldHelper.dateDisplay("DOB", patientHelper.dateOfBirth(patient))}</label>
           </div>
 
           <PatientDisplay

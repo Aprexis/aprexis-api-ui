@@ -17,6 +17,7 @@ export const fieldHelper = {
   displayListField,
   displayWithUnits,
   dollarDisplay,
+  fieldName,
   getField,
   imageDisplay,
   includeField,
@@ -166,16 +167,20 @@ function dollarDisplay(name, value, description) {
   return fieldHelper.display(name, `$${value}`, description)
 }
 
+function fieldName(fieldName, prefix) {
+  if (!valueHelper.isStringValue(prefix)) {
+    return fieldName
+  }
+
+  return `${prefix}_${fieldName}`
+}
+
 function getField(object, fieldName, prefix) {
   if (!valueHelper.isValue(object)) {
     return
   }
 
-  if (!valueHelper.isStringValue(prefix)) {
-    return object[fieldName]
-  }
-
-  return object[`${prefix}_${fieldName}`]
+  return object[fieldHelper.fieldName(fieldName, prefix)]
 }
 
 function imageDisplay(name, value, description) {

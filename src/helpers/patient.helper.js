@@ -1,17 +1,105 @@
-import { addressHelper, contactHelper, fieldHelper, healthPlanHelper, nameHelper, userHelper, valueHelper } from "./"
+import {
+  addressHelper,
+  apiHelper,
+  contactHelper,
+  fieldHelper,
+  healthPlanHelper,
+  nameHelper,
+  userHelper,
+  valueHelper
+} from "./"
+import { contactMethods } from "../types"
 
 export const patientHelper = {
+  buildChanged,
+  buildNewChanged,
   canEdit,
+  canModifyField,
+  cognnitivelyImpaired,
+  coverageEffectiveDate,
+  coverageEndDate,
+  dateOfBirth,
+  displayPreferredContactMethod,
   firstName,
   gender,
   hasSubscriber,
   hasUser,
   id,
   lastName,
+  latitude,
+  longitude,
+  memberNumber,
   middleName,
   name,
+  noKnownAllergies,
+  medicationCount,
+  personNumber,
+  preferredContactMethod,
+  primaryCareProviderNpi,
+  race,
   requiresPersonNumber,
-  toBreadcrumb
+  subscriberName,
+  toBreadcrumb,
+  toJSON
+}
+
+const patientKeys = [
+  "id",
+  "health_plan_id",
+  ...addressHelper.keys(),
+  ...contactHelper.keys(),
+  "age",
+  "cognitively_impaired",
+  "coverage_effective_date",
+  "coverage_end_date",
+  "date_of_birth",
+  "first_name",
+  "gender",
+  "health_plan_patient_pharmacy_claim_identifier",
+  "last_name",
+  "latitude",
+  "longitude",
+  "medication_count",
+  "member_number",
+  "middle_name",
+  "no_known_allergies",
+  "person_number",
+  "preferred_contact_method",
+  "primary_care_provider_npi",
+  "race",
+  "resides_in_nursing_home",
+  "status",
+  "subscriber_date_of_birth",
+  "subscriber_gender",
+  "subscriber_name",
+  ...addressHelper.keys("subscriber"),
+  ...addressHelper.keys("user"),
+  "user_phone"
+]
+
+function buildChanged(patient, changedPatient) {
+  if (valueHelper.isValue(changedPatient)) {
+    return changedPatient
+  }
+
+  if (valueHelper.isValue(patient.id)) {
+    return copyIdentifiers(patient)
+  }
+
+  return patientHelper.buildNewChanged(patient)
+
+  function copyIdentifiers(patient) {
+    return {
+      id: patient.id,
+      health_plan_id: patient.health_plan_id
+    }
+  }
+}
+
+function buildNewChanged(patient) {
+  return {
+    ...patient
+  }
 }
 
 function canEdit(user, patient, healthPlan, pharmacyStores) {
@@ -61,6 +149,40 @@ function canEdit(user, patient, healthPlan, pharmacyStores) {
   }
 }
 
+function canModifyField(patient, fieldName) {
+  return true
+}
+
+function cognnitivelyImpaired(patient) {
+  return fieldHelper.getField(patient, "cognnitively_impaired")
+}
+
+function coverageEffectiveDate(patient) {
+  return fieldHelper.getField(patient, "coverage_effective_date")
+}
+
+function coverageEndDate(patient) {
+  return fieldHelper.getField(patient, "coverage_end_date")
+}
+
+function dateOfBirth(patient) {
+  return fieldHelper.getField(patient, "date_of_birth")
+}
+
+function displayPreferredContactMethod(patient) {
+  const preferredContactMethod = patientHelper.preferredContactMethod(patient)
+  if (!valueHelper.isStringValue(preferredContactMethod)) {
+    return ""
+  }
+
+  const contactMethod = contactMethods.find((checkMethod) => checkMethod.value == preferredContactMethod)
+  if (!valueHelper.isValue(contactMethod)) {
+    return preferredContactMethod
+  }
+
+  return contactMethod.label
+}
+
 function firstName(patient, prefix = "") {
   return nameHelper.firstName(patient, prefix)
 }
@@ -102,12 +224,48 @@ function lastName(patient, prefix = "") {
   return nameHelper.lastName(patient, prefix)
 }
 
+function latitude(patient) {
+  return fieldHelper.getField(patient, "latitude")
+}
+
+function longitude(patient) {
+  return fieldHelper.getField(patient, "longitude")
+}
+
+function medicationCount(patient) {
+  return fieldHelper.getField(patient, "medication_count")
+}
+
+function memberNumber(patient) {
+  return fieldHelper.getField(patient, "member_number")
+}
+
 function middleName(patient, prefix = "") {
   return nameHelper.middleName(patient, prefix)
 }
 
 function name(patient, prefix = "") {
   return nameHelper.name(patient, "patient", prefix)
+}
+
+function noKnownAllergies(patient) {
+  return fieldHelper.getField(patient, "no_known_allergies")
+}
+
+function personNumber(patient) {
+  return fieldHelper.getField(patient, "person_number")
+}
+
+function preferredContactMethod(patient) {
+  return fieldHelper.getField(patient, "preferred_contact_method")
+}
+
+function primaryCareProviderNpi(patient) {
+  return fieldHelper.getField(patient, "primary_care_provider_npi")
+}
+
+function race(patient) {
+  return fieldHelper.getField(patient, "race")
 }
 
 function requiresPersonNumber(patient) {
@@ -118,10 +276,18 @@ function requiresPersonNumber(patient) {
   return valueHelper.isSet(patient.requires_person_number)
 }
 
+function subscriberName(patient) {
+  return fieldHelper.getField(patient, "name", "subscriber")
+}
+
 function toBreadcrumb(patient) {
   if (!valueHelper.isValue(patient)) {
     return "(no patient)"
   }
 
   return patientHelper.name(patient)
+}
+
+function toJSON(patient) {
+  return apiHelper.toJSON(patient, patientKeys)
 }

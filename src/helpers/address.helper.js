@@ -1,4 +1,4 @@
-import { fieldHelper, valueHelper } from './'
+import { fieldHelper, valueHelper } from "./"
 
 export const addressHelper = {
   address,
@@ -6,20 +6,29 @@ export const addressHelper = {
   country,
   displayZipCode,
   fullAddress,
+  keys,
   state,
   zipCode
 }
 
+const addressKeys = [
+  "address",
+  "city",
+  "country",
+  "state",
+  "zip_code"
+]
+
 function address(address, prefix) {
-  return fieldHelper.getField(address, 'address', prefix)
+  return fieldHelper.getField(address, "address", prefix)
 }
 
 function city(address, prefix) {
-  return fieldHelper.getField(address, 'city', prefix)
+  return fieldHelper.getField(address, "city", prefix)
 }
 
 function country(address, prefix) {
-  return fieldHelper.getField(address, 'country', prefix)
+  return fieldHelper.getField(address, "country", prefix)
 }
 
 function displayZipCode(address, prefix) {
@@ -63,10 +72,18 @@ function fullAddress(address, prefix) {
   return result
 }
 
+function keys(prefix) {
+  if (!valueHelper.isStringValue(prefix)) {
+    return addressKeys
+  }
+
+  return addressKeys.map((key) => fieldHelper.fieldName(key, prefix))
+}
+
 function state(address, prefix) {
-  return fieldHelper.getField(address, 'state', prefix)
+  return fieldHelper.getField(address, "state", prefix)
 }
 
 function zipCode(address, prefix) {
-  return fieldHelper.getField(address, 'zip_code', prefix)
+  return fieldHelper.getField(address, "zip_code", prefix)
 }

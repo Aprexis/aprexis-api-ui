@@ -6,22 +6,16 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
   constructor(props) {
     super(props)
 
-    this.create = this.create.bind(this)
+    this.api = this.api.bind(this)
     this.fetchPatient = this.fetchPatient.bind(this)
     this.fetchPharmacyStore = this.fetchPharmacyStore.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
-    this.submitModel = this.submitModal.bind(this)
   }
 
-  create(modalChangedModel) {
-    patientNoteApi.create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
+  api() {
+    return patientNoteApi
   }
 
   fetchPatient(pathEntries, nextOperation) {
@@ -72,21 +66,8 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
     return { changedModel: changedPatientNote, model: patientNote, modelName: "patientNote" }
   }
 
-  submitModal(modalModelName, modalModel, modalChangedModel) {
-    if (modalModelName != "patientNote") {
-      this.onError(`Unrecognized patient note model ${modalModelName}`)
-      return
-    }
-
-    const { operation } = this.props
-    switch (operation) {
-      case 'create':
-        this.create(modalChangedModel)
-        return
-
-      default:
-        this.onError(`Unrecognized patient note operation ${operation}`)
-    }
+  modelName() {
+    return "patientNote"
   }
 }
 

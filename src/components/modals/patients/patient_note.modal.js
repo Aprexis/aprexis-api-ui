@@ -108,7 +108,7 @@ class PatientNoteModal extends Component {
         </button>
         <button
           className="btn btn-sm btn-primary"
-          onClick={(event) => { this.vm.submitModel("patientNote", patientNote, changedPatientNote) }}>
+          onClick={(event) => { this.vm.submitModalCreateOrUpdate("patientNote", patientNote, changedPatientNote) }}>
           {valueHelper.humanize(operation)}
         </button>
       </div>

@@ -23,7 +23,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
   constructor(props) {
     super(props)
 
-    this.create = this.create.bind(this)
+    this.api = this.api.bind(this)
     this.dateAndTimeFields = this.dateAndTimeFields.bind(this)
     this.fetchMedication = this.fetchMedication.bind(this)
     this.fetchPatient = this.fetchPatient.bind(this)
@@ -32,12 +32,15 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectMedication = this.selectMedication.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
     this.selectPhysician = this.selectPhysician.bind(this)
-    this.submitModel = this.submitModal.bind(this)
-    this.update = this.update.bind(this)
+  }
+
+  api() {
+    return patientMedicationApi
   }
 
   create(modalChangedModel) {
@@ -110,6 +113,10 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     return { changedModel: changedPatientMedication, model: patientMedication, modelName: "patientMedication" }
   }
 
+  modelName() {
+    return "patientMedication"
+  }
+
   requiredFields() {
     return patientMedicationRequiredFields
   }
@@ -145,40 +152,6 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     }
 
     this.fetchPhysician(value, addPhysicianToPatientMedicationAndRedraw)
-  }
-
-  submitModal(modalModelName, modalModel, modalChangedModel) {
-    if (modalModelName != "patientMedication") {
-      this.onError(`Unrecognized patient medication model ${modalModelName}`)
-      return
-    }
-    if (!this.checkRequiredFields(modalModel) || !this.checkValidDatesAndTimes(modalModel)) {
-      this.redrawView()
-      return
-    }
-
-    const { operation } = this.props
-    switch (operation) {
-      case 'create':
-        this.create(modalChangedModel)
-        return
-
-      case 'update':
-        this.update(modalChangedModel)
-        return
-
-      default:
-        this.onError(`Unrecognized patient medication operation ${operation}`)
-    }
-  }
-
-  update(modalChangedModel) {
-    patientMedicationApi.update(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 }
 

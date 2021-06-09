@@ -1,13 +1,34 @@
 import { API } from "./"
+import { patientHelper } from "../helpers"
 
 export const patientApi = {
+  create,
   edit,
   list,
   listForHealthPlan,
   listForPharmacyStore,
   search,
-  show
+  show,
+  update
 }
+
+function toJSON(patient) {
+  return {
+    patient: patientHelper.toJSON(patient)
+  }
+}
+
+function create(userCredentials, patient, onSuccess, onFailure) {
+  if (!API.validateId("health plan ID", patient.health_plan_id, onFailure)) {
+    return
+  }
+
+
+  const method = "POST"
+  const path = `/health_plans/${patient.health_plan_id}/patients`
+  API.perform(method, path, "", userCredentials, toJSON(patient), onSuccess, onFailure)
+}
+
 
 function edit(userCredentials, id, onSuccess, onFailure) {
   if (!API.validateId("patient ID", id, onFailure)) {
@@ -59,4 +80,10 @@ function show(userCredentials, id, onSuccess, onFailure) {
   const method = "GET"
   const path = `/patients/${id}`
   API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
+
+function update(userCredentials, patient, onSuccess, onFailure) {
+  const method = "PUT"
+  const path = `/patients/${patient.id}`
+  API.perform(method, path, "", userCredentials, toJSON(patient), onSuccess, onFailure)
 }

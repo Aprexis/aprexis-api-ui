@@ -1,6 +1,6 @@
 import React from "react"
 import { AbstractViewModel } from "../"
-import { alertHelper, dateHelper, fieldHelper, valueHelper } from "../../../helpers"
+import { alertHelper, dateHelper, fieldHelper, userCredentialsHelper, valueHelper } from "../../../helpers"
 
 function initializeDateAndTimeValidity(dateAndTimeField, value) {
   const validDate = dateHelper.isValidDate(value)
@@ -44,10 +44,13 @@ class AbstractModalViewModel extends AbstractViewModel {
     this.changeDateTime = this.changeDateTime.bind(this)
     this.changeField = this.changeField.bind(this)
     this.changeNumericField = this.changeNumericField.bind(this)
+    this.create = this.create.bind(this)
     this.initializeDateAndTimeValidities = this.initializeDateAndTimeValidities.bind(this)
     this.renderSubmitFooter = this.renderSubmitFooter.bind(this)
     this.submitModal = this.submitModal.bind(this)
+    this.submitModalCreateOrUpdate = this.submitModalCreateOrUpdate.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
+    this.update = this.update.bind(this)
   }
 
   checkRequiredFields(model) {
@@ -150,6 +153,15 @@ class AbstractModalViewModel extends AbstractViewModel {
     this.redrawView()
   }
 
+  create(modalChangedModel) {
+    this.api().create(
+      userCredentialsHelper.getAdmin(),
+      modalChangedModel,
+      () => { this.toggleModal(this.props.onUpdateView) },
+      this.onError
+    )
+  }
+
   initializeDateAndTimeValidities(model) {
     if (!valueHelper.isFunction(this.dateAndTimeFields)) {
       return model
@@ -216,6 +228,31 @@ class AbstractModalViewModel extends AbstractViewModel {
     alertHelper.error("Implementation error: unless the parent page provides a submit operation, a subclass modal view must override this method")
   }
 
+  submitModalCreateOrUpdate(modalModelName, modalModel, modalChangedModel) {
+    if (modalModelName != this.modelName()) {
+      this.onError(`Unrecognized ${valueHelper.humanize(this.modelName())} model ${modalModelName}`)
+      return
+    }
+    if (!this.checkRequiredFields(modalModel) || !this.checkValidDatesAndTimes(modalModel)) {
+      this.redrawView()
+      return
+    }
+
+    const { operation } = this.props
+    switch (operation) {
+      case 'create':
+        this.create(modalChangedModel)
+        return
+
+      case 'update':
+        this.update(modalChangedModel)
+        return
+
+      default:
+        this.onError(`Unrecognized ${valueHelper.humanize(this.modelName())} operation ${operation}`)
+    }
+  }
+
   toggleModal(onSuccess) {
     const { clearModal, onToggleModal } = this.props
     const completeToggle = () => {
@@ -233,6 +270,15 @@ class AbstractModalViewModel extends AbstractViewModel {
     }
 
     clearModal(completeToggle)
+  }
+
+  update(modalChangedModel) {
+    this.api().update(
+      userCredentialsHelper.getAdmin(),
+      modalChangedModel,
+      () => { this.toggleModal(this.props.onUpdateView) },
+      this.onError
+    )
   }
 }
 

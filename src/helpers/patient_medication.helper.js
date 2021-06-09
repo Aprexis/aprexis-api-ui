@@ -298,7 +298,6 @@ function strengthUnits(patientMedication) {
   return fieldHelper.getField(patientMedication, "strength_units")
 }
 
-
 function toJSON(patientMedication) {
   return apiHelper.toJSON(patientMedication, patientMedicationKeys)
 }
