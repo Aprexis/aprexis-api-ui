@@ -4,18 +4,20 @@
 lock '~> 3.16'
 
 set :application, 'aprexis-api-ui'
-set :repo_url, 'git@github.com:Aprexis/aprexis-api.git'
-set :repository, 'git@github.com:Aprexis/aprexis-api.git'
+set :repo_url, 'git@github.com:Aprexis/aprexis-api-ui.git'
+set :repository, 'git@github.com:Aprexis/aprexis-api-ui.git'
 set :stages, %w[staging]
 set :default_stage, 'staging'
 set :user, 'webapp'
-set :log_level, :info
+set :log_level, :debug
 set :keep_releases, 10
 set :deploy_via, :remote_cache
 set :ssh_option, { forward_agent: true }
-set :slack_webhook, 'https://hooks.slack.com/services/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'
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'node_modules')
 
+set :default_shell, 'bash -l'
+set :pty, true
+set :use_sudo, false
 set :nvm_type, :user
 set :nvm_node, 'v16.3.0'
 set :nvm_map_bins, %w[node npm yarn]
