@@ -8,6 +8,7 @@ export const API = {
 }
 
 const baseApiUrl = process.env.REACT_APP_APREXIS_API
+const railsUrlRoot = process.env.RAILS_RELATIVE_URL_ROOT
 const knownHeaders = {
   "X-Page": "lastPage.number",
   "X-Per-Page": "lastPage.size",
@@ -109,7 +110,12 @@ function handleError(method, path, error, onFailure) {
 }
 
 function perform(method, path, queryString, userCredentials, body, onSuccess, onFailure) {
-  const fullPath = `${baseApiUrl}${path}${queryString}`
+  // If the incoming path includes the Rails relative URL root, remove it.
+  let workingPath = path
+  if (valueHelper.isStringValue(railsUrlRoot) && path.startsWith(railsUrlRoot)) {
+    workingPath = path.substring(railsUrlRoot.length)
+  }
+  const fullPath = `${baseApiUrl}${workingPath}${queryString}`
   const requestOptions = {
     method,
     headers: {
