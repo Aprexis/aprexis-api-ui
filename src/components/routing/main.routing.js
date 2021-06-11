@@ -9,6 +9,11 @@ import { PharmacyStoresRouting } from "./pharmacy_stores"
 import { UsersRouting } from "./users"
 import { DashboardPage, HomePage } from "../pages"
 import { valueHelper } from "../../helpers"
+
+let reactUrlRoot = ""
+if (valueHelper.isStringValue(process.env.REACT_RELATIVE_URL_ROOT)) {
+  reactUrlRoot = `${process.env.REACT_RELATIVE_URL_ROOT}`.replace(/\/$/, '')
+}
 class MainRouting extends Component {
   render() {
     const { context, currentAdminUser, currentUser } = this.props
@@ -19,30 +24,45 @@ class MainRouting extends Component {
       ...valueHelper.importantProps(this.props)
     }
 
+    console.log(`Location: ${window.location}`)
+    console.log(`Trying: ${reactUrlRoot}/pharmacy-chains`)
+
     return (
       <Switch>
         <Route
           exact
-          path="/"
+          path={`${reactUrlRoot}/`}
           render={(props) => (<HomePage {...props} {...contextProps} />)}
         />
         <Route
           exact
-          path="/dashboard"
+          path={`${reactUrlRoot}/dashboard`}
           render={(props) => (<DashboardPage {...this.props} {...contextProps} />)}
         />
-        <Route path="/admin" render={(props) => (<AdminRouting {...props} {...contextProps} />)} />
-        <Route path="/health-plans" render={(props) => (<HealthPlansRouting {...props} {...contextProps} />)} />
-        <Route path="/lab-tests" render={(props) => (<LabTestsRouting {...props} {...contextProps} />)} />
         <Route
-          path="/pharmacy-chains"
+          path={`${reactUrlRoot}/admin`}
+          render={(props) => (<AdminRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${reactUrlRoot}/health-plans`}
+          render={(props) => (<HealthPlansRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${reactUrlRoot}/lab-tests`}
+          render={(props) => (<LabTestsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${reactUrlRoot}/pharmacy-chains`}
           render={(props) => (<PharmacyChainsRouting {...props} {...contextProps} />)}
         />
         <Route
-          path="/pharmacy-stores"
+          path={`${reactUrlRoot}/pharmacy-stores`}
           render={(props) => (<PharmacyStoresRouting {...props} {...contextProps} />)}
         />
-        <Route path="/users" render={(props) => (<UsersRouting {...props} {...contextProps} />)} />
+        <Route
+          path={`${reactUrlRoot}/users`}
+          render={(props) => (<UsersRouting {...props} {...contextProps} />)}
+        />
         <Route component={NoMatch} />
       </Switch>
     )

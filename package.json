@@ -41,7 +41,7 @@
     "start": "PORT=3500 REACT_APP_APREXIS_API=http://localhost:3250 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
     "start-docker": "PORT=3500 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
     "build": "react-scripts build && rm -rf dist && mv build dist",
-    "build:staging": "REACT_APP_APREXIS_API=http://staging.aprexis.com RAILS_RELATIVE_URL_ROOT=/api yarn build",
+    "build:staging": "REACT_APP_APREXIS_API=http://staging.aprexis.com REACT_URL_ROOT=/ui RAILS_RELATIVE_URL_ROOT=/api yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
