@@ -22,4 +22,4 @@ set :nvm_type, :user
 set :nvm_node, 'v16.3.0'
 set :nvm_map_bins, %w[node npm yarn]
 
-set :yarn_flags, %w[--verbose]
+set :yarn_flags, %w[--silent --no-progress]
