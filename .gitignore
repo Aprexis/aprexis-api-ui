@@ -8,6 +8,10 @@
 /.pnp
 .pnp.js
 
+# Ignore all logfiles.
+/log/*
+!/log/.keep
+
 # testing
 /coverage
 

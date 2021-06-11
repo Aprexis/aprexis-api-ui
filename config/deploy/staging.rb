@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: true
-
 set :domain, 'staging.aprexis.com'
 set :deploy_to, "/home/webapp/staging/#{fetch(:application)}"
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
