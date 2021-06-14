@@ -16,8 +16,6 @@ class PharmacyChainsRouting extends Component {
     }
     const pharmacyChainsPrefix = pathHelper.pluralPrefix(window.location, "pharmacy-chains")
 
-    console.log(`PCs: ${pharmacyChainsPrefix}`)
-
     return (
       <Switch>
         <Route

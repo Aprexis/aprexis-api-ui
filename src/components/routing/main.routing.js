@@ -24,9 +24,6 @@ class MainRouting extends Component {
       ...valueHelper.importantProps(this.props)
     }
 
-    console.log(`Location: ${window.location}`)
-    console.log(`Trying: ${reactUrlRoot}/pharmacy-chains`)
-
     return (
       <Switch>
         <Route
