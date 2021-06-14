@@ -35,7 +35,7 @@ class Header extends Component {
           <NavbarBrand className="mr-auto px-2 px-md-0">
             <img
               style={{ height: "43px", width: "123px" }}
-              src={`${process.env.PUBLIC_URL}/${myUIRoot}/aprexis-logo.png`}
+              src={`${process.env.PUBLIC_URL}${myUIRoot}/aprexis-logo.png`}
               alt="Aprexis logo"
             />
           </NavbarBrand>

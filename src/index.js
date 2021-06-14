@@ -16,7 +16,14 @@ import 'core-js/es/map'
 import 'core-js/es/set'
 
 // Upload a .env file, if one exists.
-require('dotenv').config()
+//require('dotenv').config()
+// FIXME: use the above line, do not keep the following - this is for debugging.
+const result = require('dotenv').config()
+if (result.error) {
+  console.log(`.env Error: ${result.error}`)
+}
+
+console.log(`.env parsed: ${JSON.stringify(result.parsed)}`)
 
 ReactDOM.render((
   <Router history={history}>
