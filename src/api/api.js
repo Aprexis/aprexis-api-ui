@@ -110,10 +110,13 @@ function handleError(method, path, error, onFailure) {
 }
 
 function perform(method, path, queryString, userCredentials, body, onSuccess, onFailure) {
-  // If the incoming path includes the Rails relative URL root, remove it.
+  console.log(`railsUrlRoot: ${JSON.stringify(railsUrlRoot)}`)
+  console.log(`baseApiUrl: ${JSON.stringify(baseApiUrl)}`)
+
+  // Unless the incoming path includes the Rails relative URL root, add it.
   let workingPath = path
-  if (valueHelper.isStringValue(railsUrlRoot) && path.startsWith(railsUrlRoot)) {
-    workingPath = path.substring(railsUrlRoot.length)
+  if (valueHelper.isStringValue(railsUrlRoot) && !path.startsWith(railsUrlRoot)) {
+    workingPath = `${railsUrlRoot}/${path}`
   }
   const fullPath = `${baseApiUrl}${workingPath}${queryString}`
   const requestOptions = {
