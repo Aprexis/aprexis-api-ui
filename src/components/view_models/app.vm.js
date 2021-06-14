@@ -165,11 +165,11 @@ class AppViewModel extends AbstractViewModel {
   home() {
     const userCredentials = userCredentialsHelper.get()
     if (valueHelper.isValue(userCredentials)) {
-      history.push("/dashboard")
+      pathHelper.gotoPage(["dashboard"])
       return
     }
 
-    history.push("/")
+    pathHelper.gotoPage([])
   }
 
   launchModal(modalName, propsForModal = {}) {
