@@ -11,8 +11,8 @@ import { DashboardPage, HomePage } from "../pages"
 import { valueHelper } from "../../helpers"
 
 let reactUrlRoot = ""
-if (valueHelper.isStringValue(process.env.REACT_RELATIVE_URL_ROOT)) {
-  reactUrlRoot = `${process.env.REACT_RELATIVE_URL_ROOT}`.replace(/\/$/, '')
+if (valueHelper.isStringValue(process.env.REACT_APP_RELATIVE_URL_ROOT)) {
+  reactUrlRoot = `${process.env.REACT_APP_RELATIVE_URL_ROOT}`.replace(/\/$/, '')
 }
 class MainRouting extends Component {
   render() {

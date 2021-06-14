@@ -13,7 +13,7 @@ import {
 } from "./header_nav"
 import { valueHelper } from "../helpers"
 
-const reactUIRoot = process.env.REACT_RELATIVE_URL_ROOT
+const reactUIRoot = process.env.REACT_APP_RELATIVE_URL_ROOT
 const myUIRoot = valueHelper.isStringValue(reactUIRoot) ? reactUIRoot : ""
 class Header extends Component {
   constructor(props) {
