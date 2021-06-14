@@ -45,7 +45,7 @@
     "fix-ui-src": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/ui/index.html",
     "fix-ui": "yarn fix-ui-href && yarn fix-ui-src",
     "fix-dist": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/index.html",
-    "dist-ui": "yarn cp-ui-dist && yarn fix-dist && fix-ui",
+    "dist-ui": "yarn cp-ui-dist && yarn fix-dist && yarn fix-ui",
     "build-ui": "react-scripts build && rm -rf dist && mkdir dist && mv build dist/ui && yarn dist-ui",
     "build:staging": "REACT_APP_APREXIS_API=http://staging.aprexis.com RAILS_RELATIVE_URL_ROOT=/api yarn build-ui",
     "test": "react-scripts test",
