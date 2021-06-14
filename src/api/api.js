@@ -8,7 +8,7 @@ export const API = {
 }
 
 const baseApiUrl = process.env.REACT_APP_APREXIS_API
-const railsUrlRoot = process.env.RAILS_RELATIVE_URL_ROOT
+const railsUrlRoot = new URL(baseApiUrl).pathname
 const knownHeaders = {
   "X-Page": "lastPage.number",
   "X-Per-Page": "lastPage.size",
@@ -110,11 +110,9 @@ function handleError(method, path, error, onFailure) {
 }
 
 function perform(method, path, queryString, userCredentials, body, onSuccess, onFailure) {
-  console.log(`railsUrlRoot: ${JSON.stringify(railsUrlRoot)}`)
-  console.log(`baseApiUrl: ${JSON.stringify(baseApiUrl)}`)
+  let workingPath = path
 
   // Unless the incoming path includes the Rails relative URL root, add it.
-  let workingPath = path
   if (valueHelper.isStringValue(railsUrlRoot) && !path.startsWith(railsUrlRoot)) {
     workingPath = `${railsUrlRoot}/${path}`
   }
