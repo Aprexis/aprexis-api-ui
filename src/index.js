@@ -1,4 +1,4 @@
-import { } from 'dotenv/config'
+import 'dotenv/config.js'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import 'react-app-polyfill/ie11'
@@ -15,7 +15,6 @@ import './styles/styles.scss'
 
 import 'core-js/es/map'
 import 'core-js/es/set'
-
 
 ReactDOM.render((
   <Router history={history}>
