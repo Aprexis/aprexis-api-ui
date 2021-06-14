@@ -11,10 +11,8 @@ import {
   UserDropdown,
   UserHeaders
 } from "./header_nav"
-import { valueHelper } from "../helpers"
+import { pathHelper } from "../helpers"
 
-const reactUIRoot = process.env.REACT_APP_RELATIVE_URL_ROOT
-const myUIRoot = valueHelper.isStringValue(reactUIRoot) ? reactUIRoot : ""
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -35,7 +33,7 @@ class Header extends Component {
           <NavbarBrand className="mr-auto px-2 px-md-0">
             <img
               style={{ height: "43px", width: "123px" }}
-              src={`${process.env.PUBLIC_URL}${myUIRoot}/aprexis-logo.png`}
+              src={`${process.env.PUBLIC_URL}${pathHelper.root()}/aprexis-logo.png`}
               alt="Aprexis logo"
             />
           </NavbarBrand>

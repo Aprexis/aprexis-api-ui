@@ -1,7 +1,9 @@
 import { history, valueHelper } from "./"
 
-const reactUIRoot = process.env.REACT_APP_RELATIVE_URL_ROOT
-const myUIRoot = valueHelper.isStringValue(reactUIRoot) ? reactUIRoot : ""
+let reactUrlRoot = ""
+if (valueHelper.isStringValue(process.env.REACT_APP_RELATIVE_URL_ROOT)) {
+  reactUrlRoot = `${process.env.REACT_APP_RELATIVE_URL_ROOT}`.replace(/\/$/, '')
+}
 
 export const pathHelper = {
   buildPathArray,
@@ -14,6 +16,7 @@ export const pathHelper = {
   pageName,
   parsePathEntries,
   pluralPrefix,
+  root,
   singularPrefix
 }
 
@@ -62,8 +65,8 @@ function gotoPage(pathArray) {
     }
   )
 
-  if (valueHelper.isStriingValue(myUIRoot) && !path.startsWith(myUIRoot)) {
-    path = `${myUIRoot}${path}`
+  if (valueHelper.isStringValue(pathHelper.root()) && !path.startsWith(pathHelper.root())) {
+    path = `${pathHelper.root()}${path}`
   }
 
   history.push(path)
@@ -163,6 +166,10 @@ function pluralPrefix(location, pluralName) {
   const ppIdx = pathname.indexOf(pluralName)
 
   return `${pathname.substring(0, ppIdx)}${pluralName}`
+}
+
+function root() {
+  return reactUrlRoot
 }
 
 function singularPrefix(location, pluralName, singularId) {

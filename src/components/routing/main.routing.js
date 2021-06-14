@@ -8,12 +8,8 @@ import { PharmacyChainsRouting } from "./pharmacy_chains"
 import { PharmacyStoresRouting } from "./pharmacy_stores"
 import { UsersRouting } from "./users"
 import { DashboardPage, HomePage } from "../pages"
-import { valueHelper } from "../../helpers"
+import { pathHelper, valueHelper } from "../../helpers"
 
-let reactUrlRoot = ""
-if (valueHelper.isStringValue(process.env.REACT_APP_RELATIVE_URL_ROOT)) {
-  reactUrlRoot = `${process.env.REACT_APP_RELATIVE_URL_ROOT}`.replace(/\/$/, '')
-}
 class MainRouting extends Component {
   render() {
     const { context, currentAdminUser, currentUser } = this.props
@@ -23,6 +19,7 @@ class MainRouting extends Component {
       currentUser,
       ...valueHelper.importantProps(this.props)
     }
+    const reactUrlRoot = pathHelper.root()
 
     return (
       <Switch>
