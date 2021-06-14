@@ -42,7 +42,7 @@
     "start-docker": "PORT=3500 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
     "build": "react-scripts build && rm -rf dist && mv build dist",
     "fix-ui-href": "sed -i 's|href=\"/|href=\"/ui/|g' dist/index.html",
-    "fix-ui-src": "sed -i 's|src=\"/static/src=\"/ui/static|g' dist/index.html",
+    "fix-ui-src": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/index.html",
     "mv-ui-index": "mv dist/ui/index.html dist && yarn fix-ui-href && yarn fix-ui-src",
     "build-ui": "react-scripts build && rm -rf dist && mkdir dist && mv build dist/ui && yarn mv-ui-index",
     "build:staging": "REACT_APP_APREXIS_API=http://staging.aprexis.com RAILS_RELATIVE_URL_ROOT=/api yarn build-ui",
