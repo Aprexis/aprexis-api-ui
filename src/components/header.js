@@ -11,6 +11,7 @@ import {
   UserDropdown,
   UserHeaders
 } from "./header_nav"
+import { valueHelper } from "../helpers"
 
 const reactUIRoot = process.env.REACT_RELATIVE_URL_ROOT
 const myUIRoot = valueHelper.isStringValue(reactUIRoot) ? reactUIRoot : ""
