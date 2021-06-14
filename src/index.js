@@ -15,8 +15,6 @@ import './styles/styles.scss'
 import 'core-js/es/map'
 import 'core-js/es/set'
 
-console.log(`Env: ${JSON.stringify(process.env, null, 2)}`)
-
 ReactDOM.render((
   <Router history={history}>
     <LastLocationProvider>
