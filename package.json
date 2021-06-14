@@ -41,7 +41,7 @@
     "start": "PORT=3500 REACT_APP_APREXIS_API=http://localhost:3250 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
     "start-docker": "PORT=3500 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
     "cp-ui-dist": "cp dist/ui/aprexis-logo.png dist/ui/favicon.ico dist/ui/index.html dist/ui/manifest.json dist/ui/robots.txt dist",
-    "fix_ui-href": "sed -i 's|href=\"/|href=\"/ui/|g' dist/ui/index.html",
+    "fix-ui-href": "sed -i 's|href=\"/|href=\"/ui/|g' dist/ui/index.html",
     "fix-ui-src": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/ui/index.html",
     "fix-ui": "yarn fix-ui-href && yarn fix-ui-src",
     "fix-dist": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/index.html",
