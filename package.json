@@ -43,7 +43,7 @@
     "build": "react-scripts build && rm -rf dist && mv build dist",
     "yarn-mv-ui-index": "mv dist/ui/index.html dist && sed -i 's/href=\"\//href=\"\/ui\//g' ui/index.html && sed -i 's/src=\"\/static/src=\"\/ui\/static/g' ui/index.html",
     "build-ui": "react-scripts build && rm -rf dist && mkdir dist && mv build dist/ui && yarn mv-ui-index",
-    "build:staging": "REACT_APP_APREXIS_API=http://staging.aprexis.com RAILS_RELATIVE_URL_ROOT=/api yarn build",
+    "build:staging": "REACT_APP_APREXIS_API=http://staging.aprexis.com RAILS_RELATIVE_URL_ROOT=/api yarn build-ui",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
