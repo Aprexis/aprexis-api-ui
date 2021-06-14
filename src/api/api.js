@@ -113,7 +113,7 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
   let workingPath = path
 
   // If the incoming path includes the Rails relative URL root, remove it.
-  if (valueHelper.isStringValue(railsUrlRoot) && path.startsWith(railsUrlRoot)) {
+  if (valueHelper.isStringValue(railsUrlRoot) && railsUrlRoot != "/" && path.startsWith(railsUrlRoot)) {
     workingPath = path.substring(railsUrlRoot.length)
   }
   const fullPath = `${baseApiUrl}${workingPath}${queryString}`

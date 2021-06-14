@@ -15,6 +15,9 @@ import './styles/styles.scss'
 import 'core-js/es/map'
 import 'core-js/es/set'
 
+// Upload a .env file, if one exists.
+require('dotenv').config()
+
 ReactDOM.render((
   <Router history={history}>
     <LastLocationProvider>
