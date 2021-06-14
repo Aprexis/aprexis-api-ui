@@ -1,5 +1,8 @@
 import { history, valueHelper } from "./"
 
+const reactUIRoot = process.env.REACT_APP_RELATIVE_URL_ROOT
+const myUIRoot = valueHelper.isStringValue(reactUIRoot) ? reactUIRoot : ""
+
 export const pathHelper = {
   buildPathArray,
   gotoPage,
@@ -58,6 +61,10 @@ function gotoPage(pathArray) {
       }
     }
   )
+
+  if (valueHelper.isStriingValue(myUIRoot) && !path.startsWith(myUIRoot)) {
+    path = `${myUIRoot}${path}`
+  }
 
   history.push(path)
 }
