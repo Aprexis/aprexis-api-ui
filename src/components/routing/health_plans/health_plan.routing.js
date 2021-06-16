@@ -4,6 +4,7 @@ import { NoMatch } from "../"
 import { PatientsRouting } from "../patients"
 import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
 import { ProgramsRouting } from "../programs"
+import { BillingContractsRouting } from "../billing/contracts"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class HealthPlanRouting extends Component {
@@ -19,6 +20,10 @@ class HealthPlanRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          path={`${healthPlanPrefix}/billing-contracts`}
+          render={(props) => (<BillingContractsRouting {...props} {...contextProps} />)}
+        />
         <Route
           exact
           path={`${healthPlanPrefix}/patient-search-algorithms`}

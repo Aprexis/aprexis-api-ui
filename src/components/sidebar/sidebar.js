@@ -11,6 +11,13 @@ const sidebarDescriptions = {
     entryLabel: "Answer",
     entryName: "answers"
   },
+  "billing-contracts": {
+    entryButtons: [
+      { buttonType: "Profile" },
+    ],
+    entryLabel: "Contract",
+    entryName: "billing-contracts"
+  },
   "diagnosis-codes": {
     entryButtons: [
       { buttonType: "Profile" }
@@ -29,6 +36,7 @@ const sidebarDescriptions = {
   "health-plans": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Contracts", buttonType: "List", listName: "billing-contracts" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
       { buttonLabel: "Programs", buttonType: "List", listName: "programs" },
       { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" }

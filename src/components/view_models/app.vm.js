@@ -3,7 +3,6 @@ import { authenticationApi, userApi } from "../../api"
 import {
   alertHelper,
   contextHelper,
-  history,
   pathHelper,
   userCredentialsHelper,
   userHelper,
