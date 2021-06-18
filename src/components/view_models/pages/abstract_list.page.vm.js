@@ -73,7 +73,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
       }
     }
 
-    throw new Error(`Internal Error: unregonized path ${window.location.pathname}`)
+    throw new Error(`Internal Error: unrecogonized path ${window.location.pathname}`)
 
     function listFor(pathEntries, pathKey, method, userCredentials, params, onSuccess, onError) {
       const model = pathEntries[pathKey]

@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
 import { InterventionsRouting } from "../interventions"
 import { LabTestValuesRouting } from "../lab_test_values"
+import { PatientAllergiesRouting } from "../patient_allergies"
 import { PatientMedicationsRouting } from "../patient_medications"
 import { PatientNotesRouting } from "../patient_notes"
 import { PatientProfilePage } from "../../pages/patients"
@@ -28,6 +29,10 @@ class PatientRouting extends Component {
         <Route
           path={`${patientPrefix}/lab-test-values`}
           render={(props) => (<LabTestValuesRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${patientPrefix}/patient-allergies`}
+          render={(props) => (<PatientAllergiesRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${patientPrefix}/patient-medications`}

@@ -16,8 +16,6 @@ class BillingContractPharmacyChainsRouting extends Component {
     }
     const pharmacyChainsPrefix = pathHelper.pluralPrefix(window.location, "billing-contract-pharmacies")
 
-    console.log(`BCPCR`)
-
     return (
       <Switch>
         <Route

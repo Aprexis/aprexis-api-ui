@@ -1,3 +1,4 @@
+export * from "./patient_allergies.page.vm"
 export * from "./patient_medications.page.vm"
 export * from "./patient_notes_page.vm"
 export * from "./patient_profile.page.vm"

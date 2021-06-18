@@ -64,6 +64,7 @@ const sidebarDescriptions = {
   "patients": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Allergies", buttonType: "List", listName: "patient-allergies" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },

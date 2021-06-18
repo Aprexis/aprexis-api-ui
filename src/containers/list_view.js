@@ -45,7 +45,7 @@ class ListView extends Component {
         lastPage={this.props.page}
         objects={list}
         onIdle={this.props.refreshData}
-        pluralList={listPluralLabel}
+        pluralLabel={listPluralLabel}
         timeout={myTimeout} >
         <ListHeader
           list={this.props.list}
@@ -78,7 +78,7 @@ class ListView extends Component {
           tableClassName={this.props.tableClassName}
         />
 
-        { this.props.listChildren}
+        {this.props.listChildren}
       </RefreshView >
     )
   }

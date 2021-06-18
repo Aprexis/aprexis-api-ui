@@ -4,6 +4,7 @@ import {
   interventionApi,
   labTestValueApi,
   patientApi,
+  patientAllergyApi,
   patientMedicationApi,
   patientNoteApi,
   pharmacyChainApi,
@@ -11,18 +12,20 @@ import {
   userApi
 } from "../api"
 import { diagnosisCodeApi, diseaseApi, labTestApi } from "../api/admin"
-import { billingContractApi } from "../api/billing"
+import { billingContractApi, billingContractPharmacyChainApi } from "../api/billing"
 
 // The explicit filenames is necessary because pathKeys is imported into some of the helpers, which causes a circular
 // import that fails to properly load these files if the import is done through the index.js file.
 import { answerHelper } from "../helpers/answer.helper"
 import { billingContractHelper } from "../helpers/billing/billing_contract.helper"
+import { billingContractPharmacyChainHelper } from "../helpers/billing/billing_contract_pharmacy_chain.helper"
 import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
 import { diseaseHelper } from "../helpers/admin/disease.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
 import { interventionHelper } from "../helpers/intervention.helper"
 import { labTestHelper } from "../helpers/admin/lab_test.helper"
 import { labTestValueHelper } from "../helpers/lab_test_value.helper"
+import { patientAllergyHelper } from "../helpers/patient_allergy.helper"
 import { patientHelper } from "../helpers/patient.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
 import { patientNoteHelper } from "../helpers/patient_note.helper"
@@ -40,6 +43,11 @@ export const pathKeys = {
     api: billingContractApi,
     helper: billingContractHelper,
     modelName: "BillingContract"
+  },
+  "billing-contract-pharmacies": {
+    api: billingContractPharmacyChainApi,
+    helper: billingContractPharmacyChainHelper,
+    modelName: "BillingContractPharmacy"
   },
   "diagnosis-codes": {
     api: diagnosisCodeApi,
@@ -71,6 +79,12 @@ export const pathKeys = {
     breadcrumb: "Tests",
     helper: labTestValueHelper,
     modelName: "LabTestValue"
+  },
+  "patient-allergies": {
+    api: patientAllergyApi,
+    breadcrumb: "Allergies",
+    helper: patientAllergyHelper,
+    modelName: "PatientAllergy"
   },
   "patient-medications": {
     api: patientMedicationApi,
