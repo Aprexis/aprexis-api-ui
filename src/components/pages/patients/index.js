@@ -1,4 +1,5 @@
 export * from "./patient_allergies.page"
+export * from "./patient_allergy_profile.page"
 export * from "./patient_medications.page"
 export * from "./patient_notes.page"
 export * from "./patient_profile.page"

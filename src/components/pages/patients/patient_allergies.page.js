@@ -68,14 +68,16 @@ class PatientAllergiesPage extends Component {
   generateTableRow(patientAllergy) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
+    let allergyName = patientAllergyHelper[headings[0].method](patientAllergy)
+    if (!valueHelper.isStringValue(allergyName)) {
+      allergyName = "(no allergy name provided)"
+    }
     const row = [
       {
-        content: patientAllergyHelper[headings[0].method](patientAllergy),
+        content: allergyName,
         onClick: (event) => { this.vm.gotoPatientAllergyProfile(patientAllergy) }
       }
     ]
-
-    console.log(`PA: ${JSON.stringify(patientAllergy, null, 2)}`)
 
     headings.filter(
       (heading) => heading.name != "Allergy Name" && fieldHelper.includeField(pathEntries, filters, heading)
@@ -88,8 +90,6 @@ class PatientAllergiesPage extends Component {
         )
       }
     )
-
-    console.log(`Row: ${JSON.stringify(row, valueHelper.getCircularReplacer(), 2)}`)
 
     return row
   }
