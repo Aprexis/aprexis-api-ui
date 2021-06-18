@@ -21,6 +21,7 @@ export const fieldHelper = {
   getField,
   imageDisplay,
   includeField,
+  listField,
   notInContextDisplay,
   optionDisplay,
   titleDisplay
@@ -257,6 +258,20 @@ function includeField(pathEntries, filters, fieldHeader) {
     }
 
     return !includeCheckFilters(filters, fieldHeader["unlessFilters"])
+  }
+}
+
+function listField(value) {
+  if (!valueHelper.isValue(value)) {
+    return ""
+  }
+
+  switch (typeof value) {
+    case 'boolean':
+      return valueHelper.yesNo(value)
+
+    default:
+      return valueHelper.makeString(value)
   }
 }
 

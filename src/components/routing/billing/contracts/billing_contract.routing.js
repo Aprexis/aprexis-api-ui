@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../../"
+import { BillingContractPharmacyChainsRouting } from "../pharmacy_chains"
 import { BillingContractProfilePage } from "../../../pages/billing/contracts"
 import { pathHelper, valueHelper } from "../../../../helpers"
 
@@ -13,7 +14,11 @@ class BillingContractRouting extends Component {
       currentUser,
       ...valueHelper.importantProps(this.props)
     }
-    const billingContractPrefix = pathHelper.singularPrefix(window.location, "billing-contracts", ":billing_contract_id")
+    const billingContractPrefix = pathHelper.singularPrefix(
+      window.location,
+      "billing-contracts",
+      ":billing_contract_id"
+    )
 
     return (
       <Switch>
@@ -21,6 +26,10 @@ class BillingContractRouting extends Component {
           exact
           path={`${billingContractPrefix}/profile`}
           render={(props) => (<BillingContractProfilePage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${billingContractPrefix}/billing-contract-pharmacies`}
+          render={(props) => (<BillingContractPharmacyChainsRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

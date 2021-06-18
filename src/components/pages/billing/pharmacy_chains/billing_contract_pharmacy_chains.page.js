@@ -1,45 +1,44 @@
 import React, { Component } from "react"
 import { TableColumnHeader } from "../../../shared"
-import { BillingContractsPageViewModel } from "../../../view_models/pages/billing/contracts"
+import { BillingContractPharmacyChainsPageViewModel } from "../../../view_models/pages/billing/pharmacy_chains"
 import { ListView } from "../../../../containers"
 import { fieldHelper, valueHelper } from "../../../../helpers"
-import { billingContractHelper } from "../../../../helpers/billing"
+import { billingContractPharmacyChainHelper } from "../../../../helpers/billing"
 
 const headings = [
   {
-    name: "Name",
-    field: "name",
-    method: "name"
+    name: "Pharmacy Name",
+    field: "pharmacy.name",
+    method: "pharmacyChainName"
   },
   {
-    name: "Active",
-    field: "active",
-    method: "active"
+    name: "Clincal Programs",
+    field: "clinical",
+    method: "clinical"
   },
   {
-    name: "Health Plan",
-    field: "health_plan.name",
-    method: "healthPlanName",
-    unless: "health-plans"
+    name: "Transactional Programs",
+    field: "transactional",
+    method: "transactional"
   },
   {
-    name: "Start Date",
-    field: "start_date",
-    method: "startDate"
+    name: "Pulls Enabled",
+    field: "pulls_enabled",
+    method: "pullsEnabled"
   },
   {
-    name: "Stop Date",
-    field: "stop_date",
-    method: "stopDate"
+    name: "Claims Enabeld",
+    field: "claims_enabled",
+    method: "claimsEnabled"
   }
 ]
 
-class BillingContractsPage extends Component {
+class BillingContractPharmacyChainsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new BillingContractsPageViewModel(
+    this.vm = new BillingContractPharmacyChainsPageViewModel(
       {
         ...props,
         view: this
@@ -64,7 +63,7 @@ class BillingContractsPage extends Component {
         const { name, field } = heading
         return (
           <TableColumnHeader
-            key={`billing-contract-values-table-heading-${field}`}
+            key={`billing-contract-pharmacies-values-table-heading-${field}`}
             className="aprexis-table-header-cell"
             label={name}
             sortFieldName={field}
@@ -77,19 +76,27 @@ class BillingContractsPage extends Component {
     )
   }
 
-  generateTableRow(billingContract) {
+  generateTableRow(billingContractPharmacyChain) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
     const row = [
       {
-        content: billingContractHelper[headings[0].method](billingContract),
-        onClick: (event) => { this.vm.gotoBillingContractProfile(billingContract) }
+        content: billingContractPharmacyChainHelper[headings[0].method](billingContractPharmacyChain),
+        onClick: (event) => { this.vm.gotoBillingContractPharmacyChainProfile(billingContractPharmacyChain) }
       }
     ]
 
     headings.filter(
-      (heading) => heading.name != "Name" && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach((heading) => { row.push(billingContractHelper[heading.method](billingContract)) })
+      (heading) => heading.name != "Pharmacy Name" && fieldHelper.includeField(pathEntries, filters, heading)
+    ).forEach(
+      (heading) => {
+        row.push(
+          fieldHelper.listField(
+            billingContractPharmacyChainHelper[heading.method](billingContractPharmacyChain)
+          )
+        )
+      }
+    )
 
     return row
   }
@@ -109,9 +116,9 @@ class BillingContractsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.billingContracts}
-        listLabel="Billing Contract"
-        listPluralLabel="Billing Contracts"
+        list={this.state.billingContractPharmacyChains}
+        listLabel="Billing Contract Pharmacy Chain"
+        listPluralLabel="Billing Contract Pharmacy Chains"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -121,10 +128,10 @@ class BillingContractsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Billing Contracts"
+        title="Billing Contract Pharmacy Chains"
       />
     )
   }
 }
 
-export { BillingContractsPage }
+export { BillingContractPharmacyChainsPage }

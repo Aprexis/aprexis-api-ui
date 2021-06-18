@@ -14,6 +14,7 @@ const sidebarDescriptions = {
   "billing-contracts": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Pharmacy Chains", buttonType: "List", listName: "billing-contract-pharmacies" },
     ],
     entryLabel: "Contract",
     entryName: "billing-contracts"
