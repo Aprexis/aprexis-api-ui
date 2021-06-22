@@ -31,6 +31,7 @@ class UsersPageViewModel extends AbstractListPageViewModel {
     this.gotoUserProfile = this.gotoUserProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -88,6 +89,10 @@ class UsersPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Users"
   }
 }
 

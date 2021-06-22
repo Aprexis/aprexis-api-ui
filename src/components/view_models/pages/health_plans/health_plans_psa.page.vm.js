@@ -13,6 +13,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
     this.loadHealthPlan = this.loadHealthPlan.bind(this)
     this.loadHealthPlanPatientSearchAlgorithms = this.loadHealthPlanPatientSearchAlgorithms.bind(this)
     this.loadPatientSearchAlgorithms = this.loadPatientSearchAlgorithms.bind(this)
+    this.title = this.title.bind(this)
   }
 
   filterDescriptions() {
@@ -68,6 +69,10 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
 
   loadPatientSearchAlgorithms(userCredentials, nextOperation) {
     patientSearchAlgorithmApi.legitimate(userCredentials, nextOperation, this.onError)
+  }
+
+  title() {
+    return "Patient Search Algorithms"
   }
 }
 

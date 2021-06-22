@@ -9,7 +9,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
 
     super(props)
 
-    this.buildFilteFor = this.buildFilterFor.bind(this)
+    this.buildFilterFor = this.buildFilterFor.bind(this)
     this.changePage = this.changePage.bind(this)
     this.changePerPage = this.changePerPage.bind(this)
     this.defaultPage = this.defaultPage.bind(this)
@@ -98,7 +98,13 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
   selectFilters(filterDescriptions, filters) {
     this.props.launchModal(
       "filters",
-      { filterDescriptions, filters, onRefreshData: this.refreshData, onUpdateFilters: this.updateFilters }
+      {
+        filterDescriptions,
+        filters,
+        onRefreshData: this.refreshData,
+        onUpdateFilters: this.updateFilters,
+        parentTitle: this.title()
+      }
     )
   }
 

@@ -11,6 +11,7 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
     this.filtersOptions = this.filtersOptions.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -63,6 +64,10 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
 
       throw new Error("An intervention is required for answers")
     }
+  }
+
+  title() {
+    return "Answers"
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Col, Input, Table } from "reactstrap"
+import { FormGroup, Col, Input, Row, Table } from "reactstrap"
 import { Spinner } from "./"
 import { AutocompleteViewModel } from "../view_models/shared"
 import { valueHelper } from "../../helpers"
@@ -19,7 +19,7 @@ function extractPropertyValue(model, property) {
   return extractPropertyValue(subModel, property.substring(dotIndex + 1))
 }
 
-const SimpleInputBlock = ({ disabled, className, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
+const InputBlock = ({ className, disabled, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
   return (
     <Input
       autoComplete="off"
@@ -30,48 +30,6 @@ const SimpleInputBlock = ({ disabled, className, inputName, inputPlaceHolder, re
       placeholder={inputPlaceHolder}
       readOnly={disabled || readOnly}
       value={valueHelper.makeString(searchText)}
-    />
-  )
-}
-
-const InFormInputBlock = ({ disabled, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
-  return (
-    <Col>
-      <SimpleInputBlock
-        className="form-control-sm"
-        disabled={disabled}
-        inputName={inputName}
-        inputPlaceHolder={inputPlaceHolder}
-        readOnly={readOnly}
-        search={search}
-        searchText={searchText}
-      />
-    </Col>
-  )
-}
-
-const InputBlock = ({ disabled, inForm, inputName, inputPlaceHolder, readOnly, search, searchText }) => {
-  if (valueHelper.isSet(inForm)) {
-    return (
-      <InFormInputBlock
-        disabled={disabled}
-        inputName={inputName}
-        inputPlaceHolder={inputPlaceHolder}
-        readOnly={readOnly}
-        search={search}
-        searchText={searchText}
-      />
-    )
-  }
-
-  return (
-    <SimpleInputBlock
-      disabled={disabled}
-      inputName={inputName}
-      inputPlaceHolder={inputPlaceHolder}
-      readOnly={readOnly}
-      search={search}
-      searchText={searchText}
     />
   )
 }
@@ -338,6 +296,10 @@ class Autocomplete extends Component {
         view: this
       }
     )
+
+    this.renderInForm = this.renderInForm.bind(this)
+    this.renderOutsideForm = this.renderOutsideForm.bind(this)
+    this.renderParts = this.renderParts.bind(this)
   }
 
   componentDidMount() {
@@ -347,6 +309,7 @@ class Autocomplete extends Component {
   componentDidUpdate() {
     const stateSearchText = this.state.searchText
     const vmSearchText = this.vm.props.searchText
+
     if (stateSearchText != valueHelper.makeString(vmSearchText) &&
       stateSearchText == valueHelper.makeString(this.vm.props.oldSearchText)) {
       this.vm.props.oldSearchText = this.vm.props.searchText
@@ -388,31 +351,59 @@ class Autocomplete extends Component {
       />
     )
 
+    if (valueHelper.isSet(inForm)) {
+      return this.renderInForm(autocompleteTable, disabled, inputName, inputPlaceHolder, readOnly, searchText)
+    }
+
+    return this.renderOutsideForm(autocompleteTable, disabled, inputName, inputPlaceHolder, readOnly, searchText)
+  }
+
+  renderInForm(autocompleteTable, disabled, inputName, inputPlaceHolder, readOnly, searchText) {
+    return (
+      <FormGroup row>
+        {
+          this.renderParts(
+            autocompleteTable,
+            "form-control-sm",
+            disabled,
+            inputName,
+            inputPlaceHolder,
+            readOnly,
+            searchText
+          )
+        }
+      </FormGroup>
+    )
+  }
+
+  renderOutsideForm(autocompleteTable, disabled, inputName, inputPlaceHolder, readOnly, searchText) {
+    return (
+      <Row>
+        {this.renderParts(autocompleteTable, "", disabled, inputName, inputPlaceHolder, readOnly, searchText)}
+      </Row>
+    )
+  }
+
+  renderParts(autocompleteTable, className, disabled, inputName, inputPlaceHolder, readOnly, searchText) {
     return (
       <React.Fragment>
-        <InputBlock
-          disabled={disabled}
-          inForm={inForm}
-          inputName={inputName}
-          inputPlaceHolder={inputPlaceHolder}
-          readOnly={readOnly}
-          search={this.vm.search}
-          searchText={searchText}
-        />
+        <Col xs={2}>&nbsp;&nbsp;Search Text</Col>
 
-        {
-          valueHelper.isSet(inForm) &&
-          <Col className="autocomplete">
-            {autocompleteTable}
-          </Col>
-        }
+        <Col xs={4}>
+          <InputBlock
+            className={className}
+            disabled={disabled}
+            inputName={inputName}
+            inputPlaceHolder={inputPlaceHolder}
+            readOnly={readOnly}
+            search={this.vm.search}
+            searchText={searchText}
+          />
+        </Col>
 
-        {
-          !valueHelper.isSet(inForm) &&
-          <div className="autocomplete">
-            {autocompleteTable}
-          </div>
-        }
+        <Col className="autocomplete" xs={6}>
+          {autocompleteTable}
+        </Col>
       </React.Fragment>
     )
   }

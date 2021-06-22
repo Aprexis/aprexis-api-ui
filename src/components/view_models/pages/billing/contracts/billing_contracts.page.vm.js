@@ -16,6 +16,7 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
     this.gotoBillingContractProfile = this.gotoBillingContractProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -59,6 +60,10 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Billing Contracts"
   }
 }
 

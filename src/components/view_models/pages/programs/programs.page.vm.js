@@ -12,6 +12,7 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
     this.gotoProgramProfile = this.gotoProgramProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -72,6 +73,10 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
 
       programApi.list(userCredentials, params, onSuccess, onError)
     }
+  }
+
+  title() {
+    return "Programs"
   }
 }
 

@@ -45,7 +45,7 @@ class PatientMedicationModal extends Component {
     return (
       <AprexisModal
         {...this.props}
-        modalClassName="patient-medication modal-w"
+        modalClassName="patient-medication modal-xw"
         modalFooterComponents={this.renderFooter()}
         modalHeaderComponents={this.renderHeader()}>
         <Container>

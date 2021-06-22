@@ -12,6 +12,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     this.gotoLabTestProfile = this.gotoLabTestProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -96,6 +97,10 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
 
       throw new Error('A patient or an intervention is required to retrieve lab test values')
     }
+  }
+
+  title() {
+    return "Lab Test Values"
   }
 }
 

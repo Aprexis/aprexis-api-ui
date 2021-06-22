@@ -69,13 +69,19 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
 
   select(item) {
     const { targetName } = this.props
+    let itemId
+    if (valueHelper.isFunction(this.itemId)) {
+      itemId = this.itemId(item)
+    } else {
+      itemId = item.id
+    }
 
     this.addData({ enableSearch: false, item })
     this.props.onChange(
       {
         persist: () => { },
         preventDefault: () => { },
-        target: { name: targetName, value: item.id }
+        target: { name: targetName, value: itemId }
       }
     )
   }

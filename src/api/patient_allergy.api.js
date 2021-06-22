@@ -1,9 +1,37 @@
 import { API } from "./"
+import { patientAllergyHelper } from "../helpers"
 
 export const patientAllergyApi = {
+  buildNew,
+  create,
   listForPatient,
   profile,
   show
+}
+
+function toJSON(patientAllergy) {
+  return {
+    patient_allergy: patientAllergyHelper.toJSON(patientAllergy)
+  }
+}
+function buildNew(userCredentials, patient_id, onSuccess, onFailure) {
+  if (!API.validateId("patient ID", patient_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patients/${patient_id}/patient_allergies/new`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
+
+function create(userCredentials, patientAllergy, onSuccess, onFailure) {
+  if (!API.validateId("patient ID", patientAllergy.patient_id, onFailure)) {
+    return
+  }
+
+  const method = "POST"
+  const path = `/patients/${patientAllergy.patient_id}/patient_allergies`
+  API.perform(method, path, "", userCredentials, toJSON(patientAllergy), onSuccess, onFailure)
 }
 
 function listForPatient(userCredentials, patient_id, params, onSuccess, onFailure) {

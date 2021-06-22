@@ -16,6 +16,7 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
     this.gotoBillingContractPharmacyChainProfile = this.gotoBillingContractPharmacyChainProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -58,6 +59,10 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Billing Contract Pharmacy Chains"
   }
 }
 

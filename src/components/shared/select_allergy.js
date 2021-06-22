@@ -3,14 +3,15 @@ import { Col, FormGroup } from "reactstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Autocomplete } from "./"
-import { SelectPhysicianViewModel } from "../view_models/shared"
+import { SelectAllergyViewModel } from "../view_models/shared"
 import { valueHelper } from '../../helpers'
+import { goldStandardAllergyHelper } from '../../helpers/gold_standard'
 
-class SelectPhysician extends Component {
+class SelectAllergy extends Component {
   constructor(props) {
     super(props)
 
-    this.vm = new SelectPhysicianViewModel(
+    this.vm = new SelectAllergyViewModel(
       {
         ...props,
         view: this
@@ -20,6 +21,20 @@ class SelectPhysician extends Component {
   }
 
   componentDidMount() {
+    this.lastId = this.props.id
+    this.vm.loadData()
+  }
+
+  componentDidUpdate() {
+    const { id } = this.props
+    const { item } = this.state
+
+    if ((id === this.lastId) || id == goldStandardAllergyHelper.allergyId(item)) {
+      return
+    }
+    this.lastId = id
+
+    this.vm.props.id = id
     this.vm.loadData()
   }
 
@@ -62,8 +77,8 @@ class SelectPhysician extends Component {
             searchFunction={this.vm.search}
             searchMinLength={this.props.minLength ?? 3}
             searchText={searchText}
-            sorting={{ sort: "last_name,first_name,middle_name,npi,city,state" }}
-            tableDisplayProps={["name", "npi", "city", "state"]}
+            sorting={{ sort: "allergy_name" }}
+            tableDisplayProps={["allergy_name"]}
           />
         }
       </React.Fragment >
@@ -71,4 +86,4 @@ class SelectPhysician extends Component {
   }
 }
 
-export { SelectPhysician }
+export { SelectAllergy }

@@ -1,3 +1,4 @@
+export * from "./allergy_categories.type"
 export * from "./contact_methods.type"
 export * from "./diagnosis_codes.type"
 export * from "./intervention_states.type"

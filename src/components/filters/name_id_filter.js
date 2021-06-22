@@ -38,26 +38,22 @@ class NameIdFilter extends Component {
           </Col>
         </Row>
 
-        <Row>
-          <Col>
-            <Autocomplete
-              clearFunction={this.vm.clearSearch}
-              disabled={filterDescription.disabled}
-              filters={{}}
-              inForm={false}
-              inputName={name}
-              inputPlaceholder={name.toLowerCase()}
-              onOptionSelect={this.vm.select}
-              options={searchResults}
-              readOnly={readOnly}
-              searchFunction={this.vm.search}
-              searchMinLength={filterDescription.minLength ?? 3}
-              searchText={value ?? searchText}
-              sorting={filterDescription.sorting ?? "name"}
-              tableDisplayProps={fields}
-            />
-          </Col>
-        </Row>
+        <Autocomplete
+          clearFunction={this.vm.clearSearch}
+          disabled={filterDescription.disabled}
+          filters={{}}
+          inForm={false}
+          inputName={name}
+          inputPlaceholder={name.toLowerCase()}
+          onOptionSelect={this.vm.select}
+          options={searchResults}
+          readOnly={readOnly}
+          searchFunction={this.vm.search}
+          searchMinLength={filterDescription.minLength ?? 3}
+          searchText={value ?? searchText}
+          sorting={filterDescription.sorting ?? "name"}
+          tableDisplayProps={fields}
+        />
       </div>
     )
   }

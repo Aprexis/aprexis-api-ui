@@ -13,6 +13,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
     this.gotoDiagnosisCodeProfile = this.gotoDiagnosisCodeProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -76,6 +77,10 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
 
       diagnosisCodeApi.list(userCredentials, params, onSuccess, onError)
     }
+  }
+
+  title() {
+    return "Diagnosis Codes"
   }
 }
 

@@ -1,6 +1,11 @@
 import { AbstractListPageViewModel } from "../"
 import { healthPlanApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import {
+  filtersHelper,
+  pageHelper,
+  pathHelper,
+  userCredentialsHelper
+} from "../../../../helpers"
 
 class HealthPlansPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -59,6 +64,10 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Health Plans"
   }
 }
 

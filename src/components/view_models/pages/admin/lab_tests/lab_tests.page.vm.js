@@ -12,6 +12,7 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
     this.gotoLabTestProfile = this.gotoLabTestProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -58,6 +59,10 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Lab Tests"
   }
 }
 

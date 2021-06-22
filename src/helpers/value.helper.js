@@ -151,9 +151,10 @@ function isValue(value) {
   return typeof value !== 'undefined' && value !== null && value != 'null'
 }
 
-function makeString(value) {
-  if (!valueHelper.isValue(value)) {
-    return ''
+function makeString(value, defaultString = "") {
+  if (!valueHelper.isValue(value) ||
+    (typeof value === 'string' && !valueHelper.isStringValue(value))) {
+    return defaultString
   }
 
   if (!valueHelper.isStringValue(value)) {

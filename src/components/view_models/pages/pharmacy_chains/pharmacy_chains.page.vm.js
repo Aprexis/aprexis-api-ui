@@ -12,6 +12,7 @@ class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
     this.gotoPharmacyChainProfile = this.gotoPharmacyChainProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -57,6 +58,10 @@ class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Pharmacy Chains"
   }
 }
 

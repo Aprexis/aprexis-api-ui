@@ -9,7 +9,6 @@ import {
   pharmacyStoreHelper,
   physicianHelper,
   userCredentialsHelper,
-  userHelper,
   valueHelper
 } from "../../../../helpers"
 import { patientMedications } from "../../../../types"
@@ -31,17 +30,14 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     this.gotoPatientMedicationProfile = this.gotoPatientMedicationProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   canCreate() {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    if (!userHelper.canCreatePatientMedication(currentUser, pathEntries)) {
-      return false
-    }
-
-    return patientMedicationHelper.canBeCreated(pathEntries)
+    return patientMedicationHelper.canBeCreated(currentUser, pathEntries)
   }
 
   createModal() {
@@ -207,6 +203,10 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Patient Medications"
   }
 }
 

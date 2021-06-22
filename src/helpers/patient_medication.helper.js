@@ -106,7 +106,11 @@ function buildNewChanged(patientMedication) {
   }
 }
 
-function canBeCreated(pathEntries) {
+function canBeCreated(currentUser, pathEntries) {
+  if (!userHelper.canCreatePatientMedication(currentUser, pathEntries)) {
+    return false
+  }
+
   return pathHelper.isSingular(pathEntries, "patients")
 }
 

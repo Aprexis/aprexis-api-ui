@@ -17,6 +17,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     this.gotoPatientProfile = this.gotoPatientProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -125,6 +126,10 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Patients"
   }
 }
 

@@ -36,6 +36,7 @@ class PatientAllergiesPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
+    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -94,6 +95,23 @@ class PatientAllergiesPage extends Component {
     return row
   }
 
+  nav(list) {
+    if (!this.vm.canCreate()) {
+      return
+    }
+
+
+    return (
+      <nav className="btn-toolbar mb-2 mb-md-0">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={this.vm.createModal}>
+          <strong>+</strong> Add Patient Allergy
+        </button>
+      </nav>
+    )
+  }
+
   render() {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
@@ -113,6 +131,7 @@ class PatientAllergiesPage extends Component {
         listLabel="Patient Allergy"
         listPluralLabel="Patient Allergies"
         modal={this.state.modal}
+        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

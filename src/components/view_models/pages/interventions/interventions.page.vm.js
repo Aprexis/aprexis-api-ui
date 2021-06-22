@@ -14,6 +14,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     this.interventionStateOptions = this.interventionStateOptions.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -100,6 +101,10 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
 
       interventionApi.list(userCredentials, params, onSuccess, onError)
     }
+  }
+
+  title() {
+    return "Interventions"
   }
 }
 

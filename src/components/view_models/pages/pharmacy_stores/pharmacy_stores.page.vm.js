@@ -12,6 +12,7 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
     this.gotoPharmacyStoreProfile = this.gotoPharmacyStoreProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   defaultParameters() {
@@ -70,6 +71,10 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
 
       pharmacyStoreApi.list(userCredentials, params, onSuccess, onError)
     }
+  }
+
+  title() {
+    return "Pharmacy Stores"
   }
 }
 

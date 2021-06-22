@@ -1,6 +1,11 @@
 import { AbstractListPageViewModel } from "../"
 import { patientAllergyApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper } from "../../../../helpers"
+import {
+  pageHelper,
+  pathHelper,
+  patientAllergyHelper,
+  userCredentialsHelper
+} from "../../../../helpers"
 
 const patientAllergyListMethods = [
   { pathKey: "patients", method: patientAllergyApi.listForPatient }
@@ -10,12 +15,39 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.canCreate = this.canCreate.bind(this)
+    this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoPatientAllergyProfile = this.gotoPatientAllergyProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
+  }
+
+  canCreate(event) {
+    const { currentUser } = this.props
+    const pathEntries = this.pathEntries()
+
+    return patientAllergyHelper.canBeCreated(currentUser, pathEntries)
+  }
+
+  createModal() {
+    const pathEntries = this.pathEntries()
+    const patientId = pathHelper.id(pathEntries, "patients")
+
+    patientAllergyApi.buildNew(
+      userCredentialsHelper.get(),
+      patientId,
+      (patientAllergy) => {
+        this.props.launchModal(
+          "patient-allergy",
+          { operation: "create", onUpdateView: this.refreshData, patientAllergy }
+        )
+      },
+      this.onError
+    )
   }
 
   defaultParameters() {
@@ -25,9 +57,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
   }
 
   filterDescriptions(filters, filtersOptions) {
-    return [
-      filtersHelper.stringFilter("Allergy Name", "for_allergy_name")
-    ]
+    return []
   }
 
   filtersOptions() {
@@ -58,6 +88,10 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Patient Allergies"
   }
 }
 

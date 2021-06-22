@@ -28,6 +28,7 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     this.gotoPatientNoteProfile = this.gotoPatientNoteProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.title = this.title.bind(this)
   }
 
   canCreate(event) {
@@ -154,6 +155,10 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
       },
       this.onError
     )
+  }
+
+  title() {
+    return "Patient Notes"
   }
 }
 

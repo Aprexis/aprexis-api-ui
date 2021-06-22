@@ -52,23 +52,21 @@ class SelectPharmacyStore extends Component {
         </FormGroup>
         {
           valueHelper.isSet(enableSearch) &&
-          <FormGroup row className="mt-0 pt-0">
-            <Autocomplete
-              clearFunction={this.vm.clearSearch}
-              filters={this.props.baseFilters}
-              inForm={this.props.inForm}
-              inputName={this.props.fieldName}
-              inputPlaceholder={this.props.fieldName.toLowerCase()}
-              item={item}
-              onOptionSelect={this.vm.select}
-              options={searchResults}
-              searchFunction={this.vm.search}
-              searchMinLength={this.props.minLength ?? 3}
-              searchText={searchText}
-              sorting={{ sort: "name,store_number" }}
-              tableDisplayProps={["store", "pharmacy"]}
-            />
-          </FormGroup>
+          <Autocomplete
+            clearFunction={this.vm.clearSearch}
+            filters={this.props.baseFilters}
+            inForm={this.props.inForm}
+            inputName={this.props.fieldName}
+            inputPlaceholder={this.props.fieldName.toLowerCase()}
+            item={item}
+            onOptionSelect={this.vm.select}
+            options={searchResults}
+            searchFunction={this.vm.search}
+            searchMinLength={this.props.minLength ?? 3}
+            searchText={searchText}
+            sorting={{ sort: "name,store_number" }}
+            tableDisplayProps={["store", "pharmacy"]}
+          />
         }
       </React.Fragment >
     )
