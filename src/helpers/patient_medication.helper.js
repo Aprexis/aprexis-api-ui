@@ -26,11 +26,13 @@ export const patientMedicationHelper = {
   displayStrength,
   displayType,
   filledAt,
+  healthPlanId,
   id,
   indication,
   medication,
   medicationId,
   medicationLabel,
+  patient,
   patientName,
   pharmacyStore,
   pharmacyStoreId,
@@ -242,6 +244,10 @@ function filledAt(patientMedication) {
   return fieldHelper.getField(patientMedication, "filled_at")
 }
 
+function healthPlanId(patientMedication) {
+  return patientHelper.healthPlanId(patientMedicationHelper.patient(patientMedication))
+}
+
 function id(patientMedication) {
   return fieldHelper.getField(patientMedication, "id")
 }
@@ -262,8 +268,12 @@ function medicationLabel(patientMedication) {
   return medicationHelper.label(patientMedicationHelper.medication(patientMedication))
 }
 
+function patient(patientMedication) {
+  return fieldHelper.getField(patientMedication, "patient")
+}
+
 function patientName(patientMedication, prefix = "") {
-  return patientHelper.name(fieldHelper.getField(patientMedication, "patient"), prefix)
+  return patientHelper.name(patientMedicationHelper.patient(patientMedication), prefix)
 }
 
 function pharmacyStore(patientMedication) {

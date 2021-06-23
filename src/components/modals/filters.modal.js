@@ -100,6 +100,11 @@ class FiltersModal extends Component {
       <AprexisModalHeader title={title} />
     )
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
+  }
 }
 
 const aprexisFiltersModal = aprexisWrapperModal(FiltersModal)

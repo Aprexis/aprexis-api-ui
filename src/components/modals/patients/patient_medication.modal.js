@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import NumericInput from 'react-numeric-input'
+import InputNumber from 'rc-input-number'
 import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
 import { DatePicker, DateTimePicker, SelectMedication, SelectPharmacyStore, SelectPhysician } from "../../shared"
 import { PatientMedicationModalViewModel } from "../../view_models/modals/patients"
@@ -141,13 +141,16 @@ class PatientMedicationModal extends Component {
                     <label>Days Supply</label>
                   </Col>
                   <Col xs={10}>
-                    <NumericInput
-                      className="form-control"
+                    <InputNumber
                       disabled={!patientMedicationHelper.canModifyField(patientMedication, "days_supply")}
                       max={365}
                       min={1}
                       name="days_supply"
-                      onChange={this.vm.changeNumericField}
+                      onChange={
+                        (newValue) => {
+                          this.vm.changeNumericField("days_supply", newValue)
+                        }
+                      }
                       readOnly={!patientMedicationHelper.canModifyField(patientMedication, "days_supply")}
                       value={valueHelper.makeString(patientMedicationHelper.daysSupply(patientMedication))}
                     />
@@ -272,6 +275,11 @@ class PatientMedicationModal extends Component {
     return (
       <AprexisModalHeader title={title} />
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

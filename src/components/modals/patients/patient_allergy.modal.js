@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import NumericInput from 'react-numeric-input'
+import InputNumber from 'rc-input-number'
 import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
 import { SelectAllergy } from "../../shared"
 import { PatientAllergyModalViewModel } from "../../view_models/modals/patients"
@@ -117,13 +117,16 @@ class PatientAllergyModal extends Component {
                     <label>Year</label>
                   </Col>
                   <Col xs={10}>
-                    <NumericInput
-                      className="form-control"
+                    <InputNumber
                       disabled={!patientAllergyHelper.canModifyField(patientAllergy, "year")}
                       max={(new Date()).year}
                       min={1900}
                       name="year"
-                      onChange={this.vm.changeNumericField}
+                      onChange={
+                        (newValue) => {
+                          this.vm.changeNumericField("year", newValue)
+                        }
+                      }
                       readOnly={!patientAllergyHelper.canModifyField(patientAllergy, "year")}
                       value={valueHelper.makeString(patientAllergyHelper.year(patientAllergy))}
                     />
@@ -168,6 +171,11 @@ class PatientAllergyModal extends Component {
     return (
       <AprexisModalHeader title={title} />
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

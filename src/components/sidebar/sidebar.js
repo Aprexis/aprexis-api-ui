@@ -267,6 +267,11 @@ class Sidebar extends Component {
     return (event) => { this.toggleSidebar(sidebarIndex) }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
+  }
+
   toggleSidebar(sidebarIndex) {
     const { selectedIndex } = this.state
 

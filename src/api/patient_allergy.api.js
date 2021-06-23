@@ -4,9 +4,11 @@ import { patientAllergyHelper } from "../helpers"
 export const patientAllergyApi = {
   buildNew,
   create,
+  edit,
   listForPatient,
   profile,
-  show
+  show,
+  update
 }
 
 function toJSON(patientAllergy) {
@@ -14,6 +16,7 @@ function toJSON(patientAllergy) {
     patient_allergy: patientAllergyHelper.toJSON(patientAllergy)
   }
 }
+
 function buildNew(userCredentials, patient_id, onSuccess, onFailure) {
   if (!API.validateId("patient ID", patient_id, onFailure)) {
     return
@@ -32,6 +35,16 @@ function create(userCredentials, patientAllergy, onSuccess, onFailure) {
   const method = "POST"
   const path = `/patients/${patientAllergy.patient_id}/patient_allergies`
   API.perform(method, path, "", userCredentials, toJSON(patientAllergy), onSuccess, onFailure)
+}
+
+function edit(userCredentials, patient_allergy_id, onSuccess, onFailure) {
+  if (!API.validateId("patient allergy ID", patient_allergy_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patient_allergies/${patient_allergy_id}/edit`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function listForPatient(userCredentials, patient_id, params, onSuccess, onFailure) {
@@ -62,4 +75,14 @@ function show(userCredentials, patient_allergy_id, onSuccess, onFailure) {
   const method = "GET"
   const path = `/patient_allergies/${patient_allergy_id}`
   API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+}
+
+function update(userCredentials, patientAllergy, onSuccess, onFailure) {
+  if (!API.validateId("patient allergy ID", patientAllergy.id, onFailure)) {
+    return
+  }
+
+  const method = "PUT"
+  const path = `/patient_allergies/${patientAllergy.id}`
+  API.perform(method, path, "", userCredentials, toJSON(patientAllergy), onSuccess, onFailure)
 }

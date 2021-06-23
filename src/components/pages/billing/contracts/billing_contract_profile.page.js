@@ -79,6 +79,11 @@ class BillingContractProfilePage extends Component {
       </Container>
     )
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
+  }
 }
 
 export { BillingContractProfilePage }

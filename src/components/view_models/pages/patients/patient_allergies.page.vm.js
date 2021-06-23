@@ -18,6 +18,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     this.canCreate = this.canCreate.bind(this)
     this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoPatientAllergyProfile = this.gotoPatientAllergyProfile.bind(this)
@@ -26,7 +27,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     this.title = this.title.bind(this)
   }
 
-  canCreate(event) {
+  canCreate() {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
@@ -54,6 +55,19 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     const filters = {}
     const sorting = { sort: "allergy_name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editModal(patientAllergyToEdit) {
+    patientAllergyApi.edit(
+      userCredentialsHelper.get(),
+      patientAllergyToEdit.id,
+      (patientAllergy) => {
+        this.props.launchModal(
+          "patient-allergy",
+          { operation: "update", onUpdateView: this.refreshData, patientAllergy })
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(filters, filtersOptions) {

@@ -144,10 +144,11 @@ class AbstractModalViewModel extends AbstractViewModel {
     this.redrawView()
   }
 
-  changeNumericField(valueAsNumber, valueAsString, input) {
+  changeNumericField(name, valueAsNumber) {
     const modelData = this.model()
-    const { model, modelName, changedModel } = modelData
-    const updated = fieldHelper.changeValue(modelName, model, changedModel, input.name, valueAsNumber)
+    const { model, modelName } = modelData
+    const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+    const updated = fieldHelper.changeValue(modelName, model, changedModel, name, valueAsNumber)
 
     this.addData(updated)
     this.redrawView()

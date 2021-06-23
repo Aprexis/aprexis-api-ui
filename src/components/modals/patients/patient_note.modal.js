@@ -123,6 +123,11 @@ class PatientNoteModal extends Component {
       <AprexisModalHeader title={title} />
     )
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
+  }
 }
 
 const aprexisPatientNoteModal = aprexisWrapperModal(PatientNoteModal)

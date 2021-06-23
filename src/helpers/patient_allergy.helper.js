@@ -7,12 +7,14 @@ export const patientAllergyHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canEdit,
   canModifyField,
   changeGoldStandardAllergy,
   goldStandardAllergy,
   goldStandardAllergyDescription,
   goldStandardAllergyId,
   goldStandardAllergyName,
+  healthPlanId,
   id,
   patient,
   patientName,
@@ -80,6 +82,25 @@ function canBeCreated(currentUser, pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients")
 }
 
+function canEdit(user, patientAllergy) {
+  switch (userHelper.role(user)) {
+    case 'aprexis_admin':
+      return true
+
+    case 'health_plan_admin':
+    case 'health_plan_user':
+      return userHelper.forHealthPlan(user, patientAllergyHelper.healthPlanId(patientAllergy))
+
+    case 'pharmacy_store_admin':
+    case 'pharmacy_store_tech':
+    case 'pharmacy_store_user':
+      return true
+
+    default:
+      return false
+  }
+}
+
 function canModifyField(patientAllergy, fieldName) {
   if (!valueHelper.isValue(patientAllergyHelper.id(patientAllergy))) {
     return true
@@ -135,6 +156,10 @@ function goldStandardAllergyDescription(patientAllergy) {
 
 function goldStandardAllergyName(patientAllergy) {
   return goldStandardAllergyHelper.allergyName(patientAllergyHelper.goldStandardAllergy(patientAllergy))
+}
+
+function healthPlanId(patientAllergy) {
+  return patientHelper.healthPlanId(patientAllergyHelper.patient(patientAllergy))
 }
 
 function id(patientAllergy) {

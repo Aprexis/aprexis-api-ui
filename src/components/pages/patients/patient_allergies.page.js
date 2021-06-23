@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
+import { TableColumnHeader, TableIdentificationColumn } from "../../shared"
 import { PatientAllergiesPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
 import { fieldHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
@@ -75,8 +75,16 @@ class PatientAllergiesPage extends Component {
     }
     const row = [
       {
-        content: allergyName,
-        onClick: (event) => { this.vm.gotoPatientAllergyProfile(patientAllergy) }
+        content: (
+          <TableIdentificationColumn
+            currentUser={this.props.currentUser}
+            heading={headings[0]}
+            helper={patientAllergyHelper}
+            onClick={(event) => { this.vm.gotoPatientAllergyProfile(patientAllergy) }}
+            onEdit={(event) => { this.vm.editModal(patientAllergy) }}
+            tableItem={patientAllergy}
+          />
+        )
       }
     ]
 
@@ -99,7 +107,6 @@ class PatientAllergiesPage extends Component {
     if (!this.vm.canCreate()) {
       return
     }
-
 
     return (
       <nav className="btn-toolbar mb-2 mb-md-0">
@@ -143,6 +150,11 @@ class PatientAllergiesPage extends Component {
         title="Patient Allergies"
       />
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

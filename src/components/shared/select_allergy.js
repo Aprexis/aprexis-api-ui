@@ -63,8 +63,9 @@ class SelectAllergy extends Component {
             </Col>
           }
         </FormGroup>
+
         {
-          valueHelper.isSet(enableSearch) &&
+          valueHelper.isSet(enableSearch) && !valueHelper.isSet(readOnly) &&
           <Autocomplete
             clearFunction={this.vm.clearSearch}
             filters={this.props.baseFilters}
@@ -83,6 +84,11 @@ class SelectAllergy extends Component {
         }
       </React.Fragment >
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 
