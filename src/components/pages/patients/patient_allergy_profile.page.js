@@ -1,22 +1,26 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from '../../shared'
+import { EditButton, Spinner } from '../../shared'
 import { PatientAllergyProfilePageViewModel } from "../../view_models/pages/patients"
 import { fieldHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
 
-const PatientAllergyProfile = ({ currentUser, patientAllergy }) => {
+const PatientAllergyProfile = ({ currentUser, onEditProfile, patientAllergy }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
           <h3>
             Profile
+            {
+              patientAllergyHelper.canEdit(currentUser, patientAllergy) &&
+              <EditButton onEdit={(event) => { onEditProfile(patientAllergy) }} />
+            }
           </h3>
         </CardTitle>
 
         <CardBody>
           {fieldHelper.display("Allergy Type", patientAllergyHelper.allergyType(patientAllergy))}
-          {fieldHelper.display("Year", fieldHelper.display("Year", patientAllergyHelper.year(patientAllergy)))}
+          {fieldHelper.display("Year", patientAllergyHelper.year(patientAllergy))}
           {fieldHelper.display("Gold Standard Allergy", patientAllergyHelper.goldStandardAllergyName(patientAllergy))}
           {
             fieldHelper.display(
@@ -24,21 +28,25 @@ const PatientAllergyProfile = ({ currentUser, patientAllergy }) => {
               patientAllergyHelper.goldStandardAllergyDescription(patientAllergy)
             )
           }
-          {fieldHelper.display("Reaction")}
+          {fieldHelper.display("Reaction", patientAllergyHelper.reaction(patientAllergy))}
         </CardBody>
       </Card>
     </Col>
   )
 }
 
-const PatientAllergyDisplay = ({ currentUser, patientAllergy }) => {
+const PatientAllergyDisplay = ({ currentUser, onEditProfile, patientAllergy }) => {
   if (!valueHelper.isValue(patientAllergy)) {
     return (<Spinner showAtStart={true} />)
   }
 
   return (
     <Row>
-      <PatientAllergyProfile currentUser={currentUser} patientAllergy={patientAllergy} />
+      <PatientAllergyProfile
+        currentUser={currentUser}
+        onEditProfile={onEditProfile}
+        patientAllergy={patientAllergy}
+      />
     </Row>
   )
 }
@@ -77,6 +85,7 @@ class PatientAllergyProfilePage extends Component {
 
           <PatientAllergyDisplay
             currentUser={this.props.currentUser}
+            onEditProfile={this.vm.editProfileModal}
             patientAllergy={patientAllergy}
           />
         </Col>
