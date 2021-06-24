@@ -68,7 +68,8 @@ const sidebarDescriptions = {
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },
-      { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" }
+      { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" },
+      { buttonLabel: "Pharmacy Claims", buttonType: "List", listName: "pharmacy-claims" }
     ],
     entryLabel: "Patient",
     entryName: "patients"
@@ -95,6 +96,11 @@ const sidebarDescriptions = {
     ],
     entryLabel: "Pharmacy Chain",
     entryName: "pharmacy-chains"
+  },
+  "pharmacy-claims": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Pharmacy Claim",
+    entryName: "pharmacy-claims"
   },
   "pharmacy-stores": {
     entryButtons: [

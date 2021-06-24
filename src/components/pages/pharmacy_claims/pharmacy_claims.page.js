@@ -1,33 +1,72 @@
 import React, { Component } from "react"
 import { TableColumnHeader, TableIdentificationColumn } from "../../shared"
-import { PatientAllergiesPageViewModel } from "../../view_models/pages/patients"
+import { PharmacyClaimsPageViewModel } from "../../view_models/pages/pharmacy_claims"
 import { ListView } from "../../../containers"
-import { fieldHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
+import { fieldHelper, pharmacyClaimHelper, valueHelper } from "../../../helpers"
 
 const headings = [
   {
-    name: "Allergy Name",
-    field: "allergy_name",
-    method: "allergyName"
+    name: "Claim Number",
+    field: "claim_number",
+    method: "claimNumber"
   },
   {
-    name: "Allergy Type",
-    field: "allergy_type",
-    method: "allergyType"
+    name: "NDC",
+    field: "ndc",
+    method: "ndc"
   },
   {
-    name: "Year",
-    field: "year",
-    method: "year"
+    name: "Medication",
+    field: "medication.label",
+    method: "medicationLabel"
+  },
+  {
+    name: "Member Number",
+    field: "member_number",
+    method: "memberNumber",
+    unless: "patients"
+  },
+  {
+    name: "Person Number",
+    field: "person_number",
+    method: "personNumber",
+    unless: "patients"
+  },
+  {
+    name: "Patient",
+    field: "patient.last_name,patient.first_name,patient.middle_name",
+    method: "patientName",
+    unless: "patients"
+  },
+  {
+    name: "Store",
+    field: "pharmacy_store.name, pharmacy_store.store_number",
+    method: "pharmacyStoreIdentification",
+    unless: "pharmacy-stores"
+  },
+  {
+    name: "Physician",
+    field: "physician.name",
+    method: "physicianName"
+  },
+  {
+    name: "Fill Date",
+    field: "fill_date",
+    method: "fillDate"
+  },
+  {
+    name: "Days Supply",
+    field: "days_supply",
+    method: "daysSupply"
   }
 ]
 
-class PatientAllergiesPage extends Component {
+class PharmacyClaimsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new PatientAllergiesPageViewModel(
+    this.vm = new PharmacyClaimsPageViewModel(
       {
         ...props,
         view: this
@@ -66,7 +105,7 @@ class PatientAllergiesPage extends Component {
     )
   }
 
-  generateTableRow(patientAllergy) {
+  generateTableRow(pharmacyClaim) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
     const row = [
@@ -75,22 +114,22 @@ class PatientAllergiesPage extends Component {
           <TableIdentificationColumn
             currentUser={this.props.currentUser}
             heading={headings[0]}
-            helper={patientAllergyHelper}
-            onClick={(event) => { this.vm.gotoPatientAllergyProfile(patientAllergy) }}
-            onEdit={(event) => { this.vm.editModal(patientAllergy) }}
-            tableItem={patientAllergy}
+            helper={pharmacyClaimHelper}
+            onClick={(event) => { this.vm.gotoPharmacyClaimProfile(pharmacyClaim) }}
+            onEdit={(event) => { this.vm.editModal(pharmacyClaim) }}
+            tableItem={pharmacyClaim}
           />
         )
       }
     ]
 
     headings.filter(
-      (heading) => heading.name != "Allergy Name" && fieldHelper.includeField(pathEntries, filters, heading)
+      (heading) => heading.name != "Claim Number" && fieldHelper.includeField(pathEntries, filters, heading)
     ).forEach(
       (heading) => {
         row.push(
           fieldHelper.listField(
-            patientAllergyHelper[heading.method](patientAllergy)
+            pharmacyClaimHelper[heading.method](pharmacyClaim)
           )
         )
       }
@@ -109,7 +148,7 @@ class PatientAllergiesPage extends Component {
         <button
           className="btn btn-sm btn-outline-secondary"
           onClick={this.vm.createModal}>
-          <strong>+</strong> Add Patient Allergy
+          <strong>+</strong> Add Pharmacy Claim
         </button>
       </nav>
     )
@@ -130,9 +169,9 @@ class PatientAllergiesPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.patientAllergies}
-        listLabel="Patient Allergy"
-        listPluralLabel="Patient Allergies"
+        list={this.state.pharmacyClaims}
+        listLabel="Pharmacy Claim"
+        listPluralLabel="Pharmacy Claims"
         modal={this.state.modal}
         nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
@@ -143,7 +182,7 @@ class PatientAllergiesPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Patient Allergies"
+        title="Pharmacy Claims"
       />
     )
   }
@@ -154,4 +193,4 @@ class PatientAllergiesPage extends Component {
   }
 }
 
-export { PatientAllergiesPage }
+export { PharmacyClaimsPage }

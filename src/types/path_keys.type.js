@@ -8,6 +8,7 @@ import {
   patientMedicationApi,
   patientNoteApi,
   pharmacyChainApi,
+  pharmacyClaimApi,
   pharmacyStoreApi,
   userApi
 } from "../api"
@@ -30,6 +31,7 @@ import { patientHelper } from "../helpers/patient.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
 import { patientNoteHelper } from "../helpers/patient_note.helper"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
+import { pharmacyClaimHelper } from "../helpers/pharmacy_claim.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
 import { userHelper } from "../helpers/user.helper"
 
@@ -108,6 +110,12 @@ export const pathKeys = {
     breadcrumb: "Pharmacies",
     helper: pharmacyChainHelper,
     modelName: "PharmacyChain"
+  },
+  "pharmacy-claims": {
+    api: pharmacyClaimApi,
+    breadcrumb: "Pharmacy Claims",
+    helper: pharmacyClaimHelper,
+    modelName: "PharmacyClaim"
   },
   "pharmacy-stores": {
     api: pharmacyStoreApi,

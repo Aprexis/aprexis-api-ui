@@ -124,7 +124,8 @@ function display(name, value, description, suffix = ":") {
 }
 
 function displayListField(model, helper, heading) {
-  const value = helper[heading.method](model)
+  const method = valueHelper.isStringValue(heading.method) ? heading.method : heading.field
+  const value = helper[method](model)
   if (!valueHelper.isValue(value)) {
     return ""
   }
