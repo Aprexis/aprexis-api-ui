@@ -11,6 +11,7 @@ export const fieldHelper = {
   changeField,
   changeValue,
   changeValues,
+  combineValues,
   dateDisplay,
   dateTimeDisplay,
   display,
@@ -86,6 +87,19 @@ function changeValues(modelName, model, changedModel, changedValues) {
     [modelName]: updated[modelName],
     [valueHelper.changedModelName(modelName)]: updated[valueHelper.changedModelName(modelName)]
   }
+}
+
+function combineValues(...values) {
+  if (!valueHelper.isValue(values)) {
+    return
+  }
+
+  const filteredValues = values.filter((value) => valueHelper.isStringValue(value))
+  if (filteredValues.length === 0) {
+    return
+  }
+
+  return filteredValues.join(" ")
 }
 
 function dateDisplay(name, value, description) {
