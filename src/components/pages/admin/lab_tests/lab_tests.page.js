@@ -4,27 +4,33 @@ import { LabTestsPageViewModel } from "../../../view_models/pages/admin/lab_test
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { labTestHelper } from "../../../../helpers/admin"
+import { listHelper } from "../../../../helpers/list_helper"
 
 const headings = [
   {
     name: "Key Code",
-    field: "key_code"
+    field: "key_code",
+    method: "keyCode"
   },
   {
     name: "Name",
-    field: "name"
+    field: "name",
+    method: "name"
   },
   {
     name: "Full Name",
-    field: "full_name"
+    field: "full_name",
+    method: "fullName"
   },
   {
     name: "Category",
-    field: "category"
+    field: "category",
+    method: "category"
   },
   {
     name: "Units",
-    field: "units"
+    field: "units",
+    method: "units"
   }
 ]
 
@@ -50,35 +56,38 @@ class LabTestsPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`lab-tests-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "lab-tests",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(labTest) {
-    return [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: labTestHelper.keyCode(labTest),
-        onClick: (event) => { this.vm.gotoLabTestProfile(labTest) }
-      },
-      labTestHelper.name(labTest),
-      labTestHelper.fullName(labTest),
-      labTestHelper.category(labTest),
-      labTestHelper.units(labTest)
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoLabTestProfile,
+        headings,
+        helper: labTestHelper,
+        pathEntries,
+        tableItem: labTest
+      }
+    )
   }
 
   render() {

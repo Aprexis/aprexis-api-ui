@@ -1,6 +1,7 @@
 import { fieldHelper } from "../"
 
 export const labTestHelper = {
+  canEdit,
   category,
   fullName,
   keyCode,
@@ -8,6 +9,10 @@ export const labTestHelper = {
   normalValue,
   units,
   vital
+}
+
+function canEdit(currentUser, labTest) {
+  return false
 }
 
 function category(labTest) {

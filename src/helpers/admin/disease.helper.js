@@ -1,9 +1,19 @@
 import { fieldHelper, valueHelper } from "../"
 
 export const diseaseHelper = {
+  canEdit,
+  description,
   name,
   questionKey,
   toBreadcrumb
+}
+
+function canEdit(currentUser, disease) {
+  return false
+}
+
+function description(disease) {
+  return fieldHelper.getField(disease, "description")
 }
 
 function name(disease) {

@@ -1,22 +1,25 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../../shared"
 import { DiseasesPageViewModel } from "../../../view_models/pages/admin/diseases"
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { diseaseHelper } from "../../../../helpers/admin"
+import { listHelper } from "../../../../helpers/list_helper"
 
 const headings = [
   {
     name: "Question Key",
-    field: "question_key"
+    field: "question_key",
+    method: "questionKey"
   },
   {
     name: "Name",
-    field: "name"
+    field: "name",
+    method: "name"
   },
   {
     name: "Description",
-    field: "description"
+    field: "description",
+    method: "description"
   }
 ]
 
@@ -41,33 +44,38 @@ class DiseasesPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`diseases-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "diseases",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(disease) {
-    return [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: diseaseHelper.questionKey(disease),
-        onClick: (event) => { this.vm.gotoDiseaseProfile(disease) }
-      },
-      diseaseHelper.name(disease),
-      disease.description
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoDiseaseProfile,
+        headings,
+        helper: diseaseHelper,
+        pathEntries,
+        tableItem: disease
+      }
+    )
   }
 
   render() {

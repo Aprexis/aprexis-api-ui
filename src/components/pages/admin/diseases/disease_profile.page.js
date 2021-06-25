@@ -14,9 +14,8 @@ const DiseaseProfile = ({ disease }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Name", disease.name)}
-          {fieldHelper.display("Question Key", disease.question_key)}
-          {fieldHelper.display("Description", disease.description)}
+          {fieldHelper.display("Name", diseaseHelper.name(disease))}
+          {fieldHelper.display("Description", diseaseHelper.description(disease))}
         </CardBody>
       </Card>
     </Col>
@@ -61,7 +60,7 @@ class DiseaseProfilePage extends Component {
       <Container>
         <Col>
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
-            <h1>{diseaseHelper.name(disease)}</h1>
+            <h1>{diseaseHelper.questionKey(disease)}</h1>
           </div>
 
           <DiseaseDisplay currentUser={this.props.currentUser} disease={disease} />
