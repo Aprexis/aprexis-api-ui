@@ -2,11 +2,22 @@ import { fieldHelper, valueHelper } from "../"
 import { diagnosisCodes } from "../../types"
 
 export const diagnosisCodeHelper = {
+  billable,
+  canEdit,
   code,
   longDescription,
+  shortDescription,
   toBreadcrumb,
   type,
   typeLabel
+}
+
+function billable(diagnosisCode) {
+  return fieldHelper.getField(diagnosisCode, "billable")
+}
+
+function canEdit(currentUser, diagnosisCode) {
+  return false
 }
 
 function code(diagnosisCode) {
@@ -15,6 +26,10 @@ function code(diagnosisCode) {
 
 function longDescription(diagnosisCode) {
   return fieldHelper.getField(diagnosisCode, "long_description")
+}
+
+function shortDescription(diagnosisCode) {
+  return fieldHelper.getField(diagnosisCode, "short_description")
 }
 
 function toBreadcrumb(diagnosisCode) {

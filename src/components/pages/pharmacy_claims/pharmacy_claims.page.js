@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader, TableIdentificationColumn } from "../../shared"
 import { PharmacyClaimsPageViewModel } from "../../view_models/pages/pharmacy_claims"
 import { ListView } from "../../../containers"
-import { fieldHelper, pharmacyClaimHelper, valueHelper } from "../../../helpers"
+import { pharmacyClaimHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list_helper"
 
 const headings = [
   {
@@ -83,24 +83,18 @@ class PharmacyClaimsPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`patient-allergies-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "pharmacy-claims",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -108,34 +102,19 @@ class PharmacyClaimsPage extends Component {
   generateTableRow(pharmacyClaim) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
-      {
-        content: (
-          <TableIdentificationColumn
-            currentUser={this.props.currentUser}
-            heading={headings[0]}
-            helper={pharmacyClaimHelper}
-            onClick={(event) => { this.vm.gotoPharmacyClaimProfile(pharmacyClaim) }}
-            onEdit={(event) => { this.vm.editModal(pharmacyClaim) }}
-            tableItem={pharmacyClaim}
-          />
-        )
-      }
-    ]
 
-    headings.filter(
-      (heading) => heading.name != "Claim Number" && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach(
-      (heading) => {
-        row.push(
-          fieldHelper.listField(
-            pharmacyClaimHelper[heading.method](pharmacyClaim)
-          )
-        )
+    return listHelper.listRow(
+      {
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoPharmacyClaimProfile,
+        headings,
+        helper: pharmacyClaimHelper,
+        pathEntries,
+        tableItem: pharmacyClaim
       }
     )
-
-    return row
   }
 
   nav(list) {

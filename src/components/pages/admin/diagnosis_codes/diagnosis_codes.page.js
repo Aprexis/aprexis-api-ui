@@ -1,26 +1,30 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../../shared"
 import { DiagnosisCodesPageViewModel } from "../../../view_models/pages/admin/diagnosis_codes"
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { diagnosisCodeHelper } from "../../../../helpers/admin"
+import { listHelper } from "../../../../helpers/list_helper"
 
 const headings = [
   {
-    name: "Type",
-    field: "type"
+    name: "Code",
+    field: "Code",
+    method: "code"
   },
   {
-    name: "Code",
-    field: "Code"
+    name: "Type",
+    field: "type",
+    method: "typeLabel"
   },
   {
     name: "Short Description",
-    field: "short_description"
+    field: "short_description",
+    method: "shortDescription"
   },
   {
     name: "Billable",
-    field: "billable"
+    field: "billable",
+    method: "billable"
   }
 ]
 
@@ -45,34 +49,38 @@ class DiagnosisCodesPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`diagnosis-codes-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "diagnosis-codes",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(diagnosisCode) {
-    return [
-      diagnosisCodeHelper.typeLabel(diagnosisCode),
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: diagnosisCodeHelper.code(diagnosisCode),
-        onClick: (event) => { this.vm.gotoDiagnosisCodeProfile(diagnosisCode) }
-      },
-      diagnosisCode.short_description,
-      valueHelper.yesNo(diagnosisCode.billable)
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoDiagnosisCodeProfile,
+        headings,
+        helper: diagnosisCodeHelper,
+        pathEntries,
+        tableItem: diagnosisCode
+      }
+    )
   }
 
   render() {

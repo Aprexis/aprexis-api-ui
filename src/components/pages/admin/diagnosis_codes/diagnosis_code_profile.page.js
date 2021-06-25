@@ -4,7 +4,6 @@ import { Spinner } from "../../../shared"
 import { DiagnosisCodeProfilePageViewModel } from "../../../view_models/pages/admin/diagnosis_codes"
 import { fieldHelper, valueHelper } from "../../../../helpers"
 import { diagnosisCodeHelper } from "../../../../helpers/admin"
-import { diagnosisCodes } from "../../../../types"
 
 const DiagnosisCodeProfile = ({ diagnosisCode }) => {
   return (
@@ -15,11 +14,10 @@ const DiagnosisCodeProfile = ({ diagnosisCode }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Type", diagnosisCodes[diagnosisCode.type])}
-          {fieldHelper.display("Code", diagnosisCode.code)}
-          {fieldHelper.display("Short Description", diagnosisCode.short_description)}
-          {fieldHelper.display("Long Description", diagnosisCode.long_description)}
-          {fieldHelper.booleanDisplay("Billable", diagnosisCode.billable)}
+          {fieldHelper.display("Type", diagnosisCodeHelper.typeLabel(diagnosisCode))}
+          {fieldHelper.display("Short Description", diagnosisCodeHelper.shortDescription(diagnosisCode))}
+          {fieldHelper.display("Long Description", diagnosisCodeHelper.longDescription(diagnosisCode))}
+          {fieldHelper.booleanDisplay("Billable", diagnosisCodeHelper.billable(diagnosisCode))}
         </CardBody>
       </Card>
     </Col>
