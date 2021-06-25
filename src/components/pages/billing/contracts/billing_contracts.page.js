@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../../shared"
 import { BillingContractsPageViewModel } from "../../../view_models/pages/billing/contracts"
 import { ListView } from "../../../../containers"
-import { fieldHelper, valueHelper } from "../../../../helpers"
+import { valueHelper } from "../../../../helpers"
 import { billingContractHelper } from "../../../../helpers/billing"
+import { listHelper } from "../../../../helpers/list_helper"
 
 const headings = [
   {
@@ -55,24 +55,18 @@ class BillingContractsPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`billing-contract-values-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "billing-contracts",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -80,18 +74,19 @@ class BillingContractsPage extends Component {
   generateTableRow(billingContract) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
+
+    return listHelper.listRow(
       {
-        content: billingContractHelper[headings[0].method](billingContract),
-        onClick: (event) => { this.vm.gotoBillingContractProfile(billingContract) }
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoBillingContractProfile,
+        headings,
+        helper: billingContractHelper,
+        pathEntries,
+        tableItem: billingContract
       }
-    ]
-
-    headings.filter(
-      (heading) => heading.name != "Name" && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach((heading) => { row.push(billingContractHelper[heading.method](billingContract)) })
-
-    return row
+    )
   }
 
   render() {

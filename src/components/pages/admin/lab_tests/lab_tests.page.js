@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../../shared"
 import { LabTestsPageViewModel } from "../../../view_models/pages/admin/lab_tests"
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"

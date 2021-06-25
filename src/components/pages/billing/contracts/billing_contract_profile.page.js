@@ -20,7 +20,6 @@ const BillingContractProfile = ({ currentUser, onEditProfile, billingContract })
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Name", billingContractHelper.name(billingContract))}
           {fieldHelper.display("Health Plan", billingContractHelper.healthPlanName(billingContract))}
           {fieldHelper.booleanDisplay("Active", billingContractHelper.active(billingContract))}
           {fieldHelper.dateDisplay("Start Date", billingContractHelper.startDate(billingContract))}
@@ -67,7 +66,7 @@ class BillingContractProfilePage extends Component {
       <Container>
         <Col>
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
-            <h1>Contract</h1>
+            <h1>{billingContractHelper.name(billingContract)}</h1>
           </div>
 
           <BillingContractDisplay

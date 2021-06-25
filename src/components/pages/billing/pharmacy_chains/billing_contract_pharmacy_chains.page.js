@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../../shared"
 import { BillingContractPharmacyChainsPageViewModel } from "../../../view_models/pages/billing/pharmacy_chains"
 import { ListView } from "../../../../containers"
-import { fieldHelper, valueHelper } from "../../../../helpers"
+import { valueHelper } from "../../../../helpers"
 import { billingContractPharmacyChainHelper } from "../../../../helpers/billing"
+import { listHelper } from "../../../../helpers/list_helper"
 
 const headings = [
   {
@@ -54,24 +54,18 @@ class BillingContractPharmacyChainsPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`billing-contract-pharmacies-values-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "billing-contract-pharmacy-chains",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -79,26 +73,19 @@ class BillingContractPharmacyChainsPage extends Component {
   generateTableRow(billingContractPharmacyChain) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
-      {
-        content: billingContractPharmacyChainHelper[headings[0].method](billingContractPharmacyChain),
-        onClick: (event) => { this.vm.gotoBillingContractPharmacyChainProfile(billingContractPharmacyChain) }
-      }
-    ]
 
-    headings.filter(
-      (heading) => heading.name != "Pharmacy Name" && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach(
-      (heading) => {
-        row.push(
-          fieldHelper.listField(
-            billingContractPharmacyChainHelper[heading.method](billingContractPharmacyChain)
-          )
-        )
+    return listHelper.listRow(
+      {
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoBillingContractPharmacyChainProfile,
+        headings,
+        helper: billingContractPharmacyChainHelper,
+        pathEntries,
+        tableItem: billingContractPharmacyChain
       }
     )
-
-    return row
   }
 
   render() {

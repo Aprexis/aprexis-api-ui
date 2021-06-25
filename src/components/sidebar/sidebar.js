@@ -6,10 +6,14 @@ import { valueHelper } from "../../helpers"
 
 const sidebarDescriptions = {
   "answers": {
-    entryButtons: [
-    ],
+    entryButtons: [],
     entryLabel: "Answer",
     entryName: "answers"
+  },
+  "billing-contract-pharmacies": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Contract Pharmacy Chain",
+    entryName: "billing-contract-pharmacies"
   },
   "billing-contracts": {
     entryButtons: [

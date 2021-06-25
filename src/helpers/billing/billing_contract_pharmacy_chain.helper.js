@@ -1,11 +1,16 @@
 import { fieldHelper, pharmacyChainHelper } from "../"
 
 export const billingContractPharmacyChainHelper = {
+  canEdit,
   claimsEnabled,
   clinical,
   pharmacyChainName,
   pullsEnabled,
   transactional
+}
+
+function canEdit(currentUser, billingContractPharmacyChain) {
+  return false
 }
 
 function claimsEnabled(billingContractPharmacyChain) {
