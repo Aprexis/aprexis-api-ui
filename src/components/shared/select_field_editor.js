@@ -4,7 +4,7 @@ import { fieldHelper, valueHelper } from "../../helpers"
 
 class SelectFieldEditor extends Component {
   render() {
-    const { changeField, helper, model } = this.props
+    const { changeField, helper, model, omitLabel } = this.props
     const name = fieldHelper.name(this.props)
     const canModifyField = helper.canModifyField(model, name)
     const method = fieldHelper.method(this.props)
@@ -12,7 +12,10 @@ class SelectFieldEditor extends Component {
 
     return (
       <React.Fragment>
-        <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
+        {
+          !valueHelper.isSet(omitLabel) &&
+          <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
+        }
         <Col xs={fieldHelper.fieldXs(this.props)}>
           <Input
             className="form-control"

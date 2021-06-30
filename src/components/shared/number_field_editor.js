@@ -5,14 +5,17 @@ import { fieldHelper, valueHelper } from "../../helpers"
 
 class NumberFieldEditor extends Component {
   render() {
-    const { changeField, helper, max, min, model } = this.props
+    const { changeField, helper, max, min, model, omitLabel } = this.props
     const name = fieldHelper.name(this.props)
     const canModifyField = helper.canModifyField(model, name)
     const method = fieldHelper.method(this.props)
 
     return (
       <React.Fragment>
-        <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
+        {
+          !valueHelper.isSet(omitLabel) &&
+          <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
+        }
         <Col xs={fieldHelper.fieldXs(this.props)}>
           <InputNumber
             disabled={!canModifyField}

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
-import { AddressEditor, ContactEditor, DatePicker } from "../../shared"
+import { AddressEditor, ContactEditor, DatePicker, TextFieldEditor } from "../../shared"
 import { PatientProfileModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, valueHelper } from "../../../helpers"
@@ -41,66 +41,49 @@ class PatientProfileModal extends Component {
             <Col>
               <Form>
                 <FormGroup row>
-                  <Col xs={2}><label>Name</label></Col>
-                  <Col xs={3}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientHelper.canModifyField(patient, "first_name")}
-                      name="first_name"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientHelper.canModifyField(patient, "first_name")}
-                      value={valueHelper.makeString(patientHelper.firstName(patient))}
-                    />
-                  </Col>
-                  <Col xs={3}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientHelper.canModifyField(patient, "middle_name")}
-                      name="middle_name"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientHelper.canModifyField(patient, "middle_name")}
-                      value={valueHelper.makeString(patientHelper.middleName(patient))}
-                    />
-                  </Col>
-                  <Col xs={3}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientHelper.canModifyField(patient, "last_name")}
-                      name="last_name"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientHelper.canModifyField(patient, "last_name")}
-                      value={valueHelper.makeString(patientHelper.lastName(patient))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldLabel="Name"
+                    fieldName="first_name"
+                    fieldXs={3}
+                    helper={patientHelper}
+                    model={patient}
+                  />
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="middle_name"
+                    fieldXs={3}
+                    helper={patientHelper}
+                    model={patient}
+                    omitLabel={true}
+                  />
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="last_name"
+                    fieldXs={3}
+                    helper={patientHelper}
+                    model={patient}
+                    omitLabel={true}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}><label>Member Number</label></Col>
-                  <Col xs={4}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientHelper.canModifyField(patient, "member_number")}
-                      name="member_number"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientHelper.canModifyField(patient, "member_number")}
-                      value={valueHelper.makeString(patientHelper.memberNumber(patient))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="member_number"
+                    fieldXs={4}
+                    helper={patientHelper}
+                    model={patient}
+                  />
                   {
                     patientHelper.requiresPersonNumber(patient) &&
-                    <React.Fragment>
-                      <Col xs={2}><label>Person Number</label></Col>
-                      <Col xs={4}>
-                        <Input
-                          className="form-control"
-                          disabled={!patientHelper.canModifyField(patient, "person_number")}
-                          name="person_number"
-                          onChange={this.vm.changeField}
-                          readOnly={!patientHelper.canModifyField(patient, "person_number")}
-                          value={valueHelper.makeString(patientHelper.personNumber(patient))}
-                        />
-                      </Col>
-                    </React.Fragment>
+                    <TextFieldEditor
+                      changeField={this.vm.changeField}
+                      fieldName="person_number"
+                      fieldXs={3}
+                      helper={patientHelper}
+                      model={patient}
+                    />
                   }
                 </FormGroup>
 
@@ -188,17 +171,13 @@ class PatientProfileModal extends Component {
                       }
                     </Input>
                   </Col>
-                  <Col xs={2}><label>Race</label></Col>
-                  <Col xs={4}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientHelper.canModifyField(patient, "ract")}
-                      name="race"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientHelper.canModifyField(patient, "race")}
-                      value={valueHelper.makeString(patientHelper.race(patient))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="race"
+                    fieldXs={4}
+                    helper={patientHelper}
+                    model={patient}
+                  />
                 </FormGroup>
               </Form>
             </Col>
