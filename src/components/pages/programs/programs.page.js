@@ -1,37 +1,44 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { ProgramsPageViewModel } from "../../view_models/pages/programs"
 import { ListView } from "../../../containers"
-import { contextHelper, dateHelper, programHelper, valueHelper } from "../../../helpers"
+import { programHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Name",
-    field: "name"
+    field: "name",
+    method: "name"
   },
   {
     name: "Active",
-    field: "active"
+    field: "active",
+    method: "active"
   },
   {
     name: "Health Plan",
-    field: "health_plan.name"
+    field: "health_plan.name",
+    method: "healthPlanName"
   },
   {
     name: "Kind",
-    field: "is_clinical,is_transactional"
+    field: "is_clinical,is_transactional",
+    method: "kind"
   },
   {
     name: "Type",
-    field: "type"
+    field: "type",
+    method: "type"
   },
   {
     name: "Start Date",
-    field: "start date"
+    field: "start date",
+    method: "startDate"
   },
   {
     name: "End Date",
-    field: "end_date"
+    field: "end_date",
+    method: "endDate"
   }
 ]
 
@@ -56,47 +63,38 @@ class ProgramsPage extends Component {
   }
 
   generateTableHeadings() {
-    let workingHeadings = headings
-    if (contextHelper.inContext("health-plans")) {
-      workingHeadings = headings.filter((heading) => heading.name != "Health Plan")
-    }
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
 
-    return workingHeadings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`programs-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "programs",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(program) {
-    const row = [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: programHelper.name(program),
-        onClick: (event) => { this.vm.gotoProgramProfile(program) }
-      },
-      valueHelper.yesNo(program.active),
-      program.kind,
-      programHelper.type(program),
-      dateHelper.displayDate(program.start_date),
-      dateHelper.displayDate(program.end_date)
-    ]
-
-    if (!contextHelper.inContext("health-plans")) {
-      row.splice(headings.findIndex((heading) => heading.name == "Health Plan", 0, program.health_plan.name))
-    }
-
-    return row
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoProgramProfile,
+        headings,
+        helper: programHelper,
+        pathEntries,
+        tableItem: program
+      }
+    )
   }
 
   render() {
