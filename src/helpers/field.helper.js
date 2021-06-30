@@ -374,25 +374,47 @@ function options(props) {
   const selectName = fieldHelper.name(props).replace("_", "-")
   const { fieldOptions } = props
 
-  return fieldOptions.map(
-    (fieldOption) => {
-      let id
-      let value
-      if (typeof fieldOption === 'string') {
-        id = fieldOption
-        value = fieldOption
-      } else {
-        id = fieldOption["id"]
-        value = fieldOption["value"]
-      }
+  if (Array.isArray(fieldOptions)) {
+    return arrayOptions(fieldOptions)
+  }
 
-      return (
-        <option key={`${selectName}-${id}`} id={id}>
-          {value}
-        </option>
-      )
-    }
-  )
+  return hashOptions(fieldOptions)
+
+  function arrayOptions(fieldOptions) {
+    return fieldOptions.map(
+      (fieldOption) => {
+        let id
+        let value
+        if (typeof fieldOption === 'string') {
+          id = fieldOption
+          value = fieldOption
+        } else {
+          id = fieldOption["id"]
+          value = fieldOption["value"]
+        }
+
+        return (
+          <option key={`${selectName}-${id}`} id={id}>
+            {value}
+          </option>
+        )
+      }
+    )
+  }
+
+  function hashOptions(fieldOptions) {
+    return Object.keys(fieldOptions).map(
+      (id) => {
+        const value = fieldOptions[id]
+
+        return (
+          <option key={`${selectName}-${id}`} id={id}>
+            {value}
+          </option>
+        )
+      }
+    )
+  }
 }
 
 function titleDisplay(name, value, description) {

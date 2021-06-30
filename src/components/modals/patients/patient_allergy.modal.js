@@ -5,6 +5,7 @@ import { PatientAllergyModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
 import { allergyCategories } from "../../../types"
+import { DateRangeFilter } from "../../filters"
 
 class PatientAllergyModal extends Component {
   constructor(props) {
@@ -87,6 +88,8 @@ class PatientAllergyModal extends Component {
                     changeField={this.vm.changeNumericField}
                     fieldName="year"
                     helper={patientAllergyHelper}
+                    max={(new Date()).year}
+                    min={1900}
                     model={patientAllergy}
                   />
                 </FormGroup>

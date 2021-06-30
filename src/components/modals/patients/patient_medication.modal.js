@@ -1,20 +1,19 @@
 import React, { Component } from "react"
-import InputNumber from 'rc-input-number'
 import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
-import { DatePicker, DateTimePicker, SelectMedication, SelectPharmacyStore, SelectPhysician } from "../../shared"
+import {
+  DatePicker,
+  DateTimePicker,
+  NumberFieldEditor,
+  SelectFieldEditor,
+  SelectMedication,
+  SelectPharmacyStore,
+  SelectPhysician,
+  TextFieldEditor
+} from "../../shared"
 import { PatientMedicationModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, patientMedicationHelper, pathHelper, valueHelper } from "../../../helpers"
 import { patientMedications } from "../../../types"
-
-const PatientMedicationTypeOptions = () => {
-  return Object.keys(patientMedications).map(
-    (id) => {
-      const value = patientMedications[id]
-      return (<option key={`patient-medication-type-${id}`} value={id}>{value}</option>)
-    }
-  )
-}
 
 class PatientMedicationModal extends Component {
   constructor(props) {
@@ -53,21 +52,14 @@ class PatientMedicationModal extends Component {
             <Col>
               <Form>
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Type</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "type")}
-                      name="type"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "type")}
-                      type="select"
-                      value={valueHelper.makeString(patientMedicationHelper.type(patientMedication))}>
-                      <PatientMedicationTypeOptions />
-                    </Input>
-                  </Col>
+                  <SelectFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldLabel="Type"
+                    fieldName="type"
+                    fieldOptions={patientMedications}
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
                 </FormGroup>
 
                 {
@@ -137,104 +129,59 @@ class PatientMedicationModal extends Component {
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Days Supply</label>
-                  </Col>
-                  <Col xs={10}>
-                    <InputNumber
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "days_supply")}
-                      max={365}
-                      min={1}
-                      name="days_supply"
-                      onChange={
-                        (newValue) => {
-                          this.vm.changeNumericField("days_supply", newValue)
-                        }
-                      }
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "days_supply")}
-                      value={valueHelper.makeString(patientMedicationHelper.daysSupply(patientMedication))}
-                    />
-                  </Col>
+                  <NumberFieldEditor
+                    changeField={this.vm.changeNumericField}
+                    fieldName="days_supply"
+                    helper={patientMedicationHelper}
+                    max={365}
+                    min={1}
+                    model={patientMedication}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Strength</label>
-                  </Col>
-                  <Col xs={4}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "strength")}
-                      name="strength"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "strength")}
-                      value={valueHelper.makeString(patientMedicationHelper.strength(patientMedication))}
-                    />
-                  </Col>
-                  <Col xs={2}>
-                    <label>Units</label>
-                  </Col>
-                  <Col xs={4}>
-                    <Input
-                      className="form_control"
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "strength_units")}
-                      name="strength_units"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "strength_units")}
-                      value={valueHelper.makeString(patientMedicationHelper.strengthUnits(patientMedication))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="strength"
+                    fieldXs={4}
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldLabel="Units"
+                    fieldName="strength_units"
+                    fieldXs={4}
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Indication</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form_control"
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "indication")}
-                      maxLength={255}
-                      name="indication"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "indication")}
-                      value={valueHelper.makeString(patientMedicationHelper.indication(patientMedication))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="indication"
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Directions</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form_control"
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "directions")}
-                      maxLength={255}
-                      name="directions"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "directions")}
-                      value={valueHelper.makeString(patientMedicationHelper.directions(patientMedication))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="directions"
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Additional Information</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form_control"
-                      disabled={!patientMedicationHelper.canModifyField(patientMedication, "additional_information")}
-                      maxLength={255}
-                      name="additional_information"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "additional_information")}
-                      value={valueHelper.makeString(patientMedicationHelper.additionalInformation(patientMedication))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="additional_information"
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
                 </FormGroup>
               </Form>
             </Col>
