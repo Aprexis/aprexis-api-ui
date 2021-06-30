@@ -1,9 +1,29 @@
-import { fieldHelper, userHelper, valueHelper } from "./"
+import { addressHelper, fieldHelper, userHelper, valueHelper } from "./"
 
 export const pharmacyChainHelper = {
+  address,
+  canEdit,
   canIndex,
+  ccdCode,
+  city,
+  einNumber,
+  logo,
   name,
-  toBreadcrumb
+  notes,
+  npi,
+  parentOrganizationLbn,
+  pharmacyStoreCount,
+  state,
+  toBreadcrumb,
+  zipCode
+}
+
+function address(pharmacyChain) {
+  return addressHelper.address(pharmacyChain)
+}
+
+function canEdit(user, pharmacyChain) {
+  return false
 }
 
 function canIndex(user) {
@@ -18,8 +38,44 @@ function canIndex(user) {
   )
 }
 
+function ccdCode(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "ccd_code")
+}
+
+function city(pharmacyChain) {
+  return addressHelper.city(pharmacyChain)
+}
+
+function einNumber(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "ein_number")
+}
+
+function logo(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "logo")
+}
+
 function name(pharmacyChain) {
   return fieldHelper.getField(pharmacyChain, "name")
+}
+
+function notes(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "notes")
+}
+
+function npi(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "npi")
+}
+
+function parentOrganizationLbn(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "parent_organization_lbn")
+}
+
+function pharmacyStoreCount(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "pharmacy_store_count")
+}
+
+function state(pharmacyChain) {
+  return addressHelper.state(pharmacyChain)
 }
 
 function toBreadcrumb(pharmacyChain) {
@@ -28,4 +84,8 @@ function toBreadcrumb(pharmacyChain) {
   }
 
   return pharmacyChainHelper.name(pharmacyChain)
+}
+
+function zipCode(pharmacyChain) {
+  return addressHelper.zipCode(pharmacyChain)
 }

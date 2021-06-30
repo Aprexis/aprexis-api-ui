@@ -1,32 +1,38 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { PharmacyChainsPageViewModel } from "../../view_models/pages/pharmacy_chains"
 import { ListView } from "../../../containers"
-import { valueHelper } from "../../../helpers"
+import { pharmacyChainHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Name",
-    field: "name"
+    field: "name",
+    method: "name"
   },
   {
     name: "Address",
-    field: "address"
+    field: "address",
+    method: "address"
   },
   {
     name: "City",
-    field: "city"
+    field: "city",
+    method: "city"
   },
   {
     name: "State",
-    field: "state"
+    field: "state",
+    method: "state"
   },
   {
     name: "ZIP Code",
-    field: "zip_code"
+    field: "zip_code",
+    method: "zipCode"
   },
   {
-    name: "Pharmacy Stores"
+    name: "Pharmacy Stores",
+    method: "pharmacyStoreCount"
   }
 ]
 
@@ -51,36 +57,38 @@ class PharmacyChainsPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`pharmacy-chains-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "pharmacy-chains",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(pharmacyChain) {
-    return [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: pharmacyChain.name,
-        onClick: (event) => { this.vm.gotoPharmacyChainProfile(pharmacyChain) }
-      },
-      pharmacyChain.address,
-      pharmacyChain.city,
-      pharmacyChain.state,
-      pharmacyChain.zip_code,
-      `${pharmacyChain.pharmacy_store_count}`
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoPharmacyChainProfile,
+        headings,
+        helper: pharmacyChainHelper,
+        pathEntries,
+        tableItem: pharmacyChain
+      }
+    )
   }
 
   render() {

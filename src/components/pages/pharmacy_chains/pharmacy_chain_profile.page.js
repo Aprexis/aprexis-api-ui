@@ -13,8 +13,8 @@ const PharmacyChainConfiguration = ({ pharmacyChain }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.imageDisplay("Logo", pharmacyChain.logo)}
-          {fieldHelper.display("CCD Code", pharmacyChain.ccd_code)}
+          {fieldHelper.imageDisplay("Logo", pharmacyChainHelper.logo(pharmacyChain))}
+          {fieldHelper.display("CCD Code", pharmacyChainHelper.ccdCode(pharmacyChain))}
         </CardBody>
       </Card>
     </Col>
@@ -33,10 +33,10 @@ const PharmacyChainProfile = ({ pharmacyChain }) => {
         <CardBody>
           <Address addressable={pharmacyChain} />
           <Contact contactable={pharmacyChain} />
-          {fieldHelper.display("NPI", pharmacyChain.npi)}
-          {fieldHelper.display("EIN Number", pharmacyChain.ein_number)}
-          {fieldHelper.display("Parent Organization LBN", pharmacyChain.parent_organization_lbn)}
-          {fieldHelper.display("Notes", pharmacyChain.notes)}
+          {fieldHelper.display("NPI", pharmacyChainHelper.npi(pharmacyChain))}
+          {fieldHelper.display("EIN Number", pharmacyChainHelper.einNumber(pharmacyChain))}
+          {fieldHelper.display("Parent Organization LBN", pharmacyChainHelper.parentOrganizationLbn(pharmacyChain))}
+          {fieldHelper.display("Notes", pharmacyChainHelper.notes(pharmacyChain))}
         </CardBody>
       </Card>
     </Col>
