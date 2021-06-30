@@ -16,7 +16,7 @@ function billable(diagnosisCode) {
   return fieldHelper.getField(diagnosisCode, "billable")
 }
 
-function canEdit(currentUser, diagnosisCode) {
+function canEdit(user, diagnosisCode) {
   return false
 }
 

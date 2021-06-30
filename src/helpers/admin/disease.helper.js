@@ -8,7 +8,7 @@ export const diseaseHelper = {
   toBreadcrumb
 }
 
-function canEdit(currentUser, disease) {
+function canEdit(user, disease) {
   return false
 }
 

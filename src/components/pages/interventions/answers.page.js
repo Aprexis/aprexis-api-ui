@@ -1,20 +1,23 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { AnswersPageViewModel } from "../../view_models/pages/interventions"
 import { ListView } from "../../../containers"
 import { answerHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Question Key",
-    field: "question_key"
+    field: "question_key",
+    method: "questionKey"
   },
   {
-    name: "Question Type"
+    name: "Question Type",
+    method: "questionType"
   },
   {
     name: "Value",
-    field: "value"
+    field: "value",
+    method: "displayValue"
   }
 ]
 
@@ -39,30 +42,38 @@ class AnswersPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`answers-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "answers",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(answer) {
-    return [
-      answerHelper.questionKey(answer),
-      answerHelper.questionType(answer),
-      answerHelper.displayValue(answer)
-    ]
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
+      {
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoAnswerProfile,
+        headings,
+        helper: answerHelper,
+        pathEntries,
+        tableItem: answer
+      }
+    )
   }
 
   render() {

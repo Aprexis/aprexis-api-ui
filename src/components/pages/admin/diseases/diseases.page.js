@@ -3,7 +3,7 @@ import { DiseasesPageViewModel } from "../../../view_models/pages/admin/diseases
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { diseaseHelper } from "../../../../helpers/admin"
-import { listHelper } from "../../../../helpers/list_helper"
+import { listHelper } from "../../../../helpers/list.helper"
 
 const headings = [
   {

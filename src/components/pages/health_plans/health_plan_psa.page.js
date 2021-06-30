@@ -1,18 +1,21 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plans"
 import { ListView } from "../../../containers"
-import { dateHelper, valueHelper } from "../../../helpers"
+import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
-    name: "Name"
+    name: "Name",
+    method: "name"
   },
   {
-    name: "Type"
+    name: "Type",
+    method: "type"
   },
   {
-    name: "Last Run"
+    name: "Last Run",
+    method: "lastRun"
   }
 ]
 
@@ -38,30 +41,36 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`patient-search-algorithms-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "patient-search-algorithms",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(patientSearchAlgorithm) {
-    return [
-      valueHelper.titleize(patientSearchAlgorithm.name),
-      valueHelper.titleize(patientSearchAlgorithm.type),
-      dateHelper.displayDateTime(patientSearchAlgorithm.lastRun)
-    ]
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
+      {
+        currentUser: this.props.currentUser,
+        filters,
+        headings,
+        helper: healthPlanPatientSearchAlgorithmHelper,
+        pathEntries,
+        tableItem: patientSearchAlgorithm
+      }
+    )
   }
 
   orderedPatientSearchAlgorithms() {

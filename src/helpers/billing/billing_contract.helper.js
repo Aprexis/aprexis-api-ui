@@ -33,8 +33,8 @@ function active(billingContract) {
   return active
 }
 
-function canEdit(currentUser, billingContract) {
-  return healthPlanHelper.canConfigure(currentUser, billingContractHelper.healthPlan(billingContract))
+function canEdit(user, billingContract) {
+  return healthPlanHelper.canConfigure(user, billingContractHelper.healthPlan(billingContract))
 }
 
 function healthPlan(billingContract) {

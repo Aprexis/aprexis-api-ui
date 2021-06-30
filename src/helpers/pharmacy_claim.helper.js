@@ -41,7 +41,7 @@ function canBeCreated(currentUser, pathEntries) {
   return false
 }
 
-function canEdit(currentUser, pharmacyClaim) {
+function canEdit(user, pharmacyClaim) {
   return false
 }
 

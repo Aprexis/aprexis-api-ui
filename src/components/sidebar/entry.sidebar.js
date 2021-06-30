@@ -75,7 +75,7 @@ const RenderSidebarElements = ({ entryDescription, gotoList, gotoPage, gotoProfi
             return (
               <RenderSidebarPageButton
                 buttonDescription={buttonDescription}
-                gotoList={gotoPage}
+                gotoPage={gotoPage}
                 key={`sidebar-${entryName}-page-${buttonDescription.apgeName}`}
                 pathPrefixArray={pathPrefixArray}
               />

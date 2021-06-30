@@ -3,7 +3,7 @@ import { DiagnosisCodesPageViewModel } from "../../../view_models/pages/admin/di
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { diagnosisCodeHelper } from "../../../../helpers/admin"
-import { listHelper } from "../../../../helpers/list_helper"
+import { listHelper } from "../../../../helpers/list.helper"
 
 const headings = [
   {

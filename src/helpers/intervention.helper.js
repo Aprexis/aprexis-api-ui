@@ -11,6 +11,7 @@ import { diagnosisCodeHelper, placeOfServiceHelper } from "./admin"
 
 export const interventionHelper = {
   billLater,
+  canEdit,
   closedReason,
   closedReasonDetail,
   consentFormInitiatedAt,
@@ -30,15 +31,19 @@ export const interventionHelper = {
   healthPlanName,
   medicarePaymentAmount,
   medicarePaymentStatus,
+  memberNumber,
   newPatient,
+  patient,
   patientName,
   pendingUntil,
+  personNumber,
   pharmacistAgreedToSubmitClaimAt,
   pharmacistDisplay,
   pharmacyClaimTrackingNumber,
   pharmacyStoreDisplay,
   physiciansResponse,
   physiciansResponseRecordedAt,
+  program,
   programDisplay,
   programName,
   programType,
@@ -53,6 +58,10 @@ export const interventionHelper = {
 
 function billLater(intervention) {
   return fieldHelper.getField(intervention, "bill_later")
+}
+
+function canEdit(user, intervention) {
+  return false
 }
 
 function closedReason(intervention) {
@@ -131,12 +140,28 @@ function medicarePaymentStatus(intervention) {
   return fieldHelper.getField(intervention, "medicare_payment_status")
 }
 
+function memberNumber(intervention) {
+  return patientHelper.memberNumber(interventionHelper.patient(intervention))
+}
+
 function newPatient(intervention) {
   return fieldHelper.getField(intervention, "new_patient")
 }
 
+function patient(intervention) {
+  return fieldHelper.getField(intervention, "patient")
+}
+
 function patientName(intervention) {
-  return patientHelper.name(fieldHelper.getField(intervention, "patient"))
+  return patientHelper.name(interventionHelper.patient(intervention))
+}
+
+function pendingUntil(intervention) {
+  return fieldHelper.getField(intervention, "pending_until")
+}
+
+function personNumber(intervention) {
+  return patientHelper.personNumber(interventionHelper.patient(intervention))
 }
 
 function pharmacistAgreedToSubmitClaimAt(intervention) {
@@ -147,9 +172,6 @@ function pharmacistDisplay(intervention) {
   return userHelper.pharmacistDisplay(fieldHelper.getField(intervention, "pharmacist"))
 }
 
-function pendingUntil(intervention) {
-  return fieldHelper.getField(intervention, "pending_until")
-}
 
 function pharmacyClaimTrackingNumber(intervention) {
   return fieldHelper.getField(intervention, "pharmacy_claim_tracking_number")
@@ -167,16 +189,20 @@ function physiciansResponseRecordedAt(intervention) {
   return fieldHelper.getField(intervention, "physicians_response_recorded_at")
 }
 
+function program(intervention) {
+  return fieldHelper.getField(intervention, "program")
+}
+
 function programDisplay(intervention) {
-  return programHelper.display(fieldHelper.getField(intervention, "program"))
+  return programHelper.display(interventionHelper.program(intervention))
 }
 
 function programName(intervention) {
-  return programHelper.name(fieldHelper.getField(intervention, "program"))
+  return programHelper.name(interventionHelper.program(intervention))
 }
 
 function programType(intervention) {
-  return programHelper.type(fieldHelper.getField(intervention, "program"))
+  return programHelper.type(interventionHelper.program(intervention))
 }
 
 function providerFee(intervention) {

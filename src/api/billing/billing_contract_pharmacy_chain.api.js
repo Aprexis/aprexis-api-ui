@@ -33,7 +33,7 @@ function profile(userCredentials, id, onSuccess, onFailure) {
   }
 
   const method = "GET"
-  const path = `/billing/pharmacies/${id}/profile`
+  const path = `/billing/contract_pharmacies/${id}/profile`
   API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 

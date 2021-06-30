@@ -3,7 +3,7 @@ import { LabTestsPageViewModel } from "../../../view_models/pages/admin/lab_test
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { labTestHelper } from "../../../../helpers/admin"
-import { listHelper } from "../../../../helpers/list_helper"
+import { listHelper } from "../../../../helpers/list.helper"
 
 const headings = [
   {

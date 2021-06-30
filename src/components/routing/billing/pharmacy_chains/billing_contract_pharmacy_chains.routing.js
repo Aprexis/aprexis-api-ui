@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-//import { BillingContractPharmacyChainRouting } from "./"
+import { BillingContractPharmacyChainRouting } from "./"
 import { NoMatch } from "../../"
 import { BillingContractPharmacyChainsPage } from "../../../pages/billing/pharmacy_chains"
 import { pathHelper, valueHelper } from "../../../../helpers"
@@ -23,12 +23,10 @@ class BillingContractPharmacyChainsRouting extends Component {
           path={pharmacyChainsPrefix}
           render={(props) => (<BillingContractPharmacyChainsPage {...props} {...contextProps} />)}
         />
-        {/*
         <Route
           path={`${pharmacyChainsPrefix}/:pharmacy_chain_id`}
           render={(props) => (<BillingContractPharmacyChainRouting {...props} {...contextProps} />)}
         />
-        */}
         <Route component={NoMatch} />
       </Switch>
     )

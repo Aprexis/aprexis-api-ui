@@ -11,7 +11,7 @@ export const labTestHelper = {
   vital
 }
 
-function canEdit(currentUser, labTest) {
+function canEdit(user, labTest) {
   return false
 }
 

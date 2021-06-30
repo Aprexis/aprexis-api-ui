@@ -1,11 +1,13 @@
 import { addressHelper, contactHelper, fieldHelper, userHelper, valueHelper } from "./"
 
 export const healthPlanHelper = {
+  active,
   activePatients,
   address,
   allowManuallyAddedPatients,
   billingClaimsGateway,
   canConfigure,
+  canEdit,
   canIndex,
   ccdGenerator,
   city,
@@ -32,6 +34,10 @@ export const healthPlanHelper = {
   zirmedPayerNameMatching
 }
 
+function active(healthPlan) {
+  return fieldHelper.getField(healthPlan, "active")
+}
+
 function activePatients(healthPlan) {
   return fieldHelper.getField(healthPlan, "active_patients")
 }
@@ -50,6 +56,10 @@ function billingClaimsGateway(healthPlan) {
 
 function canConfigure(user) {
   return userHelper.hasRole(user, "aprexis_admin")
+}
+
+function canEdit(user, healthPlan) {
+  return false
 }
 
 function canIndex(user) {

@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { PharmacyClaimsPageViewModel } from "../../view_models/pages/pharmacy_claims"
 import { ListView } from "../../../containers"
 import { pharmacyClaimHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list_helper"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {

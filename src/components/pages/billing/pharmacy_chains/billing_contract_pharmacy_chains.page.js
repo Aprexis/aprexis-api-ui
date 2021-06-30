@@ -3,7 +3,7 @@ import { BillingContractPharmacyChainsPageViewModel } from "../../../view_models
 import { ListView } from "../../../../containers"
 import { valueHelper } from "../../../../helpers"
 import { billingContractPharmacyChainHelper } from "../../../../helpers/billing"
-import { listHelper } from "../../../../helpers/list_helper"
+import { listHelper } from "../../../../helpers/list.helper"
 
 const headings = [
   {

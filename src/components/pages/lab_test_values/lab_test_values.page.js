@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "..//../shared"
 import { LabTestValuesPageViewModel } from "../../view_models/pages/lab_test_values"
 import { ListView } from "../../../containers"
 import { fieldHelper, labTestValueHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
@@ -61,24 +61,18 @@ class LabTestValuesPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`lab-test-values-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "lab-test-values",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -86,18 +80,19 @@ class LabTestValuesPage extends Component {
   generateTableRow(labTestValue) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
+
+    return listHelper.listRow(
       {
-        content: labTestValueHelper[headings[0].method](labTestValue),
-        onClick: (event) => { this.vm.gotoLabTestValueProfile(labTestValue) }
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoLabTestValueProfile,
+        headings,
+        helper: labTestValueHelper,
+        pathEntries,
+        tableItem: labTestValue
       }
-    ]
-
-    headings.filter(
-      (heading) => heading.name != "Key Code" && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach((heading) => { row.push(labTestValueHelper[heading.method](labTestValue)) })
-
-    return row
+    )
   }
 
   render() {

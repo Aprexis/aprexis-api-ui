@@ -1,11 +1,16 @@
 import { fieldHelper, questionHelper, valueHelper } from "./"
 
 export const answerHelper = {
+  canEdit,
   displayValue,
   question,
   questionKey,
   questionType,
   value
+}
+
+function canEdit(user, answer) {
+  return false
 }
 
 function displayValue(answer) {

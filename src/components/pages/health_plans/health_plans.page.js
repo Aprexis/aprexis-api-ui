@@ -1,32 +1,38 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { HealthPlansPageViewModel } from "../../view_models/pages/health_plans"
 import { ListView } from "../../../containers"
 import { healthPlanHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Name",
-    field: "name"
+    field: "name",
+    method: "name"
   },
   {
     name: "Code",
-    field: "code"
+    field: "code",
+    method: "code"
   },
   {
     name: "Address",
-    field: "state,city,zip_code,address"
+    field: "state,city,zip_code,address",
+    method: "fullAddress"
   },
   {
     name: "Phone",
-    field: "phone"
+    field: "phone",
+    method: "phone"
   },
   {
     name: "Status",
-    field: "active"
+    field: "active",
+    method: "active"
   },
   {
-    name: "Active Patients"
+    name: "Active Patients",
+    method: "activePatients"
   }
 ]
 
@@ -51,36 +57,38 @@ class HealthPlansPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`health-plans-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "health-plans",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(healthPlan) {
-    return [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: healthPlanHelper.name(healthPlan),
-        onClick: (event) => { this.vm.gotoHealthPlanProfile(healthPlan) }
-      },
-      healthPlanHelper.code(healthPlan),
-      healthPlanHelper.fullAddress(healthPlan),
-      healthPlanHelper.phone(healthPlan),
-      valueHelper.isSet(healthPlan.active) ? "Active" : "Inactive",
-      valueHelper.makeString(healthPlanHelper.activePatients(healthPlan))
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoHealthPlanProfile,
+        headings,
+        helper: healthPlanHelper,
+        pathEntries,
+        tableItem: healthPlan
+      }
+    )
   }
 
   render() {

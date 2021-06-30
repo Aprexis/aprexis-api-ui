@@ -2,11 +2,16 @@ import { fieldHelper, interventionHelper } from "./"
 import { labTestHelper } from "./admin"
 
 export const labTestValueHelper = {
+  canEdit,
   labTestKeyCode,
   labTestFullName,
   labTestName,
   programName,
   value
+}
+
+function canEdit(user, labTestValue) {
+  return false
 }
 
 function labTestKeyCode(labTestValue) {

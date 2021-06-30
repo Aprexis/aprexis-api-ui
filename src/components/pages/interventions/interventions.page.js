@@ -1,41 +1,49 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { InterventionsPageViewModel } from "../../view_models/pages/interventions"
 import { ListView } from "../../../containers"
-import { dateHelper, interventionHelper, valueHelper } from "../../../helpers"
+import { interventionHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Patient Name",
-    field: "patients.last_name,patients.first_name,patients.middle_name"
+    field: "patients.last_name,patients.first_name,patients.middle_name",
+    method: "patientName"
   },
   {
     name: "Member Number",
-    field: "member_number"
+    field: "member_number",
+    method: "memberNumber"
   },
   {
     name: "Person Number",
-    field: "person_number"
+    field: "person_number",
+    method: "personNumber"
   },
   {
     name: "Program",
-    field: "programs.name"
+    field: "programs.name",
+    method: "programName"
   },
   {
     name: "State",
-    field: "state"
+    field: "state",
+    method: "state"
   },
   {
     name: "Date of Service",
-    field: "date_of_service"
+    field: "date_of_service",
+    method: "dateOfService"
   },
   {
     name: "Consult Start",
-    field: "consult_start_date"
+    field: "consult_start_date",
+    method: "consultStarted"
   },
   {
     name: "Consult End",
-    field: "consult_end_date"
+    field: "consult_end_date",
+    method: "consultEnded"
   }
 ]
 
@@ -60,38 +68,38 @@ class InterventionsPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`interventions-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "interventions",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(intervention) {
-    return [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: interventionHelper.patientName(intervention),
-        onClick: (event) => { this.vm.gotoInterventionProfile(intervention) }
-      },
-      intervention.member_number,
-      intervention.person_number,
-      interventionHelper.programType(intervention),
-      interventionHelper.state(intervention),
-      dateHelper.displayDate(intervention.date_of_service),
-      interventionHelper.consultStarted(intervention),
-      interventionHelper.consultEnded(intervention)
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoInterventionProfile,
+        headings,
+        helper: interventionHelper,
+        pathEntries,
+        tableItem: intervention
+      }
+    )
   }
 
   render() {
