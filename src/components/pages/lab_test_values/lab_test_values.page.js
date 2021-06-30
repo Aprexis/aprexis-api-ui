@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { LabTestValuesPageViewModel } from "../../view_models/pages/lab_test_values"
 import { ListView } from "../../../containers"
-import { fieldHelper, labTestValueHelper, valueHelper } from "../../../helpers"
+import { labTestValueHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [

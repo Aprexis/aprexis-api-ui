@@ -9,7 +9,6 @@ import {
   valueHelper
 } from "./"
 import { contactMethods } from "../types"
-import { answerHelper } from "./answer.helper"
 
 export const patientHelper = {
   buildChanged,

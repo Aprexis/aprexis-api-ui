@@ -1,7 +1,6 @@
 import React, { Component } from "react"
-import InputNumber from 'rc-input-number'
-import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
-import { SelectAllergy } from "../../shared"
+import { Col, Container, Form, FormGroup, Row } from "reactstrap"
+import { NumberFieldEditor, SelectAllergy, SelectFieldEditor, TextFieldEditor } from "../../shared"
 import { PatientAllergyModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
@@ -41,46 +40,24 @@ class PatientAllergyModal extends Component {
             <Col>
               <Form>
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Type</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientAllergyHelper.canModifyField(patientAllergy, "allergy_type")}
-                      name="allergy_type"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientAllergyHelper.canModifyField(patientAllergy, "allergy_type")}
-                      type="select"
-                      value={valueHelper.makeString(patientAllergyHelper.allergyType(patientAllergy))}>
-                      {
-                        allergyCategories.map(
-                          (category) => {
-                            return (
-                              <option key={`allergy-category-${category}`} id={category}>{category}</option>
-                            )
-                          }
-                        )
-                      }
-                    </Input>
-                  </Col>
+                  <SelectFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldLabel="Type"
+                    fieldName="allergy_type"
+                    fieldOptions={allergyCategories}
+                    helper={patientAllergyHelper}
+                    model={patientAllergy}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Name</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientAllergyHelper.canModifyField(patientAllergy, "allergy_name")}
-                      maxLength={255}
-                      name="allergy_name"
-                      onChange={this.vm.changeAllergyName}
-                      readOnly={!patientAllergyHelper.canModifyField(patientAllergy, "allergy_name")}
-                      value={valueHelper.makeString(patientAllergyHelper.allergyName(patientAllergy))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    changeField={this.vm.changeAllergyName}
+                    fieldLabel="Name"
+                    fieldName="allergy_name"
+                    helper={patientAllergyHelper}
+                    model={patientAllergy}
+                  />
                 </FormGroup>
 
                 <SelectAllergy
@@ -95,42 +72,23 @@ class PatientAllergyModal extends Component {
                 />
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Reaction</label>
-                  </Col>
-                  <Col xs={10}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientAllergyHelper.canModifyField(patientAllergy, "reaction")}
-                      maxLength={1000}
-                      name="reaction"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientAllergyHelper.canModifyField(patientAllergy, "reaction")}
-                      type="textbox"
-                      value={valueHelper.makeString(patientAllergyHelper.reaction(patientAllergy))}
-                    />
-                  </Col>
+                  <TextFieldEditor
+                    area={true}
+                    changeField={this.vm.changeField}
+                    fieldName="reaction"
+                    helper={patientAllergyHelper}
+                    maxLength={1000}
+                    model={patientAllergy}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Year</label>
-                  </Col>
-                  <Col xs={10}>
-                    <InputNumber
-                      disabled={!patientAllergyHelper.canModifyField(patientAllergy, "year")}
-                      max={(new Date()).year}
-                      min={1900}
-                      name="year"
-                      onChange={
-                        (newValue) => {
-                          this.vm.changeNumericField("year", newValue)
-                        }
-                      }
-                      readOnly={!patientAllergyHelper.canModifyField(patientAllergy, "year")}
-                      value={valueHelper.makeString(patientAllergyHelper.year(patientAllergy))}
-                    />
-                  </Col>
+                  <NumberFieldEditor
+                    changeField={this.vm.changeNumericField}
+                    fieldName="year"
+                    helper={patientAllergyHelper}
+                    model={patientAllergy}
+                  />
                 </FormGroup>
               </Form>
             </Col>

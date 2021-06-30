@@ -1,4 +1,5 @@
 export const valueHelper = {
+  camelCase,
   capitalizeWords,
   changedModelName,
   compareWithCast,
@@ -17,6 +18,22 @@ export const valueHelper = {
   splitCapitalized,
   titleize,
   yesNo
+}
+
+function camelCase(str) {
+  const spaced = str.replace("_", " ")
+  const split = valueHelper.splitCapitalized(spaced)
+  if (split.length === 0) {
+    return ""
+  }
+
+  const initial = split[0].toLowerCase()
+  let rest = ""
+  if (split.length > 1) {
+    rest = `${split.filter((p, i) => i > 0).map((p) => valueHelper.capitalizeWords(p)).join("")}`
+  }
+
+  return `${initial}${rest}`
 }
 
 function capitalizeWords(str) {
@@ -169,7 +186,7 @@ function snakeCase(str) {
 }
 
 function splitCapitalized(str) {
-  return str.split(/(?=[A-Z ])/)
+  return str.split(/(?=[A-Z ])/).map((c) => c.trim())
 }
 
 function titleize(str) {

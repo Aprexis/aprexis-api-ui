@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { PatientMedicationsPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
-import { fieldHelper, patientMedicationHelper, valueHelper } from "../../../helpers"
+import { patientMedicationHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [

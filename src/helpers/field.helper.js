@@ -19,11 +19,17 @@ export const fieldHelper = {
   displayWithUnits,
   dollarDisplay,
   fieldName,
+  fieldXs,
   getField,
   imageDisplay,
   includeField,
+  label,
+  labelXs,
   listField,
+  method,
+  name,
   notInContextDisplay,
+  options,
   optionDisplay,
   titleDisplay
 }
@@ -191,6 +197,20 @@ function fieldName(fieldName, prefix) {
   return `${prefix}_${fieldName}`
 }
 
+function fieldXs(props) {
+  const { fieldXs } = props
+  if (valueHelper.isValue(fieldXs)) {
+    return fieldXs
+  }
+
+  const { fieldXsTotal } = props
+  if (!valueHelper.isValue(fieldXsTotal)) {
+    return 10
+  }
+
+  return fieldXsTotal - fieldHelper.labelXs(props)
+}
+
 function getField(object, fieldName, prefix) {
   if (!valueHelper.isValue(object)) {
     return
@@ -276,6 +296,30 @@ function includeField(pathEntries, filters, fieldHeader) {
   }
 }
 
+function label({ fieldLabel, fieldMethod, fieldName }) {
+  if (valueHelper.isValue(fieldLabel)) {
+    return fieldLabel
+  }
+
+  if (valueHelper.isStringValue(fieldName)) {
+    return valueHelper.titleize(valueHelper.humanize(fieldName))
+  }
+
+  if (valueHelper.isStringValue(fieldMethod)) {
+    return valueHelper.titleize(fieldMethod)
+  }
+
+  return ""
+}
+
+function labelXs({ labelXs }) {
+  if (valueHelper.isValue(labelXs)) {
+    return labelXs
+  }
+
+  return 2
+}
+
 function listField(value) {
   if (!valueHelper.isValue(value)) {
     return ""
@@ -290,6 +334,30 @@ function listField(value) {
   }
 }
 
+function method({ fieldLabel, fieldMethod, fieldName }) {
+  if (valueHelper.isValue(fieldMethod)) {
+    return fieldMethod
+  }
+
+  if (valueHelper.isStringValue(fieldName)) {
+    return valueHelper.camelCase(fieldName)
+  }
+
+  return valueHelper.camelCase(fieldLabel)
+}
+
+function name({ fieldLabel, fieldMethod, fieldName }) {
+  if (valueHelper.isValue(fieldName)) {
+    return fieldName
+  }
+
+  if (valueHelper.isValue(fieldMethod)) {
+    return valueHelper.snakeCase(fieldMethod)
+  }
+
+  return valueHelper.snakeCase(fieldLabel)
+}
+
 function notInContextDisplay(pathKey, name, value, description) {
   if (contextHelper.inContext(pathKey)) {
     return (<React.Fragment />)
@@ -300,6 +368,31 @@ function notInContextDisplay(pathKey, name, value, description) {
 
 function optionDisplay(name, options, value, description) {
   return fieldHelper.display(name, options[valueHelper.makeString(value)], description)
+}
+
+function options(props) {
+  const selectName = fieldHelper.name(props).replace("_", "-")
+  const { fieldOptions } = props
+
+  return fieldOptions.map(
+    (fieldOption) => {
+      let id
+      let value
+      if (typeof fieldOption === 'string') {
+        id = fieldOption
+        value = fieldOption
+      } else {
+        id = fieldOption["id"]
+        value = fieldOption["value"]
+      }
+
+      return (
+        <option key={`${selectName}-${id}`} id={id}>
+          {value}
+        </option>
+      )
+    }
+  )
 }
 
 function titleDisplay(name, value, description) {
