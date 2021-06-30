@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { PatientNotesPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
-import { fieldHelper, patientNoteHelper, valueHelper } from "../../../helpers"
+import { patientNoteHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
@@ -47,24 +47,18 @@ class PatientNotesPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`patient-notes-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "patient-notes",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -72,18 +66,19 @@ class PatientNotesPage extends Component {
   generateTableRow(patientNote) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
+
+    return listHelper.listRow(
       {
-        content: patientNoteHelper[headings[0].method](patientNote),
-        onClick: (event) => { this.vm.gotoPatientNoteProfile(patientNote) }
-      },
-    ]
-
-    headings.filter(
-      (heading, idx) => (idx > 0) && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach((heading) => { row.push(fieldHelper.displayListField(patientNote, patientNoteHelper, heading)) })
-
-    return row
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoPatientNoteProfile,
+        headings,
+        helper: patientNoteHelper,
+        pathEntries,
+        tableItem: patientNote
+      }
+    )
   }
 
   nav(list) {

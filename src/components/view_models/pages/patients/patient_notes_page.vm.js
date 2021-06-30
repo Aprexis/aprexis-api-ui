@@ -25,7 +25,7 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoPatientNoteProfile = this.gotoPatientNoteProfile.bind(this)
+    //this.gotoPatientNoteProfile = this.gotoPatientNoteProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -131,11 +131,13 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
+  /* TODO: enable once the page is implemented.
   gotoPatientNoteProfile(patient_note) {
     const pathArray = pathHelper.buildPathArray(window.location, patient_note, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
+  */
 
   loadData() {
     this.clearData()

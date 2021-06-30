@@ -9,6 +9,7 @@ import {
   valueHelper
 } from "./"
 import { contactMethods } from "../types"
+import { answerHelper } from "./answer.helper"
 
 export const patientHelper = {
   buildChanged,
@@ -21,6 +22,7 @@ export const patientHelper = {
   dateOfBirth,
   displayPreferredContactMethod,
   firstName,
+  fullAddress,
   gender,
   hasSubscriber,
   hasUser,
@@ -185,6 +187,10 @@ function displayPreferredContactMethod(patient) {
 
 function firstName(patient, prefix = "") {
   return nameHelper.firstName(patient, prefix)
+}
+
+function fullAddress(patient) {
+  return addressHelper.fullAddress(patient)
 }
 
 function gender(patient, prefix = "") {

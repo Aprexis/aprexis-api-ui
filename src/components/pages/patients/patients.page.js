@@ -1,24 +1,29 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { PatientsPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
-import { addressHelper, patientHelper } from "../../../helpers"
+import { patientHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Name",
-    field: "last_name,first_name,middle_name"
+    field: "last_name,first_name,middle_name",
+    method: "name"
   },
   {
     name: "Member Number",
-    field: "member_number"
+    field: "member_number",
+    method: "memberNumber"
   },
   {
     name: "Person Number",
-    field: "person_number"
+    field: "person_number",
+    method: "personNumber"
   },
   {
-    name: "Address"
+    name: "Address",
+    field: "address,city,state,zip_code,country",
+    method: "fullAddress"
   }
 ]
 
@@ -43,35 +48,38 @@ class PatientsPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`patients-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "patients",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(patient) {
-    return [
-      {
-        content: patientHelper.name(patient),
-        onClick: (event) => { this.vm.gotoPatientProfile(patient) }
-      },
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
 
-      patient.member_number,
-      patient.person_number,
-      addressHelper.fullAddress(patient)
-    ]
+    return listHelper.listRow(
+      {
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoPatientProfile,
+        headings,
+        helper: patientHelper,
+        pathEntries,
+        tableItem: patient
+      }
+    )
   }
 
   render() {

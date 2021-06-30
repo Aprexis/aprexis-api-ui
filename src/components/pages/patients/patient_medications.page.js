@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader, TableIdentificationColumn } from "../../shared"
 import { PatientMedicationsPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
 import { fieldHelper, patientMedicationHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
@@ -72,24 +72,18 @@ class PatientMedicationsPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`patient-medications-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "patient-medications",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -97,26 +91,19 @@ class PatientMedicationsPage extends Component {
   generateTableRow(patientMedication) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
+
+    return listHelper.listRow(
       {
-        content: (
-          <TableIdentificationColumn
-            currentUser={this.props.currentUser}
-            heading={headings[0]}
-            helper={patientMedicationHelper}
-            //TODO: onClick={(event) => { this.vm.gotoPatientMedicationProfile(patientMedication) }}
-            onEdit={(event) => { this.vm.editModal(patientMedication) }}
-            tableItem={patientMedication}
-          />
-        )
-      },
-    ]
-
-    headings.filter(
-      (heading, idx) => (idx > 0) && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach((heading) => { row.push(fieldHelper.displayListField(patientMedication, patientMedicationHelper, heading)) })
-
-    return row
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoPatientMedicationProfile,
+        headings,
+        helper: patientMedicationHelper,
+        pathEntries,
+        tableItem: patientMedication
+      }
+    )
   }
 
   nav(list) {

@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { TableColumnHeader, TableIdentificationColumn } from "../../shared"
 import { PatientAllergiesPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
 import { fieldHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
@@ -44,24 +44,18 @@ class PatientAllergiesPage extends Component {
   }
 
   generateTableHeadings() {
-    const { filters } = this.state
+    const { filters, sorting } = this.state
     const pathEntries = this.vm.pathEntries()
-    return headings.filter(
-      (heading) => fieldHelper.includeField(pathEntries, filters, heading)
-    ).map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`patient-allergies-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "patient-allergies",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
@@ -69,34 +63,19 @@ class PatientAllergiesPage extends Component {
   generateTableRow(patientAllergy) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
-    const row = [
-      {
-        content: (
-          <TableIdentificationColumn
-            currentUser={this.props.currentUser}
-            heading={headings[0]}
-            helper={patientAllergyHelper}
-            onClick={(event) => { this.vm.gotoPatientAllergyProfile(patientAllergy) }}
-            onEdit={(event) => { this.vm.editModal(patientAllergy) }}
-            tableItem={patientAllergy}
-          />
-        )
-      }
-    ]
 
-    headings.filter(
-      (heading) => heading.name != "Allergy Name" && fieldHelper.includeField(pathEntries, filters, heading)
-    ).forEach(
-      (heading) => {
-        row.push(
-          fieldHelper.listField(
-            patientAllergyHelper[heading.method](patientAllergy)
-          )
-        )
+    return listHelper.listRow(
+      {
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoPatientAllergyProfile,
+        headings,
+        helper: patientAllergyHelper,
+        pathEntries,
+        tableItem: patientAllergy
       }
     )
-
-    return row
   }
 
   nav(list) {

@@ -17,6 +17,7 @@ export const patientNoteHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canEdit,
   createdAt,
   displayDateTime,
   note,
@@ -57,6 +58,10 @@ function buildNewChanged(patientNote) {
 
 function canBeCreated(pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients") && pathHelper.isSingular(pathEntries, "pharmacy-stores")
+}
+
+function canEdit(user, patientNote) {
+  return false
 }
 
 function createdAt(note) {

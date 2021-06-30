@@ -27,7 +27,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoPatientMedicationProfile = this.gotoPatientMedicationProfile.bind(this)
+    //this.gotoPatientMedicationProfile = this.gotoPatientMedicationProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -179,11 +179,13 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
+  /* TODO: enable once the page is written.
   gotoPatientMedicationProfile(patient_medication) {
     const pathArray = pathHelper.buildPathArray(window.location, patient_medication, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
+  */
 
   loadData() {
     this.clearData()
