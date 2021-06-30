@@ -4,6 +4,7 @@ import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-sv
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { fieldHelper, pathHelper, valueHelper } from "./"
 import { userRoles } from "../types"
+import { contactHelper } from "./contact.helper"
 
 export const userHelper = {
   canCreatePatientAllergy,
@@ -12,7 +13,9 @@ export const userHelper = {
   canHaveNpi,
   canIndexAll,
   canModifyUsers,
+  canEdit,
   displayRole,
+  email,
   firstName,
   forHealthPlan,
   fullName,
@@ -23,12 +26,18 @@ export const userHelper = {
   isExpired,
   isLoginAllowed,
   lastName,
+  patient,
   pharmacistDisplay,
   pharmacistNPI,
+  pharmacyChains,
+  pharmacyStores,
+  phone,
   renderAccess,
   role,
   rolesToOptions,
   setCurrentUser,
+  state,
+  timeZone,
   toBreadcrumb,
   username
 }
@@ -77,6 +86,10 @@ function canCreatePatientNote(user, pathEntries) {
   return canCreateForPharmacyStore(user, pathEntries)
 }
 
+function canEdit(currentUser, user) {
+  return false
+}
+
 function canHaveNpi(user) {
   return userRoles[userHelper.role(user)].has_npi
 }
@@ -96,12 +109,21 @@ function displayRole(user) {
   return userRoles[userHelper.role(user)].label
 }
 
+function email(user) {
+  return contactHelper.email(user)
+}
+
 function firstName(user) {
   return fieldHelper.getField(user, "first_name")
 }
 
 function forHealthPlan(user, healthPlanId) {
+  const healthPlans = userHelper.healthPlans(user)
+  if (!valueHelper.isValue(healthPlans)) {
+    return false
+  }
 
+  return valueHelper.isValue(healthPlans.find((healthPlan) => healthPlan.id == healthPlanId))
 }
 
 function fullName(user) {
@@ -148,6 +170,10 @@ function lastName(user) {
   return fieldHelper.getField(user, "last_name")
 }
 
+function patient(user) {
+  return fieldHelper.getField(user, "patient")
+}
+
 function pharmacistDisplay(user) {
   if (userHelper.hasRole(user, ['pharmacy_store_admin', 'pharmacy_store_user'])) {
     return "(no pharmacist)"
@@ -158,6 +184,18 @@ function pharmacistDisplay(user) {
 
 function pharmacistNPI(user) {
   return fieldHelper.getField(user, "pharmacist_npi")
+}
+
+function pharmacyChains(user) {
+  return fieldHelper.getField(user, "pharmacies")
+}
+
+function pharmacyStores(user) {
+  return fieldHelper.getField(user, "pharmacy_stores")
+}
+
+function phone(user) {
+  return contactHelper.phone(user)
 }
 
 function renderAccess(user) {
@@ -239,6 +277,14 @@ function setCurrentUser(currentUser) {
   const currentUserJson = JSON.stringify(currentUser)
 
   sessionStorage.setItem("aprexis-api-ui-current-user", currentUserJson)
+}
+
+function state(user) {
+  return fieldHelper.getField(user, "state")
+}
+
+function timeZone(user) {
+  return fieldHelper.getField(user, "time_zone")
 }
 
 function toBreadcrumb(user) {

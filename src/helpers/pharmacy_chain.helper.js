@@ -1,4 +1,4 @@
-import { addressHelper, fieldHelper, userHelper, valueHelper } from "./"
+import { addressHelper, contactHelper, fieldHelper, userHelper, valueHelper } from "./"
 
 export const pharmacyChainHelper = {
   address,
@@ -7,12 +7,14 @@ export const pharmacyChainHelper = {
   ccdCode,
   city,
   einNumber,
+  fullAddress,
   logo,
   name,
   notes,
   npi,
   parentOrganizationLbn,
   pharmacyStoreCount,
+  phone,
   state,
   toBreadcrumb,
   zipCode
@@ -50,6 +52,10 @@ function einNumber(pharmacyChain) {
   return fieldHelper.getField(pharmacyChain, "ein_number")
 }
 
+function fullAddress(pharmacyChain) {
+  return addressHelper.fullAddress(pharmacyChain)
+}
+
 function logo(pharmacyChain) {
   return fieldHelper.getField(pharmacyChain, "logo")
 }
@@ -72,6 +78,10 @@ function parentOrganizationLbn(pharmacyChain) {
 
 function pharmacyStoreCount(pharmacyChain) {
   return fieldHelper.getField(pharmacyChain, "pharmacy_store_count")
+}
+
+function phone(pharmacyChain) {
+  return contactHelper.phone(pharmacyChain)
 }
 
 function state(pharmacyChain) {

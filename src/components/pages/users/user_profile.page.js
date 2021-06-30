@@ -4,7 +4,14 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AprexisTable, Spinner } from '../../shared'
 import { UserProfilePageViewModel } from '../../view_models/pages/users'
-import { userHelper, valueHelper } from '../../../helpers'
+import {
+  healthPlanHelper,
+  patientHelper,
+  pharmacyChainHelper,
+  pharmacyStoreHelper,
+  userHelper,
+  valueHelper
+} from '../../../helpers'
 
 class UserNpi extends Component {
   render() {
@@ -23,13 +30,13 @@ class UserNpi extends Component {
           </CardTitle>
 
           <CardBody>
-            <strong className='text-muted'>Pharmacist's NPI:</strong> {user.pharmacist_npi}&nbsp;
+            <strong className='text-muted'>Pharmacist's NPI:</strong> {userHelper.pharmacistNPI(user)}&nbsp;
             {
               !valueHelper.isValue(cms_info) &&
               <React.Fragment>
                 <FontAwesomeIcon className='ml-1 red' icon={faExclamationCircle} id={`invalid-npi-${user.id}`} />
                 <UncontrolledTooltip placement="top" boundariesElement="window" target={`invalid-npi-${user.id}`}>
-                  User NPI {user.pharmacist_npi} does not appear to be valid.
+                  User NPI {userHelper.pharmacistNPI(user)} does not appear to be valid.
                 </UncontrolledTooltip>
               </React.Fragment>
             }
@@ -57,13 +64,10 @@ class UserHealthPlans extends Component {
     return healthPlans.map(
       (healthPlan) => {
         return [
-          healthPlan.name,
-          healthPlan.code,
-          healthPlan.address,
-          healthPlan.city,
-          healthPlan.state,
-          healthPlan.zip_code,
-          healthPlan.phone
+          healthPlanHelper.name(healthPlan),
+          healthPlanHelper.code(healthPlan),
+          healthPlanHelper.fullAddress(healthPlan),
+          healthPlanHelper.phone(healthPlan)
         ]
       }
     )
@@ -80,7 +84,7 @@ class UserHealthPlans extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Code', 'Address', 'City', 'State', 'ZIP Code', 'Phone']}
+              headings={['Name', 'Code', 'Address', 'Phone']}
               title=""
             />
           </CardBody>
@@ -105,12 +109,9 @@ class UserPatient extends Component {
 
     return [
       [
-        patient.name,
-        patient.address,
-        patient.city,
-        patient.state,
-        patient.zip_code,
-        patient.phone
+        patientHelper.name(patient),
+        patientHelper.fullAddress(patient),
+        patientHelper.phone(patient)
       ]
     ]
 
@@ -127,7 +128,7 @@ class UserPatient extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Address', 'City', 'State', 'ZIP Code', 'Phone']}
+              headings={['Name', 'Address', 'Phone']}
               title=""
             />
           </CardBody>
@@ -153,12 +154,9 @@ class UserPharmacyChains extends Component {
     return pharmacyChains.map(
       (pharmacyChain) => {
         return [
-          pharmacyChain.name,
-          pharmacyChain.address,
-          pharmacyChain.city,
-          pharmacyChain.state,
-          pharmacyChain.zip_code,
-          pharmacyChain.phone
+          pharmacyChainHelper.name(pharmacyChain),
+          pharmacyChainHelper.fullAddress(pharmacyChain),
+          pharmacyChainHelper.phone(pharmacyChain)
         ]
       }
     )
@@ -175,7 +173,7 @@ class UserPharmacyChains extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Address', 'City', 'State', 'ZIP Code', 'Phone']}
+              headings={['Name', 'Address', 'Phone']}
               title=""
             />
           </CardBody>
@@ -201,12 +199,9 @@ class UserPharmacyStores extends Component {
     return pharmacyStores.map(
       (pharmacyStore) => {
         return [
-          pharmacyStore.name,
-          pharmacyStore.address,
-          pharmacyStore.city,
-          pharmacyStore.state,
-          pharmacyStore.zip_code,
-          pharmacyStore.phone
+          pharmacyStoreHelper.name(pharmacyStore),
+          pharmacyStoreHelper.fullAddress(pharmacyStore),
+          pharmacyStoreHelper.phone(pharmacyStore)
         ]
       }
     )
@@ -223,7 +218,7 @@ class UserPharmacyStores extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Address', 'City', 'State', 'ZIP Code', 'Phone']}
+              headings={['Name', 'Address', 'Phone']}
               title=""
             />
           </CardBody>
@@ -244,21 +239,21 @@ class UserAssociations extends Component {
     switch (user.role) {
       case 'health_plan_admin':
       case 'health_plan_user':
-        associationsCard = (<UserHealthPlans healthPlans={user.health_plans} />)
+        associationsCard = (<UserHealthPlans healthPlans={userHelper.healthPlans(user)} />)
         break
 
       case 'patient_user_role':
-        associationsCard = (<UserPatient patient={user.patient} />)
+        associationsCard = (<UserPatient patient={userHelper.patient(user)} />)
         break
 
       case 'pharmacy_chain_admin':
-        associationsCard = (<UserPharmacyChains pharmacyChains={user.pharmacies} />)
+        associationsCard = (<UserPharmacyChains pharmacyChains={userHelper.pharmacyChains(user)} />)
         break
 
       case 'pharmacy_store_admin':
       case 'pharmacy_store_tech':
       case 'pharmacy_store_user':
-        associationsCard = (<UserPharmacyStores pharmacyStores={user.pharmacy_stores} />)
+        associationsCard = (<UserPharmacyStores pharmacyStores={userHelper.pharmacyStores(user)} />)
         break
 
       default:
@@ -286,12 +281,12 @@ class UserProfile extends Component {
           </CardTitle>
 
           <CardBody>
-            <strong className='text-muted'>Username:</strong> {user.username}<br />
+            <strong className='text-muted'>Username:</strong> {userHelper.username(user)}<br />
             <strong className='text-muted'>Role:</strong> {userHelper.displayRole(user)}<br />
-            <strong className='text-muted'>Email:</strong> {user.email}<br />
-            <strong className='text-muted'>Phone:</strong> {user.phone}<br />
-            <strong className='text-muted'>State:</strong> {user.state}<br />
-            <strong className='text-muted'>Timezone:</strong> {user.time_zone}<br />
+            <strong className='text-muted'>Email:</strong> {userHelper.email(user)}<br />
+            <strong className='text-muted'>Phone:</strong> {userHelper.phone(user)}<br />
+            <strong className='text-muted'>State:</strong> {userHelper.state(user)}<br />
+            <strong className='text-muted'>Timezone:</strong> {userHelper.timeZone(user)}<br />
           </CardBody>
         </Card>
       </Col>

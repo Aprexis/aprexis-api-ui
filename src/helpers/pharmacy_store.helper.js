@@ -1,4 +1,4 @@
-import { addressHelper, fieldHelper, pharmacyChainHelper, userHelper, valueHelper } from "./"
+import { addressHelper, contactHelper, fieldHelper, pharmacyChainHelper, userHelper, valueHelper } from "./"
 
 export const pharmacyStoreHelper = {
   address,
@@ -8,6 +8,7 @@ export const pharmacyStoreHelper = {
   city,
   display,
   einNumber,
+  fullAddress,
   id,
   identification,
   latitude,
@@ -20,6 +21,7 @@ export const pharmacyStoreHelper = {
   npiReactivationDate,
   notes,
   overridePharmacyOrganizationBillingInfo,
+  phone,
   state,
   storeNumber,
   store,
@@ -69,6 +71,10 @@ function display(pharmacyStore) {
 
 function einNumber(pharmacyStore) {
   return fieldHelper.getField(pharmacyStore, "ein_number")
+}
+
+function fullAddress(pharmacyStore) {
+  return addressHelper.fullAddress(pharmacyStore)
 }
 
 function id(pharmacyStore) {
@@ -125,6 +131,10 @@ function npiReactivationDate(pharmacyStore) {
 
 function overridePharmacyOrganizationBillingInfo(pharmacyStore) {
   return fieldHelper.getField(pharmacyStore, "override_pharmacy_organization_billing_info")
+}
+
+function phone(pharmacyStore) {
+  return contactHelper.phone(pharmacyStore)
 }
 
 function store(pharmacyStore) {

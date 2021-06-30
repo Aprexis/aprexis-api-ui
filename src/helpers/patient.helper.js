@@ -36,6 +36,7 @@ export const patientHelper = {
   noKnownAllergies,
   medicationCount,
   personNumber,
+  phone,
   preferredContactMethod,
   primaryCareProviderNpi,
   race,
@@ -264,6 +265,10 @@ function personNumber(patient) {
 
 function preferredContactMethod(patient) {
   return fieldHelper.getField(patient, "preferred_contact_method")
+}
+
+function phone(patient) {
+  return contactHelper.phone(patient)
 }
 
 function primaryCareProviderNpi(patient) {
