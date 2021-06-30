@@ -13,11 +13,16 @@ const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("NPI Deactivation Code", pharmacyStore.npi_deactivation_reason_code)}
-          {fieldHelper.dateDisplay("NPI Deactivation Date", pharmacyStore.npi_deactivation_date)}
-          {fieldHelper.dateDisplay("NPI Reactivation Date", pharmacyStore.npi_reactivation_date)}
-          {fieldHelper.booleanDisplay("Overide Billing Info", pharmacyStore.override_pharmacy_organization_billing_info)}
-          {fieldHelper.display("CCD Code", pharmacyStore.ccd_code)}
+          {fieldHelper.display("NPI Deactivation Code", pharmacyStoreHelper.npiDeactivationReasonCode(pharmacyStore))}
+          {fieldHelper.dateDisplay("NPI Deactivation Date", pharmacyStoreHelper.npiDeactivationDate(pharmacyStore))}
+          {fieldHelper.dateDisplay("NPI Reactivation Date", pharmacyStoreHelper.npiReactivationDate(pharmacyStore))}
+          {
+            fieldHelper.booleanDisplay(
+              "Overide Billing Info",
+              pharmacyStoreHelper.overridePharmacyOrganizationBillingInfo(pharmacyStore)
+            )
+          }
+          {fieldHelper.display("CCD Code", pharmacyStoreHelper.ccdCode(pharmacyStore))}
         </CardBody>
       </Card>
     </Col>
@@ -34,13 +39,13 @@ const PharmacyStoreProfile = ({ pharmacyStore }) => {
 
         <CardBody>
           <Address addressable={pharmacyStore} />
-          {fieldHelper.display("Latitude", pharmacyStore.latitude)}
-          {fieldHelper.display("Longitude", pharmacyStore.longitude)}
+          {fieldHelper.display("Latitude", pharmacyStoreHelper.latitude(pharmacyStore))}
+          {fieldHelper.display("Longitude", pharmacyStoreHelper.longitude(pharmacyStore))}
           <Contact contactable={pharmacyStore} />
-          {fieldHelper.display("NPI", pharmacyStore.npi)}
-          {fieldHelper.display("EIN Number", pharmacyStore.ein_number)}
-          {fieldHelper.display("NABP", pharmacyStore.nabp)}
-          {fieldHelper.display("Notes", pharmacyStore.notes)}
+          {fieldHelper.display("NPI", pharmacyStoreHelper.npi(pharmacyStore))}
+          {fieldHelper.display("EIN Number", pharmacyStoreHelper.einNumber(pharmacyStore))}
+          {fieldHelper.display("NABP", pharmacyStoreHelper.nabp(pharmacyStore))}
+          {fieldHelper.display("Notes", pharmacyStoreHelper.notes(pharmacyStore))}
         </CardBody>
       </Card>
     </Col>
