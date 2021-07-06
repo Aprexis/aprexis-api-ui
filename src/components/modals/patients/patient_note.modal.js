@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Label, Row } from "reactstrap"
+import { TextFieldEditor } from "../../shared"
 import { PatientNoteModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { dateHelper, patientHelper, patientNoteHelper, pharmacyStoreHelper, valueHelper } from "../../../helpers"
@@ -73,18 +74,13 @@ class PatientNoteModal extends Component {
                   }
 
                   <FormGroup row>
-                    <Label htmlFor="note">Note</Label>
-                    <textarea
-                      className={`mb-2 form-control`}
+                    <TextFieldEditor
+                      changeField={this.vm.changeField}
                       cols={80}
-                      id="note"
-                      name="note"
-                      onChange={this.vm.changeField}
-                      maxLength={4096}
-                      placeholder={'note'}
+                      fieldName="note"
+                      helper={patientNoteHelper}
+                      model={patientNote}
                       rows={8}
-                      type="textarea"
-                      value={valueHelper.makeString(patientNoteHelper.note(patientNote))}
                     />
                   </FormGroup>
                 </div>

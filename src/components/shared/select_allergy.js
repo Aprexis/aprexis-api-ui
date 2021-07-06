@@ -47,7 +47,7 @@ class SelectAllergy extends Component {
     return (
       <React.Fragment>
         <FormGroup row className={rowClassName} style={{ width: "100%" }}>
-          <Col xs={2}><label>{this.props.fieldName}</label></Col>
+          <Col xs={2}><label>{this.props.fieldLabel}</label></Col>
           <Col xs={9}>
             <label>{label}</label>
           </Col>
@@ -70,8 +70,8 @@ class SelectAllergy extends Component {
             clearFunction={this.vm.clearSearch}
             filters={this.props.baseFilters}
             inForm={this.props.inForm}
-            inputName={this.props.fieldName}
-            inputPlaceholder={this.props.fieldName.toLowerCase()}
+            inputName={this.props.fieldLabel}
+            inputPlaceholder={this.props.fieldLabel.toLowerCase()}
             item={item}
             onOptionSelect={this.vm.select}
             options={searchResults}

@@ -87,7 +87,7 @@ class AbstractModalViewModel extends AbstractViewModel {
         return !checkDateAndTimeValue(dateAndTimeField, value)
 
         function checkDateAndTimeValue(dateAndTimeField, value) {
-          if (!valueHelper.isValue(value)) {
+          if (!valueHelper.isValue(value) || !valueHelper.isValue(value.value)) {
             return !valueHelper.isSet(dateAndTimeField.required)
           }
 
@@ -113,22 +113,20 @@ class AbstractModalViewModel extends AbstractViewModel {
   }
 
   changeDate(field, dateString, fieldValid) {
-    const name = field.substring(0, field.lastIndexOf("_"))
     const modelData = this.model()
     const { model, modelName } = modelData
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
-    const updated = fieldHelper.changeDate(modelName, model, changedModel, name, dateString, fieldValid)
+    const updated = fieldHelper.changeDate(modelName, model, changedModel, field, dateString, fieldValid)
 
     this.addData(updated)
     this.redrawView()
   }
 
   changeDateTime(field, dateTimeString, fieldValid) {
-    const name = field.substring(0, field.lastIndexOf("_"))
     const modelData = this.model()
     const { model, modelName } = modelData
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
-    const updated = fieldHelper.changeDateTime(modelName, model, changedModel, name, dateTimeString, fieldValid)
+    const updated = fieldHelper.changeDateTime(modelName, model, changedModel, field, dateTimeString, fieldValid)
 
     this.addData(updated)
     this.redrawView()

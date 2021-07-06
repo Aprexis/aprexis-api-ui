@@ -4,6 +4,8 @@ import { DatePicker, TimePicker } from "./"
 import { DateTimePickerViewModel } from "../view_models/shared"
 import { dateHelper } from "../../helpers"
 
+/* TODO: needs to be updated to be similar to DatePicker. */
+
 class DateTimePicker extends Component {
   constructor(props) {
     super(props)

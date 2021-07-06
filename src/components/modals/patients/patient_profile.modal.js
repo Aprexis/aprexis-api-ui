@@ -1,6 +1,12 @@
 import React, { Component } from "react"
-import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
-import { AddressEditor, ContactEditor, DatePicker, TextFieldEditor } from "../../shared"
+import { Col, Container, Form, FormGroup, Row } from "reactstrap"
+import {
+  AddressEditor,
+  ContactEditor,
+  DateFieldEditor,
+  SelectFieldEditor,
+  TextFieldEditor
+} from "../../shared"
 import { PatientProfileModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, valueHelper } from "../../../helpers"
@@ -18,6 +24,7 @@ class PatientProfileModal extends Component {
       }
     )
 
+    this.contactMethods = this.contactMethods.bind(this)
     this.renderFooter = this.renderFooter.bind(this)
     this.renderHeader = this.renderHeader.bind(this)
   }
@@ -26,9 +33,22 @@ class PatientProfileModal extends Component {
     this.vm.loadData()
   }
 
+  contactMethods(preferredContactMethod) {
+    if (valueHelper.isValue(contactMethods.find((contactMethod) => contactMethod.value == preferredContactMethod))) {
+      return contactMethods
+    }
+
+    return [
+      {
+        value: preferredContactMethod,
+        label: preferredContactMethod
+      },
+      ...contactMethods,
+    ]
+  }
+
   render() {
     const { patient } = this.state
-    const preferredContactMethod = valueHelper.makeString(patientHelper.preferredContactMethod(patient))
 
     return (
       <AprexisModal
@@ -88,42 +108,38 @@ class PatientProfileModal extends Component {
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col cs={2}><label>Date of Birth</label></Col>
-                  <Col xs={4}>
-                    <DatePicker
-                      allowBlank={true}
-                      allowEdit={patientHelper.canModifyField(patient, "date_of_birth")}
-                      changeDate={this.vm.changeDate}
-                      date={patientHelper.dateOfBirth(patient)}
-                      dateField={`dateOfBirth`}
-                      style={{ width: 110 }}
-                    />
-                  </Col>
+                  <DateFieldEditor
+                    allowBlank={true}
+                    changeField={this.vm.changeDate}
+                    fieldName="date_of_birth"
+                    fieldXs={3}
+                    helper={patientHelper}
+                    model={patient}
+                    style={{ width: 110 }}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>Coverage Effective</Col>
-                  <Col xs={4}>
-                    <DatePicker
-                      allowBlank={true}
-                      allowEdit={patientHelper.canModifyField(patient, "coverage_effective_date")}
-                      changeDate={this.vm.changeDate}
-                      date={patientHelper.coverageEffectiveDate(patient)}
-                      dateField={`coverageEffectiveDate`}
-                      style={{ width: 110 }}
-                    />
-                  </Col>
-                  <Col xs={2}>Coverage Ends</Col>
-                  <Col xs={4}>
-                    <DatePicker
-                      allowBlank={true}
-                      allowEdit={patientHelper.canModifyField(patient, "coverage_end_date")}
-                      changeDate={this.vm.changeDate}
-                      date={patientHelper.coverageEndDate(patient)}
-                      dateField={`coverageEndDate`}
-                      style={{ width: 110 }}
-                    />
-                  </Col>
+                  <DateFieldEditor
+                    allowBlank={true}
+                    changeField={this.vm.changeDate}
+                    fieldLabel="Coverage Effective"
+                    fieldName="coverage_effective_date"
+                    fieldXs={3}
+                    helper={patientHelper}
+                    model={patient}
+                    style={{ width: 110 }}
+                  />
+                  <DateFieldEditor
+                    allowBlank={true}
+                    changeField={this.vm.changeDate}
+                    fieldLabel="Coverage Ends"
+                    fieldName="coverage_end_date"
+                    fieldXs={3}
+                    helper={patientHelper}
+                    model={patient}
+                    style={{ width: 110 }}
+                  />
                 </FormGroup>
 
                 <AddressEditor
@@ -140,37 +156,14 @@ class PatientProfileModal extends Component {
                 />
 
                 <FormGroup row>
-                  <Col xs={2}><label>Preferred Contact Method</label></Col>
-                  <Col xs={4}>
-                    <Input
-                      className="form-control"
-                      disabled={!patientHelper.canModifyField(patient, "preferred_contact_method")}
-                      name="preferred_contact_method"
-                      onChange={this.vm.changeField}
-                      readOnly={!patientHelper.canModifyField(patient, "preferred_contact_method")}
-                      type="select"
-                      value={preferredContactMethod}>
-                      {
-                        !valueHelper.isValue(
-                          contactMethods.find(
-                            (contactMethod) => contactMethod.value == preferredContactMethod
-                          )
-                        ) &&
-                        <option value={preferredContactMethod}>{preferredContactMethod}</option>
-                      }
-                      {
-                        contactMethods.map(
-                          (contactMethod) => {
-                            return (
-                              <option key={contactMethod.value} value={contactMethod.value}>
-                                {contactMethod.label}
-                              </option>
-                            )
-                          }
-                        )
-                      }
-                    </Input>
-                  </Col>
+                  <SelectFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="preferred_contact_method"
+                    fieldOptions={this.contactMethods(patientHelper.preferredContactMethod(patient))}
+                    fieldXs={4}
+                    helper={patientHelper}
+                    model={patient}
+                  />
                   <TextFieldEditor
                     changeField={this.vm.changeField}
                     fieldName="race"

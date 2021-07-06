@@ -1,8 +1,7 @@
 import React, { Component } from "react"
-import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
+import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
-  DatePicker,
-  DateTimePicker,
+  DateFieldEditor,
   NumberFieldEditor,
   SelectFieldEditor,
   SelectMedication,
@@ -54,7 +53,6 @@ class PatientMedicationModal extends Component {
                 <FormGroup row>
                   <SelectFieldEditor
                     changeField={this.vm.changeField}
-                    fieldLabel="Type"
                     fieldName="type"
                     fieldOptions={patientMedications}
                     helper={patientMedicationHelper}
@@ -66,7 +64,7 @@ class PatientMedicationModal extends Component {
                   !valueHelper.isNumberValue(pharmacyStoreId) &&
                   <SelectPharmacyStore
                     {...valueHelper.importantProps(this.props)}
-                    fieldName="Pharmacy Store"
+                    fieldLabel="Pharmacy Store"
                     inForm={true}
                     id={patientMedicationHelper.pharmacyStoreId(patientMedication)}
                     onChange={this.vm.selectPharmacyStore}
@@ -77,7 +75,7 @@ class PatientMedicationModal extends Component {
                 <SelectPhysician
                   {...valueHelper.importantProps(this.props)}
                   baseFilters={{ for_patient: patientId }}
-                  fieldName="Physician"
+                  fieldLabel="Physician"
                   inForm={true}
                   id={patientMedicationHelper.physicianId(patientMedication)}
                   onChange={this.vm.selectPhysician}
@@ -87,7 +85,7 @@ class PatientMedicationModal extends Component {
                 <SelectMedication
                   {...valueHelper.importantProps(this.props)}
                   baseFilters={{ for_supersets: true }}
-                  fieldName="Medication"
+                  fieldLabel="Medication"
                   inForm={true}
                   id={patientMedicationHelper.medicationId(patientMedication)}
                   onChange={this.vm.selectMedication}
@@ -95,37 +93,27 @@ class PatientMedicationModal extends Component {
                 />
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Filled At</label>
-                  </Col>
-                  <Col>
-                    <DateTimePicker
-                      allowBlank={true}
-                      allowEdit={true}
-                      changeDateTime={this.vm.changeDateTime}
-                      dateField="filled_at_Date"
-                      dateTime={patientMedicationHelper.filledAt(patientMedication)}
-                      latestDate={new Date()}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "filled_at")}
-                      timeField="filled_at_Time"
-                    />
-                  </Col>
+                  <DateFieldEditor
+                    allowBlank={true}
+                    changeField={this.vm.changeDate}
+                    fieldLabel="Filled"
+                    fieldName="filled_at"
+                    helper={patientMedicationHelper}
+                    latestDate={new Date()}
+                    model={patientMedication}
+                  />
                 </FormGroup>
 
                 <FormGroup row>
-                  <Col xs={2}>
-                    <label>Start Date</label>
-                  </Col>
-                  <Col>
-                    <DatePicker
-                      allowBlank={true}
-                      allowEdit={true}
-                      changeDate={this.vm.changeDate}
-                      dateField="start_date"
-                      date={patientMedicationHelper.startDate(patientMedication)}
-                      readOnly={!patientMedicationHelper.canModifyField(patientMedication, "start_date")}
-                    />
-                  </Col>
+                  <DateFieldEditor
+                    allowBlank={true}
+                    changeField={this.vm.changeDate}
+                    fieldName="start_date"
+                    fieldXs={3}
+                    helper={patientMedicationHelper}
+                    model={patientMedication}
+                    style={{ width: 110 }}
+                  />
                 </FormGroup>
 
                 <FormGroup row>

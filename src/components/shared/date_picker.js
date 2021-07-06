@@ -4,6 +4,18 @@ import "react-day-picker/lib/style.css"
 import { valueHelper } from "../../helpers"
 import { DatePickerViewModel } from "../view_models/shared"
 
+const DATE_PICKER_KEYS = [
+  "date",
+  "dateField",
+  "dayPickerClassName",
+  "dayPickerStyle",
+  "disabledDays",
+  "earliestDate",
+  "format",
+  "latestDate",
+  "locale"
+]
+
 class DatePicker extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +24,7 @@ class DatePicker extends Component {
       {
         ...props,
         format: "yyyy-MM-dd",
-        locale: navigator.languages[0],
+        /*locale: navigator.languages[0],*/
         view: this
       }
     )
@@ -39,7 +51,7 @@ class DatePicker extends Component {
   }
 
   renderDayEditor(dayPickerClassName, dayPickerStyle, dateString) {
-    const { field } = this.props
+    const { dateField } = this.props
 
     return (
       <DayPickerInput
@@ -47,7 +59,7 @@ class DatePicker extends Component {
         format="yyyy-MM-dd"
         formatDate={this.vm.formatDate}
         inputProps={{ className: dayPickerClassName }}
-        name={field}
+        name={dateField}
         onDayChange={this.vm.dayChange}
         parseDate={this.vm.parseDate}
         placeholder="YYYY-MM-DD"
@@ -73,7 +85,13 @@ class DatePicker extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (!this.vm.propertiesChanged(nextProps, DATE_PICKER_KEYS)) {
+      return true
+    }
+
     this.vm.props = { ...this.vm.props, ...nextProps }
+    this.vm.loadData()
+
     return true
   }
 }

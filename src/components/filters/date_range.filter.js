@@ -3,6 +3,8 @@ import { Col, Label } from "reactstrap"
 import { DatePicker } from "../shared"
 import { dateHelper, filtersHelper, valueHelper } from "../../helpers"
 
+/* TODO: needs to be checked against updated DatePicker. */
+
 class DateRangeFilter extends Component {
   constructor(props) {
     super(props)
@@ -149,8 +151,8 @@ class DateRangeFilter extends Component {
           <DatePicker
             allowBlank={true}
             allowEdit={allowEdit}
-            changeDate={this.props.onChange}
             date={start}
+            dayChange={this.props.onChange}
             dateField={`${queryParam}_StartDate`}
             disabledDays={disabledDays}
             earliestDate={this.determineEarliestStartDate(filterDescription)}
@@ -163,8 +165,8 @@ class DateRangeFilter extends Component {
           <DatePicker
             allowBlank={true}
             allowEdit={allowEdit}
-            changeDate={this.props.onChange}
             date={stop}
+            dayChange={this.props.onChange}
             dateField={`${queryParam}_StopDate`}
             disabledDays={disabledDays}
             earliestDate={this.determineEarliestStartDate(filterDescription, start)}

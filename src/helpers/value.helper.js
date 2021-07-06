@@ -21,7 +21,7 @@ export const valueHelper = {
 }
 
 function camelCase(str) {
-  const spaced = str.replace("_", " ")
+  const spaced = str.replace(/_/g, " ")
   const split = valueHelper.splitCapitalized(spaced)
   if (split.length === 0) {
     return ""
@@ -110,7 +110,7 @@ function humanize(str) {
     return ""
   }
 
-  const myStr = str.replaceAll("_", " ").replace(/\s{2,}/g, " ")
+  const myStr = str.replace(/_/g, " ").replace(/\s{2,}/g, " ")
   const myStrSplit = valueHelper.splitCapitalized(myStr)
   if (myStrSplit.length === 0) {
     return ""
@@ -182,7 +182,7 @@ function makeString(value, defaultString = "") {
 }
 
 function snakeCase(str) {
-  return str.replace(" ", "_").replace("-", "_").toLowerCase()
+  return str.replace(/\s/g, "_").replace(/-/g, "_").toLowerCase()
 }
 
 function splitCapitalized(str) {

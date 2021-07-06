@@ -25,6 +25,8 @@ export const patientHelper = {
   gender,
   hasSubscriber,
   hasUser,
+  healthPlan,
+  healthPlanName,
   id,
   lastName,
   latitude,
@@ -220,6 +222,14 @@ function hasUser(patient) {
     valueHelper.isStringValue(contactHelper.phone(patient, "user")) ||
     valueHelper.isStringValue(addressHelper.state(patient, "user")) ||
     valueHelper.isStringValue(addressHelper.zipCode(patient, "user"))
+}
+
+function healthPlan(patient) {
+  return fieldHelper.getField(patient, "health_plan")
+}
+
+function healthPlanName(patient) {
+  return healthPlanHelper.name(patientHelper.healthPlan(patient))
 }
 
 function id(patient) {

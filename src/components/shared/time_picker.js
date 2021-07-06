@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { TimePickerViewModel } from "../view_models/shared"
 import { valueHelper } from "../../helpers"
 
+/* TODO: needs to be updated to be similar to DatePicker. */
+
 class TimePicker extends Component {
   constructor(props) {
     super(props)

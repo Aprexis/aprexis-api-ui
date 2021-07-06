@@ -40,8 +40,7 @@ function booleanDisplay(name, value, description) {
 
 function changeDate(modelName, model, changedModel, fieldName, date, dateValid) {
   const nameValid = `${fieldName}_DVALID`
-  const updatedValid = { ...model[nameValid], ...dateValid }
-  return fieldHelper.changeValues(modelName, model, changedModel, { [fieldName]: date, [nameValid]: updatedValid })
+  return fieldHelper.changeValues(modelName, model, changedModel, { [fieldName]: date, [nameValid]: dateValid })
 }
 
 function changeDateTime(modelName, model, changedModel, fieldName, dateTime, dateTimeValid) {
@@ -371,7 +370,7 @@ function optionDisplay(name, options, value, description) {
 }
 
 function options(props) {
-  const selectName = fieldHelper.name(props).replace("_", "-")
+  const selectName = fieldHelper.name(props).replace(/_/g, "-")
   const { fieldOptions } = props
 
   if (Array.isArray(fieldOptions)) {
@@ -383,33 +382,36 @@ function options(props) {
   function arrayOptions(fieldOptions) {
     return fieldOptions.map(
       (fieldOption) => {
-        let id
-        let value
-        if (typeof fieldOption === 'string') {
-          id = fieldOption
-          value = fieldOption
-        } else {
-          id = fieldOption["id"]
-          value = fieldOption["value"]
-        }
+        const { value, label } = optionValues(fieldOption)
 
         return (
-          <option key={`${selectName}-${id}`} id={id}>
-            {value}
+          <option key={`${selectName}-${value}`} value={value}>
+            {label}
           </option>
         )
       }
     )
+
+    function optionValues(fieldOption) {
+      if (typeof fieldOption === 'string') {
+        return {
+          value: fieldOption,
+          label: fieldOption
+        }
+      }
+
+      return fieldOption
+    }
   }
 
   function hashOptions(fieldOptions) {
     return Object.keys(fieldOptions).map(
-      (id) => {
-        const value = fieldOptions[id]
+      (fieldOptionKey) => {
+        const fieldOptionValue = fieldOptions[fieldOptionKey]
 
         return (
-          <option key={`${selectName}-${id}`} id={id}>
-            {value}
+          <option key={`${selectName}-${fieldOptionKey}`} value={fieldOptionKey}>
+            {fieldOptionValue}
           </option>
         )
       }

@@ -4,7 +4,7 @@ import { fieldHelper, valueHelper } from "../../helpers"
 
 class TextFieldEditor extends Component {
   render() {
-    const { area, changeField, helper, maxLength, model, omitLabel } = this.props
+    const { area, changeField, cols, helper, maxLength, model, omitLabel, rows } = this.props
     const name = fieldHelper.name(this.props)
     const canModifyField = helper.canModifyField(model, name)
     const method = fieldHelper.method(this.props)
@@ -20,11 +20,13 @@ class TextFieldEditor extends Component {
         <Col xs={fieldHelper.fieldXs(this.props)}>
           <Input
             className="form-control"
+            cols={cols}
             disabled={!canModifyField}
             maxLength={actualMaxLength}
             name={name}
             onChange={changeField}
             readOnly={!canModifyField}
+            rows={rows}
             type={inputType}
             value={valueHelper.makeString(helper[method](model))}
           />

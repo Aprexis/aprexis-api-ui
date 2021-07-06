@@ -1,6 +1,14 @@
 import { AbstractListPageViewModel } from "../"
 import { healthPlanApi, patientApi, pharmacyStoreApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, pharmacyStoreHelper, valueHelper } from "../../../../helpers"
+import {
+  filtersHelper,
+  pageHelper,
+  pathHelper,
+  patientHelper,
+  pharmacyStoreHelper,
+  userCredentialsHelper,
+  valueHelper
+} from "../../../../helpers"
 
 const patientListMethods = [
   { pathKey: "health-plans", method: patientApi.listForHealthPlan },
@@ -12,6 +20,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoPatientProfile = this.gotoPatientProfile.bind(this)
@@ -31,6 +40,24 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editModal(patientToEdit) {
+    patientApi.edit(
+      userCredentialsHelper.get(),
+      patientHelper.id(patientToEdit),
+      (patient) => {
+        this.props.launchModal(
+          "patient-profile",
+          {
+            operation: "update",
+            onUpdateView: this.refreshData,
+            patient
+          }
+        )
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(filters, filtersOptions) {

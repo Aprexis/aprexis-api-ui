@@ -3,6 +3,8 @@ import { Col, Label } from "reactstrap"
 import { DateTimePicker } from "../shared"
 import { dateHelper, filtersHelper, valueHelper } from "../../helpers"
 
+/* TODO: needs to be checked against updated DateTimePicker. */
+
 class DateTimeRangeFilter extends Component {
   constructor(props) {
     super(props)

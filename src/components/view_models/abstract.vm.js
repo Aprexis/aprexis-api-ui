@@ -16,6 +16,7 @@ class AbstractViewModel {
     this.onError = this.onError.bind(this)
     this.orderedPathEntries = this.orderedPathEntries.bind(this)
     this.pathEntries = this.pathEntries.bind(this)
+    this.propertiesChanged = this.propertiesChanged.bind(this)
     this.redrawView = this.redrawView.bind(this)
     this.removeField = this.removeField.bind(this)
     this.setFieldFromEvent = this.setFieldFromEvent.bind(this)
@@ -73,6 +74,71 @@ class AbstractViewModel {
 
   pathEntries() {
     return pathHelper.parsePathEntries(window.location)
+  }
+
+  propertiesChanged(nextProps, propertyKeys) {
+    if (valueHelper.isValue(this.props) != valueHelper.isValue(nextProps)) {
+      return true
+    }
+    if (!valueHelper.isValue(this.props)) {
+      return false
+    }
+
+    return valueHelper.isValue(
+      propertyKeys.find(
+        (propertyKey) => {
+          const currentValue = this.props[propertyKey]
+          const nextValue = nextProps[propertyKey]
+          if (!valueHelper.isValue(currentValue)) {
+            return valueHelper.isValue(nextValue)
+          }
+
+          if (!valueHelper.isValue(nextValue)) {
+            return false
+          }
+
+          return compareValues(propertyKey, currentValue, nextValue)
+        }
+      )
+    )
+
+    function compareArrays(propertyKey, currentArray, nextArray) {
+      if (!Array.isArray(nextArray)) {
+        return true
+      }
+      if (nextArray.length !== currentArray.length) {
+        return true
+      }
+      if (currentArray.length === 0) {
+        return false
+      }
+
+      return valueHelper.isValue(
+        currentArray.find(
+          (currentValue, idx) => {
+            const nextValue = nextArray[idx]
+            return compareValues(`${propertyKey}[${idx}]`, currentValue, nextValue)
+          }
+        )
+      )
+    }
+
+    function compareObjects(propertyKey, currentObject, nextObject) {
+      // TODO: determine if there are cases where it is worth expanding this more.
+      return false
+    }
+
+    function compareValues(propertyKey, currentValue, nextValue) {
+      if (Array.isArray(currentValue)) {
+        return compareArrays(propertyKey, currentValue, nextValue)
+      }
+
+      if (typeof currentValue === 'object') {
+        return compareObjects(propertyKey, currentValue, nextValue)
+      }
+
+      return currentValue != nextValue
+    }
   }
 
   redrawView(nextOperation) {

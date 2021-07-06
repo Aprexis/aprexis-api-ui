@@ -11,6 +11,12 @@ const headings = [
     method: "name"
   },
   {
+    name: "Health Plan",
+    field: "health_plan.name",
+    method: "healthPlanName",
+    unless: "health-plans"
+  },
+  {
     name: "Member Number",
     field: "member_number",
     method: "memberNumber"

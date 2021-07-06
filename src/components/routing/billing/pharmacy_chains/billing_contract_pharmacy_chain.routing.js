@@ -19,9 +19,6 @@ class BillingContractPharmacyChainRouting extends Component {
       ":billing_contract_pharmacy_id"
     )
 
-    console.log(`Location: ${window.location.pathname}`)
-    console.log(`Prefix: ${billingContractPharmacyChainPrefix}`)
-
     return (
       <Switch>
         <Route

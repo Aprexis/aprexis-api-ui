@@ -72,11 +72,15 @@ function displayDateTime(dateTime) {
 }
 
 function formatDate(date, format, localeString) {
+  if (!valueHelper.isValue(date)) {
+    return
+  }
+
   return dateFnsFormat(date, format, { locale: localeFromLocaleString(localeString) })
 }
 
 function isDateValue(value) {
-  const date = makeDate(value)
+  const date = dateHelper.makeDate(value)
 
   return valueHelper.isValue(date)
 }
@@ -112,14 +116,13 @@ function makeDate(value) {
     return
   }
 
-  const dateValue = Date.parse(value)
-  if (!isNaN(dateValue)) {
-    return new Date(dateValue)
-  }
-
   const dateMoment = moment(value)
   if (!dateMoment.isValid()) {
     return
+  }
+
+  if (value.length === 10) {
+    return dateHelper.parseDate(value, "yyyy-MM-dd")
   }
 
   return dateMoment.toDate()

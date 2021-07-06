@@ -17,7 +17,7 @@ class DatePickerViewModel extends AbstractViewModel {
   }
 
   dayChange(selectedDay, modifiers, dayPickerInput) {
-    const { field, format, locale } = this.props
+    const { dateField, format, locale } = this.props
     const { value, validDate } = determineValue(
       selectedDay,
       dayPickerInput,
@@ -26,7 +26,7 @@ class DatePickerViewModel extends AbstractViewModel {
       format,
       locale
     )
-    this.props.dayChange(field, value, validDate)
+    this.props.dayChange(dateField, value, validDate)
     return
 
     function determineValue(selectedDay, dayPickerInput, formatDate, parseDate, format, locale) {
@@ -196,10 +196,10 @@ class DatePickerViewModel extends AbstractViewModel {
     return dayPickerStyle
   }
 
-  loadData() {
+  loadData(nextOperation) {
     this.clearData()
     this.addField("dateString", this.getDateStringFromProps())
-    this.redrawView()
+    this.redrawView(nextOperation)
   }
 
   parseDate(str, format, locale) {
