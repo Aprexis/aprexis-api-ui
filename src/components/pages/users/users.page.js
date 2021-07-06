@@ -1,33 +1,34 @@
 import React, { Component } from "react"
-import { TableColumnHeader } from "../../shared"
 import { UsersPageViewModel } from "../../view_models/pages/users"
 import { ListView } from "../../../containers"
 import { userHelper, valueHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
     name: "Username",
-    field: "username"
+    field: "username",
+    method: "username"
   },
   {
     name: "Role",
-    field: "role"
+    field: "role",
+    method: "role"
   },
   {
-    name: "First Name",
-    field: "first_name"
-  },
-  {
-    name: "Last Name",
-    field: "last_name"
+    name: "Name",
+    field: "last_name,first_name",
+    method: "fullName"
   },
   {
     name: "Email",
-    field: "email"
+    field: "email",
+    method: "email"
   },
   {
     name: "Phone",
-    field: "phone"
+    field: "phone",
+    method: "phone"
   }
 ]
 
@@ -52,36 +53,38 @@ class UsersPage extends Component {
   }
 
   generateTableHeadings() {
-    return headings.map(
-      (heading) => {
-        const { name, field } = heading
-        return (
-          <TableColumnHeader
-            key={`users-table-heading-${field}`}
-            className="aprexis-table-header-cell"
-            label={name}
-            sortFieldName={field}
-            sorting={this.state.sorting}
-            onRefresh={this.vm.refreshData}
-            onUpdateSorting={this.vm.updateSorting}
-          />
-        )
+    const { filters, sorting } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listHeader(
+      {
+        filters,
+        headings,
+        listName: "users",
+        pathEntries,
+        sorting,
+        onRefresh: this.vm.refreshData,
+        onUpdateSorting: this.vm.updateSorting
       }
     )
   }
 
   generateTableRow(user) {
-    return [
+    const { filters } = this.state
+    const pathEntries = this.vm.pathEntries()
+
+    return listHelper.listRow(
       {
-        content: <React.Fragment>{user.username}{userHelper.renderAccess(user)}</React.Fragment>,
-        onClick: (event) => { this.vm.gotoUserProfile(user) }
-      },
-      userHelper.displayRole(user),
-      user.first_name,
-      user.last_name,
-      user.email,
-      user.phone
-    ]
+        currentUser: this.props.currentUser,
+        editTableItem: this.vm.editModal,
+        filters,
+        gotoTableItemProfile: this.vm.gotoUserProfile,
+        headings,
+        helper: userHelper,
+        pathEntries,
+        tableItem: user
+      }
+    )
   }
 
   render() {
