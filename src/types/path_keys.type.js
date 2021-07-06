@@ -3,6 +3,7 @@ import {
   healthPlanApi,
   interventionApi,
   labTestValueApi,
+  medicalClaimApi,
   patientApi,
   patientAllergyApi,
   patientMedicationApi,
@@ -26,6 +27,7 @@ import { healthPlanHelper } from "../helpers/health_plan.helper"
 import { interventionHelper } from "../helpers/intervention.helper"
 import { labTestHelper } from "../helpers/admin/lab_test.helper"
 import { labTestValueHelper } from "../helpers/lab_test_value.helper"
+import { medicalClaimHelper } from "../helpers/medical_claim.helper"
 import { patientAllergyHelper } from "../helpers/patient_allergy.helper"
 import { patientHelper } from "../helpers/patient.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
@@ -81,6 +83,12 @@ export const pathKeys = {
     breadcrumb: "Tests",
     helper: labTestValueHelper,
     modelName: "LabTestValue"
+  },
+  "medical-claims": {
+    api: medicalClaimApi,
+    breadcrumb: "Medical Claims",
+    helper: medicalClaimHelper,
+    modelName: "MedicalClaim"
   },
   "patient-allergies": {
     api: patientAllergyApi,
