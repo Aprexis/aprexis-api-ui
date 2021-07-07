@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "./"
 import { AdminRouting } from "./admin"
 import { HealthPlansRouting } from "./health_plans"
-import { LabTestsRouting } from "./lab_tests"
 import { PharmacyChainsRouting } from "./pharmacy_chains"
 import { PharmacyStoresRouting } from "./pharmacy_stores"
 import { UsersRouting } from "./users"
@@ -40,10 +39,6 @@ class MainRouting extends Component {
         <Route
           path={`${reactUrlRoot}/health-plans`}
           render={(props) => (<HealthPlansRouting {...props} {...contextProps} />)}
-        />
-        <Route
-          path={`${reactUrlRoot}/lab-tests`}
-          render={(props) => (<LabTestsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${reactUrlRoot}/pharmacy-chains`}

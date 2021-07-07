@@ -1,7 +1,6 @@
 import {
   apiHelper,
   fieldHelper,
-  medicationHelper,
   pathHelper,
   patientHelper,
   pharmacyStoreHelper,
@@ -9,6 +8,7 @@ import {
   userHelper,
   valueHelper
 } from "./"
+import { medicationHelper } from "./admin"
 import { patientMedications } from "../types"
 
 export const patientMedicationHelper = {

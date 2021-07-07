@@ -1,8 +1,22 @@
-import { API } from "./"
+import { API } from ".."
 
 export const medicationApi = {
+  index,
+  list,
   search,
   show
+}
+
+function index(userCredentials, params, onSuccess, onFailure) {
+  const method = "GET"
+  const path = "/admin/medications"
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function list(userCredentials, params, onSuccess, onFailure) {
+  const method = "GET"
+  const path = "/admin/medications/list"
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 
 function search(userCredentials, params, onSuccess, onFailure) {

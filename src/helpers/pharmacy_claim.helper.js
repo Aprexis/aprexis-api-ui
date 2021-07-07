@@ -1,4 +1,5 @@
-import { fieldHelper, medicationHelper, patientHelper, pharmacyStoreHelper, physicianHelper } from "./"
+import { fieldHelper, patientHelper, pharmacyStoreHelper, physicianHelper } from "./"
+import { medicationHelper } from "./admin"
 import { valueHelper } from "./value.helper"
 
 export const pharmacyClaimHelper = {

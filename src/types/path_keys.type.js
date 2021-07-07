@@ -13,7 +13,7 @@ import {
   pharmacyStoreApi,
   userApi
 } from "../api"
-import { diagnosisCodeApi, diseaseApi, labTestApi } from "../api/admin"
+import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi } from "../api/admin"
 import { billingContractApi, billingContractPharmacyChainApi } from "../api/billing"
 
 // The explicit filenames is necessary because pathKeys is imported into some of the helpers, which causes a circular
@@ -28,6 +28,7 @@ import { interventionHelper } from "../helpers/intervention.helper"
 import { labTestHelper } from "../helpers/admin/lab_test.helper"
 import { labTestValueHelper } from "../helpers/lab_test_value.helper"
 import { medicalClaimHelper } from "../helpers/medical_claim.helper"
+import { medicationHelper } from "../helpers/admin/medication.helper"
 import { patientAllergyHelper } from "../helpers/patient_allergy.helper"
 import { patientHelper } from "../helpers/patient.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
@@ -89,6 +90,12 @@ export const pathKeys = {
     breadcrumb: "Medical Claims",
     helper: medicalClaimHelper,
     modelName: "MedicalClaim"
+  },
+  "medications": {
+    api: medicationApi,
+    breadcrumb: "Medications",
+    helper: medicationHelper,
+    modelName: "Medications"
   },
   "patient-allergies": {
     api: patientAllergyApi,

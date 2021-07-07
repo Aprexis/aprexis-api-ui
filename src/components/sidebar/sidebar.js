@@ -70,6 +70,11 @@ const sidebarDescriptions = {
     entryLabel: "Medical Claim",
     entryName: "medical-claims"
   },
+  "medications": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Medication",
+    entryName: "medications"
+  },
   "patients": {
     entryButtons: [
       { buttonType: "Profile" },
