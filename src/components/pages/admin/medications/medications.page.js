@@ -12,7 +12,12 @@ const headings = [
     method: "label"
   },
   {
-    name: "Superset",
+    name: "Is Superset?",
+    field: "medication_superset",
+    method: "displayMedicationSuperset"
+  },
+  {
+    name: "Superset Label",
     field: "superset.label",
     method: "supersetLabel"
   }

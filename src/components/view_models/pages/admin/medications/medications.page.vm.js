@@ -17,13 +17,13 @@ class MedicationsPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "question_key" }
+    const sorting = { sort: "label" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
   filterDescriptions(filters, filtersOptions) {
     return [
-      filtersHelper.stringFilter("Question Key", "for_question_key")
+      filtersHelper.stringFilter("Medication", "for_medication")
     ]
   }
 
