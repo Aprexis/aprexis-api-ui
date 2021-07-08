@@ -1,4 +1,4 @@
-import { AbstractListPageViewModel } from "../../"
+import { AbstractListPageViewModel } from "../.."
 import { billingContractPharmacyChainApi } from "../../../../../api/billing"
 import { filtersHelper, pageHelper, pathHelper } from "../../../../../helpers"
 
@@ -21,7 +21,7 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
 
   defaultParameters() {
     const filters = { for_active: true }
-    const sorting = { sort: "name" }
+    const sorting = { sort: "pharmacy.name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 

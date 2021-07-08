@@ -15,10 +15,16 @@ const sidebarDescriptions = {
     entryLabel: "Contract Pharmacy Chain",
     entryName: "billing-contract-pharmacies"
   },
+  "billing-contract-pharmacy-stores": {
+    entryButtongs: [{ buttonType: "Profile" }],
+    entryLabel: "Contract Pharmacy Store",
+    entryName: "billing-contract-pharmacy-stores"
+  },
   "billing-contracts": {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Pharmacy Chains", buttonType: "List", listName: "billing-contract-pharmacies" },
+      { buttonLabel: "Pharmacy Stores", buttonType: "List", listName: "billing-contract-pharmacy-stores" }
     ],
     entryLabel: "Contract",
     entryName: "billing-contracts"
