@@ -1,12 +1,11 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../../"
-//import { BillingContractPharmacyStoreProfilePage } from "../../../pages/billing/pharmacy_stores"
-//import { pathHelper, valueHelper } from "../../../../helpers"
+import { BillingContractPharmacyStoreProfilePage } from "../../../pages/billing/pharmacy_stores"
+import { pathHelper, valueHelper } from "../../../../helpers"
 
 class BillingContractPharmacyStoreRouting extends Component {
   render() {
-    /*
     const { context, currentAdminUser, currentUser } = this.props
     const contextProps = {
       context,
@@ -16,20 +15,17 @@ class BillingContractPharmacyStoreRouting extends Component {
     }
     const billingContractPharmacyStorePrefix = pathHelper.singularPrefix(
       window.location,
-      "billing-contract-pharmacies",
-      ":billing_contract_pharmacy_id"
+      "billing-contract-pharmacy-stores",
+      ":billing_contract_pharmacy_store_id"
     )
-    */
 
     return (
       <Switch>
-        {/*
         <Route
           exact
           path={`${billingContractPharmacyStorePrefix}/profile`}
           render={(props) => (<BillingContractPharmacyStoreProfilePage {...props} {...contextProps} />)}
         />
-        */}
         <Route component={NoMatch} />
       </Switch>
     )

@@ -1,7 +1,9 @@
 import { API } from "../"
 
 export const billingContractPharmacyStoreApi = {
-  listForBillingContract
+  listForBillingContract,
+  profile,
+  show
 }
 
 function listForBillingContract(userCredentials, billing_contract_id, params, onSuccess, onFailure) {
@@ -14,3 +16,22 @@ function listForBillingContract(userCredentials, billing_contract_id, params, on
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 
+function profile(userCredentials, id, onSuccess, onFailure) {
+  if (!API.validateId("contract pharmacy store ID", id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/billing/contract_pharmacy_stores/${id}/profile`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
+
+function show(userCredentials, id, onSuccess, onFailure) {
+  if (!API.validateId("contract pharmacy store ID", id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/billing/contract_pharmacy_stores/${id}`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
