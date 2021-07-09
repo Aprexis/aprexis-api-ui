@@ -4,8 +4,10 @@ export * from "./field.helper"
 export * from "./alert.helper"
 export * from "./api.helper"
 
+// These should appear after the base helpers.
 export * from "./address.helper"
 export * from "./answer.helper"
+export * from "./caregiver.helper"
 export * from "./contact.helper"
 export * from "./context.helper"
 export * from "./date.helper"

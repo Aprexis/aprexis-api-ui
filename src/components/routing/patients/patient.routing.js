@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
+import { CaregiversRouting } from "../caregivers"
 import { InterventionsRouting } from "../interventions"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { MedicalClaimsRouting } from "../medical_claims"
@@ -24,6 +25,10 @@ class PatientRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          path={`${patientPrefix}/caregivers`}
+          render={(props) => (<CaregiversRouting {...props} {...contextProps} />)}
+        />
         <Route
           path={`${patientPrefix}/interventions`}
           render={(props) => (<InterventionsRouting {...props} {...contextProps} />)}

@@ -29,6 +29,13 @@ const sidebarDescriptions = {
     entryLabel: "Contract",
     entryName: "billing-contracts"
   },
+  "caregivers": {
+    entryButtons: [
+      { buttonType: "Profile" },
+    ],
+    entryLabel: "Caregriver",
+    entryName: "caregivers"
+  },
   "diagnosis-codes": {
     entryButtons: [
       { buttonType: "Profile" }
@@ -85,6 +92,7 @@ const sidebarDescriptions = {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Allergies", buttonType: "List", listName: "patient-allergies" },
+      { buttonLabel: "Caregivers", buttonType: "List", listName: "caregivers" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },

@@ -1,5 +1,6 @@
 import {
   answerApi,
+  caregiverApi,
   healthPlanApi,
   interventionApi,
   labTestValueApi,
@@ -26,6 +27,7 @@ import { answerHelper } from "../helpers/answer.helper"
 import { billingContractHelper } from "../helpers/billing/billing_contract.helper"
 import { billingContractPharmacyChainHelper } from "../helpers/billing/billing_contract_pharmacy_chain.helper"
 import { billingContractPharmacyStoreHelper } from "../helpers/billing/billing_contract_pharmacy_store.helper"
+import { caregiverHelper } from "../helpers/caregiver.helper"
 import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
 import { diseaseHelper } from "../helpers/admin/disease.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
@@ -63,6 +65,11 @@ export const pathKeys = {
     api: billingContractPharmacyStoreApi,
     helper: billingContractPharmacyStoreHelper,
     modelName: "BillingContractPharmacyStore"
+  },
+  "caregivers": {
+    api: caregiverApi,
+    helper: caregiverHelper,
+    modelName: "Caregiver"
   },
   "diagnosis-codes": {
     api: diagnosisCodeApi,

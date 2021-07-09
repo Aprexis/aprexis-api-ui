@@ -3,6 +3,7 @@ export * from "./api"
 // These should all follow the base API export.
 export * from "./answer.api"
 export * from "./authentication.api"
+export * from "./caregiver.api"
 export * from "./health_plan.api"
 export * from "./intervention.api"
 export * from "./lab_test_value.api"
