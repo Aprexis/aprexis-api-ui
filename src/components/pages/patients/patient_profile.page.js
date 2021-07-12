@@ -25,7 +25,7 @@ const PatientConfiguration = ({ patient }) => {
   )
 }
 
-const PatientProfile = ({ currentUser, onEditProfile, patient }) => {
+const PatientProfile = ({ currentUser, onEditProfile, patient, requiresPersonNumber }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
@@ -42,7 +42,7 @@ const PatientProfile = ({ currentUser, onEditProfile, patient }) => {
         <CardBody>
           {fieldHelper.display("Member Number", patientHelper.memberNumber(patient))}
           {
-            patientHelper.requiresPersonNumber(patient) &&
+            requiresPersonNumber() &&
             fieldHelper.display("Person Number", patientHelper.personNumber(patient))
           }
           {fieldHelper.dateDisplay("Coverage Effective Date", patientHelper.coverageEffectiveDate(patient))}
@@ -96,7 +96,7 @@ const PatientUser = ({ patient }) => {
   )
 }
 
-const PatientDisplay = ({ currentUser, onEditProfile, patient }) => {
+const PatientDisplay = ({ currentUser, onEditProfile, patient, requiresPersonNumber }) => {
   if (!valueHelper.isValue(patient)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -104,7 +104,12 @@ const PatientDisplay = ({ currentUser, onEditProfile, patient }) => {
   return (
     <React.Fragment>
       <Row>
-        <PatientProfile currentUser={currentUser} onEditProfile={onEditProfile} patient={patient} />
+        <PatientProfile
+          currentUser={currentUser}
+          onEditProfile={onEditProfile}
+          patient={patient}
+          requiresPersonNumber={requiresPersonNumber}
+        />
         <PatientSubscriber patient={patient} />
       </Row>
 
@@ -150,6 +155,7 @@ class PatientProfilePage extends Component {
             currentUser={this.props.currentUser}
             onEditProfile={this.vm.editProfileModal}
             patient={patient}
+            requiresPersonNumber={this.vm.requiresPersonNumber}
           />
         </Col>
       </Container>

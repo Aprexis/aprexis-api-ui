@@ -1,6 +1,6 @@
 import { AbstractModalViewModel } from "../"
 import { patientApi } from "../../../../api"
-import { patientHelper } from "../../../../helpers"
+import { contextHelper, healthPlanHelper, pathHelper, patientHelper, valueHelper } from "../../../../helpers"
 
 class PatientProfileModalViewModel extends AbstractModalViewModel {
   constructor(props) {
@@ -11,6 +11,7 @@ class PatientProfileModalViewModel extends AbstractModalViewModel {
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
     this.modelName = this.modelName.bind(this)
+    this.requiresPersonNumber = this.requiresPersonNumber.bind(this)
   }
 
   api() {
@@ -40,6 +41,15 @@ class PatientProfileModalViewModel extends AbstractModalViewModel {
 
   modelName() {
     return "patient"
+  }
+
+  requiresPersonNumber() {
+    if (!pathHelper.isSingular(this.pathEntries(), "health-plans")) {
+      return false
+    }
+
+    const healthPlan = contextHelper.currentContext()['health-plans']
+    return valueHelper.isSet(healthPlanHelper.requiresPersonNumber(healthPlan))
   }
 }
 

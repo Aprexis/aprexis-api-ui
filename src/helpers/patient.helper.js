@@ -5,6 +5,7 @@ import {
   fieldHelper,
   healthPlanHelper,
   nameHelper,
+  pathHelper,
   userHelper,
   valueHelper
 } from "./"
@@ -13,6 +14,7 @@ import { contactMethods } from "../types"
 export const patientHelper = {
   buildChanged,
   buildNewChanged,
+  canBeCreated,
   canEdit,
   canModifyField,
   cognnitivelyImpaired,
@@ -41,7 +43,6 @@ export const patientHelper = {
   preferredContactMethod,
   primaryCareProviderNpi,
   race,
-  requiresPersonNumber,
   subscriberName,
   toBreadcrumb,
   toJSON
@@ -104,6 +105,19 @@ function buildNewChanged(patient) {
   return {
     ...patient
   }
+}
+
+function canBeCreated(currentUser, pathEntries, context) {
+  if (!userHelper.canCreatePatient(currentUser, pathEntries)) {
+    return false
+  }
+
+  if (!pathHelper.isSingular(pathEntries, "health-plans")) {
+    return false
+  }
+
+  const healthPlan = context['health-plans']
+  return valueHelper.isSet(healthPlanHelper.allowManuallyAddedPatients(healthPlan))
 }
 
 function canEdit(user, patient, healthPlan, pharmacyStores) {
@@ -286,14 +300,6 @@ function primaryCareProviderNpi(patient) {
 
 function race(patient) {
   return fieldHelper.getField(patient, "race")
-}
-
-function requiresPersonNumber(patient) {
-  if (!valueHelper.isValue(patient)) {
-    return false
-  }
-
-  return valueHelper.isSet(patient.requires_person_number)
 }
 
 function subscriberName(patient) {

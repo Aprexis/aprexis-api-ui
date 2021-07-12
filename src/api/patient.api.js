@@ -2,6 +2,7 @@ import { API } from "./"
 import { patientHelper } from "../helpers"
 
 export const patientApi = {
+  buildNew,
   create,
   edit,
   list,
@@ -16,6 +17,24 @@ function toJSON(patient) {
   return {
     patient: patientHelper.toJSON(patient)
   }
+}
+
+function buildNew(userCredentials, health_plan_id, onSuccess, onFailure) {
+  if (!API.validateId("health plan ID", health_plan_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/health_plans/${health_plan_id}/patients/new`
+  API.perform(
+    method,
+    path,
+    "",
+    userCredentials,
+    undefined,
+    onSuccess,
+    onFailure
+  )
 }
 
 function create(userCredentials, patient, onSuccess, onFailure) {

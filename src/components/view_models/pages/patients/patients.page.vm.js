@@ -19,6 +19,8 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.canCreate = this.canCreate.bind(this)
+    this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
@@ -27,6 +29,27 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
+  }
+
+  canCreate() {
+    return patientHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+  }
+
+  createModal(event) {
+    const pathEntries = this.pathEntries()
+    const healthPlanId = pathHelper.id(pathEntries, "health-plans")
+
+    patientApi.buildNew(
+      userCredentialsHelper.get(),
+      healthPlanId,
+      (patient) => {
+        this.props.launchModal(
+          "patient-profile",
+          { operation: "create", onUpdateView: this.refreshData, patient }
+        )
+      },
+      this.onError
+    )
   }
 
   defaultParameters() {

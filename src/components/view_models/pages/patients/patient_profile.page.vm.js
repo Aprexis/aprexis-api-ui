@@ -1,6 +1,13 @@
 import { AbstractPageViewModel } from "../"
 import { patientApi } from "../../../../api"
-import { patientHelper, userCredentialsHelper } from "../../../../helpers"
+import {
+  contextHelper,
+  healthPlanHelper,
+  pathHelper,
+  patientHelper,
+  userCredentialsHelper,
+  valueHelper
+} from "../../../../helpers"
 
 class PatientProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -10,6 +17,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
     this.fetchPatient = this.fetchPatient.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
+    this.requiresPersonNumber = this.requiresPersonNumber.bind(this)
   }
 
   editProfileModal(patientToEdit) {
@@ -49,6 +57,15 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
 
   refreshData() {
     this.fetchPatient(this.redrawView)
+  }
+
+  requiresPersonNumber() {
+    if (!pathHelper.isSingular(this.pathEntries(), "health-plans")) {
+      return false
+    }
+
+    const healthPlan = contextHelper.currentContext()['health-plans']
+    return valueHelper.isSet(healthPlanHelper.requiresPersonNumber(healthPlan))
   }
 }
 

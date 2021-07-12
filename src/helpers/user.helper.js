@@ -7,6 +7,7 @@ import { userRoles } from "../types"
 import { contactHelper } from "./contact.helper"
 
 export const userHelper = {
+  canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
   canCreatePatientNote,
@@ -60,6 +61,14 @@ function canCreateForPharmacyStore(user, pathEntries) {
   const { pharmacyStores } = user
   const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
   return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
+}
+
+function canCreatePatient(user, pathEntries) {
+  if (userHelper.hasRole(user, "aprexis_admin")) {
+    return true
+  }
+
+  return canCreateForHealthPlan(user, pathEntries)
 }
 
 function canCreatePatientAllergy(user, pathEntries) {

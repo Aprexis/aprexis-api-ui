@@ -96,7 +96,7 @@ class PatientProfileModal extends Component {
                     model={patient}
                   />
                   {
-                    patientHelper.requiresPersonNumber(patient) &&
+                    this.vm.requiresPersonNumber() &&
                     <TextFieldEditor
                       changeField={this.vm.changeField}
                       fieldName="person_number"
