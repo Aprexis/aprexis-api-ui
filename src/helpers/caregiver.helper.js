@@ -7,7 +7,8 @@ export const caregiverHelper = {
   name,
   patient,
   patientName,
-  relationship
+  relationship,
+  usePatientAddress
 }
 
 function canEdit(currentUser, caregiver) {
@@ -36,4 +37,8 @@ function patientName(caregiver) {
 
 function relationship(caregiver) {
   return fieldHelper.getField(caregiver, "relationship")
+}
+
+function usePatientAddress(caregiver) {
+  return fieldHelper.getField(caregiver, "use_patient_address")
 }
