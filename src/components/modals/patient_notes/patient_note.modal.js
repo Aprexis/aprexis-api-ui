@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Label, Row } from "reactstrap"
 import { TextFieldEditor } from "../../shared"
-import { PatientNoteModalViewModel } from "../../view_models/modals/patients"
+import { PatientNoteModalViewModel } from "../../view_models/modals/patient_notes"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { dateHelper, patientHelper, patientNoteHelper, pharmacyStoreHelper, valueHelper } from "../../../helpers"
 

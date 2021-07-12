@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { PatientMedicationsPageViewModel } from "../../view_models/pages/patients"
+import { PatientMedicationsPageViewModel } from "../../view_models/pages/patient_medications"
 import { ListView } from "../../../containers"
 import { patientMedicationHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"

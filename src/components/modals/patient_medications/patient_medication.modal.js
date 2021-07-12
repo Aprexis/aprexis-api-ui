@@ -9,7 +9,7 @@ import {
   SelectPhysician,
   TextFieldEditor
 } from "../../shared"
-import { PatientMedicationModalViewModel } from "../../view_models/modals/patients"
+import { PatientMedicationModalViewModel } from "../../view_models/modals/patient_medications"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, patientMedicationHelper, pathHelper, valueHelper } from "../../../helpers"
 import { patientMedications } from "../../../types"

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { NumberFieldEditor, SelectAllergy, SelectFieldEditor, TextFieldEditor } from "../../shared"
-import { PatientAllergyModalViewModel } from "../../view_models/modals/patients"
+import { PatientAllergyModalViewModel } from "../../view_models/modals/patient_allergies"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
 import { allergyCategories } from "../../../types"

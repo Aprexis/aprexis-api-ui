@@ -9,7 +9,9 @@ export const contactHelper = {
   mobilePhone,
   name,
   person,
-  phone
+  phone,
+  phoneExtension,
+  phoneWithExtension
 }
 
 const contactKeys = [
@@ -20,7 +22,8 @@ const contactKeys = [
   "mobile_phone",
   "contact_name",
   "contact_person",
-  "phone"
+  "phone",
+  "phone_extension"
 ]
 
 function email(contact, prefix) {
@@ -68,3 +71,17 @@ function phone(contact, prefix) {
   return fieldHelper.getField(contact, "phone", prefix)
 }
 
+function phoneExtension(contact, prefix) {
+  return fieldHelper.getField(contact, "phone_extension", prefix)
+}
+
+function phoneWithExtension(contact, prefix) {
+  const phone = contactHelper.phone(contact, prefix)
+  const extension = contactHelper.phoneExtension(contact, prefix)
+
+  if (!valueHelper.isStringValue(extension)) {
+    return phone
+  }
+
+  return `${phone} Ext. ${extension}`
+}

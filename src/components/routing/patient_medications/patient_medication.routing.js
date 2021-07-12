@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
-//import { PatientMedicationProfilePage } from "../../pages/patients"
+//import { PatientMedicationProfilePage } from "../../pages/patient_medications"
 //import { pathHelper, valueHelper } from "../../../helpers"
 
 class PatientMedicationRouting extends Component {

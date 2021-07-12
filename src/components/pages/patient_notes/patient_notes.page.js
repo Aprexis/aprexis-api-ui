@@ -1,45 +1,48 @@
 import React, { Component } from "react"
-import { PatientAllergiesPageViewModel } from "../../view_models/pages/patients"
+import { PatientNotesPageViewModel } from "../../view_models/pages/patient_notes"
 import { ListView } from "../../../containers"
-import { patientAllergyHelper, valueHelper } from "../../../helpers"
+import { patientNoteHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
-    name: "Allergy Name",
-    field: "allergy_name",
-    method: "allergyName"
+    name: "Date/Time",
+    field: "updated_at",
+    method: "displayDateTime"
   },
   {
-    name: "Allergy Type",
-    field: "allergy_type",
-    method: "allergyType"
+    name: "Pharmacy Store",
+    field: "pharmacy_store.name,pharmacy_store.number,pharmacy_store.id",
+    unless: "pharmacy-stores",
+    method: "pharmacyStoreIdentification"
   },
   {
-    name: "Year",
-    field: "year",
-    method: "year"
+    name: "Note",
+    field: "note",
+    method: "note",
+    maximum: 24
   }
 ]
 
-class PatientAllergiesPage extends Component {
+class PatientNotesPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new PatientAllergiesPageViewModel(
+    this.vm = new PatientNotesPageViewModel(
       {
         ...props,
         view: this
       }
     )
 
+    this.nav = this.nav.bind(this)
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
-    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
+    this.vm.props = { ...this.vm.props, ...this.props }
     this.vm.loadData()
   }
 
@@ -51,7 +54,7 @@ class PatientAllergiesPage extends Component {
       {
         filters,
         headings,
-        listName: "patient-allergies",
+        listName: "patient-notes",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -60,7 +63,7 @@ class PatientAllergiesPage extends Component {
     )
   }
 
-  generateTableRow(patientAllergy) {
+  generateTableRow(patientNote) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -69,11 +72,11 @@ class PatientAllergiesPage extends Component {
         currentUser: this.props.currentUser,
         editTableItem: this.vm.editModal,
         filters,
-        gotoTableItemProfile: this.vm.gotoPatientAllergyProfile,
+        gotoTableItemProfile: this.vm.gotoPatientNoteProfile,
         headings,
-        helper: patientAllergyHelper,
+        helper: patientNoteHelper,
         pathEntries,
-        tableItem: patientAllergy
+        tableItem: patientNote
       }
     )
   }
@@ -88,7 +91,7 @@ class PatientAllergiesPage extends Component {
         <button
           className="btn btn-sm btn-outline-secondary"
           onClick={this.vm.createModal}>
-          <strong>+</strong> Add Patient Allergy
+          <strong>+</strong> Add Note
         </button>
       </nav>
     )
@@ -109,9 +112,9 @@ class PatientAllergiesPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.patientAllergies}
-        listLabel="Patient Allergy"
-        listPluralLabel="Patient Allergies"
+        list={this.state.patientNotes}
+        listLabel="Note"
+        listPluralLabel="Notes"
         modal={this.state.modal}
         nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
@@ -121,16 +124,17 @@ class PatientAllergiesPage extends Component {
         onRefreshData={this.vm.refreshData}
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
+        onUpdateView={this.vm.loadData}
         page={this.state.page}
-        title="Patient Allergies"
+        title="Notes"
       />
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    this.vm.props = { ...this.vm.props, ...nextProps }
+  shouldComponentUpdate() {
+    this.vm.props = { ...this.vm.props, ...this.props }
     return true
   }
 }
 
-export { PatientAllergiesPage }
+export { PatientNotesPage }

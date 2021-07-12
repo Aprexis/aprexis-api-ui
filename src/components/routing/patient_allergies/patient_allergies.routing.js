@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { PatientAllergyRouting } from "./"
 import { NoMatch } from "../"
-import { PatientAllergiesPage } from "../../pages/patients"
+import { PatientAllergiesPage } from "../../pages/patient_allergies"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class PatientAllergiesRouting extends Component {

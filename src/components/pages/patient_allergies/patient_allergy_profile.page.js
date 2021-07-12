@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
-import { PatientAllergyProfilePageViewModel } from "../../view_models/pages/patients"
+import { PatientAllergyProfilePageViewModel } from "../../view_models/pages/patient_allergies"
 import { fieldHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
 
 const PatientAllergyProfile = ({ currentUser, onEditProfile, patientAllergy }) => {

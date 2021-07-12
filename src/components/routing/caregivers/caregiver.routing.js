@@ -1,12 +1,11 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
-//import { CaregiverProfilePage } from "../../pages/caregivers"
-//import { pathHelper, valueHelper } from "../../../helpers"
+import { CaregiverProfilePage } from "../../pages/caregivers"
+import { pathHelper, valueHelper } from "../../../helpers"
 
 class CaregiverRouting extends Component {
   render() {
-    /*
     const { context, currentAdminUser, currentUser } = this.props
     const contextProps = {
       context,
@@ -15,17 +14,14 @@ class CaregiverRouting extends Component {
       ...valueHelper.importantProps(this.props)
     }
     const medicalClaimPrefix = pathHelper.singularPrefix(window.location, "caregivers", ":caregiver_id")
-    */
 
     return (
       <Switch>
-        {/*
         <Route
           exact
           path={`${medicalClaimPrefix}/profile`}
           render={(props) => (<CaregiverProfilePage {...props} {...contextProps} />)}
         />
-        */}
         <Route component={NoMatch} />
       </Switch>
     )
