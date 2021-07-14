@@ -8,6 +8,7 @@ import { MedicalClaimsRouting } from "../medical_claims"
 import { PatientAllergiesRouting } from "../patient_allergies"
 import { PatientMedicationsRouting } from "../patient_medications"
 import { PatientNotesRouting } from "../patient_notes"
+import { PatientSupplementsRouting } from "../patient_supplements"
 import { PatientProfilePage } from "../../pages/patients"
 import { PharmacyClaimsRouting } from "../pharmacy_claims"
 import { pathHelper, valueHelper } from "../../../helpers"
@@ -52,6 +53,10 @@ class PatientRouting extends Component {
         <Route
           path={`${patientPrefix}/patient-notes`}
           render={(props) => (<PatientNotesRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${patientPrefix}/patient-supplements`}
+          render={(props) => (<PatientSupplementsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${patientPrefix}/pharmacy-claims`}

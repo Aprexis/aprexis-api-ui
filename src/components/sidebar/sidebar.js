@@ -98,7 +98,8 @@ const sidebarDescriptions = {
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },
       { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" },
       { buttonLabel: "Pharmacy Claims", buttonType: "List", listName: "pharmacy-claims" },
-      { buttonLabel: "Medical Claims", buttonType: "List", listName: "medical-claims" }
+      { buttonLabel: "Medical Claims", buttonType: "List", listName: "medical-claims" },
+      { buttonLabel: "Supplements", buttonType: "List", listName: "patient-supplements" }
     ],
     entryLabel: "Patient",
     entryName: "patients"
@@ -117,6 +118,11 @@ const sidebarDescriptions = {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Note",
     entryName: "patient-notes"
+  },
+  "patient-supplements": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Supplement",
+    entryName: "patient-supplements"
   },
   "pharmacy-chains": {
     entryButtons: [

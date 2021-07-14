@@ -6,6 +6,7 @@ export const physicianHelper = {
   lastName,
   middleName,
   name,
+  nameAndNpi,
   npi,
   state
 }
@@ -28,6 +29,10 @@ function middleName(physician, prefix = "") {
 
 function name(physician, prefix = "") {
   return nameHelper.name(physician, "physician", prefix)
+}
+
+function nameAndNpi(physician) {
+  return `${physicianHelper.name(physician)} [${physicianHelper.npi(physician)}]`
 }
 
 function npi(physician) {

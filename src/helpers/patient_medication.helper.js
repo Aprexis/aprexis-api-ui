@@ -40,6 +40,7 @@ export const patientMedicationHelper = {
   physician,
   physicianId,
   physicianName,
+  physicianNameAndNpi,
   startDate,
   strength,
   strengthUnits,
@@ -298,6 +299,10 @@ function physicianId(patientMedication) {
 
 function physicianName(patientMedication) {
   return physicianHelper.name(patientMedicationHelper.physician(patientMedication))
+}
+
+function physicianNameAndNpi(patientMedication) {
+  return physicianHelper.nameAndNpi(patientMedicationHelper.physician(patientMedication))
 }
 
 function startDate(patientMedication) {

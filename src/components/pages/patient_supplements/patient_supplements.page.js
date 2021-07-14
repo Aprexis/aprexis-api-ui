@@ -1,34 +1,19 @@
 import React, { Component } from "react"
-import { PatientMedicationsPageViewModel } from "../../view_models/pages/patient_medications"
+import { PatientSupplementsPageViewModel } from "../../view_models/pages/patient_supplements"
 import { ListView } from "../../../containers"
-import { patientMedicationHelper, valueHelper } from "../../../helpers"
+import { patientSupplementHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
-    name: "Label",
-    field: "medication.label",
-    method: "medicationLabel"
+    name: "Name",
+    field: "name",
+    method: "name"
   },
   {
-    name: "Type",
-    field: "type",
-    method: "displayType"
-  },
-  {
-    name: "Strength",
-    field: "strength_units,strength",
-    method: "displayStrength"
-  },
-  {
-    name: "Days Supply",
-    field: "days_supply",
-    method: "daysSupply"
-  },
-  {
-    name: "Filled At",
-    field: "filled_at",
-    method: "filledAt"
+    name: "Start Date",
+    field: "start_date",
+    method: "startDate"
   },
   {
     name: "Patient",
@@ -40,21 +25,15 @@ const headings = [
     name: "Physician",
     field: "physician.last_name,physician.first_name,physician.middle_name,physician.npi",
     method: "physicianNameAndNpi"
-  },
-  {
-    name: "Pharmacy Store",
-    field: "pharmacy_store.name",
-    method: "pharmacyStoreName",
-    unless: "pharmacy-stores"
   }
 ]
 
-class PatientMedicationsPage extends Component {
+class PatientSupplementsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new PatientMedicationsPageViewModel(
+    this.vm = new PatientSupplementsPageViewModel(
       {
         ...props,
         view: this
@@ -79,7 +58,7 @@ class PatientMedicationsPage extends Component {
       {
         filters,
         headings,
-        listName: "patient-medications",
+        listName: "patient-supplements",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -88,7 +67,7 @@ class PatientMedicationsPage extends Component {
     )
   }
 
-  generateTableRow(patientMedication) {
+  generateTableRow(patientSupplement) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -97,11 +76,11 @@ class PatientMedicationsPage extends Component {
         currentUser: this.props.currentUser,
         editTableItem: this.vm.editModal,
         filters,
-        gotoTableItemProfile: this.vm.gotoPatientMedicationProfile,
+        gotoTableItemProfile: this.vm.gotoPatientSupplementProfile,
         headings,
-        helper: patientMedicationHelper,
+        helper: patientSupplementHelper,
         pathEntries,
-        tableItem: patientMedication
+        tableItem: patientSupplement
       }
     )
   }
@@ -116,7 +95,7 @@ class PatientMedicationsPage extends Component {
         <button
           className="btn btn-sm btn-outline-secondary"
           onClick={this.vm.createModal}>
-          <strong>+</strong> Add Medication
+          <strong>+</strong> Add Supplement
         </button>
       </nav>
     )
@@ -137,9 +116,9 @@ class PatientMedicationsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.patientMedications}
-        listLabel="Medication"
-        listPluralLabel="Medications"
+        list={this.state.patientSupplements}
+        listLabel="Supplement"
+        listPluralLabel="Supplements"
         modal={this.state.modal}
         nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
@@ -151,7 +130,7 @@ class PatientMedicationsPage extends Component {
         onUpdateFilters={this.vm.updateFilters}
         onUpdateView={this.vm.loadData}
         page={this.state.page}
-        title="Medications"
+        title="Supplements"
       />
     )
   }
@@ -162,4 +141,4 @@ class PatientMedicationsPage extends Component {
   }
 }
 
-export { PatientMedicationsPage }
+export { PatientSupplementsPage }
