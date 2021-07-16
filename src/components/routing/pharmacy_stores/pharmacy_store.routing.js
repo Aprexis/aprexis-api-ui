@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
+import { BillingClaimsRouting } from "../billing/claims"
 import { InterventionsRouting } from "../interventions"
 import { PatientsRouting } from "../patients"
 import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores"
@@ -19,6 +20,10 @@ class PharmacyStoreRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          path={`${pharmacyStorePrefix}/billing-claims`}
+          render={(props) => (<BillingClaimsRouting {...props} {...contextProps} />)}
+        />
         <Route
           path={`${pharmacyStorePrefix}/interventions`}
           render={(props) => (<InterventionsRouting {...props} {...contextProps} />)}

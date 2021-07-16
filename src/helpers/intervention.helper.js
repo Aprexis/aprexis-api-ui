@@ -29,6 +29,7 @@ export const interventionHelper = {
   dryRunProgramPatientAssignmentId,
   faxBypassed,
   healthPlanName,
+  identification,
   medicarePaymentAmount,
   medicarePaymentStatus,
   memberNumber,
@@ -130,6 +131,10 @@ function faxBypassed(intervention) {
 
 function healthPlanName(intervention) {
   return healthPlanHelper.name(fieldHelper.getField(intervention, "health_plan"))
+}
+
+function identification(intervention) {
+  return `${interventionHelper.programName(intervention)} ${interventionHelper.dateOfService(intervention)}`
 }
 
 function medicarePaymentAmount(intervention) {

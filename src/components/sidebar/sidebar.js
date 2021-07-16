@@ -10,6 +10,11 @@ const sidebarDescriptions = {
     entryLabel: "Answer",
     entryName: "answers"
   },
+  "billing-claims": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Claim",
+    entryName: "billing-claims"
+  },
   "billing-contract-pharmacies": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Contract Pharmacy Chain",
@@ -140,6 +145,7 @@ const sidebarDescriptions = {
   "pharmacy-stores": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Claims", buttonType: "List", listName: "billing-claims" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" }
     ],
