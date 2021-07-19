@@ -19,6 +19,7 @@ export const userHelper = {
   email,
   firstName,
   forHealthPlan,
+  forPharmacyStore,
   fullName,
   getCurrentUser,
   hasRole,
@@ -133,6 +134,12 @@ function forHealthPlan(user, healthPlanId) {
   }
 
   return valueHelper.isValue(healthPlans.find((healthPlan) => healthPlan.id == healthPlanId))
+}
+
+function forPharmacyStore(user, pharmacyStoreId) {
+  const pharmacyStores = userHelper.pharmacyStores(user)
+
+  return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
 }
 
 function fullName(user) {

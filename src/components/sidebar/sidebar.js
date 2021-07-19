@@ -25,11 +25,17 @@ const sidebarDescriptions = {
     entryLabel: "Contract Pharmacy Store",
     entryName: "billing-contract-pharmacy-stores"
   },
+  "billing-contract-terms": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Contract Term",
+    entryName: "billing-contract-terms"
+  },
   "billing-contracts": {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Pharmacy Chains", buttonType: "List", listName: "billing-contract-pharmacies" },
-      { buttonLabel: "Pharmacy Stores", buttonType: "List", listName: "billing-contract-pharmacy-stores" }
+      { buttonLabel: "Pharmacy Stores", buttonType: "List", listName: "billing-contract-pharmacy-stores" },
+      { buttonLabel: "Terms", buttonType: "List", listName: "billing-contract-terms" }
     ],
     entryLabel: "Contract",
     entryName: "billing-contracts"
