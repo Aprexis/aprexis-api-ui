@@ -22,7 +22,8 @@ function active(billingContract) {
   if (!valueHelper.isValue(active) || active == "") {
     const stopDateValue = billingContractHelper.stopDate(billingContract)
     if (!dateHelper.isValidDate(stopDateValue)) {
-      return false
+      // Assume that no stop date is the same as being active.
+      return true
     }
 
     const stopDate = dateHelper.makeDate(stopDateValue)
