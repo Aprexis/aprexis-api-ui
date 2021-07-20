@@ -5,24 +5,26 @@ import 'react-app-polyfill/stable'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
-import { Router } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
 import App from './components/app'
-import { history } from './helpers'
+import { history, valueHelper } from './helpers'
 import reportWebVitals from './reportWebVitals';
 import './styles/styles.scss'
 
 import 'core-js/es/map'
 import 'core-js/es/set'
 
+const BASE_NAME = valueHelper.isStringValue(process.env.REACT_APP_APREXIS_API) ? process.env.REACT_APP_APREXIS_API : "/"
+
 ReactDOM.render((
-  <Router history={history}>
+  <BrowserRouter history={history} basename={BASE_NAME}>
     <LastLocationProvider>
       <CookiesProvider>
         <App />
       </CookiesProvider>
     </LastLocationProvider>
-  </Router>
+  </BrowserRouter>
 ),
   document.getElementById('root'))
 
