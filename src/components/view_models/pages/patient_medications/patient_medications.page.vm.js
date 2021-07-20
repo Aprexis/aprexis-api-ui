@@ -62,14 +62,6 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
   defaultParameters() {
     const filters = {}
     const sorting = { sort: "filled_at-,medication.label" }
-    //const pathEntries = this.pathEntries()
-    /*
-    const patientId = pathHelper.id(pathEntries, "patients")
-    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
-    if (valueHelper.isValue(patientId) && valueHelper.isNumberValue(pharmacyStoreId)) {
-      filters.for_pharmacy_store = pharmacyStoreId
-    }
-    */
 
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
@@ -150,7 +142,6 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
       )
     }
 
-    /*
     if (!valueHelper.isValue(pharmacyStore)) {
       // Limit by pharmacy if in path
       filterDescriptions.push(
@@ -174,7 +165,6 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
         )
       )
     }
-    */
 
     return filterDescriptions
   }

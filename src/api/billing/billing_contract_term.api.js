@@ -10,6 +10,6 @@ function listForBillingContract(userCredentials, billing_contract_id, params, on
   }
 
   const method = "GET"
-  const path = `/billing/contracts/${billing_contract_id}/terms/list`
+  const path = `/billing/contracts/${billing_contract_id}/contract_terms/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
