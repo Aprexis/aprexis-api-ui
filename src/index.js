@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
 import App from './components/app'
-import { history, valueHelper } from './helpers'
+import { history } from './helpers'
 import reportWebVitals from './reportWebVitals';
 import './styles/styles.scss'
 
