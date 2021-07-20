@@ -5,7 +5,7 @@ import 'react-app-polyfill/stable'
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
 import App from './components/app'
 import { history } from './helpers'
@@ -16,13 +16,13 @@ import 'core-js/es/map'
 import 'core-js/es/set'
 
 ReactDOM.render((
-  <BrowserRouter history={history}>
+  <Router history={history}>
     <LastLocationProvider>
       <CookiesProvider>
         <App />
       </CookiesProvider>
     </LastLocationProvider>
-  </BrowserRouter>
+  </Router>
 ),
   document.getElementById('root'))
 
