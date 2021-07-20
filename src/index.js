@@ -15,10 +15,8 @@ import './styles/styles.scss'
 import 'core-js/es/map'
 import 'core-js/es/set'
 
-const BASE_NAME = valueHelper.isStringValue(process.env.REACT_APP_APREXIS_API) ? process.env.REACT_APP_APREXIS_API : "/"
-
 ReactDOM.render((
-  <BrowserRouter history={history} basename={BASE_NAME}>
+  <BrowserRouter history={history}>
     <LastLocationProvider>
       <CookiesProvider>
         <App />

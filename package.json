@@ -48,8 +48,6 @@
     "dist-ui": "yarn cp-ui-dist && yarn fix-dist && yarn fix-ui",
     "build-ui": "react-scripts build && rm -rf dist && mkdir dist && mv build dist/ui && yarn dist-ui",
     "build:staging": "REACT_APP_APREXIS_API=https://staging.aprexis.com/api yarn build-ui",
-    "build-ui-basename": "react-scripts build && rm -rf dist && mv build dist",
-    "build:staging-basename": "REACT_APP_APREXIS_API=https://staging.aprexis.com/api REACT_APP_BASENAME=/ui yarn build-ui-basename",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

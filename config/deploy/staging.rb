@@ -10,7 +10,6 @@ namespace :deploy do
     on roles fetch(:yarn_roles) do
       within fetch(:yarn_target_path, release_path) do
         execute fetch(:yarn_bin), 'build:staging'
-        # execute fetch(:yarn_bin), 'build:staging-basename'
       end
     end
   end
