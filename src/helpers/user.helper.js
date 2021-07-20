@@ -137,6 +137,10 @@ function forHealthPlan(user, healthPlanId) {
 }
 
 function forPharmacyStore(user, pharmacyStoreId) {
+  if (!valueHelper.isValue(pharmacyStoreId)) {
+    return true
+  }
+
   const pharmacyStores = userHelper.pharmacyStores(user)
 
   return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))

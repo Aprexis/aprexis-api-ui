@@ -130,10 +130,12 @@ function canEdit(user, patientMedication) {
     case 'health_plan_user':
       return userHelper.forHealthPlan(user, patientMedicationHelper.healthPlanId(patientMedication))
 
+    // For now at least, we won't restrict these users.
     case 'pharmacy_store_admin':
     case 'pharmacy_store_tech':
     case 'pharmacy_store_user':
-      return userHelper.forPharmacyStore(user, patientMedicationHelper.pharmacyStoreId(patientMedication))
+      return true
+    //return userHelper.forPharmacyStore(user, patientMedicationHelper.pharmacyStoreId(patientMedication))
 
     default:
       return false
