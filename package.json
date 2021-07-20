@@ -2,6 +2,7 @@
   "name": "aprexis-api-ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "respository": {
     "type": "git",
     "url": "git+git@github.com:Aprexis/aprexis-api-ui.git"
