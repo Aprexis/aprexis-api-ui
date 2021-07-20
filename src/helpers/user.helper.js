@@ -54,13 +54,17 @@ function canCreateForHealthPlan(user, pathEntries) {
   return valueHelper.isValue(healthPlans.find((hp) => hp.id == healthPlanId))
 }
 
-function canCreateForPharmacyStore(user, pathEntries) {
-  if (!userHelper.hasRole(user, "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_admin")) {
+function canCreateForPharmacyStore(user, pathEntries, allowNil = false) {
+  if (!userHelper.hasRole(user, "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user")) {
     return false
   }
 
   const { pharmacyStores } = user
   const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
+  if (!valueHelper.isValue(pharmacyStoreId)) {
+    return allowNil
+  }
+
   return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
 }
 

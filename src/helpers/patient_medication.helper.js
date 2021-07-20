@@ -110,7 +110,7 @@ function buildNewChanged(patientMedication) {
 }
 
 function canBeCreated(currentUser, pathEntries) {
-  if (!userHelper.canCreatePatientMedication(currentUser, pathEntries)) {
+  if (!userHelper.canCreatePatientMedication(currentUser, pathEntries, true)) {
     return false
   }
 
