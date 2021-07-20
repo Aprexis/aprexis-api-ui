@@ -85,11 +85,22 @@ function canCreatePatientAllergy(user, pathEntries) {
 }
 
 function canCreatePatientMedication(user, pathEntries) {
-  if (userHelper.hasRole(user, "aprexis_admin")) {
-    return true
-  }
+  switch (userHelper.role(user)) {
+    case "aprexis_admin":
+      return true
 
-  return canCreateForHealthPlan(user, pathEntries) || canCreateForPharmacyStore(user, pathEntries)
+    case "health_plan_admin":
+    case "health_plan_user":
+      return canCreateForHealthPlan(user, pathEntries)
+
+    case "pharmacy_store_admin":
+    case "pharmacy_store_tech":
+    case "pharmacy_store_user":
+      return true
+
+    default:
+      return false
+  }
 }
 
 function canCreatePatientNote(user, pathEntries) {
