@@ -1,5 +1,6 @@
 import {
   answerApi,
+  appointmentApi,
   caregiverApi,
   healthPlanApi,
   interventionApi,
@@ -26,6 +27,7 @@ import {
 // The explicit filenames is necessary because pathKeys is imported into some of the helpers, which causes a circular
 // import that fails to properly load these files if the import is done through the index.js file.
 import { answerHelper } from "../helpers/answer.helper"
+import { appointmentHelper } from "../helpers/appointment.helper"
 import { billingClaimHelper } from "../helpers/billing"
 import { billingContractHelper } from "../helpers/billing/billing_contract.helper"
 import { billingContractPharmacyChainHelper } from "../helpers/billing/billing_contract_pharmacy_chain.helper"
@@ -54,6 +56,11 @@ export const pathKeys = {
     api: answerApi,
     helper: answerHelper,
     modelName: "Answer"
+  },
+  "appointments": {
+    api: appointmentApi,
+    helper: appointmentHelper,
+    modelName: "Appointment"
   },
   "billing-claims": {
     api: billingClaimApi,

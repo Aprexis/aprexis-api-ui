@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
+//import { AppointmentRouting } from "./"
 import { NoMatch } from "../"
-import { AppointmentsRouting } from "../appointments"
-import { UserProfilePage } from "../../pages/users"
+import { AppointmentsPage } from "../../pages/appointments"
 import { pathHelper, valueHelper } from "../../../helpers"
 
-class UserRouting extends Component {
+class AppointmentsRouting extends Component {
   render() {
     const { context, currentAdminUser, currentUser } = this.props
     const contextProps = {
@@ -14,23 +14,25 @@ class UserRouting extends Component {
       currentUser,
       ...valueHelper.importantProps(this.props)
     }
-    const userPrefix = pathHelper.singularPrefix(window.location, "users", ":user_id")
+    const appointmentsPrefix = pathHelper.pluralPrefix(window.location, "appointments")
 
     return (
       <Switch>
         <Route
           exact
-          path={`${userPrefix}/profile`}
-          render={(props) => (<UserProfilePage {...props} {...contextProps} />)}
+          path={appointmentsPrefix}
+          render={(props) => (<AppointmentsPage {...props} {...contextProps} />)}
         />
+        {/*}
         <Route
-          path={`${userPrefix}/appointments`}
-          render={(props) => (<AppointmentsRouting {...props} {...contextProps} />)}
+          path={`${appointmentsPrefix}/:appointment_id`}
+          render={(props) => (<AppointmentRouting {...props} {...contextProps} />)}
         />
+        */}
         <Route component={NoMatch} />
       </Switch>
     )
   }
 }
 
-export { UserRouting }
+export { AppointmentsRouting }

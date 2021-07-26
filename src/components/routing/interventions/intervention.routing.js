@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { AnswersRouting } from "./"
+import { AnswersRouting } from "../answers"
 import { NoMatch } from "../"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { InterventionProfilePage } from "../../pages/interventions"

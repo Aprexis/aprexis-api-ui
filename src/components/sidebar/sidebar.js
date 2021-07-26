@@ -10,6 +10,11 @@ const sidebarDescriptions = {
     entryLabel: "Answer",
     entryName: "answers"
   },
+  "appointments": {
+    entryButtons: [],
+    entryLabel: "Appointment",
+    entryName: "appointments"
+  },
   "billing-claims": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Claim",
@@ -167,7 +172,8 @@ const sidebarDescriptions = {
   },
   "users": {
     entryButtons: [
-      { buttonType: "Profile" }
+      { buttonType: "Profile" },
+      { buttonLabel: "Appointments", buttonType: "List", listName: "appointments" }
     ],
     entryLabel: "User",
     entryName: "users"

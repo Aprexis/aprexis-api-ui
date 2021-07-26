@@ -1,4 +1,4 @@
-import { AbstractListPageViewModel } from "../"
+import { AbstractListPageViewModel } from ".."
 import { answerApi } from "../../../../api"
 import { filtersHelper, pageHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
 

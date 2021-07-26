@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { AnswersPageViewModel } from "../../view_models/pages/interventions"
+import { AnswersPageViewModel } from "../../view_models/pages/answers"
 import { ListView } from "../../../containers"
 import { answerHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"

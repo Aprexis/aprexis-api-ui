@@ -19,8 +19,12 @@ function middleName(namedModel, prefix = "") {
   return fieldHelper.getField(namedModel, "middle_name", prefix)
 }
 
-function name(namedModel, modelName, prefix = "") {
+function name(namedModel, modelName, prefix = "", allowBlank = false) {
   if (!valueHelper.isValue(namedModel)) {
+    if (valueHelper.isSet(allowBlank)) {
+      return
+    }
+
     return `No ${modelName}`
   }
 

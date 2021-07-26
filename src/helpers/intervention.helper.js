@@ -157,8 +157,8 @@ function patient(intervention) {
   return fieldHelper.getField(intervention, "patient")
 }
 
-function patientName(intervention) {
-  return patientHelper.name(interventionHelper.patient(intervention))
+function patientName(intervention, prefix = "", allowBlank = false) {
+  return patientHelper.name(interventionHelper.patient(intervention), prefix, allowBlank)
 }
 
 function pendingUntil(intervention) {

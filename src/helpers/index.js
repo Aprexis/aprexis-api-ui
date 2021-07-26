@@ -7,6 +7,7 @@ export * from "./api.helper"
 // These should appear after the base helpers.
 export * from "./address.helper"
 export * from "./answer.helper"
+export * from "./appointment.helper"
 export * from "./caregiver.helper"
 export * from "./contact.helper"
 export * from "./context.helper"

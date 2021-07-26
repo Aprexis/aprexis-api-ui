@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 //import { AnswerRouting } from "./"
-import { NoMatch } from "../"
-import { AnswersPage } from "../../pages/interventions"
+import { NoMatch } from ".."
+import { AnswersPage } from "../../pages/answers"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class AnswersRouting extends Component {

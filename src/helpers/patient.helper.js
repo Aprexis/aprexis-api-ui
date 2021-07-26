@@ -274,8 +274,8 @@ function middleName(patient, prefix = "") {
   return nameHelper.middleName(patient, prefix)
 }
 
-function name(patient, prefix = "") {
-  return nameHelper.name(patient, "patient", prefix)
+function name(patient, prefix = "", allowBlank = false) {
+  return nameHelper.name(patient, "patient", prefix, allowBlank)
 }
 
 function noKnownAllergies(patient) {
