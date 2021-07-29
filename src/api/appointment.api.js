@@ -1,7 +1,18 @@
 import { API } from "./"
 
 export const appointmentApi = {
+  destroy,
   listForUser
+}
+
+function destroy(userCredentials, id, onSuccess, onFailure) {
+  if (!API.validateId("appointment ID", id, onFailure)) {
+    return
+  }
+
+  const method = "DELETE"
+  const path = `/appointments/${id}`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function listForUser(userCredentials, user_id, params, onSuccess, onFailure) {

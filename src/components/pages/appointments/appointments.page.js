@@ -1,10 +1,22 @@
 import React, { Component } from "react"
-import { Scheduler } from 'devextreme-react/scheduler'
-import 'devextreme/dist/css/dx.light.css'
+import { Scheduler } from "devextreme-react/scheduler"
+import "devextreme/dist/css/dx.light.css"
 import { AppointmentsPageViewModel } from "../../view_models/pages/appointments"
 import { RefreshView } from "../../../containers"
-import { valueHelper } from "../../../helpers"
+import { appointmentHelper, dateHelper, valueHelper } from "../../../helpers"
 
+const Appointment = (appointment) => {
+  return (
+    <div className="appointment-preview">
+      <div> {appointmentHelper.title(appointment)}</div>
+      <div>
+        {dateHelper.displayDateTime(appointmentHelper.scheduledAt(appointment))}
+        {" - "}
+        {dateHelper.displayDateTime(appointmentHelper.scheduledUntil(appointment))}
+      </div>
+    </div>
+  )
+}
 class AppointmentsPage extends Component {
   constructor(props) {
     super(props)
@@ -13,7 +25,7 @@ class AppointmentsPage extends Component {
       view: {
         appointments: [],
         currentDate: new Date(),
-        currentView: 'week'
+        currentView: "week"
       }
     }
     this.vm = new AppointmentsPageViewModel(
@@ -31,7 +43,6 @@ class AppointmentsPage extends Component {
   render() {
     const { timeout } = this.props
     const { appointments, view } = this.state
-    const appointmentsForScheduler = this.vm.appointmentsForScheduler(appointments)
     const myTimeout = valueHelper.isValue(timeout) ? timeout : 5 * 60 * 1000
 
     return (
@@ -43,10 +54,17 @@ class AppointmentsPage extends Component {
         pluralLabel="Appointments"
         timeout={myTimeout}>
         <Scheduler
-          dataSource={appointmentsForScheduler}
+          allDayExpr="all_day"
+          appointmentComponent={Appointment}
           currentDate={`${view.currentDate}`}
-          onOptionChanged={this.vm.optionChanged}
+          dataSource={appointments}
           defaultCurrentView={view.currentView}
+          endDateExpr="scheduled_until"
+          onAppointmentDeleted={this.vm.deleteAppointment}
+          onAppointmentFormOpening={this.vm.openAppointmentForm}
+          onOptionChanged={this.vm.optionChanged}
+          startDateExpr="scheduled_at"
+          textExpr="title"
         />
       </RefreshView>
     )

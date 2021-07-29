@@ -1,6 +1,17 @@
 import { AbstractListPageViewModel } from ".."
-import { appointmentApi } from "../../../../api"
-import { appointmentHelper, dateHelper, pageHelper, valueHelper } from "../../../../helpers"
+import { appointmentApi, pharmacyStoreApi } from "../../../../api"
+import {
+  appointmentHelper,
+  dateHelper,
+  devExtremeHelper,
+  pageHelper,
+  pathHelper,
+  pharmacyStoreHelper,
+  userCredentialsHelper,
+  userHelper,
+  valueHelper
+} from "../../../../helpers"
+import { venues } from "../../../../types"
 
 const appointmentsListMethods = [
   { pathKey: "users", method: appointmentApi.listForUser }
@@ -10,31 +21,21 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
-    this.appointmentsForScheduler = this.appointmentsForScheduler.bind(this)
+    this.checkAppointmentOperation = this.checkAppointmentOperation.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.deleteAppointment = this.deleteAppointment.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.loadData = this.loadData.bind(this)
+    this.openAppointmentForm = this.openAppointmentForm.bind(this)
     this.optionChanged = this.optionChanged.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
   }
 
-  appointmentsForScheduler(appointments) {
-    if (!valueHelper.isValue(appointments)) {
-      return []
-    }
-
-    return appointments.map(
-      (appointment) => {
-        return {
-          allDay: valueHelper.isSet(appointmentHelper.allDay(appointment)),
-          endDate: appointmentHelper.endDate(appointment),
-          startDate: appointmentHelper.startDate(appointment),
-          text: appointmentHelper.text(appointment)
-        }
-      }
-    )
+  checkAppointmentOperation(operation, event) {
+    console.log(`Operation: ${operation}`)
+    console.log(`Event: ${JSON.stringify(event, valueHelper.getCircularReplacer(), 2)}`)
   }
 
   defaultParameters() {
@@ -48,7 +49,22 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
       currentDate,
       currentView
     }
+
     this.addData({ filters, sorting, page: this.defaultPage(), view })
+  }
+
+  deleteAppointment(event) {
+    const appointment = event.appointmentData
+    if (!valueHelper.isValue(appointmentHelper.id(appointment))) {
+      return
+    }
+
+    appointmentApi.destroy(
+      userCredentialsHelper.get(),
+      appointmentHelper.id(appointment),
+      this.refreshData,
+      this.onError
+    )
   }
 
   filterDescriptions(filters, filtersOptions) {
@@ -65,12 +81,76 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
     this.refreshData()
   }
 
+  openAppointmentForm(data) {
+    const { form } = data
+    const { pharmacyStores } = this.data
+
+    form.itemOption("mainGroup", "items", buildMainGroupItems(data.appointmentData, pharmacyStores))
+
+    function buildAllDayDateItems() {
+      return devExtremeHelper.dateRangeGroup(
+        {
+          dataField: "scheduled_at",
+          label: "Start Date"
+        },
+        {
+          dataField: "scheduled_until",
+          label: "End Date"
+        }
+      )
+    }
+
+    function buildDateItems(appointment) {
+      if (valueHelper.isSet(appointmentHelper.allDay(appointment))) {
+        return buildAllDayDateItems()
+      }
+
+      return buildDateRangeDateItems()
+    }
+
+    function buildDateRangeDateItems() {
+      return devExtremeHelper.dateTimeRangeGroup(
+        {
+          dataField: "scheduled_at",
+          label: "Scheduled At"
+        },
+        {
+          dataField: "scheduled_until",
+          label: "Scheduled Until"
+        }
+      )
+    }
+
+    function buildMainGroupItems(appointment, pharmacyStores) {
+      return [
+        devExtremeHelper.textItem({ dataField: "title", label: "Title" }),
+        buildDateItems(appointment),
+        devExtremeHelper.switchItem({ dataField: "all_day", label: "All Day" }),
+        devExtremeHelper.emptyItem(),
+        devExtremeHelper.selectIdItem(
+          {
+            dataField: "pharmacy_store_id",
+            helper: pharmacyStoreHelper,
+            identificationMethod: "identification",
+            label: "Pharmacy Store",
+            options: pharmacyStores
+          }
+        ),
+        devExtremeHelper.emptyItem(),
+        devExtremeHelper.selectSimpleItem(
+          {
+            dataField: "venue",
+            label: "Venue",
+            options: venues
+          }
+        )
+      ]
+    }
+  }
+
   optionChanged(event) {
     const { name, value } = event
     const { filters, view } = this.data
-
-    console.log(`View: ${JSON.stringify(view, null, 2)}`)
-    console.log(`${name} = ${value}`)
 
     switch (name) {
       case 'currentDate':
@@ -108,17 +188,88 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
   }
 
   refreshData() {
+    const pathEntries = this.pathEntries()
+    const fetchAppointmentsList = () => {
+      fetchAppointments(this.fetchList, this.addData, this.redrawView(), this.onError)
+    }
     this.removeField("appointmentHeaders")
-    this.fetchList(
-      appointmentsListMethods,
-      (appointments, appointmentHeaders) => {
-        this.addData(
-          { appointments, page: pageHelper.updatePageFromLastPage(appointmentHeaders) },
-          this.redrawView
-        )
-      },
+
+    if (pathHelper.isSingular(pathEntries, "pharmacy_stores")) {
+      fetchPharmacyStore(
+        pathEntries,
+        this.addField,
+        fetchAppointmentsList,
+        this.onError
+      )
+      return
+    }
+
+    fetchPharmacyStores(
+      this.props.currentUser,
+      pathEntries,
+      this.addField,
+      fetchAppointmentsList,
       this.onError
     )
+
+    function addIdentificationToPharmacyStores(pharmacyStores) {
+      return pharmacyStores.map(
+        (pharmacyStore) => {
+          return {
+            ...pharmacyStore,
+            identification: pharmacyStoreHelper.identification(pharmacyStore)
+          }
+        }
+      )
+    }
+
+    function fetchPharmacyStore(pathEntries, addField, nextOperation, onError) {
+      pharmacyStoreApi.profile(
+        userCredentialsHelper.get(),
+        pathHelper.id(pathEntries, "pharmacy_stores"),
+        (pharmacyStore) => {
+          addField("pharmacyStores", addIdentificationToPharmacyStores([pharmacyStore]), nextOperation)
+        },
+        onError
+      )
+    }
+
+    function fetchPharmacyStores(currentUser, pathEntries, addField, nextOperation, onError) {
+      let userId
+      if (valueHelper.isValue(currentUser)) {
+        userId = userHelper.id(currentUser)
+      } else {
+        userId = pathHelper.id(pathEntries, "users")
+      }
+
+      if (!valueHelper.isValue(userId)) {
+        addField("pharmacyStores", [], nextOperation)
+        return
+      }
+
+      pharmacyStoreApi.listForUser(
+        userCredentialsHelper.get(),
+        userId,
+        { sort: "name,store_number" },
+        (pharmacyStores) => {
+          addField("pharmacyStores", addIdentificationToPharmacyStores(pharmacyStores), nextOperation)
+        },
+        onError
+      )
+    }
+
+    function fetchAppointments(fetchList, addData, nextOperation, onError) {
+      fetchList(
+        appointmentsListMethods,
+        (appointments, appointmentHeaders) => {
+          addData(
+            { appointments, page: pageHelper.updatePageFromLastPage(appointmentHeaders) },
+            nextOperation
+          )
+        },
+        onError
+      )
+    }
   }
 
   title() {

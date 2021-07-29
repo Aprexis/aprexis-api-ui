@@ -3,6 +3,7 @@ import { API } from "./"
 export const pharmacyStoreApi = {
   list,
   listForPharmacyChain,
+  listForUser,
   search,
   show
 }
@@ -20,6 +21,16 @@ function listForPharmacyChain(userCredentials, pharmacy_chain_id, params, onSucc
 
   const method = "GET"
   const path = `/pharmacies/${pharmacy_chain_id}/pharmacy_stores/list`
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function listForUser(userCredentials, user_id, params, onSuccess, onFailure) {
+  if (!API.validateId("user ID", user_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/admin/users/${user_id}/pharmacy_stores/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 

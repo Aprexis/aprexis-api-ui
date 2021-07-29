@@ -4,9 +4,11 @@ import { valueHelper } from "./value.helper"
 export const appointmentHelper = {
   allDay,
   endDate,
+  id,
   intervention,
   patientName,
   pharmacyStore,
+  pharmacyStoreId,
   pharmacyStoreIdentification,
   scheduledAt,
   scheduledUntil,
@@ -28,6 +30,10 @@ function endDate(appointment) {
   return appointmentHelper.scheduledUntil(appointment)
 }
 
+function id(appointment) {
+  return fieldHelper.getField(appointment, "id")
+}
+
 function intervention(appointment) {
   return fieldHelper.getField(appointment, "intervention")
 }
@@ -38,6 +44,15 @@ function patientName(appointment, prefix = "", allowBlank = false) {
 
 function pharmacyStore(appointment) {
   return fieldHelper.getField(appointment, "pharmacy_store")
+}
+
+function pharmacyStoreId(appointment) {
+  let pharmacyStoreId = fieldHelper.getField("pharmacy_store_id", appointment)
+  if (!valueHelper.isValue(pharmacyStoreId)) {
+    pharmacyStoreId = pharmacyStoreHelper.id(appointmentHelper.pharmacyStore(appointment))
+  }
+
+  return pharmacyStoreId
 }
 
 function pharmacyStoreIdentification(appointment) {

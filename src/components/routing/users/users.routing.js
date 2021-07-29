@@ -11,8 +11,7 @@ class UsersRouting extends Component {
     const contextProps = {
       context,
       currentAdminUser,
-      currentUser
-      ,
+      currentUser,
       ...valueHelper.importantProps(this.props)
     }
     const usersPrefix = pathHelper.pluralPrefix(window.location, "users")

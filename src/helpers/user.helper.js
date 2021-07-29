@@ -24,6 +24,7 @@ export const userHelper = {
   getCurrentUser,
   hasRole,
   healthPlans,
+  id,
   isAccessLocked,
   isExpired,
   isLoginAllowed,
@@ -198,6 +199,10 @@ function hasRole(user, role) {
 
 function healthPlans(user) {
   return fieldHelper.getField(user, "health_plans")
+}
+
+function id(user) {
+  return fieldHelper.getField(user, "id")
 }
 
 function isAccessLocked(user) {
