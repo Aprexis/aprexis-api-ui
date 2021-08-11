@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col, Row } from "reactstrap"
+import { dateHelper } from "../../helpers"
 import { DatePicker, TimePicker } from "./"
 import { DateTimePickerViewModel } from "../view_models/shared"
-import { dateHelper } from "../../helpers"
 
 /* TODO: needs to be updated to be similar to DatePicker. */
 
@@ -34,7 +34,9 @@ class DateTimePicker extends Component {
       earliestDate,
       latestDate,
       timeClassName,
-      timeField
+      timeField,
+      timeStep,
+      timeStyle
     } = this.props
     const allowEditTime = allowEdit && dateHelper.isValidDate(dateTime)
 
@@ -59,9 +61,11 @@ class DateTimePicker extends Component {
             allowBlank={allowBlank}
             allowEdit={allowEditTime}
             className={timeClassName}
-            date={dateTime}
             field={timeField}
+            time={dateTime}
             timeChange={this.vm.timeChange}
+            timeStep={timeStep}
+            style={timeStyle}
           />
         </Col>
       </Row>

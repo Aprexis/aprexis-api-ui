@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
+import { valueHelper } from "../../helpers"
 import { EntrySidebar } from "./"
 import { SidebarViewModel } from "../view_models/sidebar"
-import { valueHelper } from "../../helpers"
 
 const sidebarDescriptions = {
   "answers": {
@@ -173,7 +173,7 @@ const sidebarDescriptions = {
   "users": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Appointments", buttonType: "List", listName: "appointments" }
+      { buttonIf: "canCreate", buttonLabel: "Appointments", buttonType: "List", listName: "appointments" }
     ],
     entryLabel: "User",
     entryName: "users"
@@ -211,6 +211,7 @@ class Sidebar extends Component {
 
     return (
       <EntrySidebar
+        canCreate={this.vm.canCreate}
         context={context}
         currentUser={currentUser}
         entryDescription={entryDescription}

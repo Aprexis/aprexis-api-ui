@@ -1,6 +1,6 @@
 import React, { Component } from "react"
+import { valueHelper, fieldHelper } from "../../helpers"
 import { EditButton } from "./"
-import { fieldHelper, valueHelper } from "../../helpers"
 
 class TableIdentificationColumn extends Component {
   render() {

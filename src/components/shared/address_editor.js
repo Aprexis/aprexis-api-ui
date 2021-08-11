@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
-import { addressHelper, fieldHelper, valueHelper } from '../../helpers'
+import { valueHelper, fieldHelper, addressHelper } from "../../helpers"
 
 class AddressEditor extends Component {
   render() {

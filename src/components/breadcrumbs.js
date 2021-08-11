@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { BreadcrumbsViewModel } from "./view_models"
 import { valueHelper } from "../helpers"
 import { pathKeys } from "../types"
+import { BreadcrumbsViewModel } from "./view_models"
 
 const cannotGotoKeys = [
   "admin"

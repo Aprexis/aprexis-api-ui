@@ -20,7 +20,7 @@ class AprexisModal extends Component {
 
     return (
       <Modal
-        className={`${modalClassName} modal-dialog dialog-centered`}
+        className={`${modalClassName} modal-dialog modal-dialog-centered`}
         isOpen={openModal}
         toggle={() => { toggleModal(clearModal) }}>
         <ModalHeader toggle={() => { toggleModal(clearModal) }}>

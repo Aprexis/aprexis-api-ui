@@ -1,4 +1,4 @@
-import { valueHelper } from './'
+import { valueHelper } from "./value.helper"
 
 export const jsEventHelper = {
   fromInputEvent

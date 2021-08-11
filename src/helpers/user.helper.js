@@ -2,11 +2,14 @@ import React from "react"
 import { UncontrolledTooltip } from "reactstrap"
 import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { fieldHelper, pathHelper, valueHelper } from "./"
+import { valueHelper } from "./value.helper"
+import { fieldHelper } from "./field.helper"
+import { pathHelper } from "./path.helper"
 import { userRoles } from "../types"
 import { contactHelper } from "./contact.helper"
 
 export const userHelper = {
+  canCreateAppointment,
   canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
@@ -67,6 +70,12 @@ function canCreateForPharmacyStore(user, pathEntries, allowNil = false) {
   }
 
   return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
+}
+
+function canCreateAppointment(user) {
+  return ["aprexis_admin", "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user"].includes(
+    userHelper.role(user)
+  )
 }
 
 function canCreatePatient(user, pathEntries) {

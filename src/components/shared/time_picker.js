@@ -1,8 +1,14 @@
 import React, { Component } from "react"
-import { TimePickerViewModel } from "../view_models/shared"
 import { valueHelper } from "../../helpers"
+import { TimePickerViewModel } from "../view_models/shared"
 
-/* TODO: needs to be updated to be similar to DatePicker. */
+const TIME_PICKER_KEYS = [
+  "timeField",
+  "className",
+  "format",
+  "locale",
+  "time"
+]
 
 class TimePicker extends Component {
   constructor(props) {
@@ -24,26 +30,33 @@ class TimePicker extends Component {
   }
 
   render() {
-    const { allowEdit, className, field, readOnly } = this.props
-    const { time } = this.state
+    const { allowEdit, className, field, readOnly, timeStep } = this.props
     const disabled = readOnly || !valueHelper.isSet(allowEdit)
+    const step = valueHelper.isNumberValue(timeStep) ? timeStep * 60 : 60
 
     return (
       <input
         className={className}
-        defaultValue={time}
         disabled={disabled}
         readOnly={disabled}
         name={field}
         onChange={this.vm.timeChange}
-        style={{ width: '100px' }}
+        step={step}
+        style={{ width: '110px' }}
         type="time"
+        value={this.vm.getTimeStringFromState()}
       />
     )
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (!this.vm.propertiesChanged(nextProps, TIME_PICKER_KEYS)) {
+      return true
+    }
+
     this.vm.props = { ...this.vm.props, ...nextProps }
+    this.vm.loadData()
+
     return true
   }
 }

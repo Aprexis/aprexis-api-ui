@@ -1,5 +1,5 @@
-import { AbstractViewModel } from "../"
-import { valueHelper } from "../../../helpers"
+import { valueHelper, jsEventHelper } from "../../../helpers"
+import { AbstractViewModel } from "../abstract.vm"
 
 class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
   constructor(props) {
@@ -14,7 +14,9 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
     this.clearSearch = this.clearSearch.bind(this)
     this.loadData = this.loadData.bind(this)
     this.select = this.select.bind(this)
+    this.selectEvent = this.selectEvent.bind(this)
     this.search = this.search.bind(this)
+    this.startSearch = this.startSearch.bind(this)
     this.toggleSearch = this.toggleSearch.bind(this)
   }
 
@@ -24,32 +26,8 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
   }
 
   loadData() {
-    const { id } = this.props
-    const setSearchText = (searchText) => {
-      const enableSearch = !valueHelper.isValue(searchText)
-      this.addData({ enableSearch, searchText }, this.redrawView)
-    }
-
     this.clearData()
-    if (!valueHelper.isValue(id)) {
-      setSearchText()
-      return
-    }
-
-    this.fetchModel(
-      id,
-      (model) => {
-        this.addField(
-          "item",
-          model,
-          () => {
-            const searchText = this.displayModel(model)
-            setSearchText(searchText)
-          }
-        )
-      },
-      this.onError
-    )
+    this.startSearch()
   }
 
   search(searchText, baseFilters, sorting, onSuccess, onFailure) {
@@ -83,6 +61,41 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
         preventDefault: () => { },
         target: { name: targetName, value: itemId }
       }
+    )
+  }
+
+  selectEvent(event) {
+    const { value } = jsEventHelper.fromInputEvent(event)
+    const { models } = this.data
+    const item = models.find((model) => model.id == value)
+
+    this.addData({ enableSearch: false, item })
+    this.props.onChange(event)
+  }
+
+  startSearch() {
+    const { id } = this.props
+    const setSearchText = (searchText) => {
+      const enableSearch = !valueHelper.isValue(searchText)
+      this.addData({ enableSearch, searchText, useSearch: true }, this.redrawView)
+    }
+    if (!valueHelper.isValue(id)) {
+      setSearchText()
+      return
+    }
+
+    this.fetchModel(
+      id,
+      (item) => {
+        this.addData(
+          { item },
+          () => {
+            const searchText = this.displayModel(item)
+            setSearchText(searchText)
+          }
+        )
+      },
+      this.onError
     )
   }
 

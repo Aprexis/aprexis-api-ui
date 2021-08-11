@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { addressHelper, fieldHelper } from '../../helpers'
+import React, { Component } from "react"
+import { fieldHelper, addressHelper } from "../../helpers"
 
 class Address extends Component {
   render() {

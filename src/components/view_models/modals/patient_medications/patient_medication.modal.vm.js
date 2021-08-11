@@ -25,6 +25,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     super(props)
 
     this.api = this.api.bind(this)
+    this.create = this.create.bind(this)
     this.dateAndTimeFields = this.dateAndTimeFields.bind(this)
     this.fetchMedication = this.fetchMedication.bind(this)
     this.fetchPatient = this.fetchPatient.bind(this)
@@ -111,7 +112,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
   model() {
     const { changedPatientMedication, patientMedication } = this.data
 
-    return { changedModel: changedPatientMedication, model: patientMedication, modelName: "patientMedication" }
+    return { changedModel: changedPatientMedication, model: patientMedication, modelName: this.modalName() }
   }
 
   modelName() {

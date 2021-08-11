@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
+import { valueHelper, fieldHelper } from "../../helpers"
 import { DatePicker } from "./"
-import { fieldHelper, valueHelper } from "../../helpers"
 
 class DateFieldEditor extends Component {
   render() {

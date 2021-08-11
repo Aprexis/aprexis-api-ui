@@ -1,11 +1,9 @@
 import dateFnsFormat from "date-fns/format"
 import dateFnsParse from "date-fns/parse"
 import moment from "moment"
-import { valueHelper } from "./"
-import { PERIODS } from "../types"
+import { valueHelper } from "./value.helper"
 
 export const dateHelper = {
-  computeToDate,
   convertDateStringToDate,
   convertDateToDateString,
   convertDateToTimeString,
@@ -27,26 +25,6 @@ function localeFromLocaleString(localeString) {
     default:
       return localeString
   }
-}
-
-function computeToDate(fromDate, durationString) {
-  const period = PERIODS[durationString.toLowerCase()]
-  if (!valueHelper.isValue(period)) {
-    throw new RangeError(`Unrecognized duration string ${durationString}`)
-  }
-
-  const toDate = new Date(fromDate.getTime())
-  if (valueHelper.isValue(period.years)) {
-    toDate.setFullYear(toDate.getFullYear() + period.years)
-  }
-  if (valueHelper.isValue(period.months)) {
-    toDate.setMonth(toDate.getMonth() + period.months)
-  }
-  if (valueHelper.isValue(period.days)) {
-    toDate.setDate(toDate.getDate() + period.days)
-  }
-
-  return toDate
 }
 
 function convertDateStringToDate(dateString, format, localeString) {

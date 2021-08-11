@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import { faEdit } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { valueHelper } from '../../helpers'
+import { valueHelper } from "../../helpers"
 
 const EditButtonContent = ({ useText }) => {
   if (useText) {

@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { Card, CardBody, CardTitle, Col, Container, Row, UncontrolledTooltip } from 'reactstrap'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { AprexisTable, Spinner } from '../../shared'
-import { UserProfilePageViewModel } from '../../view_models/pages/users'
+import React, { Component } from "react"
+import { Card, CardBody, CardTitle, Col, Container, Row, UncontrolledTooltip } from "reactstrap"
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
+  valueHelper,
   healthPlanHelper,
   patientHelper,
   pharmacyChainHelper,
   pharmacyStoreHelper,
-  userHelper,
-  valueHelper
-} from '../../../helpers'
+  userHelper
+} from "../../../helpers"
+import { Spinner, AprexisTable } from "../../shared"
+import { UserProfilePageViewModel } from "../../view_models/pages/users"
 
 class UserNpi extends Component {
   render() {
@@ -30,11 +30,11 @@ class UserNpi extends Component {
           </CardTitle>
 
           <CardBody>
-            <strong className='text-muted'>Pharmacist's NPI:</strong> {userHelper.pharmacistNPI(user)}&nbsp;
+            <strong className="text-muted">Pharmacist's NPI:</strong> {userHelper.pharmacistNPI(user)}&nbsp;
             {
               !valueHelper.isValue(cms_info) &&
               <React.Fragment>
-                <FontAwesomeIcon className='ml-1 red' icon={faExclamationCircle} id={`invalid-npi-${user.id}`} />
+                <FontAwesomeIcon className="ml-1 red" icon={faExclamationCircle} id={`invalid-npi-${user.id}`} />
                 <UncontrolledTooltip placement="top" boundariesElement="window" target={`invalid-npi-${user.id}`}>
                   User NPI {userHelper.pharmacistNPI(user)} does not appear to be valid.
                 </UncontrolledTooltip>
@@ -84,7 +84,7 @@ class UserHealthPlans extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Code', 'Address', 'Phone']}
+              headings={["Name", "Code", "Address", "Phone"]}
               title=""
             />
           </CardBody>
@@ -128,7 +128,7 @@ class UserPatient extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Address', 'Phone']}
+              headings={["Name", "Address", "Phone"]}
               title=""
             />
           </CardBody>
@@ -173,7 +173,7 @@ class UserPharmacyChains extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Address', 'Phone']}
+              headings={["Name", "Address", "Phone"]}
               title=""
             />
           </CardBody>
@@ -218,7 +218,7 @@ class UserPharmacyStores extends Component {
           <CardBody>
             <AprexisTable
               data={this.generateTableData()}
-              headings={['Name', 'Address', 'Phone']}
+              headings={["Name", "Address", "Phone"]}
               title=""
             />
           </CardBody>
@@ -237,22 +237,22 @@ class UserAssociations extends Component {
 
     let associationsCard
     switch (user.role) {
-      case 'health_plan_admin':
-      case 'health_plan_user':
+      case "health_plan_admin":
+      case "health_plan_user":
         associationsCard = (<UserHealthPlans healthPlans={userHelper.healthPlans(user)} />)
         break
 
-      case 'patient_user_role':
+      case "patient_user_role":
         associationsCard = (<UserPatient patient={userHelper.patient(user)} />)
         break
 
-      case 'pharmacy_chain_admin':
+      case "pharmacy_chain_admin":
         associationsCard = (<UserPharmacyChains pharmacyChains={userHelper.pharmacyChains(user)} />)
         break
 
-      case 'pharmacy_store_admin':
-      case 'pharmacy_store_tech':
-      case 'pharmacy_store_user':
+      case "pharmacy_store_admin":
+      case "pharmacy_store_tech":
+      case "pharmacy_store_user":
         associationsCard = (<UserPharmacyStores pharmacyStores={userHelper.pharmacyStores(user)} />)
         break
 
@@ -281,12 +281,12 @@ class UserProfile extends Component {
           </CardTitle>
 
           <CardBody>
-            <strong className='text-muted'>Username:</strong> {userHelper.username(user)}<br />
-            <strong className='text-muted'>Role:</strong> {userHelper.displayRole(user)}<br />
-            <strong className='text-muted'>Email:</strong> {userHelper.email(user)}<br />
-            <strong className='text-muted'>Phone:</strong> {userHelper.phone(user)}<br />
-            <strong className='text-muted'>State:</strong> {userHelper.state(user)}<br />
-            <strong className='text-muted'>Timezone:</strong> {userHelper.timeZone(user)}<br />
+            <strong className="text-muted">Username:</strong> {userHelper.username(user)}<br />
+            <strong className="text-muted">Role:</strong> {userHelper.displayRole(user)}<br />
+            <strong className="text-muted">Email:</strong> {userHelper.email(user)}<br />
+            <strong className="text-muted">Phone:</strong> {userHelper.phone(user)}<br />
+            <strong className="text-muted">State:</strong> {userHelper.state(user)}<br />
+            <strong className="text-muted">Timezone:</strong> {userHelper.timeZone(user)}<br />
           </CardBody>
         </Card>
       </Col>

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
+import { valueHelper, fieldHelper } from "../../helpers"
 import { DateTimePicker } from "./"
-import { fieldHelper, valueHelper } from "../../helpers"
 
 class DateTimeFieldEditor extends Component {
   render() {
@@ -14,6 +14,7 @@ class DateTimeFieldEditor extends Component {
       latestDate,
       model,
       omitLabel,
+      timeStep,
       timeStyle
     } = this.props
     const name = fieldHelper.name(this.props)
@@ -31,13 +32,14 @@ class DateTimeFieldEditor extends Component {
             allowBlank={allowBlank}
             allowEdit={canModifyField}
             date={helper[method](model)}
-            dayChange={changeField}
+            dateTimeChange={changeField}
             dateField={`${name}_Date`}
             dateStyle={dateStyle}
             dateTime={helper[method](model)}
             earliestDate={earliestDate}
             latestDate={latestDate}
             timeField={`${name}_Time`}
+            timeStep={timeStep}
             timeStyle={timeStyle}
           />
         </Col>

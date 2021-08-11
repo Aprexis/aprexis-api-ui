@@ -1,4 +1,6 @@
-import { addressHelper, fieldHelper, nameHelper } from "./"
+import { fieldHelper } from "./field.helper"
+import { addressHelper } from "./address.helper"
+import { nameHelper } from "./name.helper"
 
 export const physicianHelper = {
   city,

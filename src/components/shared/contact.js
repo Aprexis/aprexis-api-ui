@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { contactHelper, fieldHelper } from '../../helpers'
+import React, { Component } from "react"
+import { fieldHelper, contactHelper } from "../../helpers"
 
 class Contact extends Component {
   render() {

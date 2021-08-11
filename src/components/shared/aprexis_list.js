@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { faFastBackward, faFastForward, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { AprexisTable, Spinner } from './'
-import { pageHelper, valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { faFastBackward, faFastForward, faStepBackward, faStepForward } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { valueHelper, pageHelper } from "../../helpers"
+import { Spinner, AprexisTable } from "./"
 
 class Page extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ class Page extends Component {
     for (let pageNumber = firstPage; pageNumber <= lastPage; ++pageNumber) {
       buttons.push(
         <button
-          className={`btn btn-sm ${number === pageNumber ? 'btn-outline-primary' : 'btn-primary'}`}
+          className={`btn btn-sm ${number === pageNumber ? "btn-outline-primary" : "btn-primary"}`}
           disabled={pageNumber === number}
           key={`${listPluralLabel.toLowerCase()}-page-${pageNumber}`}
           onClick={() => { this.props.onChangePage(pageNumber) }}>

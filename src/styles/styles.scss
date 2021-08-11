@@ -38,6 +38,27 @@ header {
   min-width: 600px;
 }
 
+.aprexis-calendar-cell {
+  height: 100%;
+}
+
+.aprexis-calendar-event {
+  background-color: $medium-blue;
+  border-left-style: solid;
+  border-color: black;
+  border-right-style: solid;
+  border-width: 1px;
+  color: white;
+}
+
+.aprexis-calendar-event-stops {
+  border-bottom-style: solid;
+}
+
+.aprexis-calendar-event-starts {
+  border-top-style: solid;
+}
+
 .aprexis-link {
   text-decoration: underline;
 }

@@ -1,5 +1,5 @@
-import { AbstractViewModel } from '../'
 import { pathHelper } from '../../../helpers'
+import { AbstractViewModel } from '../'
 
 class SidebarViewModel extends AbstractViewModel {
   constructor(props) {

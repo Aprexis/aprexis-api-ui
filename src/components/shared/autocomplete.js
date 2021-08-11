@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { FormGroup, Col, Input, Row, Table } from "reactstrap"
+import { valueHelper } from "../../helpers"
 import { Spinner } from "./"
 import { AutocompleteViewModel } from "../view_models/shared"
-import { valueHelper } from "../../helpers"
 
 function extractPropertyValue(model, property) {
   if (!valueHelper.isValue(model)) {
@@ -144,7 +144,8 @@ const TableRows = (
     return (<React.Fragment />)
   }
 
-  if (options.length === 0) {
+  const filteredOptions = options.filter((option) => valueHelper.isValue(option))
+  if (filteredOptions.length === 0) {
     return (
       <TableEmpty
         nputName={inputName}
@@ -155,7 +156,7 @@ const TableRows = (
     )
   }
 
-  return options.filter((option) => valueHelper.isValue(option))
+  return filteredOptions
     .map(
       (option) => {
         const rowKey = `autocomplete-${valueHelper.snakeCase(inputName)}-${option[tableDisplayProps[0]]}`

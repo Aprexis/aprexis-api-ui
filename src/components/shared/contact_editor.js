@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
-import { contactHelper, fieldHelper, valueHelper } from '../../helpers'
+import { valueHelper, fieldHelper, contactHelper } from "../../helpers"
 
 class ContactEditor extends Component {
   render() {

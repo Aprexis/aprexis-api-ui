@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Alert, Col, Container, Row } from "reactstrap"
-import { alertHelper, valueHelper } from "../../helpers"
+import { valueHelper, alertHelper } from "../../helpers"
 
 class DisplayAlert extends Component {
   render() {

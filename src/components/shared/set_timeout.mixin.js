@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
 const SetTimeoutMixin = Composition => class _SetTimeoutMixin extends Component {
   constructor(props) {

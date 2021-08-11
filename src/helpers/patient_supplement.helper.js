@@ -1,5 +1,7 @@
-import { fieldHelper, patientHelper, physicianHelper } from "./"
 import { valueHelper } from "./value.helper"
+import { fieldHelper } from "./field.helper"
+import { patientHelper } from "./patient.helper"
+import { physicianHelper } from "./physician.helper"
 
 export const patientSupplementHelper = {
   canEdit,

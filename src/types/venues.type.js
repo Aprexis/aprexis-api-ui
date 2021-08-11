@@ -1,1 +1,1 @@
-export const venues = ["In Person", "Telephone"]
+export const venues = ["", "In Person", "Telephone"]

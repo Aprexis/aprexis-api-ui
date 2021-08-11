@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import InputNumber from 'rc-input-number'
 import { Col } from "reactstrap"
-import { fieldHelper, valueHelper } from "../../helpers"
+import { valueHelper, fieldHelper } from "../../helpers"
 
 class NumberFieldEditor extends Component {
   render() {

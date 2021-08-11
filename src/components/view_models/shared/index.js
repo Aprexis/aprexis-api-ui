@@ -1,5 +1,6 @@
 export * from "./abstract_select_autocomplete.vm"
 export * from "./autocomplete.vm"
+export * from "./confirmable_button.vm"
 export * from "./date_picker.vm"
 export * from "./date_time_picker.vm"
 export * from "./select_alergy.vm"

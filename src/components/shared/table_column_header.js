@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { valueHelper } from "../../helpers"
 
 class TableColumnHeader extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class TableColumnHeader extends Component {
     }
 
     const { sort } = this.props.sorting
-    return valueHelper.isStringValue(sort) && sort.endsWith('-')
+    return valueHelper.isStringValue(sort) && sort.endsWith("-")
   }
 
   isSortingColumn() {
@@ -57,10 +57,10 @@ class TableColumnHeader extends Component {
 
   render() {
     const { className, label } = this.props
-    let color = 'white'
+    let color = "white"
     let icon = faSortDown
     if (this.isSortingColumn()) {
-      color = 'black'
+      color = "black"
       icon = this.isAscending() ? faSortUp : faSortDown
     }
 
@@ -82,7 +82,7 @@ class TableColumnHeader extends Component {
             {label}&nbsp;
             {
               this.isSortingColumn() &&
-              <FontAwesomeIcon icon={icon} style={{ color, marginLeft: '.5rem' }} />
+              <FontAwesomeIcon icon={icon} style={{ color, marginLeft: ".5rem" }} />
             }
           </label>
         </div>

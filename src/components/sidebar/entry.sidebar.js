@@ -1,6 +1,21 @@
 import React, { Component } from "react"
 import { valueHelper } from "../../helpers"
 
+const renderButtonIf = ({ buttonIf, canCreate }) => {
+  if (!valueHelper.isValue(buttonIf)) {
+    return true
+  }
+
+  switch (buttonIf) {
+    case 'canCreate':
+      return canCreate()
+
+    default:
+  }
+
+  return false
+}
+
 const RenderSidebarButton = ({ buttonLabel, gotoMethod }) => {
   return (
     <button
@@ -11,8 +26,11 @@ const RenderSidebarButton = ({ buttonLabel, gotoMethod }) => {
   )
 }
 
-const RenderSidebarListButton = ({ buttonDescription, gotoList, pathPrefixArray }) => {
-  const { buttonLabel, listName } = buttonDescription
+const RenderSidebarListButton = ({ buttonDescription, canCreate, gotoList, pathPrefixArray }) => {
+  const { buttonIf, buttonLabel, listName } = buttonDescription
+  if (!renderButtonIf(buttonIf, canCreate)) {
+    return (<React.Fragment />)
+  }
 
   return (
     <RenderSidebarButton
@@ -42,18 +60,20 @@ const RenderSidebarProfileButton = ({ gotoProfile, pathPrefixArray }) => {
   )
 }
 
-const RenderSidebarElements = ({ entryDescription, gotoList, gotoPage, gotoProfile, pathPrefixArray, sidebarOpen }) => {
+const RenderSidebarElements = (
+  { canCreate, entryDescription, gotoList, gotoPage, gotoProfile, pathPrefixArray, sidebarOpen }
+) => {
   if (!valueHelper.isSet(sidebarOpen)) {
     return (<React.Fragment />)
   }
 
   return (
     <div className="py-2 nav-inner w-100">
-      {renderEntryButtons(entryDescription, gotoList, gotoPage, gotoProfile, pathPrefixArray)}
+      {renderEntryButtons(canCreate, entryDescription, gotoList, gotoPage, gotoProfile, pathPrefixArray)}
     </div>
   )
 
-  function renderEntryButtons(entryDescription, gotoList, gotoPage, gotoProfile, pathPrefixArray) {
+  function renderEntryButtons(canCreate, entryDescription, gotoList, gotoPage, gotoProfile, pathPrefixArray) {
     const { entryName, entryButtons } = entryDescription
 
     return entryButtons.map(
@@ -65,6 +85,7 @@ const RenderSidebarElements = ({ entryDescription, gotoList, gotoPage, gotoProfi
             return (
               <RenderSidebarListButton
                 buttonDescription={buttonDescription}
+                canCreate={canCreate}
                 gotoList={gotoList}
                 key={`sidebar-${entryName}-list-${buttonDescription.listName}`}
                 pathPrefixArray={pathPrefixArray}

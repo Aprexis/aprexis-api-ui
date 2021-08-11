@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { ScaleLoader } from 'react-spinners'
-import { SetTimeoutMixin } from './'
+import React, { Component } from "react"
+import { ScaleLoader } from "react-spinners"
+import { SetTimeoutMixin } from "./"
 
 class Spinner extends Component {
   constructor(props) {
@@ -18,9 +18,9 @@ class Spinner extends Component {
   render() {
     return (
       <div
-        className={this.state.show ? 'mt-5 mx-auto text-center d-block' : 'd-none'}
-        style={{ backgroundColor: 'transparent' }}>
-        <ScaleLoader sizeUnit='px' size={150} color='#006298' />
+        className={this.state.show ? "mt-5 mx-auto text-center d-block" : "d-none"}
+        style={{ backgroundColor: "transparent" }}>
+        <ScaleLoader sizeUnit="px" size={150} color="#006298" />
       </div>
     )
   }

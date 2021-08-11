@@ -1,33 +1,16 @@
 import React, { Component } from "react"
-import { Scheduler } from "devextreme-react/scheduler"
-import "devextreme/dist/css/dx.light.css"
+import { valueHelper, userHelper, appointmentHelper } from "../../../helpers"
+import { Spinner } from "../../shared"
+import { EventCalendar } from "../../shared/event_calendar"
 import { AppointmentsPageViewModel } from "../../view_models/pages/appointments"
 import { RefreshView } from "../../../containers"
-import { appointmentHelper, dateHelper, valueHelper } from "../../../helpers"
 
-const Appointment = (appointment) => {
-  return (
-    <div className="appointment-preview">
-      <div> {appointmentHelper.title(appointment)}</div>
-      <div>
-        {dateHelper.displayDateTime(appointmentHelper.scheduledAt(appointment))}
-        {" - "}
-        {dateHelper.displayDateTime(appointmentHelper.scheduledUntil(appointment))}
-      </div>
-    </div>
-  )
-}
 class AppointmentsPage extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      view: {
-        appointments: [],
-        currentDate: new Date(),
-        currentView: "week"
-      }
-    }
+    this.state = {}
+
     this.vm = new AppointmentsPageViewModel(
       {
         ...props,
@@ -37,13 +20,17 @@ class AppointmentsPage extends Component {
   }
 
   componentDidMount() {
-    this.vm.loadData()
+    return this.vm.loadData()
   }
 
   render() {
-    const { timeout } = this.props
-    const { appointments, view } = this.state
+    const { context, timeout } = this.props
+    if (!valueHelper.isValue(context)) {
+      return (<Spinner />)
+    }
+    const { appointments, currentDate, period } = this.state
     const myTimeout = valueHelper.isValue(timeout) ? timeout : 5 * 60 * 1000
+    const user = context.users
 
     return (
       <RefreshView
@@ -53,18 +40,23 @@ class AppointmentsPage extends Component {
         onIdle={this.vm.refreshData}
         pluralLabel="Appointments"
         timeout={myTimeout}>
-        <Scheduler
-          allDayExpr="all_day"
-          appointmentComponent={Appointment}
-          currentDate={`${view.currentDate}`}
-          dataSource={appointments}
-          defaultCurrentView={view.currentView}
-          endDateExpr="scheduled_until"
-          onAppointmentDeleted={this.vm.deleteAppointment}
-          onAppointmentFormOpening={this.vm.openAppointmentForm}
-          onOptionChanged={this.vm.optionChanged}
-          startDateExpr="scheduled_at"
-          textExpr="title"
+        <EventCalendar
+          currentDate={currentDate}
+          dateSet={this.state.dateSet}
+          eventHelper={appointmentHelper}
+          launchModal={this.props.launchModal}
+          modelName={'appointment'}
+          onAddEvent={this.vm.createModal}
+          onBuildAllDayEvent={this.vm.buildNewAllDayAppointment}
+          onBuildEvent={this.vm.buildNewAppointment}
+          onChangeCurrentDate={this.vm.changeCurrentDate}
+          onDeleteEvent={this.vm.deleteAppointment}
+          onEditEvent={this.vm.editModal}
+          onFetchEvent={this.vm.fetchAppointment}
+          onRefresh={this.vm.refreshData}
+          period={period}
+          scheduledEvents={appointments}
+          title={`Appointments for ${userHelper.fullName(user)}`}
         />
       </RefreshView>
     )

@@ -1,4 +1,5 @@
-import { history, valueHelper } from "./"
+import { history } from "./history"
+import { valueHelper } from "./value.helper"
 
 let reactUrlRoot = ""
 if (valueHelper.isStringValue(process.env.REACT_APP_RELATIVE_URL_ROOT)) {

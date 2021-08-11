@@ -1,4 +1,4 @@
-import { jsEventHelper, pathHelper, valueHelper } from "../../helpers"
+import { valueHelper, jsEventHelper, pathHelper } from "../../helpers"
 
 class AbstractViewModel {
   constructor(props) {
@@ -23,25 +23,31 @@ class AbstractViewModel {
   }
 
   addData(data, nextOperation) {
-    this.data = { ...this.data, ...data }
+    const thisData = this.data
 
-    if (!valueHelper.isFunction(nextOperation)) {
-      this.redrawView()
-      return
+    /*
+      Was using the splat (...) operator here, but it seems to have trouble for simple hash objects, ending
+      up with the value being equal to the key rather than the desired hash.
+    */
+    Object.keys(data).forEach((k) => {
+      let v = data[k]
+      if (!Array.isArray(v) && !valueHelper.isFunction(v.getFullYear) && (typeof v === "object")) {
+        v = { ...v }
+      }
+      thisData[k] = v
+    })
+
+    if (valueHelper.isFunction(nextOperation)) {
+      nextOperation()
     }
-
-    nextOperation()
   }
 
   addField(fieldName, fieldValue, nextOperation) {
     this.data[fieldName] = fieldValue
 
-    if (!valueHelper.isFunction(nextOperation)) {
-      this.redrawView()
-      return
+    if (valueHelper.isFunction(nextOperation)) {
+      nextOperation()
     }
-
-    nextOperation()
   }
 
   clearData(redraw = true, fieldsToKeep = []) {
@@ -89,6 +95,7 @@ class AbstractViewModel {
         (propertyKey) => {
           const currentValue = this.props[propertyKey]
           const nextValue = nextProps[propertyKey]
+
           if (!valueHelper.isValue(currentValue)) {
             return valueHelper.isValue(nextValue)
           }
@@ -124,7 +131,10 @@ class AbstractViewModel {
     }
 
     function compareObjects(propertyKey, currentObject, nextObject) {
-      // TODO: determine if there are cases where it is worth expanding this more.
+      if (valueHelper.isFunction(currentObject.getFullYear)) {
+        return +currentObject != +nextObject
+      }
+
       return false
     }
 

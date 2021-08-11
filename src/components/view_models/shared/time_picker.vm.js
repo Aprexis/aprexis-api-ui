@@ -6,14 +6,15 @@ class TimePickerViewModel extends AbstractViewModel {
   constructor(props) {
     super(props)
 
-    this.getTimeStringFromProps = this.getTimeStringFromProps.bind(this)
+    this.getTimeStringFromState = this.getTimeStringFromState.bind(this)
     this.loadData = this.loadData.bind(this)
     this.timeChange = this.timeChange.bind(this)
   }
 
-  getTimeStringFromProps() {
-    const { date, format, locale } = this.props
-    return dateHelper.convertDateToTimeString(date, format, locale)
+  getTimeStringFromState() {
+    const { format, locale } = this.props
+    const { time } = this.data
+    return dateHelper.convertDateToTimeString(time, format, locale)
   }
 
   loadData() {

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { AprexisTableCell } from './'
-import { valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { valueHelper } from "../../helpers"
+import { AprexisTableCell } from "./"
 
 class DataRow extends Component {
   render() {

@@ -1,14 +1,12 @@
-import {
-  addressHelper,
-  apiHelper,
-  contactHelper,
-  fieldHelper,
-  healthPlanHelper,
-  nameHelper,
-  pathHelper,
-  userHelper,
-  valueHelper
-} from "./"
+import { valueHelper } from "./value.helper"
+import { fieldHelper } from "./field.helper"
+import { addressHelper } from "./address.helper"
+import { apiHelper } from "./api.helper"
+import { contactHelper } from "./contact.helper"
+import { healthPlanHelper } from "./health_plan.helper"
+import { nameHelper } from "./name.helper"
+import { pathHelper } from "./path.helper"
+import { userHelper } from "./user.helper"
 import { contactMethods } from "../types"
 
 export const patientHelper = {
@@ -48,11 +46,14 @@ export const patientHelper = {
   toJSON
 }
 
+const addressKeys = addressHelper.keys()
+const contactKeys = contactHelper.keys()
+
 const patientKeys = [
   "id",
   "health_plan_id",
-  ...addressHelper.keys(),
-  ...contactHelper.keys(),
+  ...addressKeys,
+  ...contactKeys,
   "age",
   "cognitively_impaired",
   "coverage_effective_date",

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { valueHelper } from "../../helpers"
 
 class AprexisHeaderCell extends Component {
   render() {
@@ -43,9 +43,9 @@ class AprexisTableCell extends Component {
 
   extractContent(cell) {
     let onClick
-    let content = ''
+    let content = ""
     if (valueHelper.isValue(cell)) {
-      if (typeof cell === 'string') {
+      if (typeof cell === "string") {
         content = cell
       } else {
         onClick = cell.onClick

@@ -1,4 +1,6 @@
-import { fieldHelper, questionHelper, valueHelper } from "./"
+import { valueHelper } from "./value.helper"
+import { fieldHelper } from "./field.helper"
+import { questionHelper } from "./question.helper"
 
 export const answerHelper = {
   canEdit,

@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Collapse, Nav, Navbar, NavbarBrand } from "reactstrap"
+import { pathHelper } from "../helpers"
 import {
   AdminHeaders,
   AprexisAdminHeaders,
@@ -11,7 +12,6 @@ import {
   UserDropdown,
   UserHeaders
 } from "./header_nav"
-import { pathHelper } from "../helpers"
 
 class Header extends Component {
   constructor(props) {

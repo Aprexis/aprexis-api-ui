@@ -1,4 +1,4 @@
-import { fieldHelper } from "./"
+import { fieldHelper } from "./field.helper"
 
 export const modelDatesHelper = {
   createdAt,

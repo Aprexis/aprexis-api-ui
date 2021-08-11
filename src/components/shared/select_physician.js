@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import { Col, FormGroup } from "reactstrap"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { valueHelper } from "../../helpers"
 import { Autocomplete } from "./"
 import { SelectPhysicianViewModel } from "../view_models/shared"
-import { valueHelper } from '../../helpers'
 
 class SelectPhysician extends Component {
   constructor(props) {

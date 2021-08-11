@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, Input } from "reactstrap"
-import { fieldHelper, valueHelper } from "../../helpers"
+import { valueHelper, fieldHelper } from "../../helpers"
 
 class SelectFieldEditor extends Component {
   render() {

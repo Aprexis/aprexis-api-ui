@@ -7,10 +7,10 @@ function initializeDateAndTimeValidity(dateAndTimeField, value) {
 
   switch (dateAndTimeField.type) {
     case "date":
-      return { validDate }
+      return { validDate, value }
 
     case "date/time":
-      return { validDate, validTime: validDate }
+      return { validDate, validTime: validDate, value }
 
     default:
       return
@@ -78,12 +78,13 @@ class AbstractModalViewModel extends AbstractViewModel {
       return true
     }
 
-    const dateAndTimeFields = this.dateAndTimeFields()
+    const dateAndTimeFields = this.dateAndTimeFields(model)
     const invalidFieldName = Object.keys(dateAndTimeFields).find(
       (fieldName) => {
         const dateAndTimeField = dateAndTimeFields[fieldName]
         const validName = nameForDateAndTimeValidity(fieldName, dateAndTimeField)
         const value = model[validName]
+
         return !checkDateAndTimeValue(dateAndTimeField, value)
 
         function checkDateAndTimeValue(dateAndTimeField, value) {
@@ -126,7 +127,15 @@ class AbstractModalViewModel extends AbstractViewModel {
     const modelData = this.model()
     const { model, modelName } = modelData
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
-    const updated = fieldHelper.changeDateTime(modelName, model, changedModel, field, dateTimeString, fieldValid)
+    const fieldName = field.replace(/_Date$/, "").replace(/_Time$/, "")
+    const updated = fieldHelper.changeDateTime(
+      modelName,
+      model,
+      changedModel,
+      fieldName,
+      dateTimeString,
+      fieldValid
+    )
 
     this.addData(updated)
     this.redrawView()
@@ -167,7 +176,7 @@ class AbstractModalViewModel extends AbstractViewModel {
     }
 
     const updatedModel = { ...model }
-    const dateAndTimeFields = this.dateAndTimeFields.bind(this)
+    const dateAndTimeFields = this.dateAndTimeFields(model)
     Object.keys(dateAndTimeFields).forEach(
       (fieldName) => {
         const dateAndTimeField = dateAndTimeFields[fieldName]
@@ -176,10 +185,8 @@ class AbstractModalViewModel extends AbstractViewModel {
         }
 
         const value = model[fieldName]
-        if (!dateHelper.isValidDate(value)) {
-          const fieldNameValidity = nameForDateAndTimeValidity(fieldName, dateAndTimeField)
-          updatedModel[fieldNameValidity] = initializeDateAndTimeValidity(dateAndTimeField, value)
-        }
+        const fieldNameValidity = nameForDateAndTimeValidity(fieldName, dateAndTimeField)
+        updatedModel[fieldNameValidity] = initializeDateAndTimeValidity(dateAndTimeField, value)
       }
     )
 
