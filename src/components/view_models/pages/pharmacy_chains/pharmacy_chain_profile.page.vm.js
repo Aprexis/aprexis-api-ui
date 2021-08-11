@@ -18,7 +18,7 @@ class PharmacyChainProfilePageViewModel extends AbstractPageViewModel {
     pharmacyChainApi.show(
       userCredentials,
       pharmacy_chain_id,
-      (pharmacyChain) => { this.addField('pharmacyChain', pharmacyChain, this.redraw) },
+      (pharmacyChain) => { this.addField('pharmacyChain', pharmacyChain, this.redrawView) },
       this.onError
     )
   }

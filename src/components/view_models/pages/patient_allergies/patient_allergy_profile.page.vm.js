@@ -37,7 +37,7 @@ class PatientAllergyProfilePageViewModel extends AbstractPageViewModel {
     patientAllergyApi.profile(
       userCredentials,
       patient_allergy_id,
-      (patientAllergy) => { this.addField('patientAllergy', patientAllergy, this.redraw) },
+      (patientAllergy) => { this.addField('patientAllergy', patientAllergy, this.redrawView) },
       this.onError
     )
   }

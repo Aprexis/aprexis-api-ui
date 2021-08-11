@@ -19,7 +19,7 @@ class BillingContractPharmacyChainProfilePageViewModel extends AbstractPageViewM
       userCredentials,
       billing_contract_pharmacy_id,
       (billingContractPharmacy) => {
-        this.addField('billingContractPharmacy', billingContractPharmacy, this.redraw)
+        this.addField('billingContractPharmacy', billingContractPharmacy, this.redrawView)
       },
       this.onError
     )

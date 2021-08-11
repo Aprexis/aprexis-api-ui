@@ -18,7 +18,7 @@ class BillingContractProfilePageViewModel extends AbstractPageViewModel {
     billingContractApi.profile(
       userCredentials,
       billing_contract_id,
-      (billingContract) => { this.addField('billingContract', billingContract, this.redraw) },
+      (billingContract) => { this.addField('billingContract', billingContract, this.redrawView) },
       this.onError
     )
   }

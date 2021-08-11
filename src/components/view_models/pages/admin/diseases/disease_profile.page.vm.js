@@ -19,7 +19,7 @@ class DiseaseProfilePageViewModel extends AbstractPageViewModel {
     diseaseApi.show(
       userCredentials,
       disease_id,
-      (disease) => { this.addField("disease", disease, this.redraw) },
+      (disease) => { this.addField("disease", disease, this.redrawView) },
       this.onError
     )
   }

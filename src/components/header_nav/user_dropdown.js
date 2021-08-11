@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
-import { userCredentialsHelper, userHelper, valueHelper } from '../../helpers'
+import React, { Component } from "react"
+import { DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink, UncontrolledDropdown } from "reactstrap"
+import { userCredentialsHelper, userHelper, valueHelper } from "../../helpers"
 
 class UserDropdown extends Component {
   constructor(props) {
@@ -11,26 +11,43 @@ class UserDropdown extends Component {
   }
 
   renderCurrentUser(userCredentials) {
-    const { currentUser } = this.props
-    const name = valueHelper.isValue(currentUser) ? userHelper.fullName(currentUser) : userCredentials.username
+    const { currentAdminUser, currentUser } = this.props
 
     return (
-      <UncontrolledDropdown className='user-dropdown'>
+      <UncontrolledDropdown className="user-dropdown">
         <DropdownToggle nav caret className="pt-1 mt-0">
-          <label className="btn-uppercase">{name}</label>
+          {nameLabel(userCredentials, currentAdminUser, currentUser)}
         </DropdownToggle>
 
         <DropdownMenu right>
-          <DropdownItem className='btn-uppercase' onClick={this.props.gotoAccount}>
+          <DropdownItem className="btn-uppercase" onClick={this.props.gotoAccount}>
             Account
           </DropdownItem>
 
-          <DropdownItem className='btn-uppercase' onClick={this.props.onSignOut}>
+          <DropdownItem className="btn-uppercase" onClick={this.props.onSignOut}>
             Logout
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     )
+
+    function nameLabel(userCredentials, currentAdminUser, currentUser) {
+      if (!valueHelper.isValue(currentAdminUser)) {
+        return (<label className="btn-uppercase">{userCredentials.username}</label>)
+      }
+
+      if (!valueHelper.isValue(currentUser) || userHelper.id(currentUser) == userHelper.id(currentAdminUser)) {
+        return (<label className="btn-uppercase">{userHelper.fullName(currentAdminUser)}</label>)
+      }
+
+      return (
+        <React.Fragment>
+          <label className="btn-uppercase">{userHelper.fullName(currentAdminUser)}</label>
+          <br />
+          <label className="btn-uppercase">AS: {userHelper.fullName(currentUser)}</label>
+        </React.Fragment>
+      )
+    }
   }
 
   renderNoCurrentUser() {
@@ -38,7 +55,7 @@ class UserDropdown extends Component {
 
     return (
       <NavItem>
-        <NavLink className='btn-uppercase' onClick={onSignIn}>
+        <NavLink className="btn-uppercase" onClick={onSignIn}>
           Sign-In
         </NavLink>
       </NavItem>

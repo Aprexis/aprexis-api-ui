@@ -23,19 +23,7 @@ class AbstractViewModel {
   }
 
   addData(data, nextOperation) {
-    const thisData = this.data
-
-    /*
-      Was using the splat (...) operator here, but it seems to have trouble for simple hash objects, ending
-      up with the value being equal to the key rather than the desired hash.
-    */
-    Object.keys(data).forEach((k) => {
-      let v = data[k]
-      if (!Array.isArray(v) && !valueHelper.isFunction(v.getFullYear) && (typeof v === "object")) {
-        v = { ...v }
-      }
-      thisData[k] = v
-    })
+    this.data = valueHelper.copyHash(data, this.data)
 
     if (valueHelper.isFunction(nextOperation)) {
       nextOperation()
@@ -43,7 +31,7 @@ class AbstractViewModel {
   }
 
   addField(fieldName, fieldValue, nextOperation) {
-    this.data[fieldName] = fieldValue
+    this.data[fieldName] = valueHelper.copyForHash(fieldValue)
 
     if (valueHelper.isFunction(nextOperation)) {
       nextOperation()

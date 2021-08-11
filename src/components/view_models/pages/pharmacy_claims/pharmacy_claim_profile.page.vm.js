@@ -18,7 +18,7 @@ class PharmacyClaimProfilePageViewModel extends AbstractPageViewModel {
     pharmacyClaimApi.profile(
       userCredentials,
       patient_allergy_id,
-      (pharmacyClaim) => { this.addField('pharmacyClaim', pharmacyClaim, this.redraw) },
+      (pharmacyClaim) => { this.addField('pharmacyClaim', pharmacyClaim, this.redrawView) },
       this.onError
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { valueHelper } from "../../helpers"
 
-const renderButtonIf = ({ buttonIf, canCreate }) => {
+const renderButtonIf = (buttonIf, canCreate) => {
   if (!valueHelper.isValue(buttonIf)) {
     return true
   }

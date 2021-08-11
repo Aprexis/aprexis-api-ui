@@ -3,6 +3,8 @@ export const valueHelper = {
   capitalizeWords,
   changedModelName,
   compareWithCast,
+  copyForHash,
+  copyHash,
   getCircularReplacer,
   hashGet,
   hashSet,
@@ -59,6 +61,32 @@ function compareWithCast(value1, value2) {
     default:
       return value1 == value2
   }
+}
+
+/*
+   Sometimes at least, when a hash is copied using { ...hash }, sub-hashes are replaced with the name of the key
+   in the result. These two methods combine to ensure that the sub-hashes are explicitly copied.
+*/
+function copyForHash(value) {
+  if (!valueHelper.isValue(value) ||
+    Array.isArray(value) ||
+    valueHelper.isFunction(value.getFullYear) ||
+    (typeof value !== "object")) {
+    return value
+  }
+
+  return valueHelper.copyHash(value)
+}
+
+function copyHash(hash, toHash = {}) {
+  Object.keys(hash).forEach(
+    (key) => {
+      const copiedValue = valueHelper.copyForHash(hash[key])
+      toHash[key] = copiedValue
+    }
+  )
+
+  return toHash
 }
 
 function getCircularReplacer() {

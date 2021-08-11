@@ -68,7 +68,8 @@ class Header extends Component {
                   />
 
                   <UserDropdown
-                    currentUser={currentAdminUser}
+                    currentAdminUser={currentAdminUser}
+                    currentUser={currentUser}
                     gotoAccount={this.props.gotoAccount}
                     history={history}
                     onSignIn={this.props.onSignIn}

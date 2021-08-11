@@ -18,7 +18,7 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
     interventionApi.profile(
       userCredentials,
       intervention_id,
-      (intervention) => { this.addField('intervention', intervention, this.redraw) },
+      (intervention) => { this.addField('intervention', intervention, this.redrawView) },
       this.onError
     )
   }

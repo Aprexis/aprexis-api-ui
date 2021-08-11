@@ -52,7 +52,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
 
   loadData() {
     this.clearData(false)
-    this.fetchPatient(this.redraw)
+    this.fetchPatient(this.redrawView)
   }
 
   refreshData() {

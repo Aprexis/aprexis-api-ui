@@ -19,7 +19,7 @@ class LabTestProfilePageViewModel extends AbstractPageViewModel {
     labTestApi.show(
       userCredentials,
       lab_test_id,
-      (labTest) => { this.addField("labTest", labTest, this.redraw) },
+      (labTest) => { this.addField("labTest", labTest, this.redrawView) },
       this.onError
     )
   }

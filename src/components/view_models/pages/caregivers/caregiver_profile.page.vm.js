@@ -37,7 +37,7 @@ class CaregiverProfilePageViewModel extends AbstractPageViewModel {
     caregiverApi.profile(
       userCredentials,
       caregiver_id,
-      (caregiver) => { this.addField('caregiver', caregiver, this.redraw) },
+      (caregiver) => { this.addField('caregiver', caregiver, this.redrawView) },
       this.onError
     )
   }

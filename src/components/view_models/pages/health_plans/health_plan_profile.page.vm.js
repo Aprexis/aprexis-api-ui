@@ -18,7 +18,7 @@ class HealthPlanProfilePageViewModel extends AbstractPageViewModel {
     healthPlanApi.show(
       userCredentials,
       health_plan_id,
-      (healthPlan) => { this.addField('healthPlan', healthPlan, this.redraw) },
+      (healthPlan) => { this.addField('healthPlan', healthPlan, this.redrawView) },
       this.onError
     )
   }

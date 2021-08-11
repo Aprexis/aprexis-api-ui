@@ -19,7 +19,7 @@ class DiagnosisCodeProfilePageViewModel extends AbstractPageViewModel {
     diagnosisCodeApi.show(
       userCredentials,
       diagnosis_code_id,
-      (diagnosisCode) => { this.addField("diagnosisCode", diagnosisCode, this.redraw) },
+      (diagnosisCode) => { this.addField("diagnosisCode", diagnosisCode, this.redrawView) },
       this.onError
     )
   }

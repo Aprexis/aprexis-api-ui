@@ -19,7 +19,7 @@ class MedicationProfilePageViewModel extends AbstractPageViewModel {
     medicationApi.profile(
       userCredentials,
       medication_id,
-      (medication) => { this.addField("medication", medication, this.redraw) },
+      (medication) => { this.addField("medication", medication, this.redrawView) },
       this.onError
     )
   }

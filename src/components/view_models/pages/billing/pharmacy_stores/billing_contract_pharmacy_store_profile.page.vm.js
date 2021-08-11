@@ -19,7 +19,7 @@ class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewM
       userCredentials,
       billing_contract_pharmacy_store_id,
       (billingContractPharmacyStore) => {
-        this.addField('billingContractPharmacyStore', billingContractPharmacyStore, this.redraw)
+        this.addField('billingContractPharmacyStore', billingContractPharmacyStore, this.redrawView)
       },
       this.onError
     )
