@@ -111,10 +111,11 @@ const sidebarDescriptions = {
       { buttonLabel: "Caregivers", buttonType: "List", listName: "caregivers" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
+      { buttonLabel: "Medical Claims", buttonType: "List", listName: "medical-claims" },
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },
       { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" },
       { buttonLabel: "Pharmacy Claims", buttonType: "List", listName: "pharmacy-claims" },
-      { buttonLabel: "Medical Claims", buttonType: "List", listName: "medical-claims" },
+      { buttonLabel: "Physicians", buttonType: "List", listName: "patient-physicians" },
       { buttonLabel: "Supplements", buttonType: "List", listName: "patient-supplements" }
     ],
     entryLabel: "Patient",
@@ -134,6 +135,11 @@ const sidebarDescriptions = {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Note",
     entryName: "patient-notes"
+  },
+  "patient-physicians": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Physician",
+    entryName: "patient-physicians"
   },
   "patient-supplements": {
     entryButtons: [{ buttonType: "Profile" }],
