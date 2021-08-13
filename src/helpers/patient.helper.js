@@ -13,6 +13,7 @@ export const patientHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canDelete,
   canEdit,
   canModifyField,
   cognnitivelyImpaired,
@@ -108,8 +109,8 @@ function buildNewChanged(patient) {
   }
 }
 
-function canBeCreated(currentUser, pathEntries, context) {
-  if (!userHelper.canCreatePatient(currentUser, pathEntries)) {
+function canBeCreated(user, pathEntries, context) {
+  if (!userHelper.canCreatePatient(user, pathEntries)) {
     return false
   }
 
@@ -119,6 +120,10 @@ function canBeCreated(currentUser, pathEntries, context) {
 
   const healthPlan = context['health-plans']
   return valueHelper.isSet(healthPlanHelper.allowManuallyAddedPatients(healthPlan))
+}
+
+function canDelete(user, patient) {
+  return false
 }
 
 function canEdit(user, patient, healthPlan, pharmacyStores) {

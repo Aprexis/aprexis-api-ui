@@ -4,6 +4,7 @@ import { AppointmentModal } from "./appointments"
 import { PatientAllergyModal } from "./patient_allergies"
 import { PatientMedicationModal } from "./patient_medications"
 import { PatientNoteModal } from "./patient_notes"
+import { PatientPhysicianModal } from "./patient_physicians"
 import { PatientProfileModal } from "./patients"
 import { valueHelper } from "../../helpers"
 
@@ -14,6 +15,7 @@ const modalList = {
   PatientAllergy: PatientAllergyModal,
   PatientMedication: PatientMedicationModal,
   PatientNote: PatientNoteModal,
+  PatientPhysician: PatientPhysicianModal,
   PatientProfile: PatientProfileModal,
   SignIn: SignInModal
 }

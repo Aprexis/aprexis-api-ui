@@ -91,11 +91,14 @@ class InterventionsPage extends Component {
     return listHelper.listRow(
       {
         currentUser: this.props.currentUser,
-        editTableItem: this.vm.editModal,
         filters,
         gotoTableItemProfile: this.vm.gotoInterventionProfile,
         headings,
         helper: interventionHelper,
+        launchModal: this.props.launchModal,
+        onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
+        onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: intervention
       }

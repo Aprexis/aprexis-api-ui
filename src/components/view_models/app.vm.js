@@ -81,7 +81,7 @@ class AppViewModel extends AbstractViewModel {
     this.redrawView(nextOperation)
   }
 
-  fetchActAsUsers() {
+  fetchActAsUsers(nextOperation) {
     const adminCredentials = userCredentialsHelper.getAdmin()
     userApi.index(
       adminCredentials,
@@ -90,7 +90,7 @@ class AppViewModel extends AbstractViewModel {
         page: { number: 1, size: 1000000 },
         sort: 'last_name, first_name'
       },
-      (actAsUsers) => { this.addField("actAsUsers", actAsUsers, this.redrawView) },
+      (actAsUsers) => { this.addField("actAsUsers", actAsUsers, nextOperation) },
       this.onError
     )
   }
@@ -195,7 +195,7 @@ class AppViewModel extends AbstractViewModel {
               (context) => {
                 this.addField("context", context)
                 if (userHelper.hasRole(this.data.currentAdminUser, 'aprexis_admin')) {
-                  this.fetchActAsUsers()
+                  this.fetchActAsUsers(this.redrawView)
                 } else {
                   this.redrawView()
                 }

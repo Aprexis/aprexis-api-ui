@@ -3,9 +3,11 @@ import { dateHelper } from "../date.helper"
 
 export const billingContractHelper = {
   active,
+  canDelete,
   canEdit,
   healthPlan,
   healthPlanName,
+  modelName,
   name,
   startDate,
   stopDate,
@@ -34,6 +36,10 @@ function active(billingContract) {
   return active
 }
 
+function canDelete(user, billingContract) {
+  return false
+}
+
 function canEdit(user, billingContract) {
   return healthPlanHelper.canConfigure(user, billingContractHelper.healthPlan(billingContract))
 }
@@ -44,6 +50,10 @@ function healthPlan(billingContract) {
 
 function healthPlanName(billingContract) {
   return healthPlanHelper.name(billingContractHelper.healthPlan(billingContract))
+}
+
+function modelName() {
+  return "billingContract"
 }
 
 function name(billingContract) {

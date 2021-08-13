@@ -21,8 +21,7 @@ class TimePickerViewModel extends AbstractViewModel {
     const { time } = this.props
 
     this.clearData()
-    this.addData({ time })
-    this.redrawView()
+    this.addData({ time }, this.redrawView)
   }
 
   timeChange(event) {

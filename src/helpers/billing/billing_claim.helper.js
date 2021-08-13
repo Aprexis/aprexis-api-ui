@@ -9,12 +9,14 @@ import {
 
 export const billingClaimHelper = {
   amountPaid,
+  canDelete,
   canEdit,
   displaySubmittedAt,
   healthPlan,
   healthPlanName,
   intervention,
   interventionIdentification,
+  modelName,
   patient,
   patientName,
   pharmacyStore,
@@ -27,7 +29,11 @@ function amountPaid(billingClaim) {
   return fieldHelper.getField(billingClaim, "amount_paid")
 }
 
-function canEdit(currentUser, billingClaim) {
+function canDelete(user, billingClaim) {
+  return false
+}
+
+function canEdit(user, billingClaim) {
   return false
 }
 
@@ -49,6 +55,10 @@ function intervention(billingClaim) {
 
 function interventionIdentification(billingClaim) {
   return interventionHelper.identification(billingClaimHelper.intervention(billingClaim))
+}
+
+function modelName() {
+  return "billingClaim"
 }
 
 function patient(billingClaim) {

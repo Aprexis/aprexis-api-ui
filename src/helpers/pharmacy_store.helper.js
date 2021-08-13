@@ -7,6 +7,7 @@ import { userHelper } from "./user.helper"
 
 export const pharmacyStoreHelper = {
   address,
+  canDelete,
   canEdit,
   canIndex,
   ccdCode,
@@ -18,6 +19,7 @@ export const pharmacyStoreHelper = {
   identification,
   latitude,
   longitude,
+  modelName,
   nabp,
   name,
   npi,
@@ -36,6 +38,10 @@ export const pharmacyStoreHelper = {
 
 function address(pharmacyStore) {
   return addressHelper.address(pharmacyStore)
+}
+
+function canDelete(user, pharmacyStore) {
+  return false
 }
 
 function canEdit(user, pharmacyStore) {
@@ -104,6 +110,10 @@ function latitude(pharmacyStore) {
 
 function longitude(pharmacyStore) {
   return fieldHelper.getField(pharmacyStore, "longitude")
+}
+
+function modelName() {
+  return "pharmacyStore"
 }
 
 function nabp(pharmacyStore) {

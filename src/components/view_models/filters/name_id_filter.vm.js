@@ -12,8 +12,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
   }
 
   clearSearch() {
-    this.addField("searchResults", [])
-    this.redrawView()
+    this.addField("searchResults", [], this.redrawView)
   }
 
   static fetchModel(filterDescription, filters, onSuccess, onFailure) {
@@ -49,8 +48,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
     const { filterDescription } = this.props
     const { otherFilters, searchMethod, searchParam } = filterDescription
     const makeDataAvailable = (searchResults) => {
-      this.addData({ item: undefined, searchResults })
-      this.redrawView()
+      this.addData({ item: undefined, searchResults }, this.redrawView)
       if (valueHelper.isFunction(onSuccess)) {
         onSuccess(searchResults)
       }
@@ -73,7 +71,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
     const { filterDescription } = this.props
     const { name } = filterDescription
 
-    this.addData({ item })
+    this.addData({ item }, this.redrawView)
     this.props.onChange(
       {
         persist: () => { },

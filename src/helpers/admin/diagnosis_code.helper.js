@@ -3,9 +3,11 @@ import { diagnosisCodes } from "../../types"
 
 export const diagnosisCodeHelper = {
   billable,
+  canDelete,
   canEdit,
   code,
   longDescription,
+  modelName,
   shortDescription,
   toBreadcrumb,
   type,
@@ -14,6 +16,10 @@ export const diagnosisCodeHelper = {
 
 function billable(diagnosisCode) {
   return fieldHelper.getField(diagnosisCode, "billable")
+}
+
+function canDelete(user, diagnosisCode) {
+  return false
 }
 
 function canEdit(user, diagnosisCode) {
@@ -26,6 +32,10 @@ function code(diagnosisCode) {
 
 function longDescription(diagnosisCode) {
   return fieldHelper.getField(diagnosisCode, "long_description")
+}
+
+function modelName() {
+  return "diagnosisCode"
 }
 
 function shortDescription(diagnosisCode) {

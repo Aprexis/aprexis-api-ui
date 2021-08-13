@@ -14,6 +14,7 @@ export const patientMedicationHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canDelete,
   canEdit,
   canModifyField,
   changeMedication,
@@ -30,6 +31,7 @@ export const patientMedicationHelper = {
   medication,
   medicationId,
   medicationLabel,
+  modelName,
   patient,
   patientName,
   pharmacyStore,
@@ -107,12 +109,16 @@ function buildNewChanged(patientMedication) {
   }
 }
 
-function canBeCreated(currentUser, pathEntries) {
-  if (!userHelper.canCreatePatientMedication(currentUser, pathEntries, true)) {
+function canBeCreated(user, pathEntries) {
+  if (!userHelper.canCreatePatientMedication(user, pathEntries, true)) {
     return false
   }
 
   return pathHelper.isSingular(pathEntries, "patients")
+}
+
+function canDelete(user, patientMedication) {
+  return false
 }
 
 function canEdit(user, patientMedication) {
@@ -267,6 +273,10 @@ function medicationId(patientMedication) {
 
 function medicationLabel(patientMedication) {
   return medicationHelper.label(patientMedicationHelper.medication(patientMedication))
+}
+
+function modelName() {
+  return "patientMedication"
 }
 
 function patient(patientMedication) {

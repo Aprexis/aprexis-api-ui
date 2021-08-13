@@ -42,11 +42,14 @@ function listHeader(
 function listRow(
   {
     currentUser,
-    editTableItem,
     filters,
     gotoTableItemProfile,
     headings,
     helper,
+    launchModal,
+    onDeleteTableItem,
+    onEditTableItem,
+    onRefresh,
     pathEntries,
     tableItem
   }
@@ -57,8 +60,13 @@ function listRow(
   }
 
   let onEdit
-  if (valueHelper.isFunction(editTableItem)) {
-    onEdit = (event) => { editTableItem(tableItem) }
+  if (valueHelper.isFunction(onEditTableItem)) {
+    onEdit = (event) => { onEditTableItem(tableItem) }
+  }
+
+  let onDelete
+  if (valueHelper.isFunction(onDeleteTableItem)) {
+    onDelete = (event) => { onDeleteTableItem(tableItem, onRefresh) }
   }
 
   const row = [
@@ -68,7 +76,10 @@ function listRow(
           currentUser={currentUser}
           heading={headings[0]}
           helper={helper}
+          launchModal={launchModal}
+          modelName={helper.modelName()}
           onClick={onProfile}
+          onDelete={onDelete}
           onEdit={onEdit}
           tableItem={tableItem}
         />

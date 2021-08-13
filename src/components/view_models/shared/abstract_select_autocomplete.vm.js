@@ -21,8 +21,7 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
   }
 
   clearSearch() {
-    this.addField("searchResults", [])
-    this.redrawView()
+    this.addField("searchResults", [], this.redrawView)
   }
 
   loadData() {
@@ -92,7 +91,8 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
           () => {
             const searchText = this.displayModel(item)
             setSearchText(searchText)
-          }
+          },
+          this.redrawView
         )
       },
       this.onError

@@ -10,7 +10,6 @@ class PatientProfileModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
-    this.modelName = this.modelName.bind(this)
     this.requiresPersonNumber = this.requiresPersonNumber.bind(this)
   }
 
@@ -37,10 +36,6 @@ class PatientProfileModalViewModel extends AbstractModalViewModel {
     const { changedPatient, patient } = this.data
 
     return { changedModel: changedPatient, model: patient, modelName: "patient" }
-  }
-
-  modelName() {
-    return "patient"
   }
 
   requiresPersonNumber() {

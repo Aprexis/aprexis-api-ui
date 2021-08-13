@@ -4,10 +4,12 @@ import { patientHelper } from "./patient.helper"
 
 export const medicalClaimHelper = {
   canBeCreated,
+  canDelete,
   canEdit,
   claimNumber,
   healthPlanPatientMedicalClaimIdentifier,
   memberNumber,
+  modelName,
   patient,
   patientName,
   personNumber,
@@ -19,11 +21,15 @@ export const medicalClaimHelper = {
   wasUploaded
 }
 
-function canBeCreated(currentUser, pathEntries) {
+function canBeCreated(user, pathEntries) {
   return false
 }
 
-function canEdit(currentUser, medicalClaim) {
+function canDelete(user, medicalClaim) {
+  return false
+}
+
+function canEdit(user, medicalClaim) {
   return false
 }
 
@@ -37,6 +43,10 @@ function healthPlanPatientMedicalClaimIdentifier(medicalClaim) {
 
 function memberNumber(medicalClaim) {
   return fieldHelper.getField(medicalClaim, "member_number")
+}
+
+function modelName() {
+  return "medicalClaim"
 }
 
 function patient(medicalClaim) {

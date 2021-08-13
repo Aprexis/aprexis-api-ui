@@ -26,7 +26,6 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     this.loadData = this.loadData.bind(this)
     this.minSearchLength = this.minSearchLength.bind(this)
     this.model = this.model.bind(this)
-    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectGoldStandardAllergy = this.selectGoldStandardAllergy.bind(this)
   }
@@ -54,8 +53,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
         "gold_standard_allergy_id",
         null
       )
-      this.addData(updated)
-      this.redrawView()
+      this.addData(updated, this.redrawView)
       return
     }
 
@@ -130,10 +128,6 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     const { changedPatientAllergy, patientAllergy } = this.data
 
     return { changedModel: changedPatientAllergy, model: patientAllergy, modelName: "patientAllergy" }
-  }
-
-  modelName() {
-    return "patientAllergy"
   }
 
   requiredFields() {

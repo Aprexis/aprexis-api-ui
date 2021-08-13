@@ -36,8 +36,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     }
 
     const { page } = this.data
-    this.addField("page", { ...page, number })
-    this.refreshData()
+    this.addField("page", { ...page, number }, this.refreshData)
   }
 
   changePerPage(perPage) {
@@ -52,8 +51,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     }
 
     const { page } = this.data
-    this.addField("page", { ...page, size: perPage })
-    this.refreshData()
+    this.addField("page", { ...page, size: perPage }, this.refreshData)
   }
 
   defaultPage() {

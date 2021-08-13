@@ -7,6 +7,7 @@ import { medicationHelper } from "./admin"
 
 export const pharmacyClaimHelper = {
   canBeCreated,
+  canDelete,
   canEdit,
   claimNumber,
   daysSupply,
@@ -21,6 +22,7 @@ export const pharmacyClaimHelper = {
   medication,
   medicationLabel,
   memberNumber,
+  modelName,
   ndc,
   patient,
   patientName,
@@ -41,7 +43,11 @@ export const pharmacyClaimHelper = {
   wasUploaded
 }
 
-function canBeCreated(currentUser, pathEntries) {
+function canBeCreated(user, pathEntries) {
+  return false
+}
+
+function canDelete(user, pharmacyClaim) {
   return false
 }
 
@@ -99,6 +105,10 @@ function medicationLabel(pharmacyClaim) {
 
 function memberNumber(pharmacyClaim) {
   return fieldHelper.getField(pharmacyClaim, "member_number")
+}
+
+function modelName() {
+  return "pharmacyClaim"
 }
 
 function ndc(pharmacyClaim) {

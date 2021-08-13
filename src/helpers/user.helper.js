@@ -13,11 +13,13 @@ export const userHelper = {
   canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
+  canCreatePatientPhysician,
   canCreatePatientNote,
+  canDelete,
+  canEdit,
   canHaveNpi,
   canIndexAll,
   canModifyUsers,
-  canEdit,
   displayRole,
   email,
   firstName,
@@ -32,6 +34,7 @@ export const userHelper = {
   isExpired,
   isLoginAllowed,
   lastName,
+  modelName,
   patient,
   pharmacistDisplay,
   pharmacistNPI,
@@ -132,6 +135,29 @@ function canCreatePatientNote(user, pathEntries) {
   return canCreateForPharmacyStore(user, pathEntries)
 }
 
+function canCreatePatientPhysician(user, pathEntries) {
+  switch (userHelper.role(user)) {
+    case "aprexis_admin":
+      return true
+
+    case "health_plan_admin":
+    case "health_plan_user":
+      return canCreateForHealthPlan(user, pathEntries)
+
+    case "pharmacy_store_admin":
+    case "pharmacy_store_tech":
+    case "pharmacy_store_user":
+      return true
+
+    default:
+      return false
+  }
+}
+
+function canDelete(currentUser, user) {
+  return false
+}
+
 function canEdit(currentUser, user) {
   return false
 }
@@ -228,6 +254,10 @@ function isLoginAllowed(user) {
 
 function lastName(user) {
   return fieldHelper.getField(user, "last_name")
+}
+
+function modelName() {
+  return "user"
 }
 
 function patient(user) {

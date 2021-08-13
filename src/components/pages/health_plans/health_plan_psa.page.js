@@ -67,6 +67,7 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
         filters,
         headings,
         helper: healthPlanPatientSearchAlgorithmHelper,
+        launchModal: this.props.launchModal,
         pathEntries,
         tableItem: patientSearchAlgorithm
       }

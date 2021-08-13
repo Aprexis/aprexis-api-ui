@@ -58,9 +58,13 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (programs, programHeaders) => {
-        this.addData({ programs })
-        this.addField("page", pageHelper.updatePageFromLastPage(programHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            programs,
+            page: pageHelper.updatePageFromLastPage(programHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

@@ -47,9 +47,13 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (answers, answerHeaders) => {
-        this.addData({ answers })
-        this.addField("page", pageHelper.updatePageFromLastPage(answerHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            answers,
+            page: pageHelper.updatePageFromLastPage(answerHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

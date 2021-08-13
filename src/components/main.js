@@ -12,7 +12,7 @@ class Main extends Component {
       <div className="main main-content sidebar">
         <div className="px-0 mx-0">
           <Row className="pr-0 mx-xs-0">
-            <Sidebar currentUser={this.props.currentUser} context={this.props.context} />
+            <Sidebar {...this.props} />
 
             <Col className="content pl-1 pt-3 pb-5">
               <DisplayAlert
@@ -20,7 +20,7 @@ class Main extends Component {
                 modalIsOpen={this.props.modalIsOpen}
                 parentType="main" />
 
-              <Breadcrumbs context={this.props.context} />
+              <Breadcrumbs {...this.props} />
 
               <MainRouting {...this.props} />
             </Col>

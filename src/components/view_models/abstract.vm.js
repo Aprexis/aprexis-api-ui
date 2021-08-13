@@ -1,4 +1,4 @@
-import { valueHelper, jsEventHelper, pathHelper } from "../../helpers"
+import { valueHelper, jsEventHelper, userCredentialsHelper, pathHelper } from "../../helpers"
 
 class AbstractViewModel {
   constructor(props) {
@@ -13,6 +13,8 @@ class AbstractViewModel {
     this.addField = this.addField.bind(this)
     this.clearData = this.clearData.bind(this)
     this.clearModal = this.clearModal.bind(this)
+    this.create = this.create.bind(this)
+    this.destroy = this.destroy.bind(this)
     this.onError = this.onError.bind(this)
     this.orderedPathEntries = this.orderedPathEntries.bind(this)
     this.pathEntries = this.pathEntries.bind(this)
@@ -20,6 +22,7 @@ class AbstractViewModel {
     this.redrawView = this.redrawView.bind(this)
     this.removeField = this.removeField.bind(this)
     this.setFieldFromEvent = this.setFieldFromEvent.bind(this)
+    this.update = this.update.bind(this)
   }
 
   addData(data, nextOperation) {
@@ -56,6 +59,24 @@ class AbstractViewModel {
     if (valueHelper.isFunction(nextOperation)) {
       nextOperation()
     }
+  }
+
+  create(changedModel, nextOperation) {
+    this.api().create(
+      userCredentialsHelper.getAdmin(),
+      changedModel,
+      nextOperation,
+      this.onError
+    )
+  }
+
+  destroy(model, nextOperation) {
+    this.api().destroy(
+      userCredentialsHelper.getAdmin(),
+      this.helper().id(model),
+      nextOperation,
+      this.onError
+    )
   }
 
   onError(message) {
@@ -177,7 +198,16 @@ class AbstractViewModel {
   setFieldFromEvent(event) {
     const { name, value } = jsEventHelper.fromInputEvent(event)
 
-    this.addField(name, value)
+    this.addField(name, value, this.redrawView)
+  }
+
+  update(changedModel, nextOperation) {
+    this.api().update(
+      userCredentialsHelper.getAdmin(),
+      changedModel,
+      nextOperation,
+      this.onError
+    )
   }
 }
 

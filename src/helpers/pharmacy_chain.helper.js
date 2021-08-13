@@ -6,6 +6,7 @@ import { userHelper } from "./user.helper"
 
 export const pharmacyChainHelper = {
   address,
+  canDelete,
   canEdit,
   canIndex,
   ccdCode,
@@ -13,6 +14,7 @@ export const pharmacyChainHelper = {
   einNumber,
   fullAddress,
   logo,
+  modelName,
   name,
   notes,
   npi,
@@ -26,6 +28,10 @@ export const pharmacyChainHelper = {
 
 function address(pharmacyChain) {
   return addressHelper.address(pharmacyChain)
+}
+
+function canDelete(user, pharmacyChain) {
+  return false
 }
 
 function canEdit(user, pharmacyChain) {
@@ -62,6 +68,10 @@ function fullAddress(pharmacyChain) {
 
 function logo(pharmacyChain) {
   return fieldHelper.getField(pharmacyChain, "logo")
+}
+
+function modelName() {
+  return "pharmacy"
 }
 
 function name(pharmacyChain) {

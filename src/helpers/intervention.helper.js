@@ -9,6 +9,7 @@ import { diagnosisCodeHelper, placeOfServiceHelper } from "./admin"
 
 export const interventionHelper = {
   billLater,
+  canDelete,
   canEdit,
   closedReason,
   closedReasonDetail,
@@ -31,6 +32,7 @@ export const interventionHelper = {
   medicarePaymentAmount,
   medicarePaymentStatus,
   memberNumber,
+  modelName,
   newPatient,
   patient,
   patientName,
@@ -57,6 +59,10 @@ export const interventionHelper = {
 
 function billLater(intervention) {
   return fieldHelper.getField(intervention, "bill_later")
+}
+
+function canDelete(user, intervention) {
+  return false
 }
 
 function canEdit(user, intervention) {
@@ -145,6 +151,10 @@ function medicarePaymentStatus(intervention) {
 
 function memberNumber(intervention) {
   return patientHelper.memberNumber(interventionHelper.patient(intervention))
+}
+
+function modelName() {
+  return "intervention"
 }
 
 function newPatient(intervention) {

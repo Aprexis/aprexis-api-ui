@@ -4,6 +4,7 @@ export const medicationHelper = {
   activeIngredUnit,
   activeNumeratorStrength,
   applicationNumber,
+  canDelete,
   canEdit,
   deaSchedule,
   din,
@@ -16,6 +17,7 @@ export const medicationHelper = {
   labelerName,
   marketingCategoryName,
   medicationSuperset,
+  modelName,
   name,
   ndc11Codes,
   ndcLabelerCode,
@@ -46,7 +48,11 @@ function applicationNumber(medication) {
   return fieldHelper.getField(medication, "applicationnumber")
 }
 
-function canEdit(currentUser, medication) {
+function canDelete(user, medication) {
+  return false
+}
+
+function canEdit(user, medication) {
   return false
 }
 
@@ -92,6 +98,10 @@ function marketingCategoryName(medication) {
 
 function medicationSuperset(medication) {
   return fieldHelper.getField(medication, "medication_superset")
+}
+
+function modelName() {
+  return "medication"
 }
 
 function name(medication) {

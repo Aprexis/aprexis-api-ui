@@ -112,7 +112,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
   model() {
     const { changedPatientMedication, patientMedication } = this.data
 
-    return { changedModel: changedPatientMedication, model: patientMedication, modelName: this.modalName() }
+    return { changedModel: changedPatientMedication, model: patientMedication, modelName: this.modelName() }
   }
 
   modelName() {

@@ -1,11 +1,17 @@
 import { fieldHelper, valueHelper } from "../"
 
 export const diseaseHelper = {
+  canDelete,
   canEdit,
   description,
+  modelName,
   name,
   questionKey,
   toBreadcrumb
+}
+
+function canDelete(user, disease) {
+  return false
 }
 
 function canEdit(user, disease) {
@@ -14,6 +20,10 @@ function canEdit(user, disease) {
 
 function description(disease) {
   return fieldHelper.getField(disease, "description")
+}
+
+function modelName() {
+  return "disease"
 }
 
 function name(disease) {

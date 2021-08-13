@@ -68,10 +68,12 @@ function compareWithCast(value1, value2) {
    in the result. These two methods combine to ensure that the sub-hashes are explicitly copied.
 */
 function copyForHash(value) {
-  if (!valueHelper.isValue(value) ||
-    Array.isArray(value) ||
+  if (!valueHelper.isValue(value) || typeof (value) !== 'object') {
+    return value
+  }
+  if (Array.isArray(value) ||
     valueHelper.isFunction(value.getFullYear) ||
-    (typeof value !== "object")) {
+    valueHelper.isStringValue(value.elementType)) {
     return value
   }
 

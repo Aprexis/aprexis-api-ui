@@ -12,6 +12,7 @@ export const patientAllergyHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canDelete,
   canEdit,
   canModifyField,
   changeGoldStandardAllergy,
@@ -21,6 +22,7 @@ export const patientAllergyHelper = {
   goldStandardAllergyName,
   healthPlanId,
   id,
+  modelName,
   patient,
   patientName,
   reaction,
@@ -78,13 +80,17 @@ function buildNewChanged(patientAllergy) {
   }
 }
 
-function canBeCreated(currentUser, pathEntries) {
-  if (!userHelper.canCreatePatientAllergy(currentUser, pathEntries)) {
+function canBeCreated(user, pathEntries) {
+  if (!userHelper.canCreatePatientAllergy(user, pathEntries)) {
     return false
   }
 
 
   return pathHelper.isSingular(pathEntries, "patients")
+}
+
+function canDelete(user, patientAllergy) {
+  return false
 }
 
 function canEdit(user, patientAllergy) {
@@ -169,6 +175,10 @@ function healthPlanId(patientAllergy) {
 
 function id(patientAllergy) {
   return fieldHelper.getField(patientAllergy, "id")
+}
+
+function modelName() {
+  return "patientAllergy"
 }
 
 function patient(patientAllergy) {

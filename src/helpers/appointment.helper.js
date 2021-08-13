@@ -20,6 +20,7 @@ export const appointmentHelper = {
   findScheduledEvent,
   id,
   intervention,
+  modelName,
   patientName,
   pharmacyStore,
   pharmacyStoreId,
@@ -214,6 +215,10 @@ function id(appointment) {
 
 function intervention(appointment) {
   return fieldHelper.getField(appointment, "intervention")
+}
+
+function modelName() {
+  return "appointment"
 }
 
 function patientName(appointment, prefix = "", allowBlank = false) {

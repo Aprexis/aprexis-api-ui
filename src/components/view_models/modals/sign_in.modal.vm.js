@@ -17,9 +17,9 @@ class SignInModalViewModel extends AbstractModalViewModel {
       {
         username: '',
         password: ''
-      }
+      },
+      this.redrawView
     )
-    this.redrawView()
   }
 
   signIn(username, password, nextOperation) {

@@ -3,12 +3,18 @@ import { fieldHelper } from "./field.helper"
 import { questionHelper } from "./question.helper"
 
 export const answerHelper = {
+  canDelete,
   canEdit,
   displayValue,
+  modelName,
   question,
   questionKey,
   questionType,
   value
+}
+
+function canDelete(user, answer) {
+  return false
 }
 
 function canEdit(user, answer) {
@@ -23,6 +29,10 @@ function displayValue(answer) {
   }
 
   return questionHelper.displayValue(question, value)
+}
+
+function modelName() {
+  return "answer"
 }
 
 function question(answer) {

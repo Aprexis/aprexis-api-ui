@@ -43,8 +43,14 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
             this.loadHealthPlanPatientSearchAlgorithms(
               userCredentials,
               (healthPlanPatientSearchAlgorithms) => {
-                this.addData({ healthPlan, healthPlanPatientSearchAlgorithms, patientSearchAlgorithms })
-                this.redrawView()
+                this.addData(
+                  {
+                    healthPlan,
+                    healthPlanPatientSearchAlgorithms,
+                    patientSearchAlgorithms
+                  },
+                  this.redrawView
+                )
               }
             )
           }

@@ -29,8 +29,7 @@ class FiltersModalViewModel extends AbstractModalViewModel {
       delete filters[queryParam]
     }
 
-    this.addData({ filters })
-    this.redrawView()
+    this.addData({ filters }, this.redrawView)
   }
 
   changeDateTime(field, dateTimeString, fieldValid) {
@@ -45,8 +44,7 @@ class FiltersModalViewModel extends AbstractModalViewModel {
       [queryField]: { ...queryParamValidations[queryField], ...fieldValid }
     }
 
-    this.addData({ filters, filterValidations })
-    this.redrawView()
+    this.addData({ filters, filterValidations }, this.redrawView)
 
     function parseField(field) {
       const lastUnderscore = field.lastIndexOf("_")
@@ -83,8 +81,7 @@ class FiltersModalViewModel extends AbstractModalViewModel {
       delete filters[queryParam]
     }
 
-    this.addData({ filters })
-    this.redrawView()
+    this.addData({ filters }, this.redrawView)
   }
 
   filterDescriptionForName(name) {
@@ -145,8 +142,7 @@ class FiltersModalViewModel extends AbstractModalViewModel {
   loadData() {
     const { filterDescriptions, filters } = this.props
     const filterValidations = Filter.initializeValidations(filterDescriptions, filters)
-    this.addData({ filterDescriptions, filters, filterValidations })
-    this.redrawView()
+    this.addData({ filterDescriptions, filters, filterValidations }, this.redrawView)
   }
 
   submitFilters() {

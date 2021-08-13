@@ -83,9 +83,13 @@ class UsersPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (users, usersHeaders) => {
-        this.addData({ users })
-        this.addField("page", pageHelper.updatePageFromLastPage(usersHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            users,
+            page: pageHelper.updatePageFromLastPage(usersHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

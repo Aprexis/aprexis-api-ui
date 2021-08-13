@@ -170,9 +170,13 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     this.fetchList(
       patientListMethods,
       (patients, patientHeaders) => {
-        this.addData({ patients })
-        this.addField("page", pageHelper.updatePageFromLastPage(patientHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            patients,
+            page: pageHelper.updatePageFromLastPage(patientHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

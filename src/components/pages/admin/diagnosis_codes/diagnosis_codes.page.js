@@ -72,11 +72,14 @@ class DiagnosisCodesPage extends Component {
     return listHelper.listRow(
       {
         currentUser: this.props.currentUser,
-        editTableItem: this.vm.editModal,
         filters,
         gotoTableItemProfile: this.vm.gotoDiagnosisCodeProfile,
         headings,
         helper: diagnosisCodeHelper,
+        launchModal: this.props.launchModal,
+        onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
+        onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: diagnosisCode
       }

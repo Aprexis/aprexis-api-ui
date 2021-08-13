@@ -2,16 +2,22 @@ import { billingContractHelper } from "./billing_contract.helper"
 import { fieldHelper, pharmacyStoreHelper } from "../"
 
 export const billingContractPharmacyStoreHelper = {
+  canDelete,
   canEdit,
   claimsEnabled,
   clinical,
   contract,
   healthPlanName,
+  modelName,
   pharmacyStore,
   pharmacyStoreName,
   pharmacyStoreNumber,
   pullsEnabled,
   transactional
+}
+
+function canDelete(user, billingContractPharmacyStore) {
+  return false
 }
 
 function canEdit(user, billingContractPharmacyStore) {
@@ -34,6 +40,10 @@ function healthPlanName(billingContractPharmacyStore) {
   return billingContractHelper.healthPlanName(
     billingContractPharmacyStoreHelper.contract(billingContractPharmacyStore)
   )
+}
+
+function modelName() {
+  return "billingContractPharmacyStore"
 }
 
 function pharmacyStore(billingContractPharmacyStore) {

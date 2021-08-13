@@ -85,6 +85,10 @@ class PharmacyChainsPage extends Component {
         gotoTableItemProfile: this.vm.gotoPharmacyChainProfile,
         headings,
         helper: pharmacyChainHelper,
+        launchModal: this.props.launchModal,
+        onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
+        onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: pharmacyChain
       }

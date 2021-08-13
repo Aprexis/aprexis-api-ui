@@ -52,9 +52,13 @@ class DiseasesPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (diseases, diseaseHeaders) => {
-        this.addData({ diseases })
-        this.addField("page", pageHelper.updatePageFromLastPage(diseaseHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            diseases,
+            page: pageHelper.updatePageFromLastPage(diseaseHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

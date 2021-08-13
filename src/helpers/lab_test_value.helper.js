@@ -3,12 +3,18 @@ import { interventionHelper } from "./intervention.helper"
 import { labTestHelper } from "./admin"
 
 export const labTestValueHelper = {
+  canDelete,
   canEdit,
   labTestKeyCode,
   labTestFullName,
   labTestName,
+  modelName,
   programName,
   value
+}
+
+function canDelete(user, labTestValue) {
+  return false
 }
 
 function canEdit(user, labTestValue) {
@@ -25,6 +31,10 @@ function labTestFullName(labTestValue) {
 
 function labTestName(labTestValue) {
   return labTestHelper.name(fieldHelper.getField(labTestValue, "lab_test"))
+}
+
+function modelName() {
+  return "labTestValue"
 }
 
 function programName(labTestValue) {

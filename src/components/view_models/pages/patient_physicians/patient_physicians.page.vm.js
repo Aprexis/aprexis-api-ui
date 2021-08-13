@@ -1,6 +1,12 @@
 import { AbstractListPageViewModel } from "../"
 import { patientPhysicianApi } from "../../../../api"
-import { filtersHelper, pageHelper } from "../../../../helpers"
+import {
+  filtersHelper,
+  pageHelper,
+  pathHelper,
+  userCredentialsHelper,
+  patientPhysicianHelper
+} from "../../../../helpers"
 
 const patientPhysicianListMethods = [
   { pathKey: "patients", method: patientPhysicianApi.listForPatient }
@@ -10,18 +16,46 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.canCreate = this.canCreate.bind(this)
+    this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     //this.gotoPatientPhysicianProfile = this.gotoPatientPhysicianProfile.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
   }
 
+  api() {
+    return patientPhysicianApi
+  }
+
   canCreate() {
-    return false
+    const { currentUser } = this.props
+    const pathEntries = this.pathEntries()
+
+    return this.helper().canBeCreated(currentUser, pathEntries)
+  }
+
+  createModal() {
+    const pathEntries = this.pathEntries()
+    const patientId = pathHelper.id(pathEntries, "patients")
+
+    this.api().buildNew(
+      userCredentialsHelper.get(),
+      patientId,
+      {},
+      (patientPhysician) => {
+        this.props.launchModal(
+          "patient-physician",
+          { operation: "create", onUpdateView: this.refreshData, patientPhysician }
+        )
+      },
+      this.onError
+    )
   }
 
   defaultParameters() {
@@ -50,6 +84,10 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     pathHelper.gotoPage(pathArray)
   }
   */
+
+  helper() {
+    return patientPhysicianHelper
+  }
 
   loadData() {
     this.clearData()

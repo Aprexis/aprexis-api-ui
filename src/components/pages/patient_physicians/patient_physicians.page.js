@@ -63,11 +63,14 @@ class PatientPhysiciansPage extends Component {
     return listHelper.listRow(
       {
         currentUser: this.props.currentUser,
-        editTableItem: this.vm.editModal,
         filters,
         gotoTableItemProfile: this.vm.gotoPatientPhysicianProfile,
         headings,
         helper: patientPhysicianHelper,
+        launchModal: this.props.launchModal,
+        onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
+        onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: patientPhysician
       }
@@ -124,8 +127,8 @@ class PatientPhysiciansPage extends Component {
     )
   }
 
-  shouldComponentUpdate() {
-    this.vm.props = { ...this.vm.props, ...this.props }
+  shouldComponentUpdate(nextProps, nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }
 }

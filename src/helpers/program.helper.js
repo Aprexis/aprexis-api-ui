@@ -4,12 +4,14 @@ import { healthPlanHelper } from "./health_plan.helper"
 
 export const programHelper = {
   active,
+  canDelete,
   canEdit,
   display,
   endDate,
   healthPlan,
   healthPlanName,
   kind,
+  modelName,
   name,
   startDate,
   toBreadcrumb,
@@ -18,6 +20,10 @@ export const programHelper = {
 
 function active(program) {
   return valueHelper.isValue(program)
+}
+
+function canDelete(user, program) {
+  return false
 }
 
 function canEdit(user, program) {
@@ -46,6 +52,10 @@ function healthPlanName(program) {
 
 function kind(program) {
   return fieldHelper.getField(program, "kind")
+}
+
+function modelName() {
+  return "program"
 }
 
 function name(program) {

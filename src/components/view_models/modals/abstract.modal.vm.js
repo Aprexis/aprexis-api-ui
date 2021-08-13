@@ -1,6 +1,6 @@
 import React from "react"
 import { AbstractViewModel } from "../"
-import { alertHelper, dateHelper, fieldHelper, userCredentialsHelper, valueHelper } from "../../../helpers"
+import { alertHelper, dateHelper, fieldHelper, valueHelper } from "../../../helpers"
 
 function initializeDateAndTimeValidity(dateAndTimeField, value) {
   const validDate = dateHelper.isValidDate(value)
@@ -119,8 +119,7 @@ class AbstractModalViewModel extends AbstractViewModel {
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
     const updated = fieldHelper.changeDate(modelName, model, changedModel, field, dateString, fieldValid)
 
-    this.addData(updated)
-    this.redrawView()
+    this.addData(updated, this.redrawView)
   }
 
   changeDateTime(field, dateTimeString, fieldValid) {
@@ -137,8 +136,7 @@ class AbstractModalViewModel extends AbstractViewModel {
       fieldValid
     )
 
-    this.addData(updated)
-    this.redrawView()
+    this.addData(updated, this.redrawView)
   }
 
   changeField(event) {
@@ -147,8 +145,7 @@ class AbstractModalViewModel extends AbstractViewModel {
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
     const updated = fieldHelper.changeField(modelName, model, changedModel, event)
 
-    this.addData(updated)
-    this.redrawView()
+    this.addData(updated, this.redrawView)
   }
 
   changeNumericField(name, valueAsNumber) {
@@ -157,17 +154,11 @@ class AbstractModalViewModel extends AbstractViewModel {
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
     const updated = fieldHelper.changeValue(modelName, model, changedModel, name, valueAsNumber)
 
-    this.addData(updated)
-    this.redrawView()
+    this.addData(updated, this.redrawView)
   }
 
-  create(modalChangedModel) {
-    this.api().create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
+  create(changedModel) {
+    super.create(changedModel, () => { this.toggleModal(this.props.onUpdateView) })
   }
 
   initializeDateAndTimeValidities(model) {
@@ -278,13 +269,8 @@ class AbstractModalViewModel extends AbstractViewModel {
     clearModal(completeToggle)
   }
 
-  update(modalChangedModel) {
-    this.api().update(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
+  update(changedModel) {
+    super.update(changedModel, () => { this.toggleModal(this.props.onUpdateView) })
   }
 }
 

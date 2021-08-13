@@ -11,8 +11,7 @@ class AutocompleteViewModel extends AbstractViewModel {
 
   loadData() {
     this.clearData()
-    this.addData({ loading: false, searchText: this.props.searchText ?? "", timeout: 0 })
-    this.redrawView()
+    this.addData({ loading: false, searchText: this.props.searchText ?? "", timeout: 0 }, this.redrawView)
   }
 
   search(event) {
@@ -20,8 +19,7 @@ class AutocompleteViewModel extends AbstractViewModel {
     const searchInput = event.target
     const searchText = jsEventHelper.fromInputEvent(event).value
     const onSuccess = (results) => {
-      this.addField("loading", false)
-      this.redrawView()
+      this.addField("loading", false, this.redrawView)
     }
     const onFailure = () => this.addField("loading", false)
 
@@ -45,7 +43,8 @@ class AutocompleteViewModel extends AbstractViewModel {
           },
           500
         )
-      }
+      },
+      this.redrawView
     )
   }
 }

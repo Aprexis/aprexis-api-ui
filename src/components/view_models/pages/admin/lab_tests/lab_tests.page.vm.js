@@ -53,9 +53,13 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (labTests, labTestHeaders) => {
-        this.addData({ labTests })
-        this.addField("page", pageHelper.updatePageFromLastPage(labTestHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            labTests,
+            page: pageHelper.updatePageFromLastPage(labTestHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

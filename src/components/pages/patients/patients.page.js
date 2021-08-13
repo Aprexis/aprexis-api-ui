@@ -78,11 +78,14 @@ class PatientsPage extends Component {
     return listHelper.listRow(
       {
         currentUser: this.props.currentUser,
-        editTableItem: this.vm.editModal,
         filters,
         gotoTableItemProfile: this.vm.gotoPatientProfile,
         headings,
         helper: patientHelper,
+        launchModal: this.props.launchModal,
+        onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
+        onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: patient
       }

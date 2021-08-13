@@ -11,6 +11,7 @@ export const healthPlanHelper = {
   allowManuallyAddedPatients,
   billingClaimsGateway,
   canConfigure,
+  canDelete,
   canEdit,
   canIndex,
   ccdGenerator,
@@ -22,6 +23,7 @@ export const healthPlanHelper = {
   importingPatientData,
   insuranceDetailType,
   isSegmented,
+  modelName,
   name,
   notes,
   pharmacyClaimsUploader,
@@ -60,6 +62,10 @@ function billingClaimsGateway(healthPlan) {
 
 function canConfigure(user) {
   return userHelper.hasRole(user, "aprexis_admin")
+}
+
+function canDelete(user, healthPlan) {
+  return false
 }
 
 function canEdit(user, healthPlan) {
@@ -104,6 +110,10 @@ function insuranceDetailType(healthPlan) {
 
 function isSegmented(healthPlan) {
   return valueHelper.isStringValue(healthPlanHelper.segmentedUploader(healthPlan))
+}
+
+function modelName() {
+  return "healthPlan"
 }
 
 function name(healthPlan) {

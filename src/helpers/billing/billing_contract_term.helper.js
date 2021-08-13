@@ -2,18 +2,24 @@ import { billingContractHelper } from "./"
 import { fieldHelper, valueHelper } from "../"
 
 export const billingContractTermHelper = {
+  canDelete,
   canEdit,
   contract,
   diagnosis,
   displayPullsEnabled,
   displayPushesEnabled,
   healthPlanName,
+  modelName,
   pullsEnabled,
   pushesEnabled,
   type
 }
 
-function canEdit(currentUser, billingContractTerm) {
+function canDelete(user, billingContractTerm) {
+  return false
+}
+
+function canEdit(user, billingContractTerm) {
   return false
 }
 
@@ -35,6 +41,10 @@ function displayPushesEnabled(billingContractTerm) {
 
 function healthPlanName(billingContractTerm) {
   return billingContractHelper.healthPlanName(billingContractTermHelper.contract(billingContractTerm))
+}
+
+function modelName() {
+  return "billingContractTerm"
 }
 
 function pullsEnabled(billingContractTerm) {

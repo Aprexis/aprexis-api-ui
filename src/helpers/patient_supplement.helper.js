@@ -4,7 +4,9 @@ import { patientHelper } from "./patient.helper"
 import { physicianHelper } from "./physician.helper"
 
 export const patientSupplementHelper = {
+  canDelete,
   canEdit,
+  modelName,
   name,
   patient,
   patientName,
@@ -13,8 +15,16 @@ export const patientSupplementHelper = {
   startDate
 }
 
-function canEdit(currentUser, patientSupplement) {
+function canDelete(user, patientSupplement) {
   return false
+}
+
+function canEdit(user, patientSupplement) {
+  return false
+}
+
+function modelName() {
+  return "patientSupplement"
 }
 
 function name(patientSupplement) {

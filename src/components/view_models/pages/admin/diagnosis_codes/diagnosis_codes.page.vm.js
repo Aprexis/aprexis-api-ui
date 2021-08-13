@@ -60,9 +60,13 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (diagnosisCodes, diagnosisCodeHeaders) => {
-        this.addData({ diagnosisCodes })
-        this.addField("page", pageHelper.updatePageFromLastPage(diagnosisCodeHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            diagnosisCodes,
+            page: pageHelper.updatePageFromLastPage(diagnosisCodeHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

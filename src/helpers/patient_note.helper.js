@@ -15,9 +15,11 @@ export const patientNoteHelper = {
   buildChanged,
   buildNewChanged,
   canBeCreated,
+  canDelete,
   canEdit,
   createdAt,
   displayDateTime,
+  modelName,
   note,
   patientName,
   pharmacyStorePatient,
@@ -58,6 +60,10 @@ function canBeCreated(pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients") && pathHelper.isSingular(pathEntries, "pharmacy-stores")
 }
 
+function canDelete(user, patientNote) {
+  return false
+}
+
 function canEdit(user, patientNote) {
   return false
 }
@@ -70,6 +76,10 @@ function displayDateTime(patientNote) {
   const dateTime = updatedAt(patientNote);
 
   return dateHelper.displayDateTime(dateTime);
+}
+
+function modelName() {
+  return "patientNote"
 }
 
 function note(patientNote) {

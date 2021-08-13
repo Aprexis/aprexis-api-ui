@@ -52,7 +52,8 @@ class DeleteButton extends Component {
       <ConfirmableButton
         buttonLabel={this.buttonLabel()}
         buttonText={this.buttonText()}
-        confirmText={`Are you sure you want to delete this ${modelName}?`}
+        className={this.buildClassName()}
+        confirmText={`Are you sure you want to delete this ${valueHelper.humanize(modelName).toLowerCase()}?`}
         confirmTitle="Delete"
         launchModal={this.props.launchModal}
         noLabel="Retain"

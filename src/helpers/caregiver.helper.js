@@ -4,9 +4,11 @@ import { nameHelper } from "./name.helper"
 import { patientHelper } from "./patient.helper"
 
 export const caregiverHelper = {
+  canDelete,
   canEdit,
   displayIsCurrentCaregiver,
   isCurrentCaregiver,
+  modelName,
   name,
   patient,
   patientName,
@@ -14,7 +16,11 @@ export const caregiverHelper = {
   usePatientAddress
 }
 
-function canEdit(currentUser, caregiver) {
+function canDelete(user, caregiver) {
+  return false
+}
+
+function canEdit(user, caregiver) {
   return false
 }
 
@@ -24,6 +30,10 @@ function displayIsCurrentCaregiver(caregiver) {
 
 function isCurrentCaregiver(caregiver) {
   return fieldHelper.getField(caregiver, "is_current_caregiver")
+}
+
+function modelName() {
+  return "caregiver"
 }
 
 function name(caregiver) {

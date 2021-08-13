@@ -72,11 +72,14 @@ class CaregiversPage extends Component {
     return listHelper.listRow(
       {
         currentUser: this.props.currentUser,
-        editTableItem: this.vm.editModal,
         filters,
         gotoTableItemProfile: this.vm.gotoCaregiverProfile,
         headings,
         helper: caregiverHelper,
+        launchModal: this.props.launchModal,
+        onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
+        onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: caregiver
       }

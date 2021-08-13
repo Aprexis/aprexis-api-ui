@@ -78,9 +78,13 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
       userCredentials,
       { ...filters, ...sorting, page },
       (interventions, interventionHeaders) => {
-        this.addData({ interventions })
-        this.addField("page", pageHelper.updatePageFromLastPage(interventionHeaders))
-        this.redrawView()
+        this.addData(
+          {
+            interventions,
+            page: pageHelper.updatePageFromLastPage(interventionHeaders)
+          },
+          this.redrawView
+        )
       },
       this.onError
     )

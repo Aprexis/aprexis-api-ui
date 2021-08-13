@@ -1,14 +1,20 @@
 import { fieldHelper } from "../"
 
 export const labTestHelper = {
+  canDelete,
   canEdit,
   category,
   fullName,
   keyCode,
+  modelName,
   name,
   normalValue,
   units,
   vital
+}
+
+function canDelete(user, labTest) {
+  return false
 }
 
 function canEdit(user, labTest) {
@@ -25,6 +31,10 @@ function fullName(labTest) {
 
 function keyCode(labTest) {
   return fieldHelper.getField(labTest, "key_code")
+}
+
+function modelName() {
+  return "labTest"
 }
 
 function name(labTest) {
