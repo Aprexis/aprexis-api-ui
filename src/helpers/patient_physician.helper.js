@@ -15,6 +15,7 @@ export const patientPhysicianHelper = {
   changePhysician,
   id,
   modelName,
+  patientId,
   physician,
   physicianId,
   physicianName,
@@ -71,12 +72,29 @@ function canBeCreated(user, pathEntries) {
 function canDelete(user, patientPhysician) {
   return userHelper.hasRole(
     user,
-    ['aprexis_admin', 'pharmacy_store_admin', 'pharmacy_store_tech', 'pharmacy_store_user']
+    [
+      'aprexis_admin',
+      'health_plan_admin',
+      'health_plan_user',
+      'pharmacy_store_admin',
+      'pharmacy_store_tech',
+      'pharmacy_store_user'
+    ]
   )
 }
 
 function canEdit(user, patientPhysician) {
-  return false
+  return userHelper.hasRole(
+    user,
+    [
+      'aprexis_admin',
+      'health_plan_admin',
+      'health_plan_user',
+      'pharmacy_store_admin',
+      'pharmacy_store_tech',
+      'pharmacy_store_user'
+    ]
+  )
 }
 
 function canModifyField(patientPhysician, fieldName) {
@@ -112,12 +130,16 @@ function modelName() {
   return "patientPhysician"
 }
 
+function patientId(patientPhysician) {
+  return fieldHelper.getField(patientPhysician, "patient_id")
+}
+
 function physician(patientPhysician) {
   return fieldHelper.getField(patientPhysician, "physician")
 }
 
 function physicianId(patientPhysician) {
-  return fieldHelper.getField(patientPhysician, "id")
+  return fieldHelper.getField(patientPhysician, "physician_id")
 }
 
 function physicianName(patientPhysician) {

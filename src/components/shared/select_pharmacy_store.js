@@ -109,6 +109,10 @@ class SelectPharmacyStore extends Component {
     this.vm.loadData()
   }
 
+  componentDidUpdate() {
+    this.vm.updateSearchFromId()
+  }
+
   render() {
     const { useSearch } = this.state
 

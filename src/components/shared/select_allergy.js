@@ -25,16 +25,7 @@ class SelectAllergy extends Component {
   }
 
   componentDidUpdate() {
-    const { id } = this.props
-    const { item } = this.state
-
-    if ((id === this.lastId) || id == goldStandardAllergyHelper.allergyId(item)) {
-      return
-    }
-    this.lastId = id
-
-    this.vm.props.id = id
-    this.vm.loadData()
+    this.vm.updateSearchFromId()
   }
 
   render() {

@@ -23,6 +23,10 @@ class SelectPhysician extends Component {
     this.vm.loadData()
   }
 
+  componentDidUpdate() {
+    this.vm.updateSearchFromId()
+  }
+
   render() {
     const { readOnly } = this.props
     const { enableSearch, item, searchText, searchResults } = this.state

@@ -20,6 +20,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     this.canCreate = this.canCreate.bind(this)
     this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     //this.gotoPatientPhysicianProfile = this.gotoPatientPhysicianProfile.bind(this)
@@ -63,6 +64,19 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     const sorting = { sort: "primary,physician.last_name,physician.first_name,physician.middle_name" }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editModal(patientPhysicianToEdit) {
+    patientPhysicianApi.edit(
+      userCredentialsHelper.get(),
+      patientPhysicianToEdit.id,
+      (patientPhysician) => {
+        this.props.launchModal(
+          "patient-physician",
+          { operation: "update", onUpdateView: this.refreshData, patientPhysician })
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(filters, filtersOptions) {
