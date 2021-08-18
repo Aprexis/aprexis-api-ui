@@ -1,12 +1,12 @@
 import { AbstractViewModel } from ".."
-import { DateUtils } from "react-day-picker"
-import { dateHelper, valueHelper } from "../../../helpers"
+import { dateHelper, jsEventHelper, valueHelper } from "../../../helpers"
 
-class DatePickerViewModel extends AbstractViewModel {
+class DayPickerViewModel extends AbstractViewModel {
   constructor(props) {
     super(props)
 
     this.dayChange = this.dayChange.bind(this)
+    this.dayEntry = this.dayEntry.bind(this)
     this.formatDate = this.formatDate.bind(this)
     this.getDateStringFromProps = this.getDateStringFromProps.bind(this)
     this.getDayPickerClassNameFromProps = this.getDayPickerClassNameFromProps.bind(this)
@@ -16,45 +16,36 @@ class DatePickerViewModel extends AbstractViewModel {
     this.parseDate = this.parseDate.bind(this)
   }
 
-  dayChange(selectedDay, modifiers, dayPickerInput) {
-    const { dateField, format, locale } = this.props
-    const { value, validDate } = determineValue(
-      selectedDay,
-      dayPickerInput,
-      this.formatDate,
-      this.parseDate,
-      format,
-      locale
-    )
-    this.props.dayChange(dateField, value, validDate)
+  dayChange(date) {
+    const { dateField } = this.props
+
+    this.props.dayChange(dateField, dateHelper.formatDate(date, "yyyy-MM-dd"), true)
     return
+  }
 
-    function determineValue(selectedDay, dayPickerInput, formatDate, parseDate, format, locale) {
-      if (typeof selectedDay == "undefined") {
-        return determineValueFromDayPickerInput(dayPickerInput, parseDate, format, locale)
-      }
-
-      const value = formatDate(selectedDay, format, locale)
-      return { value, validDate: true }
+  dayEntry(event) {
+    const { dateField } = this.props
+    const { value } = jsEventHelper.fromInputEvent(event)
+    if (!valueHelper.isStringValue(value)) {
+      return
     }
 
-    function determineValueFromDayPickerInput(dayPickerInput, parseDate, format, locale) {
-      const input = dayPickerInput.getInput()
-      const { value } = input
-      const validDate = valueHelper.isValue(parseDate(value, format, locale))
-
-      return { value, validDate }
-    }
+    const validDate = dateHelper.isValidDate(value)
+    this.props.dayChange(dateField, value, validDate)
   }
 
   formatDate(date, format, locale) {
+    if (!dateHelper.isValidDate(date)) {
+      return
+    }
+
     return dateHelper.convertDateToDateString(date, format, locale);
   }
 
   getDateStringFromProps() {
-    const { date, format, locale } = this.props
+    const { date, dateFormat, locale } = this.props
 
-    return this.formatDate(date, format, locale)
+    return this.formatDate(date, dateFormat, locale)
   }
 
   getDayPickerClassNameFromProps() {
@@ -68,9 +59,10 @@ class DatePickerViewModel extends AbstractViewModel {
   }
 
   getDayPickerPropsFromProps(dateString) {
-    const { earliestDate, latestDate } = this.props
+    const { dateFormat, earliestDate, latestDate } = this.props
 
     return computeDayPickerProps(
+      dateFormat,
       dateString,
       this.props.disabledDays,
       earliestDate,
@@ -89,38 +81,39 @@ class DatePickerViewModel extends AbstractViewModel {
       return date
     }
 
-    function computeDayPickerProps(dateString, baseDisabledDays, earliestDate, latestDate) {
+    function computeDayPickerProps(dateFormat, dateString, disabledDays, earliestDate, latestDate) {
       const now = new Date()
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
       const myEarliestDate = determineEarliestDate(earliestDate)
       const myLatestDate = determineLatestDate(latestDate)
       const todayButton = determineTodayButton(today, myEarliestDate, myLatestDate)
-      const initialMonth = computeInitialMonthFromDateString(dateString, today, myEarliestDate, myLatestDate)
+      const openToDate = computeOpenToDateFromDateString(dateString, today, myEarliestDate, myLatestDate)
 
-      const from = computeFrom(baseDisabledDays, myEarliestDate)
-      const { fromMonth } = from
-      let { disabledDays } = from
+      const from = computeFrom(disabledDays, myEarliestDate)
+      const { minDate } = from
+      let { excludeDates } = from
 
-      const to = computeTo(disabledDays, myLatestDate)
-      const { toMonth } = to
-      disabledDays = to.disabledDays
+      const to = computeTo(excludeDates, myLatestDate)
+      const { maxDate } = to
+      excludeDates = to.excludeDates
 
       return {
-        disabledDays,
-        fromMonth,
-        initialMonth,
+        dateFormat,
+        excludeDates,
+        minDate,
+        openToDate,
         todayButton,
-        toMonth
+        maxDate
       }
 
-      function computeFrom(baseDisabledDays, earliestDate) {
-        const fromMonth = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1)
-        const disabledDays = [...(baseDisabledDays ?? []), ...daysBetween(fromMonth, addDays(earliestDate, -1))]
+      function computeFrom(disabledDays, earliestDate) {
+        const minDate = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1)
+        const excludeDates = [...(disabledDays ?? []), ...daysBetween(minDate, addDays(earliestDate, -1))]
 
-        return { disabledDays, fromMonth }
+        return { excludeDates, minDate }
       }
 
-      function computeInitialMonthFromDateString(dateString, today, earliestDate, latestDate) {
+      function computeOpenToDateFromDateString(dateString, today, earliestDate, latestDate) {
         let initialDate
         if (dateHelper.isValidDate(dateString)) {
           initialDate = dateHelper.makeDate(dateString)
@@ -135,13 +128,13 @@ class DatePickerViewModel extends AbstractViewModel {
         return new Date(initialDate.getFullYear(), initialDate.getMonth(), 1)
       }
 
-      function computeTo(baseDisabledDays, latestDate, baseInitialMonth) {
-        const toMonthStart = new Date(latestDate.getFullYear(), latestDate.getMonth(), 1)
-        const toMonth = addDays(addMonths(toMonthStart, 1), -1)
-        const disabledDays = [...(baseDisabledDays ?? []), ...daysBetween(addDays(latestDate, 1), toMonth)]
-        const initialMonth = baseInitialMonth ?? toMonthStart
+      function computeTo(disabledDays, latestDate, baseOpenToDate) {
+        const maxDateStart = new Date(latestDate.getFullYear(), latestDate.getMonth(), 1)
+        const maxDate = addDays(addMonths(maxDateStart, 1), -1)
+        const excludeDates = [...(disabledDays ?? []), ...daysBetween(addDays(latestDate, 1), maxDate)]
+        const openToDate = baseOpenToDate ?? maxDateStart
 
-        return { disabledDays, initialMonth, toMonth }
+        return { excludeDates, openToDate, maxDate }
       }
 
       function daysBetween(firstDate, lastDate) {
@@ -203,8 +196,12 @@ class DatePickerViewModel extends AbstractViewModel {
   }
 
   parseDate(str, format, locale) {
+    if (!valueHelper.isStringValue(str)) {
+      return
+    }
+
     const parsed = dateHelper.convertDateStringToDate(str, format, locale);
-    if (DateUtils.isDate(parsed)) {
+    if (dateHelper.isValidDate(parsed)) {
       return parsed
     }
 
@@ -212,4 +209,4 @@ class DatePickerViewModel extends AbstractViewModel {
   }
 }
 
-export { DatePickerViewModel }
+export { DayPickerViewModel }

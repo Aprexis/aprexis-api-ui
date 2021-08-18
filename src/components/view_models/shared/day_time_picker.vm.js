@@ -1,7 +1,7 @@
 import { AbstractViewModel } from "../"
 import { dateHelper, valueHelper } from "../../../helpers"
 
-class DateTimePickerViewModel extends AbstractViewModel {
+class DayTimePickerViewModel extends AbstractViewModel {
   constructor(props) {
     super(props)
 
@@ -15,7 +15,7 @@ class DateTimePickerViewModel extends AbstractViewModel {
     const timeString = dateHelper.convertDateToTimeString(dateTime, timeFormat, locale)
     const dateTimeString = `${dateString} ${timeString}`
 
-    this.props.changeDateTime(field, dateTimeString, { validDate })
+    this.props.changeDateTime(field, dateTimeString, { value: dateTimeString, validDate })
   }
 
   loadData() {
@@ -38,9 +38,9 @@ class DateTimePickerViewModel extends AbstractViewModel {
       }
     }
 
-    this.props.dateTimeChange(field, dateTimeString, { validTime: myValidTime })
+    this.props.dateTimeChange(field, dateTimeString, { value: dateTimeString, validTime: myValidTime })
   }
 }
 
-export { DateTimePickerViewModel }
+export { DayTimePickerViewModel }
 

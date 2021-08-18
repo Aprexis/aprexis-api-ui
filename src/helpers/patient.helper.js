@@ -34,6 +34,7 @@ export const patientHelper = {
   longitude,
   memberNumber,
   middleName,
+  modelName,
   name,
   noKnownAllergies,
   medicationCount,
@@ -278,6 +279,10 @@ function memberNumber(patient) {
 
 function middleName(patient, prefix = "") {
   return nameHelper.middleName(patient, prefix)
+}
+
+function modelName() {
+  return "patient"
 }
 
 function name(patient, prefix = "", allowBlank = false) {

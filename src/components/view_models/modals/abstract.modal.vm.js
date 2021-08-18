@@ -117,7 +117,14 @@ class AbstractModalViewModel extends AbstractViewModel {
     const modelData = this.model()
     const { model, modelName } = modelData
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
-    const updated = fieldHelper.changeDate(modelName, model, changedModel, field, dateString, fieldValid)
+    const updated = fieldHelper.changeDate(
+      modelName,
+      model,
+      changedModel,
+      field,
+      dateString,
+      { value: dateString, validDate: fieldValid }
+    )
 
     this.addData(updated, this.redrawView)
   }

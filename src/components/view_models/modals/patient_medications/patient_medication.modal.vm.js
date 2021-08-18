@@ -34,7 +34,6 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
-    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectMedication = this.selectMedication.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
@@ -113,10 +112,6 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     const { changedPatientMedication, patientMedication } = this.data
 
     return { changedModel: changedPatientMedication, model: patientMedication, modelName: this.modelName() }
-  }
-
-  modelName() {
-    return "patientMedication"
   }
 
   requiredFields() {

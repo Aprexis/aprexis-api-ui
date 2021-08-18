@@ -10,6 +10,7 @@ import { contactHelper } from "./contact.helper"
 
 export const userHelper = {
   canCreateAppointment,
+  canCreateBillingContract,
   canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
@@ -76,9 +77,14 @@ function canCreateForPharmacyStore(user, pathEntries, allowNil = false) {
 }
 
 function canCreateAppointment(user) {
-  return ["aprexis_admin", "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user"].includes(
-    userHelper.role(user)
+  return userHelper.hasRole(
+    user,
+    ["aprexis_admin", "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user"]
   )
+}
+
+function canCreateBillingContract(user) {
+  return userHelper.hasRole(user, "aprexis_admin")
 }
 
 function canCreatePatient(user, pathEntries) {

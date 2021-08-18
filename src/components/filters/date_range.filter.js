@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Col, Label } from "reactstrap"
-import { DatePicker } from "../shared"
+import { DayPicker } from "../shared"
 import { dateHelper, filtersHelper, valueHelper } from "../../helpers"
 
-/* TODO: needs to be checked against updated DatePicker. */
+/* TODO: needs to be checked against DayPicker. */
 
 class DateRangeFilter extends Component {
   constructor(props) {
@@ -148,7 +148,7 @@ class DateRangeFilter extends Component {
         <Col xs={2} className="col-2 col-form-label test-nowrap pt-1">{label}</Col>
         <Col className="p-0">
           <Label className="ml-3 mr-2">{startFieldLabel}</Label>
-          <DatePicker
+          <DayPicker
             allowBlank={true}
             allowEdit={allowEdit}
             date={start}
@@ -162,7 +162,7 @@ class DateRangeFilter extends Component {
         </Col>
         <Col className="p-0">
           <Label className="ml-3 mr-2">{stopFieldLabel}</Label>
-          <DatePicker
+          <DayPicker
             allowBlank={true}
             allowEdit={allowEdit}
             date={stop}

@@ -1,16 +1,14 @@
 import React, { Component } from "react"
 import { Col, Row } from "reactstrap"
 import { dateHelper } from "../../helpers"
-import { DatePicker, TimePicker } from "./"
-import { DateTimePickerViewModel } from "../view_models/shared"
+import { DayPicker, TimePicker } from "./"
+import { DayTimePickerViewModel } from "../view_models/shared"
 
-/* TODO: needs to be updated to be similar to DatePicker. */
-
-class DateTimePicker extends Component {
+class DayTimePicker extends Component {
   constructor(props) {
     super(props)
 
-    this.vm = new DateTimePickerViewModel(
+    this.vm = new DayTimePickerViewModel(
       {
         ...props,
         dateFormat: "yyyy-MM-dd",
@@ -43,7 +41,7 @@ class DateTimePicker extends Component {
     return (
       <Row>
         <Col xs={7}>
-          <DatePicker
+          <DayPicker
             allowBlank={allowBlank}
             allowEdit={allowEdit}
             className={dateClassName}
@@ -78,4 +76,4 @@ class DateTimePicker extends Component {
   }
 }
 
-export { DateTimePicker }
+export { DayTimePicker }

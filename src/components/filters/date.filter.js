@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Col, Label } from 'reactstrap'
-import { DatePicker } from '../shared'
+import { DayPicker } from '../shared'
 import { dateHelper, filtersHelper, valueHelper } from '../../helpers'
 
-// TODO: rewrite to properly use DatePicker.
+// TODO: rewrite to properly use DayPicker.
 
 class DateFilter extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class DateFilter extends Component {
       <div className="form-group row">
         <Label className="col-3 col-form-label text-nowrap mr-2 pt-1" htmlFor={name}>{name}</Label>
         <Col className="pt-0 pl-2">
-          <DatePicker
+          <DayPicker
             allowBlank={allowBlank}
             allowEdit={!valueHelper.isSet(filterDescription.disabled) && !valueHelper.isSet(this.props.readOnly)}
             className=""

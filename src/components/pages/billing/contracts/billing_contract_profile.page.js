@@ -5,7 +5,7 @@ import { BillingContractProfilePageViewModel } from "../../../view_models/pages/
 import { fieldHelper, valueHelper } from "../../../../helpers"
 import { billingContractHelper } from "../../../../helpers/billing"
 
-const BillingContractProfile = ({ currentUser, onEditProfile, billingContract }) => {
+const BillingContractProfile = ({ currentUser, onEdit, billingContract }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
@@ -14,7 +14,7 @@ const BillingContractProfile = ({ currentUser, onEditProfile, billingContract })
             Profile
             {
               billingContractHelper.canEdit(currentUser, billingContract) &&
-              <EditButton onEdit={(event) => { onEditProfile(billingContract) }} />
+              <EditButton onEdit={(event) => { onEdit(billingContract) }} />
             }
           </h3>
         </CardTitle>
@@ -30,14 +30,14 @@ const BillingContractProfile = ({ currentUser, onEditProfile, billingContract })
   )
 }
 
-const BillingContractDisplay = ({ currentUser, onEditProfile, billingContract }) => {
+const BillingContractDisplay = ({ currentUser, onEdit, billingContract }) => {
   if (!valueHelper.isValue(billingContract)) {
     return (<Spinner showAtStart={true} />)
   }
 
   return (
     <Row>
-      <BillingContractProfile currentUser={currentUser} onEditProfile={onEditProfile} billingContract={billingContract} />
+      <BillingContractProfile currentUser={currentUser} onEdit={onEdit} billingContract={billingContract} />
     </Row>
   )
 }
@@ -71,7 +71,7 @@ class BillingContractProfilePage extends Component {
 
           <BillingContractDisplay
             currentUser={this.props.currentUser}
-            onEditProfile={this.vm.editProfileModal}
+            onEdit={this.vm.editModal}
             billingContract={billingContract}
           />
         </Col>

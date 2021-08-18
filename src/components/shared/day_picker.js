@@ -1,12 +1,13 @@
 import React, { Component } from "react"
-import DayPickerInput from "react-day-picker/DayPickerInput"
-import "react-day-picker/lib/style.css"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import { valueHelper } from "../../helpers"
-import { DatePickerViewModel } from "../view_models/shared"
+import { DayPickerViewModel } from "../view_models/shared"
 
-const DATE_PICKER_KEYS = [
+const DAY_PICKER_KEYS = [
   "date",
   "dateField",
+  "dateFormat",
   "dayPickerClassName",
   "dayPickerStyle",
   "disabledDays",
@@ -16,15 +17,14 @@ const DATE_PICKER_KEYS = [
   "locale"
 ]
 
-class DatePicker extends Component {
+class DayPicker extends Component {
   constructor(props) {
     super(props)
 
-    this.vm = new DatePickerViewModel(
+    this.vm = new DayPickerViewModel(
       {
         ...props,
-        format: "yyyy-MM-dd",
-        /*locale: navigator.languages[0],*/
+        dateFormat: "yyyy-MM-dd",
         view: this
       }
     )
@@ -51,20 +51,22 @@ class DatePicker extends Component {
   }
 
   renderDayEditor(dayPickerClassName, dayPickerStyle, dateString) {
-    const { dateField } = this.props
+    const dayPickerProps = this.vm.getDayPickerPropsFromProps(dateString)
 
     return (
-      <DayPickerInput
-        dayPickerProps={this.vm.getDayPickerPropsFromProps(dateString)}
-        format="yyyy-MM-dd"
-        formatDate={this.vm.formatDate}
-        inputProps={{ className: dayPickerClassName }}
-        name={dateField}
-        onDayChange={this.vm.dayChange}
-        parseDate={this.vm.parseDate}
-        placeholder="YYYY-MM-DD"
+      <DatePicker
+        {...dayPickerProps}
+        className={dayPickerClassName}
+        dropdownMode="select"
+        onChange={this.vm.dayChange}
+        onChangeRaw={this.vm.dayEntry}
+        peakNextMonth
+        placeholderText={dayPickerProps.dateFormat.toUpperCase()}
+        scrollableYearDropdown
+        selected={this.vm.parseDate(dateString, this.vm.props.dateFormat, this.vm.props.locale)}
+        showMonthDropdown
+        showYearDropdown
         style={dayPickerStyle}
-        value={this.vm.parseDate(dateString, this.vm.props.format, this.vm.props.locale)}
       />
     )
   }
@@ -85,7 +87,7 @@ class DatePicker extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (!this.vm.propertiesChanged(nextProps, DATE_PICKER_KEYS)) {
+    if (!this.vm.propertiesChanged(nextProps, DAY_PICKER_KEYS)) {
       return true
     }
 
@@ -96,4 +98,4 @@ class DatePicker extends Component {
   }
 }
 
-export { DatePicker }
+export { DayPicker }

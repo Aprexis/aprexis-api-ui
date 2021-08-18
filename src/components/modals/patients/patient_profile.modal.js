@@ -3,7 +3,7 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   AddressEditor,
   ContactEditor,
-  DateFieldEditor,
+  DayFieldEditor,
   SelectFieldEditor,
   TextFieldEditor
 } from "../../shared"
@@ -108,7 +108,7 @@ class PatientProfileModal extends Component {
                 </FormGroup>
 
                 <FormGroup row>
-                  <DateFieldEditor
+                  <DayFieldEditor
                     allowBlank={true}
                     changeField={this.vm.changeDate}
                     fieldName="date_of_birth"
@@ -120,7 +120,7 @@ class PatientProfileModal extends Component {
                 </FormGroup>
 
                 <FormGroup row>
-                  <DateFieldEditor
+                  <DayFieldEditor
                     allowBlank={true}
                     changeField={this.vm.changeDate}
                     fieldLabel="Coverage Effective"
@@ -130,7 +130,7 @@ class PatientProfileModal extends Component {
                     model={patient}
                     style={{ width: 110 }}
                   />
-                  <DateFieldEditor
+                  <DayFieldEditor
                     allowBlank={true}
                     changeField={this.vm.changeDate}
                     fieldLabel="Coverage Ends"

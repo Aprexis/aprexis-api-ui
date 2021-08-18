@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { ConfirmModal, FiltersModal, SignInModal } from "./"
 import { AppointmentModal } from "./appointments"
+import { BillingContractModal } from "./billing/contracts"
 import { PatientAllergyModal } from "./patient_allergies"
 import { PatientMedicationModal } from "./patient_medications"
 import { PatientNoteModal } from "./patient_notes"
@@ -10,6 +11,7 @@ import { valueHelper } from "../../helpers"
 
 const modalList = {
   Appointment: AppointmentModal,
+  BillingContract: BillingContractModal,
   Confirm: ConfirmModal,
   Filters: FiltersModal,
   PatientAllergy: PatientAllergyModal,

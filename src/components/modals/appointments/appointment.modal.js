@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
-  DateFieldEditor,
-  DateTimeFieldEditor,
+  DayFieldEditor,
+  DayTimeFieldEditor,
   SelectFieldEditor,
   SelectPharmacyStore,
   Spinner,
@@ -16,7 +16,7 @@ import { venues } from "../../../types"
 const AllDayAppointment = ({ appointment, onChangeDate }) => {
   return (
     <FormGroup row>
-      <DateFieldEditor
+      <DayFieldEditor
         allowBlank={false}
         changeField={onChangeDate}
         fieldLabel="Start Date"
@@ -25,7 +25,7 @@ const AllDayAppointment = ({ appointment, onChangeDate }) => {
         earliestDate={new Date()}
         model={appointment}
       />
-      <DateFieldEditor
+      <DayFieldEditor
         allowBlank={false}
         changeField={onChangeDate}
         fieldLabel="End Date"
@@ -38,26 +38,26 @@ const AllDayAppointment = ({ appointment, onChangeDate }) => {
   )
 }
 
-const TimeRangeAppointment = ({ appointment, onChangeDateTime }) => {
+const TimeRangeAppointment = ({ appointment, onChangeDayTime }) => {
   return (
     <FormGroup row>
-      <DateTimeFieldEditor
+      <DayTimeFieldEditor
         allowBlank={false}
-        changeField={onChangeDateTime}
+        changeField={onChangeDayTime}
         fieldLabel="Scheduled At"
         fieldName="scheduled_at"
         helper={appointmentHelper}
-        earliestDateTime={new Date()}
+        earliestDayTime={new Date()}
         model={appointment}
         timeStep={15}
       />
-      <DateTimeFieldEditor
+      <DayTimeFieldEditor
         allowBlank={false}
-        changeField={onChangeDateTime}
+        changeField={onChangeDayTime}
         fieldLabel="Scheduled Until"
         fieldName="scheduled_until"
         helper={appointmentHelper}
-        earliestDateTime={new Date()}
+        earliestDayTime={new Date()}
         model={appointment}
         timeStep={15}
       />
@@ -65,12 +65,12 @@ const TimeRangeAppointment = ({ appointment, onChangeDateTime }) => {
   )
 }
 
-const AppointmentTimeEditor = ({ appointment, onChangeDate, onChangeDateTime }) => {
+const AppointmentTimeEditor = ({ appointment, onChangeDate, onChangeDayTime }) => {
   if (valueHelper.isSet(appointmentHelper.allDay(appointment))) {
     return (<AllDayAppointment appointment={appointment} onChangeDate={onChangeDate} />)
   }
 
-  return (<TimeRangeAppointment appointment={appointment} onChangeDateTime={onChangeDateTime} />)
+  return (<TimeRangeAppointment appointment={appointment} onChangeDayTime={onChangeDayTime} />)
 }
 
 class AppointmentModal extends Component {
@@ -124,7 +124,7 @@ class AppointmentModal extends Component {
                 <AppointmentTimeEditor
                   appointment={appointment}
                   onChangeDate={this.vm.changeDate}
-                  onChangeDateTime={this.vm.changeDateTime}
+                  onChangeDayTime={this.vm.changeDayTime}
                 />
 
                 {

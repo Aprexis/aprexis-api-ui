@@ -43,13 +43,24 @@ function booleanDisplay(name, value, description) {
 
 function changeDate(modelName, model, changedModel, fieldName, date, dateValid) {
   const nameValid = `${fieldName}_DVALID`
-  return fieldHelper.changeValues(modelName, model, changedModel, { [fieldName]: date, [nameValid]: dateValid })
+  const updatedValid = { ...model[nameValid], ...dateValid }
+  return fieldHelper.changeValues(
+    modelName,
+    model,
+    changedModel,
+    { [fieldName]: date, [nameValid]: updatedValid }
+  )
 }
 
 function changeDateTime(modelName, model, changedModel, fieldName, dateTime, dateTimeValid) {
   const nameValid = `${fieldName}_DTVALID`
   const updatedValid = { ...model[nameValid], ...dateTimeValid }
-  return fieldHelper.changeValues(modelName, model, changedModel, { [fieldName]: dateTime, [nameValid]: updatedValid })
+  return fieldHelper.changeValues(
+    modelName,
+    model,
+    changedModel,
+    { [fieldName]: dateTime, [nameValid]: updatedValid }
+  )
 }
 
 function changeField(modelName, model, changedModel, event) {

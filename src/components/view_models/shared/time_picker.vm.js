@@ -1,4 +1,3 @@
-import { DateUtils } from "react-day-picker"
 import { AbstractViewModel } from "../"
 import { dateHelper, jsEventHelper } from "../../../helpers"
 
@@ -27,8 +26,8 @@ class TimePickerViewModel extends AbstractViewModel {
   timeChange(event) {
     const { field, format, locale } = this.props
     const { value } = jsEventHelper.fromInputEvent(event)
-    const parsed = dateHelper.convertTimeStringToDate(value, format, locale);
-    const validTime = DateUtils.isDate(parsed)
+    const parsed = dateHelper.convertTimeStringToDate(value, format, locale)
+    const validTime = dateHelper.isValidDate(parsed)
 
     this.props.timeChange(field, value, validTime)
   }

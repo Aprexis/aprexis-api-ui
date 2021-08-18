@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
-  DateFieldEditor,
+  DayFieldEditor,
   NumberFieldEditor,
   SelectFieldEditor,
   SelectMedication,
@@ -93,7 +93,7 @@ class PatientMedicationModal extends Component {
                 />
 
                 <FormGroup row>
-                  <DateFieldEditor
+                  <DayFieldEditor
                     allowBlank={true}
                     changeField={this.vm.changeDate}
                     fieldLabel="Filled"
@@ -105,7 +105,7 @@ class PatientMedicationModal extends Component {
                 </FormGroup>
 
                 <FormGroup row>
-                  <DateFieldEditor
+                  <DayFieldEditor
                     allowBlank={true}
                     changeField={this.vm.changeDate}
                     fieldName="start_date"

@@ -1,16 +1,17 @@
 import React, { Component } from "react"
 import { valueHelper, dateHelper } from "../../helpers"
 import { periods } from "../../types/periods.type"
-import { DatePicker, Spinner } from "./"
+import { DayPicker, Spinner } from "./"
 import { EventCalendarViewModel } from "../view_models/shared/event_calendar.vm"
 
 const CalendarNav = ({ date, dayChange, period }) => {
   const disableDay = period == periods.day
   const disableWeek = period == periods.week || true    // TODO: implement week calendar
   const disableMonth = period == periods.month || true  // TODO: implement month calendar
+
   return (
     <nav className="btn-toolbar mb-2 mb-md-0">
-      <DatePicker
+      <DayPicker
         allowBlank={false}
         allowEdit={true}
         className=""

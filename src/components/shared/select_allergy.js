@@ -3,9 +3,9 @@ import { Col, FormGroup } from "reactstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { valueHelper } from "../../helpers"
-import { goldStandardAllergyHelper } from "../../helpers/gold_standard"
 import { Autocomplete } from "./"
 import { SelectAllergyViewModel } from "../view_models/shared"
+
 class SelectAllergy extends Component {
   constructor(props) {
     super(props)

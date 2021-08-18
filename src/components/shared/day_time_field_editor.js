@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper, fieldHelper } from "../../helpers"
-import { DateTimePicker } from "./"
+import { DayTimePicker } from "./"
 
-class DateTimeFieldEditor extends Component {
+class DayTimeFieldEditor extends Component {
   render() {
     const {
       allowBlank,
@@ -28,7 +28,7 @@ class DateTimeFieldEditor extends Component {
           <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
         }
         <Col xs={fieldHelper.fieldXs(this.props)}>
-          <DateTimePicker
+          <DayTimePicker
             allowBlank={allowBlank}
             allowEdit={canModifyField}
             date={helper[method](model)}
@@ -48,4 +48,4 @@ class DateTimeFieldEditor extends Component {
   }
 }
 
-export { DateTimeFieldEditor }
+export { DayTimeFieldEditor }

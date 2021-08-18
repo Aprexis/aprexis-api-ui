@@ -16,6 +16,7 @@ class AbstractViewModel {
     this.create = this.create.bind(this)
     this.destroy = this.destroy.bind(this)
     this.onError = this.onError.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.orderedPathEntries = this.orderedPathEntries.bind(this)
     this.pathEntries = this.pathEntries.bind(this)
     this.propertiesChanged = this.propertiesChanged.bind(this)
@@ -77,6 +78,14 @@ class AbstractViewModel {
       nextOperation,
       this.onError
     )
+  }
+
+  modelName() {
+    if (valueHelper.isFunction(this.helper)) {
+      return this.helper().modelName()
+    }
+
+    return
   }
 
   onError(message) {
