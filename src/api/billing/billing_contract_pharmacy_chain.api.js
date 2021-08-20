@@ -10,10 +10,12 @@ function toJSON(billingContractPharmacyChain) {
 export const billingContractPharmacyChainApi = {
   buildNewForBillingContract,
   create,
+  edit,
   indexForBillingContract,
   listForBillingContract,
   profile,
-  show
+  show,
+  update
 }
 
 function buildNewForBillingContract(userCredentials, billing_contract_id, onSuccess, onFailure) {
@@ -39,6 +41,15 @@ function create(userCredentials, billingContractPharmacyChain, onSuccess, onFail
   API.perform(method, path, "", userCredentials, toJSON(billingContractPharmacyChain), onSuccess, onFailure)
 }
 
+function edit(userCredentials, contract_pharmacy_id, onSuccess, onFailure) {
+  if (!API.validateId("contract pharmacy ID", contract_pharmacy_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/billing/contract_pharmacies/${contract_pharmacy_id}/edit`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
 
 function indexForBillingContract(userCredentials, billing_contract_id, params, onSuccess, onFailure) {
   if (!API.validateId("billing contract ID", billing_contract_id, onFailure)) {
@@ -78,4 +89,10 @@ function show(userCredentials, id, onSuccess, onFailure) {
   const method = "GET"
   const path = `/billing/contract_pharmacies/${id}`
   API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
+
+function update(userCredentials, billingContractPharmacyChain, onSuccess, onFailure) {
+  const method = "PUT"
+  const path = `/billing/contract_pharmacies/${billingContractPharmacyChain.id}`
+  API.perform(method, path, "", userCredentials, toJSON(billingContractPharmacyChain), onSuccess, onFailure)
 }

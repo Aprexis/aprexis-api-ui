@@ -29,6 +29,7 @@ export const billingContractPharmacyChainHelper = {
   claimsEnabled,
   clinical,
   contract,
+  contractId,
   healthPlanName,
   id,
   modelName,
@@ -55,7 +56,7 @@ function buildChanged(billingContractPharmacyChain, changedBillingContractPharma
     return {
       id: billingContractPharmacyChainHelper.id(billingContractPharmacyChain),
       contract_id: billingContractPharmacyChainHelper.contractId(billingContractPharmacyChain),
-      pharmacy_id: billingContractPharmacyChainHelper.pharmacyChianId(billingContractPharmacyChain)
+      pharmacy_id: billingContractPharmacyChainHelper.pharmacyChainId(billingContractPharmacyChain)
     }
   }
 }
@@ -80,7 +81,7 @@ function canDelete(user, billingContractPharmacyChain) {
 }
 
 function canEdit(user, billingContractPharmacyChain) {
-  return false
+  return userHelper.hasRole(user, 'aprexis_admin')
 }
 
 function canModifyField(billingContractPharmacyChain, fieldName) {
@@ -108,7 +109,6 @@ function changePharmacyChain(billingContractPharmacyChain, changedBillingContrac
   }
 }
 
-
 function claimsEnabled(billingContractPharmacyChain) {
   return fieldHelper.getField(billingContractPharmacyChain, "claims_enabled")
 }
@@ -119,6 +119,10 @@ function clinical(billingContractPharmacyChain) {
 
 function contract(billingContractPharmacyChain) {
   return fieldHelper.getField(billingContractPharmacyChain, "contract")
+}
+
+function contractId(billingContractPharmacyChain) {
+  return fieldHelper.getField(billingContractPharmacyChain, "contract_id")
 }
 
 function healthPlanName(billingContractPharmacyChain) {

@@ -14,6 +14,7 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
     this.canCreate = this.canCreate.bind(this)
     this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editModal = this.editModal.bind(this)
     this.fetchBillingContract = this.fetchBillingContract.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
@@ -51,6 +52,19 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
     const filters = { for_active: true }
     const sorting = { sort: "pharmacy.name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editModal(billingContractPharmacyChainToEdit) {
+    billingContractPharmacyChainApi.edit(
+      userCredentialsHelper.get(),
+      billingContractPharmacyChainToEdit.id,
+      (billingContractPharmacyChain) => {
+        this.props.launchModal(
+          "billing-contract-pharmacy-chain",
+          { operation: "update", onUpdateView: this.refreshData, billingContractPharmacyChain })
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(filters, filtersOptions) {
