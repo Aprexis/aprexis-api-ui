@@ -2,11 +2,11 @@ import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { pharmacyStoreHelper, valueHelper } from "../../helpers"
+import { pharmacyChainHelper, valueHelper } from "../../helpers"
 import { Autocomplete } from "./"
-import { SelectPharmacyStoreViewModel } from "../view_models/shared"
+import { SelectPharmacyChainViewModel } from "../view_models/shared"
 
-const SearchForPharmacyStore = ({ props, state, vm }) => {
+const SearchForPharmacyChain = ({ props, state, vm }) => {
   const { readOnly } = props
   const { enableSearch, item, searchText, searchResults } = state
   const label = valueHelper.isValue(item) ? vm.displayModel(item) : ""
@@ -47,22 +47,27 @@ const SearchForPharmacyStore = ({ props, state, vm }) => {
           searchFunction={vm.search}
           searchMinLength={props.minLength ?? 3}
           searchText={searchText}
-          sorting={{ sort: "name,store_number" }}
-          tableDisplayProps={["store", "pharmacy.name"]}
+          sorting={{ sort: "name,state,city" }}
+          tableDisplayProps={["name", "state", "city"]}
         />
       }
     </React.Fragment >
   )
 }
 
-const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
+const SelectPharmacyChainFromList = ({ props, state, vm }) => {
   const { readOnly, targetName } = props
   const { item, models } = state
+  let id = pharmacyChainHelper.id(item)
+  if (!valueHelper.isNumberValue(id)) {
+    id = ""
+  }
+
   let modelOptions
   if (valueHelper.isValue(models)) {
     modelOptions = models.map((model) => modelOption(model, vm.displayModel))
     if (!valueHelper.isValue(item)) {
-      modelOptions.push(<option key="pharmacy-store-none" value=""></option>)
+      modelOptions.push(<option key="pharmacy-chain-none" value=""></option>)
     }
   }
 
@@ -77,7 +82,7 @@ const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
           onChange={vm.selectEvent}
           readOnly={readOnly}
           type="select"
-          value={pharmacyStoreHelper.id(item)}>
+          value={id}>
           {modelOptions}
         </Input>
       </Col>
@@ -87,19 +92,19 @@ const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
   function modelOption(model, displayModel) {
     return (
       <option
-        key={`pharmacy-store-${pharmacyStoreHelper.id(model)}`}
-        value={pharmacyStoreHelper.id(model)}>
+        key={`pharmacy-chain-${pharmacyChainHelper.id(model)}`}
+        value={pharmacyChainHelper.id(model)}>
         {displayModel(model)}
       </option>
     )
   }
 }
 
-class SelectPharmacyStore extends Component {
+class SelectPharmacyChain extends Component {
   constructor(props) {
     super(props)
 
-    this.vm = new SelectPharmacyStoreViewModel(
+    this.vm = new SelectPharmacyChainViewModel(
       {
         ...props,
         view: this
@@ -121,7 +126,7 @@ class SelectPharmacyStore extends Component {
 
     if (valueHelper.isSet(useSearch)) {
       return (
-        <SearchForPharmacyStore
+        <SearchForPharmacyChain
           props={this.props}
           state={this.state}
           vm={this.vm}
@@ -130,7 +135,7 @@ class SelectPharmacyStore extends Component {
     }
 
     return (
-      <SelectPharmacyStoreFromList
+      <SelectPharmacyChainFromList
         props={this.props}
         state={this.state}
         vm={this.vm}
@@ -144,4 +149,4 @@ class SelectPharmacyStore extends Component {
   }
 }
 
-export { SelectPharmacyStore }
+export { SelectPharmacyChain }

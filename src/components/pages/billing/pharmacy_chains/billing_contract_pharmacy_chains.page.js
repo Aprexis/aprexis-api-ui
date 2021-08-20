@@ -47,6 +47,7 @@ class BillingContractPharmacyChainsPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
+    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -91,6 +92,22 @@ class BillingContractPharmacyChainsPage extends Component {
     )
   }
 
+  nav(list) {
+    if (!this.vm.canCreate()) {
+      return
+    }
+
+    return (
+      <nav className="btn-toolbar mb-2 mb-md-0">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={this.vm.createModal}>
+          <strong>+</strong> Add Pharmacy Chain
+        </button>
+      </nav>
+    )
+  }
+
   render() {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
@@ -110,6 +127,7 @@ class BillingContractPharmacyChainsPage extends Component {
         listLabel="Billing Contract Pharmacy Chain"
         listPluralLabel="Billing Contract Pharmacy Chains"
         modal={this.state.modal}
+        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}

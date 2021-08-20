@@ -75,7 +75,7 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
       userCredentialsHelper.get(),
       user_id,
       params,
-      this.determineSelectStyle,
+      nextOperation,
       this.onError
     )
   }

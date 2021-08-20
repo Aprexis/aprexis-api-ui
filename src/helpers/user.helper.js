@@ -11,6 +11,7 @@ import { contactHelper } from "./contact.helper"
 export const userHelper = {
   canCreateAppointment,
   canCreateBillingContract,
+  canCreateBillingContractPharmacyChain,
   canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
@@ -84,6 +85,10 @@ function canCreateAppointment(user) {
 }
 
 function canCreateBillingContract(user) {
+  return userHelper.hasRole(user, "aprexis_admin")
+}
+
+function canCreateBillingContractPharmacyChain(user) {
   return userHelper.hasRole(user, "aprexis_admin")
 }
 

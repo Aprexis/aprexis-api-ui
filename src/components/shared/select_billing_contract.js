@@ -2,11 +2,12 @@ import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import { pharmacyStoreHelper, valueHelper } from "../../helpers"
+import { valueHelper } from "../../helpers"
+import { billingContractHelper } from "../../helpers/billing"
 import { Autocomplete } from "./"
-import { SelectPharmacyStoreViewModel } from "../view_models/shared"
+import { SelectBillingContractViewModel } from "../view_models/shared"
 
-const SearchForPharmacyStore = ({ props, state, vm }) => {
+const SearchForBillingContract = ({ props, state, vm }) => {
   const { readOnly } = props
   const { enableSearch, item, searchText, searchResults } = state
   const label = valueHelper.isValue(item) ? vm.displayModel(item) : ""
@@ -47,22 +48,22 @@ const SearchForPharmacyStore = ({ props, state, vm }) => {
           searchFunction={vm.search}
           searchMinLength={props.minLength ?? 3}
           searchText={searchText}
-          sorting={{ sort: "name,store_number" }}
-          tableDisplayProps={["store", "pharmacy.name"]}
+          sorting={{ sort: "health_plan_name,name" }}
+          tableDisplayProps={["health_plan.name", "name"]}
         />
       }
     </React.Fragment >
   )
 }
 
-const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
+const SelectBillingContractFromList = ({ props, state, vm }) => {
   const { readOnly, targetName } = props
   const { item, models } = state
   let modelOptions
   if (valueHelper.isValue(models)) {
     modelOptions = models.map((model) => modelOption(model, vm.displayModel))
     if (!valueHelper.isValue(item)) {
-      modelOptions.push(<option key="pharmacy-store-none" value=""></option>)
+      modelOptions.push(<option key="billing-contract-none" value=""></option>)
     }
   }
 
@@ -77,7 +78,7 @@ const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
           onChange={vm.selectEvent}
           readOnly={readOnly}
           type="select"
-          value={pharmacyStoreHelper.id(item)}>
+          value={billingContractHelper.id(item)}>
           {modelOptions}
         </Input>
       </Col>
@@ -87,19 +88,19 @@ const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
   function modelOption(model, displayModel) {
     return (
       <option
-        key={`pharmacy-store-${pharmacyStoreHelper.id(model)}`}
-        value={pharmacyStoreHelper.id(model)}>
+        key={`billing-contract-${billingContractHelper.id(model)}`}
+        value={billingContractHelper.id(model)}>
         {displayModel(model)}
       </option>
     )
   }
 }
 
-class SelectPharmacyStore extends Component {
+class SelectBillingContract extends Component {
   constructor(props) {
     super(props)
 
-    this.vm = new SelectPharmacyStoreViewModel(
+    this.vm = new SelectBillingContractViewModel(
       {
         ...props,
         view: this
@@ -121,7 +122,7 @@ class SelectPharmacyStore extends Component {
 
     if (valueHelper.isSet(useSearch)) {
       return (
-        <SearchForPharmacyStore
+        <SearchForBillingContract
           props={this.props}
           state={this.state}
           vm={this.vm}
@@ -130,7 +131,7 @@ class SelectPharmacyStore extends Component {
     }
 
     return (
-      <SelectPharmacyStoreFromList
+      <SelectBillingContractFromList
         props={this.props}
         state={this.state}
         vm={this.vm}
@@ -144,4 +145,4 @@ class SelectPharmacyStore extends Component {
   }
 }
 
-export { SelectPharmacyStore }
+export { SelectBillingContract }

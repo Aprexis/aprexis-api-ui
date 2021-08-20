@@ -38,7 +38,6 @@ function create(userCredentials, billingContract, onSuccess, onFailure) {
   API.perform(method, path, "", userCredentials, toJSON(billingContract), onSuccess, onFailure)
 }
 
-
 function edit(userCredentials, id, onSuccess, onFailure) {
   if (!API.validateId("billing contract ID", id, onFailure)) {
     return

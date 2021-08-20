@@ -10,9 +10,11 @@ export const pharmacyChainHelper = {
   canEdit,
   canIndex,
   ccdCode,
+  chain,
   city,
   einNumber,
   fullAddress,
+  id,
   logo,
   modelName,
   name,
@@ -54,6 +56,27 @@ function ccdCode(pharmacyChain) {
   return fieldHelper.getField(pharmacyChain, "ccd_code")
 }
 
+function chain(pharmacyChain) {
+  const name = pharmacyChainHelper.name(pharmacyChain)
+  const state = pharmacyChainHelper.state(pharmacyChain)
+  const city = pharmacyChainHelper.city(pharmacyChain)
+  let chain = ""
+
+  if (valueHelper.isStringValue(name)) {
+    chain = name
+  }
+
+  if (valueHelper.isStringValue(state)) {
+    chain = `${chain}, ${state}`
+  }
+
+  if (valueHelper.isStringValue(city)) {
+    chain = `${chain}, ${city}`
+  }
+
+  return chain
+}
+
 function city(pharmacyChain) {
   return addressHelper.city(pharmacyChain)
 }
@@ -64,6 +87,10 @@ function einNumber(pharmacyChain) {
 
 function fullAddress(pharmacyChain) {
   return addressHelper.fullAddress(pharmacyChain)
+}
+
+function id(pharmacyChain) {
+  return fieldHelper.getField(pharmacyChain, "id")
 }
 
 function logo(pharmacyChain) {

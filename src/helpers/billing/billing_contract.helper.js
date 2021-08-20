@@ -8,12 +8,14 @@ import { userHelper } from "../user.helper"
 
 export const billingContractHelper = {
   active,
+  allowPharmacyChains,
   buildChanged,
   buildNewChanged,
   canBeCreated,
   canDelete,
   canEdit,
   canModifyField,
+  contractWith,
   displayStartDate,
   displayStopDate,
   healthPlan,
@@ -64,6 +66,15 @@ function active(billingContract) {
   return active
 }
 
+function allowPharmacyChains(billingContract) {
+  const contractWith = billingContractHelper.contractWith(billingContract)
+  if (!valueHelper.isStringValue(contractWith)) {
+    return false
+  }
+
+  return contractWith != 'Pharmacy Stores'
+}
+
 function buildChanged(billingContract, changedBillingContract) {
   if (valueHelper.isValue(changedBillingContract)) {
     return changedBillingContract
@@ -111,6 +122,10 @@ function canModifyField(billingContract, fieldName) {
   }
 
   return (billingContractEditableFields.includes(fieldName))
+}
+
+function contractWith(billingContract) {
+  return fieldHelper.getField(billingContract, "contract_with")
 }
 
 function displayStartDate(billingContract) {
