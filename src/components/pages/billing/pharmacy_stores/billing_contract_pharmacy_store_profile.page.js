@@ -112,7 +112,7 @@ class BillingContractPharmacyStoreProfilePage extends Component {
 
           <BillingContractPharmacyStoreDisplay
             currentUser={this.props.currentUser}
-            onEditProfile={this.vm.editProfileModal}
+            onEditProfile={this.vm.editModal}
             billingContractPharmacyStore={billingContractPharmacyStore}
           />
         </Col>

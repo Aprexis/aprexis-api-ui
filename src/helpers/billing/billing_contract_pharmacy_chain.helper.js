@@ -67,7 +67,6 @@ function buildNewChanged(billingContractPharmacyChain) {
   }
 }
 
-
 function canBeCreated(user, billingContract) {
   if (!billingContractHelper.allowPharmacyChains(billingContract)) {
     return false
@@ -93,7 +92,7 @@ function canModifyField(billingContractPharmacyChain, fieldName) {
 }
 
 function changePharmacyChain(billingContractPharmacyChain, changedBillingContractPharmacyChain, pharmacyChain) {
-  const myChangedAppointment = this.buildChanged(billingContractPharmacyChain, changedBillingContractPharmacyChain)
+  const myChangedPharmacyChain = this.buildChanged(billingContractPharmacyChain, changedBillingContractPharmacyChain)
 
   return {
     billingContractPharmacyChain: {
@@ -102,7 +101,7 @@ function changePharmacyChain(billingContractPharmacyChain, changedBillingContrac
       pharmacyChain
     },
     changedBillingContractPharmacyChain: {
-      ...myChangedAppointment,
+      ...myChangedPharmacyChain,
       pharmacy_id: pharmacyChainHelper.id(pharmacyChain),
       pharmacyChain
     }

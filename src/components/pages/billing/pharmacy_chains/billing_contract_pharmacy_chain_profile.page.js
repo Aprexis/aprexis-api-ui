@@ -103,7 +103,7 @@ class BillingContractPharmacyChainProfilePage extends Component {
 
           <BillingContractPharmacyChainDisplay
             currentUser={this.props.currentUser}
-            onEditProfile={this.vm.editProfileModal}
+            onEditProfile={this.vm.editModal}
             billingContractPharmacy={billingContractPharmacy}
           />
         </Col>

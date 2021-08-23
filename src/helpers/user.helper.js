@@ -12,6 +12,7 @@ export const userHelper = {
   canCreateAppointment,
   canCreateBillingContract,
   canCreateBillingContractPharmacyChain,
+  canCreateBillingContractPharmacyStore,
   canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
@@ -89,6 +90,10 @@ function canCreateBillingContract(user) {
 }
 
 function canCreateBillingContractPharmacyChain(user) {
+  return userHelper.hasRole(user, "aprexis_admin")
+}
+
+function canCreateBillingContractPharmacyStore(user) {
   return userHelper.hasRole(user, "aprexis_admin")
 }
 

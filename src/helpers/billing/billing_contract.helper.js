@@ -9,6 +9,7 @@ import { userHelper } from "../user.helper"
 export const billingContractHelper = {
   active,
   allowPharmacyChains,
+  allowPharmacyStores,
   buildChanged,
   buildNewChanged,
   canBeCreated,
@@ -73,6 +74,15 @@ function allowPharmacyChains(billingContract) {
   }
 
   return contractWith != 'Pharmacy Stores'
+}
+
+function allowPharmacyStores(billingContract) {
+  const contractWith = billingContractHelper.contractWith(billingContract)
+  if (!valueHelper.isStringValue(contractWith)) {
+    return false
+  }
+
+  return contractWith != 'Pharmacy Chains'
 }
 
 function buildChanged(billingContract, changedBillingContract) {

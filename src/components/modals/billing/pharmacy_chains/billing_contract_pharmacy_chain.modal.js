@@ -35,7 +35,7 @@ class BillingContractPharmacyChainModal extends Component {
     return (
       <AprexisModal
         {...this.props}
-        modalClassName="billing-contract modal-xw"
+        modalClassName="billing-contract-pharmacy-chain modal-xw"
         modalFooterComponents={this.renderFooter()}
         modalHeaderComponents={this.renderHeader()}>
         <Container>
