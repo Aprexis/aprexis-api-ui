@@ -184,7 +184,13 @@ function isFunction(value) {
 
 function isSet(value) {
   if (valueHelper.isStringValue(value)) {
-    return !['FALSE', 'NO', 'F'].includes(value.trim().toUpperCase())
+    const upCase = value.trim().toUpperCase()
+    if ("TRUE".startsWith(upCase) || "YES".startsWith(upCase)) {
+      return true
+    }
+    if ("FALSE".startsWith(upCase) || "NO".startsWith(upCase)) {
+      return false
+    }
   }
 
   return !!value

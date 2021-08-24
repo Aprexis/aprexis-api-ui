@@ -37,8 +37,8 @@ export const fieldHelper = {
   titleDisplay
 }
 
-function booleanDisplay(name, value, description) {
-  return fieldHelper.display(name, valueHelper.yesNo(value), description, "?")
+function booleanDisplay(name, value, description, required = false) {
+  return fieldHelper.display(name, valueHelper.yesNo(value), description, "?", required)
 }
 
 function changeDate(modelName, model, changedModel, fieldName, date, dateValid) {
@@ -129,15 +129,23 @@ function dateTimeDisplay(name, value, description) {
   return fieldHelper.display(name, dateHelper.displayDateTime(value), description)
 }
 
-function display(name, value, description, suffix = ":") {
-  if (!valueHelper.isValue(value)) {
-    return (<React.Fragment />)
-  }
-  if (typeof value === "string" && !valueHelper.isStringValue(value)) {
-    return (<React.Fragment />)
+function display(name, value, description, suffix = ":", required = false) {
+  if (!required) {
+    if (!valueHelper.isValue(value)) {
+      return (<React.Fragment />)
+    }
+    if (typeof value === "string" && !valueHelper.isStringValue(value)) {
+      return (<React.Fragment />)
+    }
   }
 
-  if (!valueHelper.isValue(description)) {
+  let workingValue = value
+  if (!valueHelper.isValue(value)) {
+    workingValue = ""
+  }
+
+  if (!valueHelper.isValue(description) ||
+    (typeof description === "string" && !valueHelper.isStringValue(description))) {
     return (
       <React.Fragment><strong className="text-muted">{name}{suffix}</strong> {value}<br /></React.Fragment>
     )
@@ -146,7 +154,7 @@ function display(name, value, description, suffix = ":") {
   const targetId = `description-${name.toLowerCase().replaceAll(" ", "-")}`
   return (
     <span>
-      <strong className="text-muted">{name}{suffix}</strong> {value}&nbsp;
+      <strong className="text-muted">{name}{suffix}</strong> {workingValue}&nbsp;
       <FontAwesomeIcon className="ml-1" icon={faInfoCircle} id={targetId} />
       <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>
         {description}
@@ -180,7 +188,7 @@ function displayListField(model, helper, heading) {
   )
 }
 
-function displayWithUnits(name, value, units, description) {
+function displayWithUnits(name, value, units, description, suffix = ":", required = false) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
@@ -188,10 +196,10 @@ function displayWithUnits(name, value, units, description) {
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, `${value} ${units}`, description)
+  return fieldHelper.display(name, `${value} ${units}`, description, suffix, required)
 }
 
-function dollarDisplay(name, value, description) {
+function dollarDisplay(name, value, description, suffix = ":", required = false) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
@@ -199,7 +207,7 @@ function dollarDisplay(name, value, description) {
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, `$${value}`, description)
+  return fieldHelper.display(name, `$${value}`, description, suffix, required)
 }
 
 function fieldName(fieldName, prefix) {
@@ -379,8 +387,8 @@ function notInContextDisplay(pathKey, name, value, description) {
   return fieldHelper.display(name, value, description)
 }
 
-function optionDisplay(name, options, value, description) {
-  return fieldHelper.display(name, options[valueHelper.makeString(value)], description)
+function optionDisplay(name, options, value, description, suffix = ":", required = false) {
+  return fieldHelper.display(name, options[valueHelper.makeString(value)], description, suffix, required)
 }
 
 function options(props) {
@@ -433,6 +441,6 @@ function options(props) {
   }
 }
 
-function titleDisplay(name, value, description) {
-  return fieldHelper.display(name, valueHelper.titleize(value), description)
+function titleDisplay(name, value, description, suffix = ":", required = false) {
+  return fieldHelper.display(name, valueHelper.titleize(value), description, suffix, required)
 }

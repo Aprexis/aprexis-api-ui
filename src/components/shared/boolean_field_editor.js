@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, Label, Input } from "reactstrap"
-import { valueHelper, fieldHelper } from "../../helpers"
+import { valueHelper, fieldHelper, jsEventHelper } from "../../helpers"
 
 class BooleanFieldEditor extends Component {
   render() {
@@ -17,7 +17,17 @@ class BooleanFieldEditor extends Component {
             className="form-control-small"
             disabled={!canModifyField}
             name={name}
-            onChange={changeField}
+            onChange={
+              (event) => {
+                if (!valueHelper.isSet(this.props.textField)) {
+                  changeField(event)
+                }
+
+                let { value } = jsEventHelper.fromInputEvent(event)
+                value = valueHelper.yesNo(value).substring(0, 1)
+                changeField({ event: { target: { name, value } } })
+              }
+            }
             readOnly={!canModifyField}
             style={{ verticalAlign: 'middle' }}
             type="checkbox"

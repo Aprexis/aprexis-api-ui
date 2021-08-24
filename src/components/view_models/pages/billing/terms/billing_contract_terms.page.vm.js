@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../.."
 import { billingContractTermApi } from "../../../../../api/billing"
-import { pageHelper, pathHelper } from "../../../../../helpers"
+import { pageHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 const billingContractTermListMethods = [
   { pathKey: "billing-contracts", method: billingContractTermApi.listForBillingContract }
@@ -11,6 +11,7 @@ class BillingContractTermsPageViewModel extends AbstractListPageViewModel {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editProfileModal = this.editProfileModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoBillingContractTermProfile = this.gotoBillingContractTermProfile.bind(this)
@@ -23,6 +24,19 @@ class BillingContractTermsPageViewModel extends AbstractListPageViewModel {
     const filters = {}
     const sorting = {}
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editProfileModal(billingContractTermToEdit) {
+    billingContractTermApi.edit(
+      userCredentialsHelper.get(),
+      billingContractTermToEdit.id,
+      (billingContractTerm) => {
+        this.props.launchModal(
+          "billing-contract-term-profile",
+          { operation: "update", onUpdateView: this.refreshData, billingContractTerm })
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(filters, filtersOptions) {

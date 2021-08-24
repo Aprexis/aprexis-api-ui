@@ -1,7 +1,6 @@
 import { billingContractHelper } from "./billing_contract.helper"
 import { apiHelper, fieldHelper, pharmacyStoreHelper, userHelper, valueHelper } from "../"
 
-
 const billingContractPharmacyStoreEditableFields = [
   "claims_enabled",
   "clinical",

@@ -5,10 +5,12 @@ import { valueHelper, fieldHelper } from "../../helpers"
 
 class NumberFieldEditor extends Component {
   render() {
-    const { changeField, helper, max, min, model, omitLabel } = this.props
+    const { changeField, helper, max, min, model, omitLabel, precision, step } = this.props
     const name = fieldHelper.name(this.props)
     const canModifyField = helper.canModifyField(model, name)
     const method = fieldHelper.method(this.props)
+    const myPrecision = valueHelper.isNumberValue(precision) ? precision : 0
+    const myStep = valueHelper.isNumberValue(step) || valueHelper.isStringValue(step) ? step : 1
 
     return (
       <React.Fragment>
@@ -23,7 +25,9 @@ class NumberFieldEditor extends Component {
             min={min}
             name={name}
             onChange={(newValue) => { changeField(name, newValue) }}
+            precision={myPrecision}
             readOnly={!canModifyField}
+            step={myStep}
             value={valueHelper.makeString(helper[method](model))}
           />
         </Col>

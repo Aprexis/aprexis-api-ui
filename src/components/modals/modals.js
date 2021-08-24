@@ -4,6 +4,8 @@ import { AppointmentModal } from "./appointments"
 import { BillingContractModal } from "./billing/contracts"
 import { BillingContractPharmacyChainModal } from "./billing/pharmacy_chains"
 import { BillingContractPharmacyStoreModal } from "./billing/pharmacy_stores"
+import { BillingContractTermPatientModal } from "./billing/terms"
+import { BillingContractTermProfileModal } from "./billing/terms"
 import { PatientAllergyModal } from "./patient_allergies"
 import { PatientMedicationModal } from "./patient_medications"
 import { PatientNoteModal } from "./patient_notes"
@@ -16,6 +18,8 @@ const modalList = {
   BillingContract: BillingContractModal,
   BillingContractPharmacyChain: BillingContractPharmacyChainModal,
   BillingContractPharmacyStore: BillingContractPharmacyStoreModal,
+  BillingContractTermPatient: BillingContractTermPatientModal,
+  BillingContractTermProfile: BillingContractTermProfileModal,
   Confirm: ConfirmModal,
   Filters: FiltersModal,
   PatientAllergy: PatientAllergyModal,

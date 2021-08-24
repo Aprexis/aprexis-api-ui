@@ -84,7 +84,7 @@ class BillingContractTermsPage extends Component {
         helper: billingContractTermHelper,
         launchModal: this.props.launchModal,
         onDeleteTableItem: this.vm.destroy,
-        onEditTableItem: this.vm.editModal,
+        onEditTableItem: this.vm.editProfileModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: billingContractTerm
