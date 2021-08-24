@@ -4,19 +4,20 @@ import { valueHelper, fieldHelper, jsEventHelper } from "../../helpers"
 
 class BooleanFieldEditor extends Component {
   render() {
-    const { changeField, helper, model, omitLabel } = this.props
+    const { changeField, helper, model, omitLabel, prefix } = this.props
     const name = fieldHelper.name(this.props)
-    const canModifyField = helper.canModifyField(model, name)
+    const fieldName = fieldHelper.fieldName(name, prefix)
+    const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
 
     return (
       <Col className="text-xs-left pl-4">
         <Label className="form-check-label">
           <Input
-            checked={valueHelper.isSet(helper[method](model))}
+            checked={valueHelper.isSet(helper[method](model, prefix))}
             className="form-control-small"
             disabled={!canModifyField}
-            name={name}
+            name={fieldName}
             onChange={
               (event) => {
                 if (!valueHelper.isSet(this.props.textField)) {

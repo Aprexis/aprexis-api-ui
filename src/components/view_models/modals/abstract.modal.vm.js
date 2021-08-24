@@ -224,8 +224,9 @@ class AbstractModalViewModel extends AbstractViewModel {
     }
 
     const { onSubmitModal } = this.props
+    const myModalChangedModel = this.helper().buildChanged(modalModel, modalChangedModel)
     if (valueHelper.isFunction(onSubmitModal)) {
-      onSubmitModal(modalModelName, modalModel, modalChangedModel)
+      onSubmitModal(modalModelName, modalModel, myModalChangedModel)
       return
     }
 
@@ -243,13 +244,14 @@ class AbstractModalViewModel extends AbstractViewModel {
     }
 
     const { operation } = this.props
+    const myModalChangedModel = this.helper().buildChanged(modalModel, modalChangedModel)
     switch (operation) {
       case 'create':
-        this.create(modalChangedModel)
+        this.create(myModalChangedModel)
         return
 
       case 'update':
-        this.update(modalChangedModel)
+        this.update(myModalChangedModel)
         return
 
       default:

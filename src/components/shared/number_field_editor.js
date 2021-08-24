@@ -5,9 +5,10 @@ import { valueHelper, fieldHelper } from "../../helpers"
 
 class NumberFieldEditor extends Component {
   render() {
-    const { changeField, helper, max, min, model, omitLabel, precision, step } = this.props
+    const { changeField, helper, max, min, model, omitLabel, precision, prefix, step } = this.props
     const name = fieldHelper.name(this.props)
-    const canModifyField = helper.canModifyField(model, name)
+    const fieldName = fieldHelper.fieldName(name, prefix)
+    const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
     const myPrecision = valueHelper.isNumberValue(precision) ? precision : 0
     const myStep = valueHelper.isNumberValue(step) || valueHelper.isStringValue(step) ? step : 1
@@ -23,12 +24,12 @@ class NumberFieldEditor extends Component {
             disabled={!canModifyField}
             max={max}
             min={min}
-            name={name}
+            name={fieldName}
             onChange={(newValue) => { changeField(name, newValue) }}
             precision={myPrecision}
             readOnly={!canModifyField}
             step={myStep}
-            value={valueHelper.makeString(helper[method](model))}
+            value={valueHelper.makeString(helper[method](model, prefix))}
           />
         </Col>
       </React.Fragment>

@@ -13,29 +13,26 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
+    this.editConfigurationModal = this.editConfigurationModal.bind(this)
     this.editProfileModal = this.editProfileModal.bind(this)
+    this.editSubscriberModal = this.editSubscriberModal.bind(this)
     this.fetchPatient = this.fetchPatient.bind(this)
+    this.launchEditModal = this.launchEditModal.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.requiresPersonNumber = this.requiresPersonNumber.bind(this)
   }
 
+  editConfigurationModal(patientToEdit) {
+    this.launchEditModal(patientToEdit, "patient-configuration", "update")
+  }
+
   editProfileModal(patientToEdit) {
-    patientApi.edit(
-      userCredentialsHelper.get(),
-      patientHelper.id(patientToEdit),
-      (patient) => {
-        this.props.launchModal(
-          "patient-profile",
-          {
-            operation: "update",
-            onUpdateView: this.refreshData,
-            patient
-          }
-        )
-      },
-      this.onError
-    )
+    this.launchEditModal(patientToEdit, "patient-profile", "update")
+  }
+
+  editSubscriberModal(patientToEdit) {
+    this.launchEditModal(patientToEdit, "patient-subscriber", "update")
   }
 
   fetchPatient(nextOperation) {
@@ -46,6 +43,24 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
       userCredentials,
       patient_id,
       (patient) => { this.addField('patient', patient, nextOperation) },
+      this.onError
+    )
+  }
+
+  launchEditModal(patientToEdit, modalType, operation) {
+    patientApi.edit(
+      userCredentialsHelper.get(),
+      patientHelper.id(patientToEdit),
+      (patient) => {
+        this.props.launchModal(
+          modalType,
+          {
+            operation,
+            onUpdateView: this.refreshData,
+            patient
+          }
+        )
+      },
       this.onError
     )
   }

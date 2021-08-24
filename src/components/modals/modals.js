@@ -7,10 +7,12 @@ import { BillingContractPharmacyStoreModal } from "./billing/pharmacy_stores"
 import { BillingContractTermPatientModal } from "./billing/terms"
 import { BillingContractTermProfileModal } from "./billing/terms"
 import { PatientAllergyModal } from "./patient_allergies"
+import { PatientConfigurationModal } from "./patients"
 import { PatientMedicationModal } from "./patient_medications"
 import { PatientNoteModal } from "./patient_notes"
 import { PatientPhysicianModal } from "./patient_physicians"
 import { PatientProfileModal } from "./patients"
+import { PatientSubscriberModal } from "./patients"
 import { valueHelper } from "../../helpers"
 
 const modalList = {
@@ -26,7 +28,9 @@ const modalList = {
   PatientMedication: PatientMedicationModal,
   PatientNote: PatientNoteModal,
   PatientPhysician: PatientPhysicianModal,
+  PatientConfiguration: PatientConfigurationModal,
   PatientProfile: PatientProfileModal,
+  PatientSubscriber: PatientSubscriberModal,
   SignIn: SignInModal
 }
 

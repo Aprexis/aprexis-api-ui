@@ -14,11 +14,13 @@ class DayTimeFieldEditor extends Component {
       latestDate,
       model,
       omitLabel,
+      prefix,
       timeStep,
       timeStyle
     } = this.props
     const name = fieldHelper.name(this.props)
-    const canModifyField = helper.canModifyField(model, name)
+    const fieldName = fieldHelper.fieldName(name, prefix)
+    const canModifyField = helper.ccanModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
 
     return (
@@ -33,12 +35,12 @@ class DayTimeFieldEditor extends Component {
             allowEdit={canModifyField}
             date={helper[method](model)}
             dateTimeChange={changeField}
-            dateField={`${name}_Date`}
+            dateField={`${fieldName}_Date`}
             dateStyle={dateStyle}
-            dateTime={helper[method](model)}
+            dateTime={helper[method](model, prefix)}
             earliestDate={earliestDate}
             latestDate={latestDate}
-            timeField={`${name}_Time`}
+            timeField={`${fieldName}_Time`}
             timeStep={timeStep}
             timeStyle={timeStyle}
           />

@@ -5,9 +5,20 @@ import { DayPicker } from "./"
 
 class DayFieldEditor extends Component {
   render() {
-    const { allowBlank, changeField, earliestDate, helper, latestDate, model, omitLabel, style } = this.props
+    const {
+      allowBlank,
+      changeField,
+      earliestDate,
+      helper,
+      latestDate,
+      model,
+      omitLabel,
+      prefix,
+      style
+    } = this.props
     const name = fieldHelper.name(this.props)
-    const canModifyField = helper.canModifyField(model, name)
+    const fieldName = fieldHelper.fieldName(name, prefix)
+    const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
 
     return (
@@ -20,9 +31,9 @@ class DayFieldEditor extends Component {
           <DayPicker
             allowBlank={allowBlank}
             allowEdit={canModifyField}
-            date={helper[method](model)}
+            date={helper[method](model, prefix)}
             dayChange={changeField}
-            dateField={name}
+            dateField={fieldName}
             earliestDate={earliestDate}
             latestDate={latestDate}
             style={style}

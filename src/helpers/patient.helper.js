@@ -16,7 +16,7 @@ export const patientHelper = {
   canDelete,
   canEdit,
   canModifyField,
-  cognnitivelyImpaired,
+  cognitivelyImpaired,
   coverageEffectiveDate,
   coverageEndDate,
   dateOfBirth,
@@ -178,8 +178,8 @@ function canModifyField(patient, fieldName) {
   return true
 }
 
-function cognnitivelyImpaired(patient) {
-  return fieldHelper.getField(patient, "cognnitively_impaired")
+function cognitivelyImpaired(patient) {
+  return fieldHelper.getField(patient, "cognitively_impaired")
 }
 
 function coverageEffectiveDate(patient) {
@@ -190,8 +190,8 @@ function coverageEndDate(patient) {
   return fieldHelper.getField(patient, "coverage_end_date")
 }
 
-function dateOfBirth(patient) {
-  return fieldHelper.getField(patient, "date_of_birth")
+function dateOfBirth(patient, prefix = "") {
+  return fieldHelper.getField(patient, "date_of_birth", prefix)
 }
 
 function displayPreferredContactMethod(patient) {

@@ -4,9 +4,10 @@ import { valueHelper, fieldHelper } from "../../helpers"
 
 class TextFieldEditor extends Component {
   render() {
-    const { area, changeField, cols, helper, maxLength, model, omitLabel, rows } = this.props
+    const { area, changeField, cols, helper, maxLength, model, omitLabel, prefix, rows } = this.props
     const name = fieldHelper.name(this.props)
-    const canModifyField = helper.canModifyField(model, name)
+    const fieldName = fieldHelper.fieldName(name, prefix)
+    const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
     const inputType = valueHelper.isSet(area) ? "textarea" : "text"
     const actualMaxLength = valueHelper.isValue(maxLength) ? maxLength : 255
@@ -23,12 +24,12 @@ class TextFieldEditor extends Component {
             cols={cols}
             disabled={!canModifyField}
             maxLength={actualMaxLength}
-            name={name}
+            name={fieldName}
             onChange={changeField}
             readOnly={!canModifyField}
             rows={rows}
             type={inputType}
-            value={valueHelper.makeString(helper[method](model))}
+            value={valueHelper.makeString(helper[method](model, prefix))}
           />
         </Col>
       </React.Fragment>

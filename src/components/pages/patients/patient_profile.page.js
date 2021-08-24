@@ -4,16 +4,22 @@ import { Address, Contact, EditButton, Spinner } from '../../shared'
 import { PatientProfilePageViewModel } from "../../view_models/pages/patients"
 import { fieldHelper, patientHelper, valueHelper } from "../../../helpers"
 
-const PatientConfiguration = ({ patient }) => {
+const PatientConfiguration = ({ currentUser, onEditConfiguration, patient }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Configuration</h3>
+          <h3>
+            Configuration
+            {
+              patientHelper.canEdit(currentUser, patient) &&
+              <EditButton onEdit={(event) => { onEditConfiguration(patient) }} />
+            }
+          </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.booleanDisplay("Cognitively Impaired", patientHelper.cognnitivelyImpaired(patient))}
+          {fieldHelper.booleanDisplay("Cognitively Impaired", patientHelper.cognitivelyImpaired(patient))}
           {fieldHelper.booleanDisplay("No Known Allergies", patientHelper.noKnownAllergies(patient))}
           {fieldHelper.display("Primary Care Provider NPI", patientHelper.primaryCareProviderNpi(patient))}
           {fieldHelper.display("Number of Medications", patientHelper.medicationCount(patient))}
@@ -57,7 +63,7 @@ const PatientProfile = ({ currentUser, onEditProfile, patient, requiresPersonNum
   )
 }
 
-const PatientSubscriber = ({ patient }) => {
+const PatientSubscriber = ({ currentUser, patient, onEditSubscriber }) => {
   if (!patientHelper.hasSubscriber(patient)) {
     return (<React.Fragment />)
   }
@@ -66,14 +72,24 @@ const PatientSubscriber = ({ patient }) => {
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Subscriber</h3>
+          <h3>
+            Subscriber
+            {
+              patientHelper.canEdit(currentUser, patient) &&
+              <EditButton onEdit={(event) => { onEditSubscriber(patient) }} />
+            }
+          </h3>
         </CardTitle>
 
-        <CardBody>
-          <Address addressable={patient} prefix="subscriber" />
-          {fieldHelper.display("Name", patientHelper.subscriberName(patient))}
-          <Contact contactable={patient} prefix="subscriber" />
-        </CardBody>
+        {
+          patientHelper.hasSubscriber(patient) &&
+          <CardBody>
+            {fieldHelper.display("Name", patientHelper.subscriberName(patient))}
+            {fieldHelper.dateDisplay("DOB", patientHelper.dateOfBirth(patient, "subscriber"))}
+            <Address addressable={patient} prefix="subscriber" />
+            {fieldHelper.display("Gender", patientHelper.gender(patient, "subscriber"))}
+          </CardBody>
+        }
       </Card>
     </Col>
   )
@@ -96,7 +112,16 @@ const PatientUser = ({ patient }) => {
   )
 }
 
-const PatientDisplay = ({ currentUser, onEditProfile, patient, requiresPersonNumber }) => {
+const PatientDisplay = (
+  {
+    currentUser,
+    onEditConfiguration,
+    onEditProfile,
+    onEditSubscriber,
+    patient,
+    requiresPersonNumber
+  }
+) => {
   if (!valueHelper.isValue(patient)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -110,11 +135,19 @@ const PatientDisplay = ({ currentUser, onEditProfile, patient, requiresPersonNum
           patient={patient}
           requiresPersonNumber={requiresPersonNumber}
         />
-        <PatientSubscriber patient={patient} />
+        <PatientSubscriber
+          currentUser={currentUser}
+          onEditSubscriber={onEditSubscriber}
+          patient={patient}
+        />
       </Row>
 
       <Row>
-        <PatientConfiguration patient={patient} />
+        <PatientConfiguration
+          currentUser={currentUser}
+          onEditConfiguration={onEditConfiguration}
+          patient={patient}
+        />
         {patientHelper.hasUser(patient) && <PatientUser patient={patient} />}
       </Row>
     </React.Fragment>
@@ -153,7 +186,9 @@ class PatientProfilePage extends Component {
 
           <PatientDisplay
             currentUser={this.props.currentUser}
+            onEditConfiguration={this.vm.editConfigurationModal}
             onEditProfile={this.vm.editProfileModal}
+            onEditSubscriber={this.vm.editSubscriberModal}
             patient={patient}
             requiresPersonNumber={this.vm.requiresPersonNumber}
           />
