@@ -74,15 +74,6 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     )
   }
 
-  create(modalChangedModel) {
-    patientAllergyApi.create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
-  }
-
   dateAndTimeFields() {
     return []
   }

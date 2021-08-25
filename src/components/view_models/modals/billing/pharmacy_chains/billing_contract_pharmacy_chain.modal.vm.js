@@ -14,7 +14,6 @@ class BillingContractPharmacyChainModalViewModel extends AbstractModalViewModel 
     super(props)
 
     this.api = this.api.bind(this)
-    this.create = this.create.bind(this)
     this.fetchPharmacyChain = this.fetchPharmacyChain.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
@@ -22,20 +21,10 @@ class BillingContractPharmacyChainModalViewModel extends AbstractModalViewModel 
     this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectPharmacyChain = this.selectPharmacyChain.bind(this)
-    this.update = this.update.bind(this)
   }
 
   api() {
     return billingContractPharmacyChainApi
-  }
-
-  create(modalChangedModel) {
-    billingContractPharmacyChainApi.create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 
   dateAndTimeFields(billingContractPharmacyChain) {
@@ -94,15 +83,6 @@ class BillingContractPharmacyChainModalViewModel extends AbstractModalViewModel 
     }
 
     this.fetchPharmacyChain(value, addPharmacyChainToAppointmentAndRedraw)
-  }
-
-  update(modalChangedModel) {
-    billingContractPharmacyChainApi.update(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 }
 

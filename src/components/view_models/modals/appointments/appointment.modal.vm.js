@@ -28,7 +28,6 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
     super(props)
 
     this.api = this.api.bind(this)
-    this.create = this.create.bind(this)
     this.fetchPharmacyStore = this.fetchPharmacyStore.bind(this)
     this.fetchUser = this.fetchUser.bind(this)
     this.helper = this.helper.bind(this)
@@ -36,20 +35,10 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
     this.model = this.model.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
-    this.update = this.update.bind(this)
   }
 
   api() {
     return appointmentApi
-  }
-
-  create(modalChangedModel) {
-    appointmentApi.create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 
   dateAndTimeFields(appointment) {
@@ -108,19 +97,11 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
     const addPharmacyStoreToAppointmentAndRedraw = (pharmacyStore) => {
       const { appointment, changedAppointment } = this.data
       const updated = appointmentHelper.changePharmacyStore(appointment, changedAppointment, pharmacyStore)
+
       this.addData(updated, this.redrawView)
     }
 
     this.fetchPharmacyStore(value, addPharmacyStoreToAppointmentAndRedraw)
-  }
-
-  update(modalChangedModel) {
-    appointmentApi.update(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 }
 

@@ -42,6 +42,7 @@ class CaregiversPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
+    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -105,6 +106,7 @@ class CaregiversPage extends Component {
         listLabel="Caregiver"
         listPluralLabel="Caregivers"
         modal={this.state.modal}
+        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
@@ -115,6 +117,22 @@ class CaregiversPage extends Component {
         page={this.state.page}
         title="Caregivers"
       />
+    )
+  }
+
+  nav(list) {
+    if (!this.vm.canCreate()) {
+      return
+    }
+
+    return (
+      <nav className="btn-toolbar mb-2 mb-md-0">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={this.vm.createModal}>
+          <strong>+</strong> Add Caregiver
+        </button>
+      </nav>
     )
   }
 

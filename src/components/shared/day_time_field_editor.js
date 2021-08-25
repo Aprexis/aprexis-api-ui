@@ -20,7 +20,7 @@ class DayTimeFieldEditor extends Component {
     } = this.props
     const name = fieldHelper.name(this.props)
     const fieldName = fieldHelper.fieldName(name, prefix)
-    const canModifyField = helper.ccanModifyField(model, fieldName)
+    const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
 
     return (

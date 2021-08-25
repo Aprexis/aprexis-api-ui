@@ -15,26 +15,15 @@ class AbstractBillingContractTermModalViewModel extends AbstractModalViewModel {
 
     super(props)
     this.api = this.api.bind(this)
-    this.create = this.create.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
     this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
-    this.update = this.update.bind(this)
   }
 
   api() {
     return billingContractTermApi
-  }
-
-  create(modalChangedModel) {
-    billingContractTermApi.create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 
   dateAndTimeFields(billingContractTerm) {
@@ -69,15 +58,6 @@ class AbstractBillingContractTermModalViewModel extends AbstractModalViewModel {
 
   requiredFields() {
     return billingContractTermRequiredFields
-  }
-
-  update(modalChangedModel) {
-    billingContractTermApi.update(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 }
 

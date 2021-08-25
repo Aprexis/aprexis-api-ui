@@ -25,7 +25,6 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     super(props)
 
     this.api = this.api.bind(this)
-    this.create = this.create.bind(this)
     this.dateAndTimeFields = this.dateAndTimeFields.bind(this)
     this.fetchMedication = this.fetchMedication.bind(this)
     this.fetchPatient = this.fetchPatient.bind(this)
@@ -42,15 +41,6 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   api() {
     return patientMedicationApi
-  }
-
-  create(modalChangedModel) {
-    patientMedicationApi.create(
-      userCredentialsHelper.getAdmin(),
-      modalChangedModel,
-      () => { this.toggleModal(this.props.onUpdateView) },
-      this.onError
-    )
   }
 
   dateAndTimeFields() {
