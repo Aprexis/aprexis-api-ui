@@ -39,13 +39,13 @@ function create(userCredentials, appointment, onSuccess, onFailure) {
   API.perform(method, path, "", userCredentials, toJSON(appointment), onSuccess, onFailure)
 }
 
-function destroy(userCredentials, id, onSuccess, onFailure) {
-  if (!API.validateId("appointment ID", id, onFailure)) {
+function destroy(userCredentials, appointment_id, onSuccess, onFailure) {
+  if (!API.validateId("appointment ID", appointment_id, onFailure)) {
     return
   }
 
   const method = "DELETE"
-  const path = `/appointments/${id}`
+  const path = `/appointments/${appointment_id}`
   API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 

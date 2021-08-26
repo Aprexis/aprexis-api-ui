@@ -1,12 +1,12 @@
 import { AbstractListPageViewModel } from "../"
-import { caregiverApi } from "../../../../api"
-import { caregiverHelper, filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { documentApi } from "../../../../api"
+import { documentHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
-const caregiverListMethods = [
-  { pathKey: "patients", method: caregiverApi.listForPatient }
+const documentListMethods = [
+  { pathKey: "health-plans", method: documentApi.listForHealthPlan }
 ]
 
-class CaregiversPageViewModel extends AbstractListPageViewModel {
+class DocumentsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
@@ -17,7 +17,7 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
     this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoCaregiverProfile = this.gotoCaregiverProfile.bind(this)
+    this.gotoDocumentProfile = this.gotoDocumentProfile.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
@@ -25,24 +25,24 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    return caregiverHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+    return documentHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
   }
 
   api() {
-    return caregiverApi
+    return documentApi
   }
 
   createModal() {
     const pathEntries = this.pathEntries()
-    const patientId = pathHelper.id(pathEntries, "patients")
+    const healthPlanId = pathHelper.id(pathEntries, "health-plans")
 
     this.api().buildNew(
       userCredentialsHelper.get(),
-      patientId,
-      (caregiver) => {
+      healthPlanId,
+      (document) => {
         this.props.launchModal(
-          "caregiver",
-          { operation: "create", onUpdateView: this.refreshData, caregiver }
+          "document",
+          { operation: "create", onUpdateView: this.refreshData, document }
         )
       },
       this.onError
@@ -51,41 +51,39 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "last_name,first_name" }
+    const sorting = { sort: "id" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  editModal(caregiverToEdit) {
+  editModal(documentToEdit) {
     this.api().edit(
       userCredentialsHelper.get(),
-      caregiverToEdit.id,
-      (caregiver) => {
+      documentToEdit.id,
+      (document) => {
         this.props.launchModal(
-          "caregiver",
-          { operation: "update", onUpdateView: this.refreshData, caregiver })
+          "document",
+          { operation: "update", onUpdateView: this.refreshData, document })
       },
       this.onError
     )
   }
 
   filterDescriptions(filters, filtersOptions) {
-    return [
-      filtersHelper.stringFilter("Name", "for_name")
-    ]
+    return []
   }
 
   filtersOptions() {
     return {}
   }
 
-  gotoCaregiverProfile(caregiver) {
-    const pathArray = pathHelper.buildPathArray(window.location, caregiver, "profile")
+  gotoDocumentProfile(document) {
+    const pathArray = pathHelper.buildPathArray(window.location, document, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
 
   helper() {
-    return caregiverHelper
+    return documentHelper
   }
 
   loadData() {
@@ -95,13 +93,13 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
   }
 
   refreshData() {
-    this.removeField("caregiverHeaders")
+    this.removeField("documentHeaders")
 
     this.fetchList(
-      caregiverListMethods,
-      (caregivers, caregiverHeaders) => {
+      documentListMethods,
+      (documents, documentHeaders) => {
         this.addData(
-          { caregivers, "page": pageHelper.updatePageFromLastPage(caregiverHeaders) },
+          { documents, "page": pageHelper.updatePageFromLastPage(documentHeaders) },
           this.redrawView
         )
       },
@@ -110,8 +108,8 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
   }
 
   title() {
-    return "Caregivers"
+    return "Documents"
   }
 }
 
-export { CaregiversPageViewModel }
+export { DocumentsPageViewModel }

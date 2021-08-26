@@ -49,10 +49,10 @@ function create(userCredentials, caregiver, onSuccess, onFailure) {
   API.perform(method, path, "", userCredentials, toJSON(caregiver), onSuccess, onFailure)
 }
 
-function destroy(userCredentials, patientMedication, onSuccess, onFailure) {
+function destroy(userCredentials, caregiver_id, onSuccess, onFailure) {
   const method = "DELETE"
-  const path = `/patient_medications/${patientMedication.id}`
-  API.perform(method, path, "", userCredentials, toJSON(patientMedication), onSuccess, onFailure)
+  const path = `/caregivers/${caregiver_id}`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function edit(userCredentials, id, onSuccess, onFailure) {

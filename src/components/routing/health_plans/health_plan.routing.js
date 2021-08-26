@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
+import { DocumentsRouting } from "../documents"
 import { PatientsRouting } from "../patients"
 import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
 import { ProgramsRouting } from "../programs"
@@ -23,6 +24,10 @@ class HealthPlanRouting extends Component {
         <Route
           path={`${healthPlanPrefix}/billing-contracts`}
           render={(props) => (<BillingContractsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${healthPlanPrefix}/documents`}
+          render={(props) => (<DocumentsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact

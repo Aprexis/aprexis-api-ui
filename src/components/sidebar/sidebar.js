@@ -67,10 +67,16 @@ const sidebarDescriptions = {
     entryLabel: "Disease",
     entryName: "diseases"
   },
+  "documents": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ]
+  },
   "health-plans": {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Contracts", buttonType: "List", listName: "billing-contracts" },
+      { buttonLabel: "Documents", buttonType: "List", listName: "documents" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
       { buttonLabel: "Programs", buttonType: "List", listName: "programs" },
       { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" }
