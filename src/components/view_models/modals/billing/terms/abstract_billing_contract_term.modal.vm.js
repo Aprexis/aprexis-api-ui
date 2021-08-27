@@ -1,6 +1,6 @@
 import { AbstractModalViewModel } from "../../"
 import { billingContractTermApi } from "../../../../../api/billing"
-import { userCredentialsHelper, valueHelper } from "../../../../../helpers"
+import { valueHelper } from "../../../../../helpers"
 import { billingContractTermHelper } from "../../../../../helpers/billing"
 
 const billingContractTermRequiredFields = {
