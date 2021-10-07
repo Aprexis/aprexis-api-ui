@@ -15,7 +15,9 @@ export const documentHelper = {
   canDelete,
   canEdit,
   canModifyField,
+  contentType,
   createdAt,
+  filename,
   id,
   healthPlanId,
   modelName,
@@ -65,8 +67,16 @@ function canModifyField(document, fieldName) {
   return false
 }
 
+function contentType(document) {
+  return fieldHelper.getField(document, "content_type")
+}
+
 function createdAt(document) {
   return fieldHelper.getField(document, "created_at")
+}
+
+function filename(document) {
+  return fieldHelper.getField(document, "filename")
 }
 
 function healthPlanId(document) {

@@ -1,4 +1,5 @@
 import { alertHelper, /*userCredentialsHelper,*/ valueHelper } from "../helpers"
+const FileSaver = require('file-saver')
 
 export const API = {
   buildQueryString,
@@ -109,7 +110,7 @@ function handleError(method, path, error, onFailure) {
   }
 }
 
-function perform(method, path, queryString, userCredentials, body, onSuccess, onFailure) {
+function perform(method, path, queryString, userCredentials, body, onSuccess, onFailure, optional = {}) {
   let workingPath = path
 
   // If the incoming path includes the Rails relative URL root, remove it.
@@ -136,6 +137,10 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
       switch (response.status) {
         case 200:
         case 201:
+          if (valueHelper.isSet(optional.isDownload)) {
+            return download(response, onSuccess, onFailure)
+          }
+
           response.json()
             .then(
               (responseJSON) => {
@@ -150,7 +155,9 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
           break
 
         default:
-          response.text().then((errorMessage) => API.handleError(method, path, { message: errorMessage }, onFailure))
+          response.text().then(
+            (errorMessage) => API.handleError(method, path, { message: errorMessage }, onFailure)
+          )
       }
     }
   )
@@ -170,6 +177,17 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
     }
 
     return newHeaders
+  }
+
+  function download(response, onSuccess, onFailure) {
+    const filename = response.headers.get('Content-Disposition').split('filename=')[1];
+    response.blob()
+      .then(
+        blob => {
+          FileSaver.saveAs(blob, filename)
+          onSuccess(blob)
+        }
+      )
   }
 
   function jsonBody(existingHeaders, body) {

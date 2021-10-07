@@ -21,10 +21,11 @@ function clear() {
 }
 
 function error(message) {
-  console.log(`ERROR: ${messageText(message)}`)
+  const text = messageText(message)
+  console.log(`ERROR: ${text}`)
   console.trace()
   sessionStorage.setItem('alert-type', 'danger')
-  sessionStorage.setItem('alert-message', message)
+  sessionStorage.setItem('alert-message', text)
 }
 
 function get() {
@@ -35,20 +36,23 @@ function get() {
 }
 
 function info(message) {
-  console.log(`'INFO: ${messageText(message)}`)
+  const text = messageText(message)
+  console.log(`'INFO: ${text}`)
   sessionStorage.setItem('alert-type', 'info')
-  sessionStorage.setItem('alert-message', message)
+  sessionStorage.setItem('alert-message', text)
 }
 
 function success(message) {
-  console.log(`SUCCESS: ${messageText(message)}`)
+  const text = messageText(message)
+  console.log(`SUCCESS: ${text}`)
   sessionStorage.setItem('alert-type', 'success')
-  sessionStorage.setItem('alert-message', message)
+  sessionStorage.setItem('alert-message', text)
 }
 
 function warning(message) {
-  console.log(`WARNING: ${messageText(message)}`)
+  const text = messageText(message)
+  console.log(`WARNING: ${text}`)
   console.trace()
   sessionStorage.setItem('alert-type', 'warning')
-  sessionStorage.setItem('alert-message', message)
+  sessionStorage.setItem('alert-message', text)
 }

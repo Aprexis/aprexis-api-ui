@@ -11,9 +11,14 @@ const headings = [
     method: "slug"
   },
   {
-    name: "Created At",
-    field: "created_at",
-    method: "createdAt"
+    name: "Filename",
+    field: "filename",
+    method: "filename"
+  },
+  {
+    name: "Content Type",
+    field: "content_type",
+    method: "contentType"
   },
   {
     name: "Updated At",

@@ -23,7 +23,7 @@ class DiseasesPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(filters, filtersOptions) {
     return [
-      filtersHelper.stringFilter("Question Key", "for_question_key")
+      filtersHelper.stringFilter("Description", "for_description")
     ]
   }
 
