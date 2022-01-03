@@ -76,6 +76,7 @@ const HealthPlanConfiguration = ({ healthPlan }) => {
             )
           }
           {fieldHelper.titleDisplay("CCD Generator", healthPlanHelper.ccdGenerator(healthPlan))}
+          {fieldHelper.booleanDisplay("Reminders", healthPlanHelper.enableReminders(healthPlan))}
         </CardBody>
       </Card>
     </Col>

@@ -18,6 +18,7 @@ export const healthPlanHelper = {
   city,
   code,
   currentlyImportingData,
+  enableReminders,
   fullAddress,
   generateCompletedInterventionsReport,
   importingPatientData,
@@ -90,6 +91,10 @@ function code(healthPlan) {
 
 function currentlyImportingData(healthPlan) {
   return fieldHelper.getField(healthPlan, "currently_importing_data")
+}
+
+function enableReminders(healthPlan) {
+  return fieldHelper.getField(healthPlan, "enable_reminders")
 }
 
 function fullAddress(healthPlan) {

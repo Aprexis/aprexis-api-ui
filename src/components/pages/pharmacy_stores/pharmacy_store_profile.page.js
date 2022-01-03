@@ -23,6 +23,20 @@ const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
             )
           }
           {fieldHelper.display("CCD Code", pharmacyStoreHelper.ccdCode(pharmacyStore))}
+          {fieldHelper.booleanDisplay("Stripe Customer", pharmacyStoreHelper.stripeCustomer(pharmacyStore))}
+          {fieldHelper.booleanDisplay("Stripe Subscription", pharmacyStoreHelper.stripeSubscription(pharmacyStore))}
+          {
+            fieldHelper.booleanDisplay(
+              "Stripe Pharmacist License Price",
+              pharmacyStoreHelper.stripePharmacistLicensePrice(pharmacyStore)
+            )
+          }
+          {
+            fieldHelper.booleanDisplay(
+              "Stripe Pharmacy Technician License Price",
+              pharmacyStoreHelper.stripePharmacyTechnicianLicensePrice(pharmacyStore)
+            )
+          }
         </CardBody>
       </Card>
     </Col>
