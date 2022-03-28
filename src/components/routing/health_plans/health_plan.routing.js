@@ -6,6 +6,7 @@ import { PatientsRouting } from "../patients"
 import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
 import { ProgramsRouting } from "../programs"
 import { BillingContractsRouting } from "../billing/contracts"
+import { UsersRouting } from "../users"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class HealthPlanRouting extends Component {
@@ -46,6 +47,10 @@ class HealthPlanRouting extends Component {
           exact
           path={`${healthPlanPrefix}/profile`}
           render={(props) => (<HealthPlanProfilePage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${healthPlanPrefix}/users`}
+          render={(props) => (<UsersRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

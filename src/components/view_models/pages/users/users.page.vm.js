@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
 import { userApi } from "../../../../api"
-import { filtersHelper, pageHelper, userCredentialsHelper, userHelper, pathHelper } from "../../../../helpers"
+import { filtersHelper, pageHelper, userCredentialsHelper, userHelper, pathHelper, valueHelper } from "../../../../helpers"
 
 const USER_STATES = [
   {
@@ -78,21 +78,34 @@ class UsersPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("userHeaders")
     const { filters, sorting, page } = this.data
+    const pathEntries = this.pathEntries()
 
-    userApi.index(
+    list(
+      pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
-      (users, usersHeaders) => {
+      (users, userHeaders) => {
         this.addData(
           {
             users,
-            page: pageHelper.updatePageFromLastPage(usersHeaders)
+            page: pageHelper.updatePageFromLastPage(userHeaders)
           },
           this.redrawView
         )
       },
       this.onError
     )
+
+    function list(pathEntries, userCredentials, params, onSuccess, onError) {
+      const healthPlan = pathEntries['health-plans']
+
+      if (valueHelper.isValue(healthPlan)) {
+        userApi.indexForHealthPlan(userCredentials, healthPlan.value, params, onSuccess, onError)
+        return
+      }
+
+      userApi.index(userCredentials, params, onSuccess, onError)
+    }
   }
 
   title() {
