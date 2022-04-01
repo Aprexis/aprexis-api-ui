@@ -20,7 +20,11 @@ export const dateHelper = {
 function localeFromLocaleString(localeString) {
   switch (typeof localeString) {
     case "string":
-      return require(`date-fns/locale/${localeString}`)
+      const result = require(`date-fns/locale/${localeString}`)
+      if (valueHelper.isValue(result.default)) {
+        return result.default
+      }
+      return result
 
     default:
       return localeString
@@ -55,20 +59,20 @@ function convertTimeStringToDate(timeString, format, localeString) {
   return dateHelper.parseDate(timeString, format, localeString)
 }
 
-function displayDate(dateValue) {
+function displayDate(dateValue, format = "P") {
   if (!valueHelper.isValue(dateValue)) {
     return ""
   }
 
-  return dateHelper.formatDate(dateHelper.makeDate(dateValue), "P", navigator.languages[0])
+  return dateHelper.formatDate(dateHelper.makeDate(dateValue), format, navigator.languages[0])
 }
 
-function displayDateTime(dateTime) {
+function displayDateTime(dateTime, format = "Ppp") {
   if (!valueHelper.isValue(dateTime)) {
     return ""
   }
 
-  return dateHelper.formatDate(dateHelper.makeDate(dateTime), "Ppp", navigator.languages[0])
+  return dateHelper.formatDate(dateHelper.makeDate(dateTime), format, navigator.languages[0])
 }
 
 function formatDate(date, format, localeString) {

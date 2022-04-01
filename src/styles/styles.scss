@@ -138,3 +138,27 @@ header {
     padding: 0;
   }
 }
+
+@media (min-width: 1400px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+      max-width: 1340px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+      max-width: 1540px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+      max-width: 1740px;
+  }
+}
+
+@media (min-width: 2000px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+      max-width: 1940px;
+  }
+}

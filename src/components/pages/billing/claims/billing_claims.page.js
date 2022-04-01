@@ -7,6 +7,11 @@ import { listHelper } from "../../../../helpers/list.helper"
 
 const headings = [
   {
+    name: "Pharmacy #, Aprexis #, Payer #",
+    field: "reference_number,payer_claim_tracking_number",
+    labelMethod: "displayReferenceNumbers"
+  },
+  {
     name: "Submmitted At",
     field: "submitted_at",
     method: "displaySubmittedAt"

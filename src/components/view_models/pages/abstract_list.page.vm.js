@@ -64,11 +64,21 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const params = { ...filters, ...sorting, page }
 
+    let blankIdx = -1
     for (let idx = 0; idx < listMethods.length; ++idx) {
       const { pathKey, method } = listMethods[idx]
+      if (!valueHelper.isStringValue(pathKey)) {
+        blankIdx = idx
+        continue
+      }
+
       if (listFor(pathEntries, pathKey, method, userCredentials, params, onSuccess, onError)) {
         return
       }
+    }
+    if (blankIdx >= 0) {
+      listMethods[blankIdx].method(userCredentials, params, onSuccess, onError)
+      return
     }
 
     throw new Error(`Internal Error: unrecogonized path ${window.location.pathname}`)

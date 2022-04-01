@@ -3,6 +3,7 @@ import { billingClaimApi } from "../../../../../api/billing"
 import { filtersHelper, pageHelper, pathHelper } from "../../../../../helpers"
 
 const billingClaimListMethods = [
+  { pathKey: "health-plans", method: billingClaimApi.listForHealthPlan },
   { pathKey: "pharmacy-stores", method: billingClaimApi.listForPharmacyStore }
 ]
 

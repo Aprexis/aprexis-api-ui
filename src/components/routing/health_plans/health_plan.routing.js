@@ -5,6 +5,7 @@ import { DocumentsRouting } from "../documents"
 import { PatientsRouting } from "../patients"
 import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
 import { ProgramsRouting } from "../programs"
+import { BillingClaimsRouting } from "../billing/claims"
 import { BillingContractsRouting } from "../billing/contracts"
 import { UsersRouting } from "../users"
 import { pathHelper, valueHelper } from "../../../helpers"
@@ -25,6 +26,10 @@ class HealthPlanRouting extends Component {
         <Route
           path={`${healthPlanPrefix}/billing-contracts`}
           render={(props) => (<BillingContractsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${healthPlanPrefix}/billing-claims`}
+          render={(props) => (<BillingClaimsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${healthPlanPrefix}/documents`}

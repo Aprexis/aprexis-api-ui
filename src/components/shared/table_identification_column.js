@@ -19,10 +19,7 @@ class TableIdentificationColumn extends Component {
     if (valueHelper.isFunction(onClick)) {
       className = `${className} btn-link`
     }
-    let label = fieldHelper.displayListField(tableItem, helper, heading)
-    if (!valueHelper.isStringValue(label)) {
-      label = `(Missing ${heading.name})`
-    }
+    const label = labelField(tableItem, helper, heading)
 
     return (
       <React.Fragment>
@@ -43,6 +40,18 @@ class TableIdentificationColumn extends Component {
         }
       </React.Fragment>
     )
+
+    function labelField(tableItem, helper, heading) {
+      if (valueHelper.isStringValue(heading.labelMethod)) {
+        return helper[heading.labelMethod](tableItem)
+      }
+
+      let label = fieldHelper.displayListField(tableItem, helper, heading)
+      if (!valueHelper.isStringValue(label)) {
+        label = `(Missing ${heading.name})`
+      }
+      return label
+    }
   }
 }
 
