@@ -20,6 +20,7 @@ const PatientConfiguration = ({ currentUser, onEditConfiguration, patient }) => 
 
         <CardBody>
           {fieldHelper.booleanDisplay("Cognitively Impaired", patientHelper.cognitivelyImpaired(patient))}
+          {fieldHelper.display("Cognitive Impairment Determined", patientHelper.cognitiveImpairmentDetermined(patient))}
           {fieldHelper.booleanDisplay("No Known Allergies", patientHelper.noKnownAllergies(patient))}
           {fieldHelper.display("Primary Care Provider NPI", patientHelper.primaryCareProviderNpi(patient))}
           {fieldHelper.display("Number of Medications", patientHelper.medicationCount(patient))}

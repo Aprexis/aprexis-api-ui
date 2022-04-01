@@ -3,11 +3,20 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   BooleanFieldEditor,
   NumberFieldEditor,
+  SelectFieldEditor,
   TextFieldEditor
 } from "../../shared"
 import { PatientConfigurationModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { patientHelper, valueHelper } from "../../../helpers"
+
+const cognitiveImpairmentReasons = [
+  "Brief interview for Mental Status (BIMS) score < 8",
+  "Cognitive impairment noted in patient's chart",
+  "Confirmed status with family member/caregiver",
+  "Confirmed status with healthcare staff",
+  "Mini-mental state examination (MMSE) score < 19"
+]
 
 class PatientConfigurationModal extends Component {
   constructor(props) {
@@ -61,6 +70,8 @@ class PatientConfigurationModal extends Component {
                   />
                 </FormGroup>
 
+                {cognitiveImpairmentDetermined(patient, patientHelper, this.vm.changeField)}
+
                 <FormGroup row>
                   {
                     /*
@@ -105,6 +116,24 @@ class PatientConfigurationModal extends Component {
         </Container>
       </AprexisModal >
     )
+
+    function cognitiveImpairmentDetermined(patient, patientHelper, changeField) {
+      if (!valueHelper.isSet(patientHelper.cognitivelyImpaired(patient))) {
+        return
+      }
+
+      return (
+        <FormGroup row>
+          <SelectFieldEditor
+            changeField={changeField}
+            fieldName="cognitive_impairment_determined"
+            fieldOptions={cognitiveImpairmentReasons}
+            helper={patientHelper}
+            model={patient}
+          />
+        </FormGroup>
+      )
+    }
   }
 
   renderFooter() {
