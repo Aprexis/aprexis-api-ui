@@ -3,7 +3,7 @@ import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { EditButton, Spinner } from "../../../shared"
 import { BillingClaimProfilePageViewModel } from "../../../view_models/pages/billing/claims"
 import { dateHelper, valueHelper } from "../../../../helpers"
-import { billingClaimHelper } from "../../../../helpers/billing"
+import { billingClaimHelper, billingClaimServiceHelper } from "../../../../helpers/billing"
 
 const BillingClaimCharges = ({ currentUser, billingClaim }) => {
   return (
@@ -24,10 +24,46 @@ const BillingClaimCharges = ({ currentUser, billingClaim }) => {
               Total Claim Amount: ${billingClaimHelper.totalCharge(billingClaim)}
             </Col>
           </Row>
+
+          <div className="table-responsive-sm scrollable">
+            <table className="table-sm table-striped table">
+              <thead>
+                <tr>
+                  <th>Date of Service</th>
+                  <th>Place of Service</th>
+                  <th>NPI</th>
+                  <th>Program</th>
+                  <th>Diagnosis Code</th>
+                  <th>CPT Code</th>
+                  <th>Modifier</th>
+                  <th>Units</th>
+                  <th>Charge</th>
+                </tr>
+              </thead>
+
+              <tbody>{claimChargesList(currentUser, billingClaim)}</tbody>
+            </table>
+          </div>
         </CardBody>
       </Card>
     </Col>
   )
+
+  function claimChargesList(currentUser, billingCLaim) {
+    const services = billingClaimHelper.services(billingClaim)
+    if (!valueHelper.isValue(services) || services.length === 0) {
+      return (<tr><td colSpan="9">No claim services.</td></tr>)
+    }
+
+    return services.map((service) => {
+      return (
+        <tr>
+          <td>{billingClaimServiceHelper.displayDateOfServiceStart(service)}</td>
+        </tr>
+      )
+    }
+    )
+  }
 }
 
 const BillingClaimProfile = ({ currentUser, onEdit, billingClaim }) => {

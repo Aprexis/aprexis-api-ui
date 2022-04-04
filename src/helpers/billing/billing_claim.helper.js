@@ -55,6 +55,7 @@ export const billingClaimHelper = {
   pharmacyStore,
   pharmacyStoreIdentification,
   referenceNumber,
+  services,
   statusDescription,
   submittedAt,
   totalCharge
@@ -285,6 +286,10 @@ function pharmacyStoreIdentification(billingClaim) {
 
 function referenceNumber(billingClaim) {
   return fieldHelper.getField(billingClaim, "reference_number")
+}
+
+function services(billingClaim) {
+  return fieldHelper.getField(billingClaim, "services")
 }
 
 function statusDescription(billingClaim) {
