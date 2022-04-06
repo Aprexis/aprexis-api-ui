@@ -28,7 +28,8 @@ const InterventionConfiguration = ({ intervention }) => {
           {
             fieldHelper.display("Consent Form Initiator", interventionHelper.consentFormInitiator(intervention))
           }
-          {fieldHelper.booleanDisplay("Consent Form on File", interventionHelper.consentFormOnFile(intervention))}
+          {fieldHelper.display("Consent Obtained From", interventionHelper.displayConsentObtainedFrom(intervention))}
+          {fieldHelper.display("Form of Consent", interventionHelper.consentVia(intervention))}
           {fieldHelper.booleanDisplay("Bill Later", interventionHelper.billLater(intervention))}
           {fieldHelper.dollarDisplay("Provider Fee", interventionHelper.providerFee(intervention))}
           {fieldHelper.dollarDisplay("Medicare Payment Amount", interventionHelper.medicarePaymentAmount(intervention))}
