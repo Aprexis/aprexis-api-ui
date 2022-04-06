@@ -84,8 +84,11 @@ function haveProfile(orderedPathEntries) {
 }
 
 function id(pathEntries, pathKey) {
-  const model = pathEntries[pathKey]
+  if (!valueHelper.isValue(pathEntries)) {
+    return
+  }
 
+  const model = pathEntries[pathKey]
   if (!valueHelper.isValue(model)) {
     return
   }
@@ -94,8 +97,11 @@ function id(pathEntries, pathKey) {
 }
 
 function isPlural(pathEntries, pathKey) {
-  const model = pathEntries[pathKey]
+  if (!valueHelper.isValue(pathEntries)) {
+    return
+  }
 
+  const model = pathEntries[pathKey]
   return valueHelper.isValue(model) && !valueHelper.isValue(model.value)
 }
 
