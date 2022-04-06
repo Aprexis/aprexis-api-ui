@@ -32,6 +32,7 @@ export const caregiverHelper = {
   canDelete,
   canEdit,
   canModifyField,
+  displayCaregiverAndRelationship,
   displayIsCurrentCaregiver,
   firstName,
   id,
@@ -97,6 +98,14 @@ function canModifyField(caregiver, fieldName) {
 
 function displayIsCurrentCaregiver(caregiver) {
   return valueHelper.yesNo(caregiverHelper.isCurrentCaregiver(caregiver))
+}
+
+function displayCaregiverAndRelationship(caregiver) {
+  if (!valueHelper.isValue(caregiver)) {
+    return ""
+  }
+
+  return `${caregiverHelper.name(caregiver)} (${caregiverHelper.relationship(caregiver)})`
 }
 
 function firstName(caregiver) {
