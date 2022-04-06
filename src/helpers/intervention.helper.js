@@ -1,5 +1,6 @@
 import { valueHelper } from "./value.helper"
 import { fieldHelper } from "./field.helper"
+import { caregiverHelper } from "./caregiver.helper"
 import { healthPlanHelper } from "./health_plan.helper"
 import { patientHelper } from "./patient.helper"
 import { pharmacyStoreHelper } from "./pharmacy_store.helper"
@@ -16,6 +17,8 @@ export const interventionHelper = {
   consentFormInitiatedAt,
   consentFormInitiator,
   consentFormOnFile,
+  consentObtainedFrom,
+  consentVia,
   consultEnded,
   consultSessionDuration,
   consultSessionDurationExact,
@@ -25,6 +28,7 @@ export const interventionHelper = {
   dateOfService,
   diagnosisCode,
   diagnosisCodeLongDescription,
+  displayConsentObtainedFrom,
   dryRunProgramPatientAssignmentId,
   faxBypassed,
   healthPlanName,
@@ -89,6 +93,14 @@ function consentFormOnFile(intervention) {
   return fieldHelper.getField(intervention, "consent_form_on_file")
 }
 
+function consentObtainedFrom(intervention) {
+  return fieldHelper.getField(intervention, "consent_obtained_from")
+}
+
+function consentVia(intervention) {
+  return fieldHelper.getField(intervention, "consent_via")
+}
+
 function consultEnded(intervention) {
   return fieldHelper.getField(intervention, "consult_end_date")
 }
@@ -123,6 +135,18 @@ function diagnosisCode(intervention) {
 
 function diagnosisCodeLongDescription(intervention) {
   return diagnosisCodeHelper.longDescription(fieldHelper.getField(intervention, "diagnosis_code"))
+}
+
+function displayConsentObtainedFrom(intervention) {
+  const consenter = interventionHelper.consentObtainedFrom(intervention)
+  if (!valueHelper.isValue(consenter)) {
+    return "Not Obtained"
+  }
+  if (consenter.relationship == 'Patient') {
+    return "Patient"
+  }
+
+  return caregiverHelper.displayCaregiverAndRelationship(consenter)
 }
 
 function dryRunProgramPatientAssignmentId(intervention) {

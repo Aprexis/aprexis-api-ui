@@ -113,6 +113,10 @@ function buildNewChanged(patient) {
 }
 
 function canBeCreated(user, pathEntries, context) {
+  if (!valueHelper.isValue(user) || !valueHelper.isValue(pathEntries) || !valueHelper.isValue(context)) {
+    return false
+  }
+
   if (!userHelper.canCreatePatient(user, pathEntries)) {
     return false
   }
