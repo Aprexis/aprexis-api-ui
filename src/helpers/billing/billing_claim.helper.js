@@ -37,6 +37,7 @@ export const billingClaimHelper = {
   claimProvider,
   claimProviderEinNumber,
   claimProviderName,
+  claimServices,
   displayAprexisReferenceNumber,
   displayBillingStatus,
   displayClaimPatientHealthPlanNumber,
@@ -55,7 +56,6 @@ export const billingClaimHelper = {
   pharmacyStore,
   pharmacyStoreIdentification,
   referenceNumber,
-  services,
   statusDescription,
   submittedAt,
   totalCharge
@@ -155,6 +155,10 @@ function claimProviderEinNumber(billingClaim) {
 
 function claimProviderName(billingClaim) {
   return pharmacyStoreHelper.name(billingClaimHelper.claimProvider(billingClaim))
+}
+
+function claimServices(billingClaim) {
+  return fieldHelper.getField(billingClaim, "claim_services")
 }
 
 function displayAprexisReferenceNumber(billingClaim) {
@@ -286,10 +290,6 @@ function pharmacyStoreIdentification(billingClaim) {
 
 function referenceNumber(billingClaim) {
   return fieldHelper.getField(billingClaim, "reference_number")
-}
-
-function services(billingClaim) {
-  return fieldHelper.getField(billingClaim, "services")
 }
 
 function statusDescription(billingClaim) {

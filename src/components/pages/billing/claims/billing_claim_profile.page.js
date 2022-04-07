@@ -50,15 +50,23 @@ const BillingClaimCharges = ({ currentUser, billingClaim }) => {
   )
 
   function claimChargesList(currentUser, billingCLaim) {
-    const services = billingClaimHelper.services(billingClaim)
-    if (!valueHelper.isValue(services) || services.length === 0) {
+    const claimServices = billingClaimHelper.claimServices(billingClaim)
+    if (!valueHelper.isValue(claimServices) || claimServices.length === 0) {
       return (<tr><td colSpan="9">No claim services.</td></tr>)
     }
 
-    return services.map((service) => {
+    return claimServices.map((claimService, idx) => {
       return (
-        <tr>
-          <td>{billingClaimServiceHelper.displayDateOfServiceStart(service)}</td>
+        <tr key={`billing-claim-service-${idx}`}>
+          <td>{billingClaimServiceHelper.displayDateOfServiceStart(claimService)}</td>
+          <td>{billingClaimServiceHelper.placeOfServiceName(claimService)}</td>
+          <td>{billingClaimServiceHelper.npi(claimService)}</td>
+          <td>{billingClaimHelper.claimProgramName(billingClaim)}</td>
+          <td>{billingClaimServiceHelper.diagnosis(claimService)}</td>
+          <td>{billingClaimServiceHelper.cptCode(claimService)}</td>
+          <td>{billingClaimServiceHelper.userMod(claimService)}</td>
+          <td>{billingClaimServiceHelper.unit(claimService)}</td>
+          <td>${billingClaimServiceHelper.charge(claimService)}</td>
         </tr>
       )
     }
