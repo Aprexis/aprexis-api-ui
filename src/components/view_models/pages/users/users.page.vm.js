@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
 import { userApi } from "../../../../api"
-import { filtersHelper, pageHelper, userCredentialsHelper, userHelper, pathHelper } from "../../../../helpers"
+import { filtersHelper, pageHelper, userHelper, pathHelper } from "../../../../helpers"
 
 const USER_STATES = [
   {
@@ -19,6 +19,11 @@ const USER_STATES = [
     id: "login_disabled",
     value: "Login Disabled"
   }
+]
+
+const userListMethods = [
+  { pathKey: 'health-plans', method: userApi.indexForHealthPlan },
+  { method: userApi.index }
 ]
 
 class UsersPageViewModel extends AbstractListPageViewModel {
@@ -75,18 +80,14 @@ class UsersPageViewModel extends AbstractListPageViewModel {
   }
 
   refreshData() {
-    const userCredentials = userCredentialsHelper.get()
     this.removeField("userHeaders")
-    const { filters, sorting, page } = this.data
-
-    userApi.index(
-      userCredentials,
-      { ...filters, ...sorting, page },
-      (users, usersHeaders) => {
+    this.fetchList(
+      userListMethods,
+      (users, userHeaders) => {
         this.addData(
           {
             users,
-            page: pageHelper.updatePageFromLastPage(usersHeaders)
+            page: pageHelper.updatePageFromLastPage(userHeaders)
           },
           this.redrawView
         )

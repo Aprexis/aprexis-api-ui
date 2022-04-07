@@ -4,6 +4,7 @@ export const userApi = {
   account,
   actAs,
   index,
+  indexForHealthPlan,
   show
 }
 
@@ -30,6 +31,16 @@ function actAs(adminCredentials, id, onSuccess, onFailure) {
 function index(userCredentials, params, onSuccess, onFailure) {
   const method = "GET"
   const path = "/admin/users"
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function indexForHealthPlan(userCredentials, health_plan_id, params, onSuccess, onFailure) {
+  if (!API.validateId("health plan ID", health_plan_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/health_plans/${health_plan_id}/users`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 
