@@ -124,6 +124,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" },
       { buttonLabel: "Pharmacy Claims", buttonType: "List", listName: "pharmacy-claims" },
       { buttonLabel: "Physicians", buttonType: "List", listName: "patient-physicians" },
+      { buttonLabel: "Reminders", buttonType: "List", listName: "reminders" },
       { buttonLabel: "Supplements", buttonType: "List", listName: "patient-supplements" }
     ],
     entryLabel: "Patient",

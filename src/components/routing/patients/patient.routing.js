@@ -12,6 +12,7 @@ import { PatientPhysiciansRouting } from "../patient_physicians"
 import { PatientSupplementsRouting } from "../patient_supplements"
 import { PatientProfilePage } from "../../pages/patients"
 import { PharmacyClaimsRouting } from "../pharmacy_claims"
+import { RemindersRouting } from "../reminders"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class PatientRouting extends Component {
@@ -71,6 +72,10 @@ class PatientRouting extends Component {
           exact
           path={`${patientPrefix}/profile`}
           render={(props) => (<PatientProfilePage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${patientPrefix}/reminders`}
+          render={(props) => (<RemindersRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>
