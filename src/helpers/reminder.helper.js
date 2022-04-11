@@ -89,14 +89,13 @@ function displayRecurTo(reminder) {
 function displayRemindAt(reminder) {
   const remindAt = reminderHelper.remindAt(reminder)
   let remindAtTimeZone = reminderHelper.remindAtTimeZone(reminder)
+  if (!valueHelper.isStringValue(remindAtTimeZone)) {
+    remindAtTimeZone = 'America/New_York'
+  }
   if (valueHelper.isStringValue(timeZones[remindAtTimeZone])) {
     remindAtTimeZone = timeZones[remindAtTimeZone]
   }
 
-  console.log(`As ${typeof remindAt} ${remindAt}`)
-  console.log(`As date: ${dateHelper.makeDate(remindAt)}`)
-  console.log(`Time zone: ${remindAtTimeZone}`)
-  console.log(`Format: ${formatInTimeZone(dateHelper.makeDate(remindAt), remindAtTimeZone)}`)
 
   return formatInTimeZone(dateHelper.makeDate(remindAt), remindAtTimeZone, "p")
 }
