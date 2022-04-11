@@ -93,6 +93,11 @@ function displayRemindAt(reminder) {
     remindAtTimeZone = timeZones[remindAtTimeZone]
   }
 
+  console.log(`As ${typeof remindAt} ${remindAt}`)
+  console.log(`As date: ${dateHelper.makeDate(remindAt)}`)
+  console.log(`Time zone: ${remindAtTimeZone}`)
+  console.log(`Format: ${formatInTimeZone(dateHelper.makeDate(remindAt), remindAtTimeZone)}`)
+
   return formatInTimeZone(dateHelper.makeDate(remindAt), remindAtTimeZone, "p")
 }
 
