@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
 import { reminderApi } from "../../../../api"
-import { pageHelper } from "../../../../helpers"
+import { pageHelper, pathHelper } from "../../../../helpers"
 
 const reminderListMethods = [
   { pathKey: "patients", method: reminderApi.listForPatient }
@@ -14,7 +14,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    //this.gotoReminderProfile = this.gotoReminderProfile.bind(this)
+    this.gotoReminderProfile = this.gotoReminderProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -41,13 +41,11 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  /* TODO: enable once the page is written.
   gotoReminderProfile(reminder) {
     const pathArray = pathHelper.buildPathArray(window.location, reminder, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
-  */
 
   loadData() {
     this.clearData()

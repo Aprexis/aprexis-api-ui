@@ -14,6 +14,7 @@ import {
   pharmacyChainApi,
   pharmacyClaimApi,
   pharmacyStoreApi,
+  reminderApi,
   userApi
 } from "../api"
 import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi } from "../api/admin"
@@ -50,6 +51,7 @@ import { patientAllergyHelper } from "../helpers/patient_allergy.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
 import { patientNoteHelper } from "../helpers/patient_note.helper"
 import { patientSupplementHelper } from "../helpers/patient_supplement.helper"
+import { reminderHelper } from "../helpers/reminder.helper"
 
 export const pathKeys = {
   "answers": {
@@ -176,6 +178,11 @@ export const pathKeys = {
     breadcrumbs: "Stores",
     helper: pharmacyStoreHelper,
     modelName: "PharmacyStore"
+  },
+  "reminders": {
+    api: reminderApi,
+    helper: reminderHelper,
+    modelName: "Reminder"
   },
   "users": {
     api: userApi,

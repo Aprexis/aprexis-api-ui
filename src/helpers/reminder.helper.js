@@ -1,33 +1,44 @@
-import { formatInTimeZone } from 'date-fns-tz'
+import { formatInTimeZone } from "date-fns-tz"
 import { dateHelper } from "./date.helper"
 import { fieldHelper } from './field.helper'
+import { medicationHelper } from "./medication.helper"
 import { patientHelper } from "./patient.helper"
-import { valueHelper } from './value.helper'
-
-const actions = {
-  refill: 'Refill Medication',
-  take: 'Take Medication'
-}
-
-const timeZones = {
-  'Eastern (US & Canada)': 'America/New_York'
-}
+import { patientSupplementHelper } from "./patient_supplement.helper"
+import { valueHelper } from "./value.helper"
+import { reminderActions, reminderTypes, timeZones } from "../types"
 
 export const reminderHelper = {
   action,
   canDelete,
   canEdit,
+  dayOfMonth,
   displayAction,
+  displayMedications,
+  displayPatientSupplements,
   displayRecurFrom,
   displayRecurTo,
   displayRemindAt,
+  displayType,
+  emailAddress,
+  friday,
+  medications,
   modelName,
+  monday,
   patient,
   patientName,
+  patientSupplements,
   recurFrom,
   recurTo,
   remindAt,
-  remindAtTimeZone
+  remindAtTimeZone,
+  saturday,
+  sunday,
+  thursday,
+  tuesday,
+  txtNumber,
+  type,
+  voiceNumber,
+  wednesday
 }
 
 function action(reminder) {
@@ -42,13 +53,29 @@ function canEdit(user, reminder) {
   return false
 }
 
+function dayOfMonth(reminder) {
+  return fieldHelper.getField(reminder, "day_of_month")
+}
+
 function displayAction(reminder) {
   const action = reminderHelper.action(reminder)
   if (!valueHelper.isStringValue(action)) {
     return ""
   }
 
-  return actions[action]
+  return reminderActions[action]
+}
+
+function displayMedications(reminder) {
+  const medications = reminderHelper.medications(reminder)
+
+  return medications.map((medication) => medicationHelper.name(medication)).join(", ")
+}
+
+function displayPatientSupplements(reminder) {
+  const patientSupplements = reminderHelper.patientSupplements(reminder)
+
+  return patientSupplements.map((patientSupplement) => { return patientSupplementHelper.name(patientSupplement) }).join(", ")
 }
 
 function displayRecurFrom(reminder) {
@@ -66,13 +93,33 @@ function displayRemindAt(reminder) {
     remindAtTimeZone = timeZones[remindAtTimeZone]
   }
 
-  console.log(`Remind at: ${remindAt} ${remindAtTimeZone}`)
-
   return formatInTimeZone(dateHelper.makeDate(remindAt), remindAtTimeZone, "p")
+}
+
+function displayType(reminder) {
+  const type = reminderHelper.type(reminder)
+
+  return reminderTypes[type]
+}
+
+function emailAddress(reminder) {
+  return fieldHelper.getField(reminder, "email_address")
+}
+
+function friday(reminder) {
+  return fieldHelper.getField(reminder, "friday")
+}
+
+function medications(reminder) {
+  return fieldHelper.getField(reminder, "medications")
 }
 
 function modelName() {
   return "reminder"
+}
+
+function monday(reminder) {
+  return fieldHelper.getField(reminder, "monday")
 }
 
 function patient(reminder) {
@@ -81,6 +128,10 @@ function patient(reminder) {
 
 function patientName(reminder) {
   return patientHelper.name(reminderHelper.patient(reminder))
+}
+
+function patientSupplements(reminder) {
+  return fieldHelper.getField(reminder, "patient_supplements")
 }
 
 function recurFrom(reminder) {
@@ -97,4 +148,36 @@ function remindAt(reminder) {
 
 function remindAtTimeZone(reminder) {
   return fieldHelper.getField(reminder, "remind_at_time_zone")
+}
+
+function saturday(reminder) {
+  return fieldHelper.getField(reminder, "saturday")
+}
+
+function sunday(reminder) {
+  return fieldHelper.getField(reminder, "sunday")
+}
+
+function thursday(reminder) {
+  return fieldHelper.getField(reminder, "thursday")
+}
+
+function tuesday(reminder) {
+  return fieldHelper.getField(reminder, "tuesday")
+}
+
+function txtNumber(reminder) {
+  return fieldHelper.getField(reminder, "txt_number")
+}
+
+function type(reminder) {
+  return fieldHelper.getField(reminder, "type")
+}
+
+function voiceNumber(reminder) {
+  return fieldHelper.getField(reminder, "voice_number")
+}
+
+function wednesday(reminder) {
+  return fieldHelper.getField(reminder, "wednesday")
 }

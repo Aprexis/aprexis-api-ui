@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-//import { ReminderRouting } from "./"
+import { ReminderRouting } from "./"
 import { NoMatch } from ".."
 import { RemindersPage } from "../../pages/reminders"
 import { pathHelper, valueHelper } from "../../../helpers"
@@ -23,12 +23,10 @@ class RemindersRouting extends Component {
           path={remindersPrefix}
           render={(props) => (<RemindersPage {...props} {...contextProps} />)}
         />
-        {/*
         <Route
           path={`${remindersPrefix}/:reminder_id`}
           render={(props) => (<ReminderRouting {...props} {...contextProps} />)}
         />
-        */}
         <Route component={NoMatch} />
       </Switch>
     )

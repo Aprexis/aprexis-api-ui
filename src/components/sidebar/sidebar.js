@@ -185,6 +185,13 @@ const sidebarDescriptions = {
     entryLabel: "Program",
     entryName: "programs"
   },
+  "reminders": {
+    entryButtons: [
+      { buttonType: "Profile" }
+    ],
+    entryLabel: "Reminder",
+    entryName: "reminders"
+  },
   "users": {
     entryButtons: [
       { buttonType: "Profile" },
