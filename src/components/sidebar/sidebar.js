@@ -117,6 +117,7 @@ const sidebarDescriptions = {
       { buttonType: "Profile" },
       { buttonLabel: "Allergies", buttonType: "List", listName: "patient-allergies" },
       { buttonLabel: "Caregivers", buttonType: "List", listName: "caregivers" },
+      { buttonLabel: "Diseases", buttonType: "List", listName: "patient-diseases" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
       { buttonLabel: "Medical Claims", buttonType: "List", listName: "medical-claims" },

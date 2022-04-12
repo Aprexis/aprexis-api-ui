@@ -17,13 +17,11 @@ class PatientAllergyRouting extends Component {
 
     return (
       <Switch>
-        {
-          <Route
-            exact
-            path={`${patientAllergyPrefix}/profile`}
-            render={(props) => (<PatientAllergyProfilePage {...props} {...contextProps} />)}
-          />
-        }
+        <Route
+          exact
+          path={`${patientAllergyPrefix}/profile`}
+          render={(props) => (<PatientAllergyProfilePage {...props} {...contextProps} />)}
+        />
         <Route component={NoMatch} />
       </Switch>
     )
