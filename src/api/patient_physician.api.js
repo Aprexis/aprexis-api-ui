@@ -7,6 +7,8 @@ export const patientPhysicianApi = {
   destroy,
   edit,
   listForPatient,
+  profile,
+  show,
   update
 }
 
@@ -64,6 +66,26 @@ function listForPatient(userCredentials, patient_id, params, onSuccess, onFailur
   const method = "GET"
   const path = `/patients/${patient_id}/patient_physicians/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function profile(userCredentials, patient_physician_id, onSuccess, onFailure) {
+  if (!API.validateId("patient physician ID", patient_physician_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patient_physicians/${patient_physician_id}/profile`
+  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+}
+
+function show(userCredentials, patient_physician_id, onSuccess, onFailure) {
+  if (!API.validateId("patient physician ID", patient_physician_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patient_physicians/${patient_physician_id}`
+  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
 }
 
 function update(userCredentials, patientPhysician, onSuccess, onFailure) {

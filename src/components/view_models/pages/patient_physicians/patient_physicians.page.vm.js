@@ -23,7 +23,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    //this.gotoPatientPhysicianProfile = this.gotoPatientPhysicianProfile.bind(this)
+    this.gotoPatientPhysicianProfile = this.gotoPatientPhysicianProfile.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
@@ -91,13 +91,11 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  /* TODO: enable once the page is written.
   gotoPatientPhysicianProfile(patient_physician) {
     const pathArray = pathHelper.buildPathArray(window.location, patient_physician, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
-  */
 
   helper() {
     return patientPhysicianHelper

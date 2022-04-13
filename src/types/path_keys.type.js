@@ -11,6 +11,7 @@ import {
   patientDiseaseApi,
   patientMedicationApi,
   patientNoteApi,
+  patientPhysicianApi,
   patientSupplementApi,
   pharmacyChainApi,
   pharmacyClaimApi,
@@ -52,6 +53,7 @@ import { patientAllergyHelper } from "../helpers/patient_allergy.helper"
 import { patientDiseaseHelper } from "../helpers/patient_disease.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
 import { patientNoteHelper } from "../helpers/patient_note.helper"
+import { patientPhysicianHelper } from "../helpers/patient_physician.helper"
 import { patientSupplementHelper } from "../helpers/patient_supplement.helper"
 import { reminderHelper } from "../helpers/reminder.helper"
 
@@ -157,6 +159,12 @@ export const pathKeys = {
     breadcrumb: "Notes",
     helper: patientNoteHelper,
     modelName: "PatientNote"
+  },
+  "patient-physicians": {
+    api: patientPhysicianApi,
+    breadcrumb: "Physicians",
+    helper: patientPhysicianHelper,
+    modelName: "PatientPhysician"
   },
   "patient-supplements": {
     api: patientSupplementApi,

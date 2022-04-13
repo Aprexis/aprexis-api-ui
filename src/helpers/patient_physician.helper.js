@@ -2,6 +2,7 @@ import { valueHelper } from "./value.helper"
 import { fieldHelper } from "./field.helper"
 import { pathHelper } from "./path.helper"
 import { apiHelper } from "./api.helper"
+import { patientHelper } from "./patient.helper"
 import { physicianHelper } from "./physician.helper"
 import { userHelper } from "./user.helper"
 
@@ -15,10 +16,13 @@ export const patientPhysicianHelper = {
   changePhysician,
   id,
   modelName,
+  patient,
   patientId,
+  patientName,
   physician,
   physicianId,
   physicianName,
+  physicianNpi,
   primary,
   toJSON
 }
@@ -130,8 +134,16 @@ function modelName() {
   return "patientPhysician"
 }
 
+function patient(patientPhysician) {
+  return fieldHelper.getField(patientPhysician, "patient")
+}
+
 function patientId(patientPhysician) {
   return fieldHelper.getField(patientPhysician, "patient_id")
+}
+
+function patientName(patientPhysician) {
+  return patientHelper.name(patientPhysicianHelper.patient(patientPhysician))
 }
 
 function physician(patientPhysician) {
@@ -144,6 +156,10 @@ function physicianId(patientPhysician) {
 
 function physicianName(patientPhysician) {
   return physicianHelper.name(patientPhysicianHelper.physician(patientPhysician))
+}
+
+function physicianNpi(patientPhysician) {
+  return physicianHelper.npi(patientPhysicianHelper.physician(patientPhysician))
 }
 
 function primary(patientPhysician) {
