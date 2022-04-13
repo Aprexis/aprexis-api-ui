@@ -8,6 +8,7 @@ import {
   medicalClaimApi,
   patientApi,
   patientAllergyApi,
+  patientDiseaseApi,
   patientMedicationApi,
   patientNoteApi,
   patientSupplementApi,
@@ -48,6 +49,7 @@ import { labTestValueHelper } from "../helpers/lab_test_value.helper"
 import { medicalClaimHelper } from "../helpers/medical_claim.helper"
 import { pharmacyClaimHelper } from "../helpers/pharmacy_claim.helper"
 import { patientAllergyHelper } from "../helpers/patient_allergy.helper"
+import { patientDiseaseHelper } from "../helpers/patient_disease.helper"
 import { patientMedicationHelper } from "../helpers/patient_medication.helper"
 import { patientNoteHelper } from "../helpers/patient_note.helper"
 import { patientSupplementHelper } from "../helpers/patient_supplement.helper"
@@ -137,6 +139,12 @@ export const pathKeys = {
     breadcrumb: "Allergies",
     helper: patientAllergyHelper,
     modelName: "PatientAllergy"
+  },
+  "patient-diseases": {
+    api: patientDiseaseApi,
+    breadcrumb: "Diseases",
+    helper: patientDiseaseHelper,
+    modelName: "PatientDisease"
   },
   "patient-medications": {
     api: patientMedicationApi,

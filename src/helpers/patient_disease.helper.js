@@ -1,5 +1,6 @@
 import { fieldHelper } from "./field.helper"
 import { diseaseHelper } from "./disease.helper"
+import { patientHelper } from "./patient.helper"
 
 export const patientDiseaseHelper = {
   canBeCreated,
@@ -8,7 +9,9 @@ export const patientDiseaseHelper = {
   disease,
   diseaseDescription,
   diseaseName,
-  modelName
+  modelName,
+  patient,
+  patientName
 }
 
 function canBeCreated(user, pathEntries) {
@@ -37,4 +40,12 @@ function diseaseName(patientDisease) {
 
 function modelName() {
   return "patientDisease"
+}
+
+function patient(patientDisease) {
+  return fieldHelper.getField(patientDisease, "patient")
+}
+
+function patientName(patientDisease) {
+  return patientHelper.name(patientDiseaseHelper.patient(patientDisease))
 }
