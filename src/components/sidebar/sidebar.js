@@ -90,6 +90,7 @@ const sidebarDescriptions = {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Answers", buttonType: "List", listName: "answers" },
+      { buttonLabel: "Documents", buttonType: "List", listName: "intervention-documents" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" }
     ],
     entryLabel: "Intervention",

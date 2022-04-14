@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { AnswersRouting } from "../answers"
 import { NoMatch } from "../"
+import { InterventionDocumentsRouting } from "../intervention_documents"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { InterventionProfilePage } from "../../pages/interventions"
 import { pathHelper, valueHelper } from "../../../helpers"
@@ -22,6 +23,10 @@ class InterventionRouting extends Component {
         <Route
           path={`${interventionPrefix}/answers`}
           render={(props) => (<AnswersRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${interventionPrefix}/intervention-documents`}
+          render={(props) => (<InterventionDocumentsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${interventionPrefix}/lab-test-values`}

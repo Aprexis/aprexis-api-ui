@@ -4,6 +4,7 @@ import {
   caregiverApi,
   healthPlanApi,
   interventionApi,
+  interventionDocumentApi,
   labTestValueApi,
   medicalClaimApi,
   patientApi,
@@ -37,6 +38,7 @@ import { billingContractPharmacyStoreHelper } from "../helpers/billing/billing_c
 import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
 import { diseaseHelper } from "../helpers/admin/disease.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
+import { interventionDocumentHelper } from "../helpers"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
 import { userHelper } from "../helpers/user.helper"
@@ -107,6 +109,11 @@ export const pathKeys = {
     api: healthPlanApi,
     helper: healthPlanHelper,
     modelName: "HealthPlan"
+  },
+  "intervention-documents": {
+    api: interventionDocumentApi,
+    helper: interventionDocumentHelper,
+    modelName: "InterventionDocument"
   },
   "interventions": {
     api: interventionApi,
