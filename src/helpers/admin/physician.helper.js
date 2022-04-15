@@ -4,13 +4,17 @@ import { dateHelper } from "../date.helper"
 import { nameHelper } from "../name.helper"
 
 export const physicianHelper = {
+  businessFax,
   businessPhone,
   canDelete,
   canEdit,
   city,
   clinic,
+  credentials,
+  displayBusinessPhone,
   displayNpiDeactivationDate,
   displayNpiReactivationDate,
+  einNumber,
   firstName,
   fullAddress,
   lastName,
@@ -20,8 +24,20 @@ export const physicianHelper = {
   nameAndNpi,
   npi,
   npiDeactivationDate,
+  npiDeactivationReasonCode,
   npiReactivationDate,
+  phone,
+  phoneExtension,
+  practiceSpecialty,
+  providerLastUpdateDate,
+  sourceId,
+  sourceNotes,
+  sourceType,
   state
+}
+
+function businessFax(physician) {
+  return fieldHelper.getField(physician, "business_fax")
 }
 
 function businessPhone(physician) {
@@ -44,6 +60,15 @@ function clinic(physician) {
   return fieldHelper.getField(physician, "clinic")
 }
 
+function credentials(physician) {
+  return fieldHelper.getField(physician, "credentials")
+}
+
+function displayBusinessPhone(physician) {
+  const businessPhone = physicianHelper.businessPhone(physician)
+  return fieldHelper.phoneNumberForDisplay(businessPhone)
+}
+
 function displayNpiDeactivationDate(physician) {
   const npiDeactivationDate = physicianHelper.npiDeactivationDate(physician)
 
@@ -54,6 +79,10 @@ function displayNpiReactivationDate(physician) {
   const npiDeactivationDate = physicianHelper.npiReactivationDate(physician)
 
   return dateHelper.displayDate((npiDeactivationDate))
+}
+
+function einNumber(physician) {
+  return fieldHelper.getField(physician, "ein_number")
 }
 
 function firstName(physician, prefix = "") {
@@ -92,8 +121,40 @@ function npiDeactivationDate(physician) {
   return fieldHelper.getField(physician, "npi_deactivation_date")
 }
 
+function npiDeactivationReasonCode(pysician) {
+  return fieldHelper.getField(pysician, "npi_deactivation_reason_code")
+}
+
 function npiReactivationDate(physician) {
   return fieldHelper.getField(physician, "npi_reactivation_date")
+}
+
+function phone(physician) {
+  return fieldHelper.getField(physician, "phone")
+}
+
+function phoneExtension(physician) {
+  return fieldHelper.getField(physician, "phone_extension")
+}
+
+function practiceSpecialty(physician) {
+  return fieldHelper.getField(physician, "practice_specialty")
+}
+
+function providerLastUpdateDate(physician) {
+  return fieldHelper.getField(physician, "provider_last_update_date")
+}
+
+function sourceId(physician) {
+  return fieldHelper.getField(physician, "source_id")
+}
+
+function sourceNotes(physician) {
+  return fieldHelper.getField(physician, "source_notes")
+}
+
+function sourceType(physician) {
+  return fieldHelper.getField(physician, "source_type")
 }
 
 function state(physician) {

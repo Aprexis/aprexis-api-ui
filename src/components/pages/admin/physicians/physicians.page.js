@@ -23,13 +23,13 @@ const headings = [
   },
   {
     name: "Address",
-    field: "country,state,city,address",
+    field: "address,city,state,zip_code,country",
     method: "fullAddress"
   },
   {
     name: "Phone",
     field: "business_phone",
-    method: "businessPhone"
+    method: "displayusinessPhone"
   },
   {
     name: "Deactivated",

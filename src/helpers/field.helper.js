@@ -34,6 +34,8 @@ export const fieldHelper = {
   notInContextDisplay,
   options,
   optionDisplay,
+  phoneDisplay,
+  phoneNumberForDisplay,
   titleDisplay
 }
 
@@ -210,12 +212,60 @@ function dollarDisplay(name, value, description, suffix = ":", required = false)
   return fieldHelper.display(name, `$${value}`, description, suffix, required)
 }
 
+function phoneDisplay(name, value, description, extension, suffix = ":", required = false) {
+  const phoneNumber = fieldHelper.phoneNumberForDisplay(value, extension)
+  if (!valueHelper.isStringValue(phoneNumber)) {
+    return (<React.Fragment />)
+  }
+
+  return fieldHelper.display(name, phoneNumber, description, suffix, required)
+}
+
+function phoneNumberForDisplay(number, extension) {
+  let phoneNumber = formatPhoneNumber(number)
+  if (valueHelper.isStringValue(extension)) {
+    const phoneExtension = `Ext. ${extension}`
+    phoneNumber = valueHelper.isStringValue(phoneNumber) ? `${phoneNumber} ${phoneExtension}` : phoneExtension
+  }
+
+  return phoneNumber
+
+  function formatPhoneNumber(number) {
+    if (!valueHelper.isStringValue(number)) {
+      return
+    }
+
+    if (number.startsWith('+')) {
+      return number
+    }
+
+    const value = number.replaceAll(/-|\(|\)|\s/g, "")
+    if (![7, 10, 11].includes(value.length)) {
+      return number
+    }
+
+    let phoneNumber = ""
+    let used = 0
+    if (value.length == 11) {
+      phoneNumber = "1-"
+      used = 1
+    }
+    if (value.length >= 10) {
+      phoneNumber = `${phoneNumber}(${value.substring(used, used + 3)})`
+      used += 3
+    }
+
+    phoneNumber = `${phoneNumber} ${value.substring(used, used + 3)}-${value.substring(used + 3)}`
+    return phoneNumber
+  }
+}
+
 function fieldName(fieldName, prefix) {
   if (!valueHelper.isStringValue(prefix)) {
     return fieldName
   }
 
-  return `${prefix}_${fieldName}`
+  return `${prefix}_${fieldName} `
 }
 
 function fieldXs(props) {
@@ -242,7 +292,7 @@ function getField(object, fieldName, prefix) {
 
 function imageDisplay(name, value, description) {
   if (valueHelper.isStringValue(value)) {
-    return fieldHelper.display(name, <img src={`data:image/jpeg;base64,${value}`} alt="logo" />, description)
+    return fieldHelper.display(name, <img src={`data: image / jpeg; base64, ${value} `} alt="logo" />, description)
   }
 
   return fieldHelper.display(name, "")
@@ -407,7 +457,7 @@ function options(props) {
         const { value, label } = optionValues(fieldOption)
 
         return (
-          <option key={`${selectName}-${value}`} value={value}>
+          <option key={`${selectName} -${value} `} value={value}>
             {label}
           </option>
         )
@@ -432,7 +482,7 @@ function options(props) {
         const fieldOptionValue = fieldOptions[fieldOptionKey]
 
         return (
-          <option key={`${selectName}-${fieldOptionKey}`} value={fieldOptionKey}>
+          <option key={`${selectName} -${fieldOptionKey} `} value={fieldOptionKey}>
             {fieldOptionValue}
           </option>
         )
