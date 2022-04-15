@@ -6,8 +6,21 @@ class InterventionDocumentProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
+    this.download = this.download.bind(this)
     this.editProfileModal = this.editProfileModal.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
+  }
+
+  api() {
+    return interventionDocumentApi
+  }
+
+  download() {
+    const { interventionDocument } = this.data
+
+    this.api().download(userCredentialsHelper.get(), this.helper().id(interventionDocument), this.redrawView, this.onError)
   }
 
   editProfileModal(interventionDocumentToEdit) {
@@ -28,13 +41,17 @@ class InterventionDocumentProfilePageViewModel extends AbstractPageViewModel {
     )
   }
 
+  helper() {
+    return interventionDocumentHelper
+  }
+
   loadData() {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const patient_disease_id = pathEntries['intervention-documents'].value
-    interventionDocumentApi.profile(
+    this.api().profile(
       userCredentials,
       patient_disease_id,
       (interventionDocument) => { this.addField('interventionDocument', interventionDocument, this.redrawView) },

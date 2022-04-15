@@ -74,13 +74,13 @@ function buildQueryString(params) {
   }
 }
 
-function handleError(method, path, error, onFailure) {
+function handleError(method, path, error, onFailure, optional = {}) {
   if (error.message.includes("You need to sign in or sign up before continuing.")) {
     onFailure("You are not signed in. You may have been signed out due to lack of activity or your username may have been changed by another user. Please sign in.")
     return
   }
 
-  const message = parseErrorMessage(method, path, error)
+  const message = parseErrorMessage(method, path, error, optional)
   if (valueHelper.isFunction(onFailure)) {
     onFailure(message)
     return
@@ -89,9 +89,13 @@ function handleError(method, path, error, onFailure) {
   alertHelper.error(message)
   return
 
-  function parseErrorMessage(method, path, error) {
+  function parseErrorMessage(method, path, error, optional = {}) {
     if (!valueHelper.isValue(error.message)) {
       return `HTTP: "${method} ${path}: ${error.error} (${error.status})"`
+    }
+
+    if (valueHelper.isSet(optional.isDownload)) {
+      return `Download Error: ${method} ${path}: ${error.message}`
     }
 
     const parsedJSON = JSON.parse(error.message)
@@ -132,8 +136,6 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
 
   fetch(fullPath, requestOptions).then(
     (response) => {
-      const parsedHeaders = parseHeaders(response.headers)
-
       switch (response.status) {
         case 200:
         case 201:
@@ -144,6 +146,7 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
           response.json()
             .then(
               (responseJSON) => {
+                const parsedHeaders = parseHeaders(response.headers)
                 const parsedJSON = JSON.parse(JSON.stringify(responseJSON))
                 onSuccess(parsedJSON, parsedHeaders)
               }
@@ -156,12 +159,12 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
 
         default:
           response.text().then(
-            (errorMessage) => API.handleError(method, path, { message: errorMessage }, onFailure)
+            (errorMessage) => API.handleError(method, path, { message: errorMessage }, onFailure, optional)
           )
       }
     }
   )
-    .catch((error) => API.handleError(method, path, error, onFailure))
+    .catch((error) => API.handleError(method, path, error, onFailure, optional))
   return
 
   function addUserCredentials(existingHeaders, userCredentials) {
@@ -180,7 +183,8 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
   }
 
   function download(response, onSuccess, onFailure) {
-    const filename = response.headers.get('Content-Disposition').split('filename=')[1];
+    const disposition = response.headers.get('Content-Disposition')
+    const filename = valueHelper.isStringValue(disposition) ? disposition.split('filename=')[1] : 'download.tmp';
     response.blob()
       .then(
         blob => {

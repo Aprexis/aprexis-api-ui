@@ -46,7 +46,7 @@ const headings = [
   {
     name: "Locale",
     field: "locale",
-    method: "locale"
+    method: "displayLocale"
   }
 ]
 

@@ -1,6 +1,8 @@
+import { valueHelper } from "./value.helper"
 import { dateHelper } from "./date.helper"
 import { fieldHelper } from "./field.helper"
 import { interventionHelper } from "./intervention.helper"
+import { localeLanguages } from "../types"
 
 export const interventionDocumentHelper = {
   canDelete,
@@ -10,7 +12,10 @@ export const interventionDocumentHelper = {
   createdAt,
   displayConsultEndDate,
   displayConsultStartDate,
+  displayLocale,
+  filePath,
   generator,
+  id,
   intervention,
   locale,
   modelName,
@@ -49,8 +54,25 @@ function displayConsultStartDate(interventionDocument) {
   return dateHelper.formatDate(interventionDocumentHelper.consultStartDate(interventionDocument))
 }
 
+function displayLocale(interventionDocument) {
+  const locale = interventionDocumentHelper.locale(interventionDocument)
+  if (!valueHelper.isStringValue(locale) || !valueHelper.isStringValue(localeLanguages[locale])) {
+    return 'English'
+  }
+
+  return localeLanguages[locale]
+}
+
+function filePath(interventionDocument) {
+  return fieldHelper.getField(interventionDocument, "file_path")
+}
+
 function generator(interventionDocument) {
   return fieldHelper.getField(interventionDocument, "generator")
+}
+
+function id(interventionDocument) {
+  return fieldHelper.getField(interventionDocument, "id")
 }
 
 function intervention(interventionDocument) {

@@ -16,14 +16,16 @@ const InterventionDocumentProfile = ({ currentUser, onDownload, onEditProfile, i
               <EditButton onEdit={(event) => { onEditProfile(interventionDocument) }} />
             }
             {
-              valueHelper.isStringValue(interventionDocumentHelper.filename(interventionDocument)) &&
+              valueHelper.isStringValue(interventionDocumentHelper.filePath(interventionDocument)) &&
               <DownloadButton onDownload={(event) => { onDownload(interventionDocument) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Locale", interventionDocumentHelper.locale(interventionDocument))}
+          {fieldHelper.display("Program", interventionDocumentHelper.programName(interventionDocument))}
+          {fieldHelper.display("")}
+          {fieldHelper.display("Locale", interventionDocumentHelper.displayLocale(interventionDocument))}
           {fieldHelper.dateTimeDisplay("Created At", interventionDocumentHelper.createdAt(interventionDocument))}
           {fieldHelper.dateTimeDisplay("Updated At", interventionDocumentHelper.updatedAt(interventionDocument))}
         </CardBody>

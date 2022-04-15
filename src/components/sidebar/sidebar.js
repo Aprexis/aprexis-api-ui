@@ -86,6 +86,11 @@ const sidebarDescriptions = {
     entryLabel: "Health Plan",
     entryName: "health-plans"
   },
+  "intervention-documents": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Documents",
+    entryName: "intervention-documents"
+  },
   "interventions": {
     entryButtons: [
       { buttonType: "Profile" },
