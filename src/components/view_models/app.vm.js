@@ -27,6 +27,7 @@ class AppViewModel extends AbstractViewModel {
     this.gotoMedicationsPage = this.gotoMedicationsPage.bind(this)
     this.gotoPharmacyChainsPage = this.gotoPharmacyChainsPage.bind(this)
     this.gotoPharmacyStoresPage = this.gotoPharmacyStoresPage.bind(this)
+    this.gotoPhysiciansPage = this.gotoPhysiciansPage.bind(this)
     this.gotoUsersPage = this.gotoUsersPage.bind(this)
     this.home = this.home.bind(this)
     this.launchModal = this.launchModal.bind(this)
@@ -160,6 +161,10 @@ class AppViewModel extends AbstractViewModel {
 
   gotoPharmacyStoresPage() {
     pathHelper.gotoPage(["pharmacy-stores"])
+  }
+
+  gotoPhysiciansPage() {
+    pathHelper.gotoPage(["admin", "physicians"])
   }
 
   gotoUsersPage() {

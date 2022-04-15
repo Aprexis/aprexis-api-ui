@@ -1,6 +1,7 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
-import { physicianApi } from "../../../api"
-import { physicianHelper, userCredentialsHelper } from "../../../helpers"
+import { physicianApi } from "../../../api/admin"
+import { userCredentialsHelper } from "../../../helpers"
+import { physicianHelper } from "../../../helpers/admin"
 
 class SelectPhysicianViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {

@@ -1,7 +1,7 @@
 import { valueHelper } from "./value.helper"
 import { fieldHelper } from "./field.helper"
 import { patientHelper } from "./patient.helper"
-import { physicianHelper } from "./physician.helper"
+import { physicianHelper } from "./admin"
 
 export const patientSupplementHelper = {
   canDelete,

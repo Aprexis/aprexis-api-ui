@@ -4,9 +4,8 @@ import { apiHelper } from "./api.helper"
 import { pathHelper } from "./path.helper"
 import { patientHelper } from "./patient.helper"
 import { pharmacyStoreHelper } from "./pharmacy_store.helper"
-import { physicianHelper } from "./physician.helper"
 import { userHelper } from "./user.helper"
-import { medicationHelper } from "./admin"
+import { medicationHelper, physicianHelper } from "./admin"
 import { patientMedications } from "../types"
 
 export const patientMedicationHelper = {

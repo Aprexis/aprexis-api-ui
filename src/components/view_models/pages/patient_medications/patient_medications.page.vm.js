@@ -1,5 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { patientApi, patientMedicationApi, pharmacyStoreApi, physicianApi } from "../../../../api"
+import { patientApi, patientMedicationApi, pharmacyStoreApi } from "../../../../api"
+import { physicianApi } from "../../../../api/admin"
 import {
   filtersHelper,
   pageHelper,
@@ -7,10 +8,10 @@ import {
   patientHelper,
   patientMedicationHelper,
   pharmacyStoreHelper,
-  physicianHelper,
   userCredentialsHelper,
   valueHelper
 } from "../../../../helpers"
+import { physicianHelper } from "../../../../helpers/admin"
 import { patientMedications } from "../../../../types"
 
 const patientMedicationListMethods = [

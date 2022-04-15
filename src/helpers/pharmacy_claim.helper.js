@@ -2,8 +2,7 @@ import { valueHelper } from "./value.helper"
 import { fieldHelper } from "./field.helper"
 import { patientHelper } from "./patient.helper"
 import { pharmacyStoreHelper } from "./pharmacy_store.helper"
-import { physicianHelper } from "./physician.helper"
-import { medicationHelper } from "./admin"
+import { medicationHelper, physicianHelper } from "./admin"
 
 export const pharmacyClaimHelper = {
   canBeCreated,

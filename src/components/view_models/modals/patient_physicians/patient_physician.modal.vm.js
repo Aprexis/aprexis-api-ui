@@ -1,5 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi, patientPhysicianApi, physicianApi } from "../../../../api"
+import { patientApi, patientPhysicianApi } from "../../../../api"
+import { physicianApi } from "../../../../api/admin"
 import {
   jsEventHelper,
   pathHelper,

@@ -5,6 +5,7 @@ import { DiseasesRouting } from "./diseases"
 import { LabTestsRouting } from "./lab_tests"
 import { MedicationsRouting } from "./medications"
 import { NoMatch } from "../"
+import { PhysiciansRouting } from "./physicians"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class AdminRouting extends Component {
@@ -35,6 +36,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/medications`}
           render={(props) => (<MedicationsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/physicians`}
+          render={(props) => (<PhysiciansRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

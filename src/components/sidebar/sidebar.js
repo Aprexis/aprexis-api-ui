@@ -190,6 +190,11 @@ const sidebarDescriptions = {
     entryLabel: "Pharmacy Store",
     entryName: "pharmacy-stores"
   },
+  "physicians": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "HCPs",
+    entryName: "physicians"
+  },
   "programs": {
     entryButtons: [
       { buttonType: "Profile" }

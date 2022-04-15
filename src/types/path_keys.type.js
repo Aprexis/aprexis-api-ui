@@ -20,7 +20,7 @@ import {
   reminderApi,
   userApi
 } from "../api"
-import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi } from "../api/admin"
+import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi, physicianApi } from "../api/admin"
 import {
   billingClaimApi,
   billingContractApi,
@@ -38,9 +38,10 @@ import { billingContractPharmacyStoreHelper } from "../helpers/billing/billing_c
 import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
 import { diseaseHelper } from "../helpers/admin/disease.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
-import { interventionDocumentHelper } from "../helpers"
+import { interventionDocumentHelper } from "../helpers/intervention_document.helper"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
+import { physicianHelper } from "../helpers/admin/physician.helper"
 import { userHelper } from "../helpers/user.helper"
 import { medicationHelper } from "../helpers/admin/medication.helper"
 import { patientHelper } from "../helpers/patient.helper"
@@ -169,7 +170,7 @@ export const pathKeys = {
   },
   "patient-physicians": {
     api: patientPhysicianApi,
-    breadcrumb: "Physicians",
+    breadcrumb: "HCPs",
     helper: patientPhysicianHelper,
     modelName: "PatientPhysician"
   },
@@ -201,6 +202,11 @@ export const pathKeys = {
     breadcrumbs: "Stores",
     helper: pharmacyStoreHelper,
     modelName: "PharmacyStore"
+  },
+  "physicians": {
+    api: physicianApi,
+    helper: physicianHelper,
+    modelName: "Physician"
   },
   "reminders": {
     api: reminderApi,

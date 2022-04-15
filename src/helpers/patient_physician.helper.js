@@ -3,8 +3,8 @@ import { fieldHelper } from "./field.helper"
 import { pathHelper } from "./path.helper"
 import { apiHelper } from "./api.helper"
 import { patientHelper } from "./patient.helper"
-import { physicianHelper } from "./physician.helper"
 import { userHelper } from "./user.helper"
+import { physicianHelper } from "./admin/physician.helper"
 
 export const patientPhysicianHelper = {
   buildChanged,

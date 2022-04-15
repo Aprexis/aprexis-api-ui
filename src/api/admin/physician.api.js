@@ -1,8 +1,15 @@
-import { API } from "./"
+import { API } from "../"
 
 export const physicianApi = {
+  list,
   search,
   show
+}
+
+function list(userCredentials, params, onSuccess, onFailure) {
+  const method = "GET"
+  const path = "/admin/physicians/list"
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 
 function search(userCredentials, params, onSuccess, onFailure) {
@@ -20,4 +27,3 @@ function show(userCredentials, id, onSuccess, onFailure) {
   const path = `/admin/physicians/${id}`
   API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
-
