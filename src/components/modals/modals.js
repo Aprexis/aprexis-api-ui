@@ -14,6 +14,7 @@ import { PatientNoteModal } from "./patient_notes"
 import { PatientPhysicianModal } from "./patient_physicians"
 import { PatientProfileModal } from "./patients"
 import { PatientSubscriberModal } from "./patients"
+import { ReminderModal } from "./reminders"
 import { valueHelper } from "../../helpers"
 
 const modalList = {
@@ -33,6 +34,7 @@ const modalList = {
   PatientConfiguration: PatientConfigurationModal,
   PatientProfile: PatientProfileModal,
   PatientSubscriber: PatientSubscriberModal,
+  Reminder: ReminderModal,
   SignIn: SignInModal
 }
 

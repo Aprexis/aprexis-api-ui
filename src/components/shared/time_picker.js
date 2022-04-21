@@ -30,7 +30,7 @@ class TimePicker extends Component {
   }
 
   render() {
-    const { allowEdit, className, field, readOnly, timeStep } = this.props
+    const { allowEdit, className, field, readOnly, required, timeStep } = this.props
     const disabled = readOnly || !valueHelper.isSet(allowEdit)
     const step = valueHelper.isNumberValue(timeStep) ? timeStep * 60 : 60
 
@@ -41,6 +41,7 @@ class TimePicker extends Component {
         readOnly={disabled}
         name={field}
         onChange={this.vm.timeChange}
+        required={required}
         step={step}
         style={{ width: '110px' }}
         type="time"

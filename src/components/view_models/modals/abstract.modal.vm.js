@@ -12,6 +12,9 @@ function initializeDateAndTimeValidity(dateAndTimeField, value) {
     case "date/time":
       return { validDate, validTime: validDate, value }
 
+    case "time":
+      return { validTime: validDate, value }
+
     default:
       return
   }
@@ -24,6 +27,9 @@ function nameForDateAndTimeValidity(fieldName, dateAndTimeField) {
 
     case "date/time":
       return `${fieldName}_DTVALID`
+
+    case "time":
+      return `${fieldName}_TVALID`
 
     default:
       return
@@ -38,14 +44,19 @@ class AbstractModalViewModel extends AbstractViewModel {
 
     super(props)
 
+    this.addEntry = this.addEntry.bind(this)
     this.checkRequiredFields = this.checkRequiredFields.bind(this)
     this.checkValidDatesAndTimes = this.checkValidDatesAndTimes.bind(this)
     this.changeDate = this.changeDate.bind(this)
     this.changeDateTime = this.changeDateTime.bind(this)
+    this.changeTime = this.changeTime.bind(this)
     this.changeField = this.changeField.bind(this)
+    this.changeFieldValue = this.changeFieldValue.bind(this)
     this.changeNumericField = this.changeNumericField.bind(this)
     this.create = this.create.bind(this)
     this.initializeDateAndTimeValidities = this.initializeDateAndTimeValidities.bind(this)
+    this.isRequired = this.isRequired.bind(this)
+    this.removeEntry = this.removeEntry.bind(this)
     this.renderSubmitFooter = this.renderSubmitFooter.bind(this)
     this.submitModal = this.submitModal.bind(this)
     this.submitModalCreateOrUpdate = this.submitModalCreateOrUpdate.bind(this)
@@ -53,10 +64,27 @@ class AbstractModalViewModel extends AbstractViewModel {
     this.update = this.update.bind(this)
   }
 
+  addEntry(field, matchField, newEntry) {
+    const modelData = this.model()
+    const { model, modelName } = modelData
+    const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+    const updated = fieldHelper.addEntry(
+      modelName,
+      model,
+      changedModel,
+      field,
+      matchField,
+      newEntry
+    )
+
+    this.addData(updated, this.redrawView)
+  }
+
   checkRequiredFields(model) {
     if (!valueHelper.isFunction(this.requiredFields)) {
       return true
     }
+
 
     const requiredFields = this.requiredFields()
     const invalidFieldName = Object.keys(requiredFields).find(
@@ -92,14 +120,27 @@ class AbstractModalViewModel extends AbstractViewModel {
             return !valueHelper.isSet(dateAndTimeField.required)
           }
 
-          if (!valueHelper.isSet(value.validDate)) {
+          if (!checkValidDate(dateAndTimeField, value)) {
             return false
           }
-          if (dateAndTimeField.type == "date") {
-            return true
+
+          return checkValidTime(dateAndTimeField, value)
+
+          function checkValidDate(dateAndTimeField, value) {
+            if (dateAndTimeField.type == "time") {
+              return true
+            }
+
+            return valueHelper.isSet(value.validDate)
           }
 
-          return valueHelper.isSet(value.validTime)
+          function checkValidTime(dateAndTimeField, value) {
+            if (dateAndTimeField.type == "date") {
+              return true
+            }
+
+            return valueHelper.isSet(value.validTime)
+          }
         }
       }
     )
@@ -155,11 +196,36 @@ class AbstractModalViewModel extends AbstractViewModel {
     this.addData(updated, this.redrawView)
   }
 
+  changeFieldValue(name, value) {
+    const modelData = this.model()
+    const { model, modelName } = modelData
+    const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+    const updated = fieldHelper.changeValue(modelName, model, changedModel, name, value)
+
+    this.addData(updated, this.redrawView)
+  }
+
   changeNumericField(name, valueAsNumber) {
     const modelData = this.model()
     const { model, modelName } = modelData
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
     const updated = fieldHelper.changeValue(modelName, model, changedModel, name, valueAsNumber)
+
+    this.addData(updated, this.redrawView)
+  }
+
+  changeTime(field, timeString, fieldValid) {
+    const modelData = this.model()
+    const { model, modelName } = modelData
+    const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+    const updated = fieldHelper.changeTime(
+      modelName,
+      model,
+      changedModel,
+      field,
+      timeString,
+      { value: timeString, validTime: fieldValid }
+    )
 
     this.addData(updated, this.redrawView)
   }
@@ -189,6 +255,26 @@ class AbstractModalViewModel extends AbstractViewModel {
     )
 
     return updatedModel
+  }
+
+  isRequired(fieldName) {
+    return valueHelper.isValue(this.requiredFields()[fieldName])
+  }
+
+  removeEntry(field, matchField, oldEntry) {
+    const modelData = this.model()
+    const { model, modelName } = modelData
+    const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+    const updated = fieldHelper.removeEntry(
+      modelName,
+      model,
+      changedModel,
+      field,
+      matchField,
+      oldEntry
+    )
+
+    this.addData(updated, this.redrawView)
   }
 
   renderSubmitFooter(submitLabel = "Submit", cancelLabel = "Cancel") {

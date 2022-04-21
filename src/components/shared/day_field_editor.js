@@ -14,6 +14,7 @@ class DayFieldEditor extends Component {
       model,
       omitLabel,
       prefix,
+      required,
       style
     } = this.props
     const name = fieldHelper.name(this.props)
@@ -36,6 +37,7 @@ class DayFieldEditor extends Component {
             dateField={fieldName}
             earliestDate={earliestDate}
             latestDate={latestDate}
+            required={required}
             style={style}
           />
         </Col>

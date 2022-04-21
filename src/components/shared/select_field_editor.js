@@ -4,11 +4,12 @@ import { valueHelper, fieldHelper } from "../../helpers"
 
 class SelectFieldEditor extends Component {
   render() {
-    const { changeField, helper, model, omitLabel, prefix } = this.props
+    const { changeField, helper, model, omitLabel, prefix, required } = this.props
     const name = fieldHelper.name(this.props)
     const fieldName = fieldHelper.fieldName(name, prefix)
     const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
+    const fieldValue = valueHelper.makeString(helper[method](model, prefix))
     const options = fieldHelper.options(this.props)
 
     return (
@@ -24,8 +25,9 @@ class SelectFieldEditor extends Component {
             name={fieldName}
             onChange={changeField}
             readOnly={!canModifyField}
+            required={required}
             type="select"
-            value={valueHelper.makeString(helper[method](model, prefix))}>
+            value={fieldValue}>
             {options}
           </Input>
         </Col>

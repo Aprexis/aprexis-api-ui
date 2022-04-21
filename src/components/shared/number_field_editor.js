@@ -5,7 +5,7 @@ import { valueHelper, fieldHelper } from "../../helpers"
 
 class NumberFieldEditor extends Component {
   render() {
-    const { changeField, helper, max, min, model, omitLabel, precision, prefix, step } = this.props
+    const { changeField, helper, max, min, model, omitLabel, precision, prefix, required, step } = this.props
     const name = fieldHelper.name(this.props)
     const fieldName = fieldHelper.fieldName(name, prefix)
     const canModifyField = helper.canModifyField(model, fieldName)
@@ -28,6 +28,7 @@ class NumberFieldEditor extends Component {
             onChange={(newValue) => { changeField(name, newValue) }}
             precision={myPrecision}
             readOnly={!canModifyField}
+            required={required}
             step={myStep}
             value={valueHelper.makeString(helper[method](model, prefix))}
           />

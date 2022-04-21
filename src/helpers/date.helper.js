@@ -12,6 +12,7 @@ export const dateHelper = {
   displayDateTime,
   formatDate,
   isDateValue,
+  isTimeValue,
   isValidDate,
   makeDate,
   parseDate
@@ -48,6 +49,10 @@ function convertDateToDateString(date, format, localeString) {
 }
 
 function convertDateToTimeString(date, format, localeString) {
+  if (valueHelper.isStringValue(date) && date.length == 5) {
+    return date
+  }
+
   if (!dateHelper.isValidDate(date)) {
     return "00:00"
   }
@@ -87,6 +92,39 @@ function isDateValue(value) {
   const date = dateHelper.makeDate(value)
 
   return valueHelper.isValue(date)
+}
+
+function isTimeValue(value) {
+  if (!valueHelper.isValue(value)) {
+    return false
+  }
+
+  if (valueHelper.isStringValue(value) && value.length == 5) {
+    return isStringTime(value)
+  }
+
+  return dateHelper.isDateValue(value)
+
+  function isStringTime(value) {
+    const parts = value.split(':')
+    if (parts.length !== 2) {
+      return false
+    }
+
+    for (let idx = 0; idx < 2; ++idx) {
+      if (!valueHelper.isNumberValue(parts[idx])) {
+        return false
+      }
+
+      const maximum = idx == 0 ? 23 : 59
+      const number = parseInt(parts[idx])
+      if (number < 0 || number > maximum) {
+        return false
+      }
+    }
+
+    return true
+  }
 }
 
 function isValidDate(date, allowBlank = false) {

@@ -1,4 +1,4 @@
-export * from "./confirm_modal"
+export * from "./confirm.modal"
 export * from "./filters.modal"
 export * from "./sign_in.modal"
 

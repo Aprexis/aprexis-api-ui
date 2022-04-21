@@ -1,23 +1,19 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper, fieldHelper } from "../../helpers"
-import { DayTimePicker } from "./"
+import { TimePicker } from "./time_picker"
 
-class DayTimeFieldEditor extends Component {
+class TimeFieldEditor extends Component {
   render() {
     const {
       allowBlank,
       changeField,
-      dateStyle,
-      earliestDate,
       helper,
-      latestDate,
       model,
       omitLabel,
       prefix,
-      required,
-      timeStep,
-      timeStyle
+      step,
+      style
     } = this.props
     const name = fieldHelper.name(this.props)
     const fieldName = fieldHelper.fieldName(name, prefix)
@@ -31,20 +27,14 @@ class DayTimeFieldEditor extends Component {
           <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
         }
         <Col xs={fieldHelper.fieldXs(this.props)}>
-          <DayTimePicker
+          <TimePicker
             allowBlank={allowBlank}
             allowEdit={canModifyField}
-            date={helper[method](model)}
-            dateTimeChange={changeField}
-            dateField={`${fieldName}_Date`}
-            dateStyle={dateStyle}
-            dateTime={helper[method](model, prefix)}
-            earliestDate={earliestDate}
-            latestDate={latestDate}
-            required={required}
-            timeField={`${fieldName}_Time`}
-            timeStep={timeStep}
-            timeStyle={timeStyle}
+            timeChange={changeField}
+            field={fieldName}
+            step={step}
+            style={style}
+            time={helper[method](model)}
           />
         </Col>
       </React.Fragment>
@@ -52,4 +42,4 @@ class DayTimeFieldEditor extends Component {
   }
 }
 
-export { DayTimeFieldEditor }
+export { TimeFieldEditor }

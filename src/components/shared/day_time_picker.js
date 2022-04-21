@@ -31,6 +31,7 @@ class DayTimePicker extends Component {
       disabledDays,
       earliestDate,
       latestDate,
+      required,
       timeClassName,
       timeField,
       timeStep,
@@ -51,6 +52,7 @@ class DayTimePicker extends Component {
             earliestDate={earliestDate}
             field={dateField}
             latestDate={latestDate}
+            required={required}
             style={dateStyle}
           />
         </Col>
@@ -60,6 +62,7 @@ class DayTimePicker extends Component {
             allowEdit={allowEditTime}
             className={timeClassName}
             field={timeField}
+            required={required}
             time={dateTime}
             timeChange={this.vm.timeChange}
             timeStep={timeStep}

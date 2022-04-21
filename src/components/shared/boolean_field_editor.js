@@ -4,7 +4,7 @@ import { valueHelper, fieldHelper, jsEventHelper } from "../../helpers"
 
 class BooleanFieldEditor extends Component {
   render() {
-    const { changeField, helper, model, omitLabel, prefix } = this.props
+    const { changeField, helper, model, omitLabel, prefix, required } = this.props
     const name = fieldHelper.name(this.props)
     const fieldName = fieldHelper.fieldName(name, prefix)
     const canModifyField = helper.canModifyField(model, fieldName)
@@ -30,6 +30,7 @@ class BooleanFieldEditor extends Component {
               }
             }
             readOnly={!canModifyField}
+            required={required}
             style={{ verticalAlign: 'middle' }}
             type="checkbox"
           />

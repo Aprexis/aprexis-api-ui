@@ -39,6 +39,7 @@ class DayPicker extends Component {
   }
 
   render() {
+    const { required } = this.props
     const dayPickerClassName = this.vm.getDayPickerClassNameFromProps()
     const dayPickerStyle = this.vm.getDayPickerStyleFromProps()
     const { dateString } = this.state
@@ -47,10 +48,10 @@ class DayPicker extends Component {
       return this.renderDayValue(dayPickerClassName, dayPickerStyle, dateString)
     }
 
-    return this.renderDayEditor(dayPickerClassName, dayPickerStyle, dateString)
+    return this.renderDayEditor(dayPickerClassName, dayPickerStyle, dateString, required)
   }
 
-  renderDayEditor(dayPickerClassName, dayPickerStyle, dateString) {
+  renderDayEditor(dayPickerClassName, dayPickerStyle, dateString, required) {
     const dayPickerProps = this.vm.getDayPickerPropsFromProps(dateString)
 
     return (
@@ -62,6 +63,7 @@ class DayPicker extends Component {
         onChangeRaw={this.vm.dayEntry}
         peakNextMonth
         placeholderText={dayPickerProps.dateFormat.toUpperCase()}
+        required={required}
         scrollableYearDropdown
         selected={this.vm.parseDate(dateString, this.vm.props.dateFormat, this.vm.props.locale)}
         showMonthDropdown

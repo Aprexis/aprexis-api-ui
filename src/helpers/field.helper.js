@@ -6,12 +6,16 @@ import { valueHelper } from "./value.helper"
 import { dateHelper } from "./date.helper"
 import { contextHelper } from "./context.helper"
 import { jsEventHelper } from "./js_event.helper"
+import { alertHelper } from "./alert.helper"
+
 
 export const fieldHelper = {
+  addEntry,
   booleanDisplay,
   changeDate,
   changeDateTime,
   changeField,
+  changeTime,
   changeValue,
   changeValues,
   combineValues,
@@ -36,7 +40,56 @@ export const fieldHelper = {
   optionDisplay,
   phoneDisplay,
   phoneNumberForDisplay,
-  titleDisplay
+  removeEntry,
+  titleDisplay,
+  unchanged
+}
+
+function addEntryToList(model, field, newEntry) {
+  const entries = model[field]
+  if (!valueHelper.isValue(entries)) {
+    return [newEntry]
+  }
+
+  return [...entries, newEntry]
+}
+
+function addEntry(modelName, model, changedModel, field, matchField, newEntry) {
+  const entries = model[field]
+  const changedEntries = changedModel[field]
+  if (valueHelper.isValue(entries)) {
+    const existingEntry = entries.find((entry) => entry[matchField] == newEntry[matchField])
+    if (valueHelper.isValue(existingEntry)) {
+      return unchanged(modelName, model, changedModel, `${field} already has an entry`)
+    }
+  }
+
+  if (valueHelper.isValue(changedEntries)) {
+    const existingChangedEntry = changedEntries.find((changedEntry) => changedEntry[matchField] == newEntry[matchField])
+    if (valueHelper.isValue(existingChangedEntry)) {
+      return restoreOldEntry(modelName, model, changedModel, field, existingChangedEntry)
+    }
+  }
+
+  return addNewEntry(modelName, model, changedModel, field, newEntry)
+
+  function addNewEntry(modelName, model, changedModel, field, newEntry) {
+    return {
+      [modelName]: { ...model, [field]: addEntryToList(model, field, newEntry) },
+      [valueHelper.changedModelName(modelName)]: { ...changedModel, [field]: addEntryToList(changedModel, field, newEntry) }
+    }
+  }
+
+  function restoreOldEntry(modelName, model, changedModel, field, oldEntry) {
+    const restoredEntry = [...oldEntry]
+    delete restoredEntry['_destroy']
+    const newChangedEntries = changedModel[field].filter((changedEntry) => changedEntry != oldEntry)
+
+    return {
+      [modelName]: { ...model, [field]: addEntryToList(model, field, restoredEntry) },
+      [valueHelper.changedModelName(modelName)]: { ...changedModel, newChangedEntries }
+    }
+  }
 }
 
 function booleanDisplay(name, value, description, required = false) {
@@ -69,6 +122,18 @@ function changeField(modelName, model, changedModel, event) {
   const { name, value } = jsEventHelper.fromInputEvent(event)
 
   return fieldHelper.changeValue(modelName, model, changedModel, name, value)
+}
+
+function changeTime(modelName, model, changedModel, fieldName, time, timeValid) {
+  const nameValid = `${fieldName}_TVALID`
+  const updatedValid = { ...model[timeValid], ...timeValid }
+
+  return fieldHelper.changeValues(
+    modelName,
+    model,
+    changedModel,
+    { [fieldName]: time, [nameValid]: updatedValid }
+  )
 }
 
 function changeValue(modelName, model, changedModel, name, value) {
@@ -367,20 +432,36 @@ function includeField(pathEntries, filters, fieldHeader) {
   }
 }
 
-function label({ fieldLabel, fieldMethod, fieldName }) {
-  if (valueHelper.isValue(fieldLabel)) {
-    return fieldLabel
+function label({ fieldLabel, fieldMethod, fieldName, required }) {
+  return (
+    <React.Fragment>
+      {labelValue(fieldLabel, fieldMethod, fieldName)}{labelRequired(required)}
+    </React.Fragment>
+  )
+
+  function labelValue(fieldLabel, fieldMethod, fieldName) {
+    if (valueHelper.isValue(fieldLabel)) {
+      return fieldLabel
+    }
+
+    if (valueHelper.isStringValue(fieldName)) {
+      return valueHelper.titleize(valueHelper.humanize(fieldName))
+    }
+
+    if (valueHelper.isStringValue(fieldMethod)) {
+      return valueHelper.titleize(fieldMethod)
+    }
+
+    return ""
   }
 
-  if (valueHelper.isStringValue(fieldName)) {
-    return valueHelper.titleize(valueHelper.humanize(fieldName))
-  }
+  function labelRequired(required) {
+    if (!valueHelper.isSet(required)) {
+      return
+    }
 
-  if (valueHelper.isStringValue(fieldMethod)) {
-    return valueHelper.titleize(fieldMethod)
+    return (<span style={{ color: "red" }}>&nbsp;*</span>)
   }
-
-  return ""
 }
 
 function labelXs({ labelXs }) {
@@ -491,6 +572,59 @@ function options(props) {
   }
 }
 
+function removeEntry(modelName, model, changedModel, field, matchField, oldEntry) {
+  if (valueHelper.isNumberValue(oldEntry.id)) {
+    return destroyExistingEntry(modelName, model, changedModel, field, matchField, oldEntry)
+  }
+
+  return removeAddedEntry(modelName, model, changedModel, field, matchField, oldEntry)
+
+  function destroyExistingEntry(modelName, model, changedModel, field, matchField, oldEntry) {
+    const entries = model[field]
+    if (!valueHelper.isValue(entries)) {
+      return fieldHelper.unchanged(modelName, model, changedModel, `${field} does not have entries to remove`)
+    }
+
+    const newEntries = entries.filter((entry) => entry[matchField] != oldEntry[matchField])
+    const destroyEntry = { ...oldEntry, "_destroy": true }
+    const newChangedEntries = addEntryToList(changedModel, field, destroyEntry)
+    return {
+      [modelName]: { ...model, [field]: newEntries },
+      [valueHelper.changedModelName(modelName)]: { ...changedModel, [field]: newChangedEntries }
+    }
+  }
+
+  function removeAddedEntry(modelName, model, changedModel, field, matchField, addedEntry) {
+    const entries = model[field]
+    if (!valueHelper.isValue(entries)) {
+      return fieldHelper.unchanged(modelName, model, changedModel, `${field} does not have entries to remove`)
+    }
+
+    const changedEntries = changedModel[field]
+    if (!valueHelper.isValue(changedEntries)) {
+      return fieldHelper.unchanged(modelName, model, changedModel, `${field} does not contain an added entry to remove`)
+    }
+
+    const newEntries = entries.filter((entry) => entry[matchField] != oldEntry[matchField])
+    const newChangedEntries = changedEntries.filter((changedEntry) => changedEntry[matchField] == oldEntry[matchField])
+    return {
+      [modelName]: { ...model, [field]: newEntries },
+      [valueHelper.changedModelName(modelName)]: { ...changedModel, [field]: newChangedEntries }
+    }
+  }
+}
+
 function titleDisplay(name, value, description, suffix = ":", required = false) {
   return fieldHelper.display(name, valueHelper.titleize(value), description, suffix, required)
+}
+
+function unchanged(modelName, model, changedModel, warning) {
+  if (valueHelper.isStringValue(warning)) {
+    alertHelper.warning(warning)
+  }
+
+  return {
+    [modelName]: model,
+    [valueHelper.changedModelName(modelName)]: changedModel
+  }
 }

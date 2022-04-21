@@ -1,9 +1,46 @@
 import { API } from "./"
+import { reminderHelper } from "../helpers"
 
 export const reminderApi = {
+  buildNew,
+  create,
   listForPatient,
   profile,
   show
+}
+
+function toJSON(reminder) {
+  return {
+    reminder: reminderHelper.toJSON(reminder)
+  }
+}
+
+function buildNew(userCredentials, patient_id, onSuccess, onFailure) {
+  if (!API.validateId("patient ID", patient_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patients/${patient_id}/reminders/new`
+  API.perform(
+    method,
+    path,
+    "",
+    userCredentials,
+    undefined,
+    onSuccess,
+    onFailure
+  )
+}
+
+function create(userCredentials, reminder, onSuccess, onFailure) {
+  if (!API.validateId("patient ID", reminder.patient_id, onFailure)) {
+    return
+  }
+
+  const method = "POST"
+  const path = `/patients/${reminder.patient_id}/reminders`
+  API.perform(method, path, "", userCredentials, toJSON(reminder), onSuccess, onFailure)
 }
 
 function listForPatient(userCredentials, patient_id, params, onSuccess, onFailure) {

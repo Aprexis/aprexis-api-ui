@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
 import { reminderApi } from "../../../../api"
-import { pageHelper, pathHelper } from "../../../../helpers"
+import { pageHelper, pathHelper, reminderHelper, userCredentialsHelper } from "../../../../helpers"
 
 const reminderListMethods = [
   { pathKey: "patients", method: reminderApi.listForPatient }
@@ -11,6 +11,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
     super(props)
 
     this.canCreate = this.canCreate.bind(this)
+    this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
@@ -21,7 +22,27 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    return false
+    const { currentUser } = this.props
+    const pathEntries = this.pathEntries()
+
+    return reminderHelper.canBeCreated(currentUser, pathEntries)
+  }
+
+  createModal() {
+    const pathEntries = this.pathEntries()
+    const patientId = pathHelper.id(pathEntries, "patients")
+
+    reminderApi.buildNew(
+      userCredentialsHelper.get(),
+      patientId,
+      (reminder) => {
+        this.props.launchModal(
+          "reminder",
+          { operation: "create", onUpdateView: this.refreshData, reminder }
+        )
+      },
+      this.onError
+    )
   }
 
   defaultParameters() {

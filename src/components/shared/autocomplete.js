@@ -6,7 +6,7 @@ import { AutocompleteViewModel } from "../view_models/shared"
 
 function extractPropertyValue(model, property) {
   if (!valueHelper.isValue(model)) {
-    return
+    return ""
   }
 
   const dotIndex = property.indexOf(".")
@@ -15,7 +15,8 @@ function extractPropertyValue(model, property) {
     return model[property]
   }
 
-  const subModel = model[property.substring(0, dotIndex - 1)]
+  const subProperty = property.substring(0, dotIndex)
+  const subModel = model[subProperty]
   return extractPropertyValue(subModel, property.substring(dotIndex + 1))
 }
 
@@ -158,8 +159,8 @@ const TableRows = (
 
   return filteredOptions
     .map(
-      (option) => {
-        const rowKey = `autocomplete-${valueHelper.snakeCase(inputName)}-${option[tableDisplayProps[0]]}`
+      (option, optionIdx) => {
+        const rowKey = `autocomplete-${valueHelper.snakeCase(inputName)}-${optionIdx}`
         return (
           <TableRow
             addField={addField}

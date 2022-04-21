@@ -18,6 +18,7 @@ export const userHelper = {
   canCreatePatientMedication,
   canCreatePatientPhysician,
   canCreatePatientNote,
+  canCreateReminder,
   canDelete,
   canEdit,
   canHaveNpi,
@@ -119,6 +120,9 @@ function canCreatePatientAllergy(user, pathEntries) {
     case "pharmacy_store_user":
       return true
 
+    case "patient_user_role":
+      return true
+
     default:
       return false
   }
@@ -136,6 +140,9 @@ function canCreatePatientMedication(user, pathEntries) {
     case "pharmacy_store_admin":
     case "pharmacy_store_tech":
     case "pharmacy_store_user":
+      return true
+
+    case "patient_user_role":
       return true
 
     default:
@@ -163,6 +170,27 @@ function canCreatePatientPhysician(user, pathEntries) {
     case "pharmacy_store_admin":
     case "pharmacy_store_tech":
     case "pharmacy_store_user":
+      return true
+
+    case "patient_user_role":
+      return true
+
+    default:
+      return false
+  }
+}
+
+function canCreateReminder(user, pathEntries) {
+  switch (userHelper.role(user)) {
+    case "aprexis_admin":
+      return true
+
+    case "pharmacy_store_admin":
+    case "pharmacy_store_tech":
+    case "pharmacy_store_user":
+      return true
+
+    case "patient_user_role":
       return true
 
     default:

@@ -103,7 +103,7 @@ class RemindersPage extends Component {
         <button
           className="btn btn-sm btn-outline-secondary"
           onClick={this.vm.createModal}>
-          <strong>+</strong> Add Supplement
+          <strong>+</strong> Add Reminder
         </button>
       </nav>
     )

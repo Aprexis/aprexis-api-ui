@@ -120,7 +120,7 @@ class Header extends Component {
 class Title extends Component {
   render() {
     const { title } = this.props
-    if (!valueHelper.isStringValue(title)) {
+    if (!valueHelper.isValue(title)) {
       return (<React.Fragment />)
     }
 

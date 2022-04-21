@@ -1,16 +1,24 @@
 import { formatInTimeZone } from "date-fns-tz"
+import { apiHelper } from "./api.helper"
 import { dateHelper } from "./date.helper"
 import { fieldHelper } from './field.helper'
 import { medicationHelper } from "./medication.helper"
+import { pathHelper } from "./path.helper"
 import { patientHelper } from "./patient.helper"
 import { patientSupplementHelper } from "./patient_supplement.helper"
+import { userHelper } from "./user.helper"
 import { valueHelper } from "./value.helper"
 import { reminderActions, reminderTypes, timeZones } from "../types"
 
 export const reminderHelper = {
   action,
+  addingReminderMedication,
+  buildChanged,
+  buildNewChanged,
+  canBeCreated,
   canDelete,
   canEdit,
+  canModifyField,
   dayOfMonth,
   displayAction,
   displayMedications,
@@ -21,6 +29,9 @@ export const reminderHelper = {
   displayType,
   emailAddress,
   friday,
+  id,
+  isReminderActionValue,
+  isReminderTypeValue,
   medications,
   modelName,
   monday,
@@ -31,9 +42,11 @@ export const reminderHelper = {
   recurTo,
   remindAt,
   remindAtTimeZone,
+  reminderMedications,
   saturday,
   sunday,
   thursday,
+  toJSON,
   tuesday,
   txtNumber,
   type,
@@ -41,8 +54,76 @@ export const reminderHelper = {
   wednesday
 }
 
+const reminderKeys = [
+  "id",
+  "patient_id",
+  "action",
+  "day_of_month",
+  "email_address",
+  "friday",
+  "monday",
+  "recur_from",
+  "recur_to",
+  "remind_at",
+  "remind_at_time_zone",
+  { key: "reminder_medications", jsonKey: "reminder-medications_attributes", childKeys: ["id", "reminder_id", "medication_id", "_destroy"] },
+  "saturday",
+  "sunday",
+  "thursday",
+  "tuesday",
+  "txt_number",
+  "type",
+  "voice_number",
+  "wednesday"
+]
+
+const reminderEditableFields = [
+  "recur_from",
+  "recur_to"
+]
+
 function action(reminder) {
   return fieldHelper.getField(reminder, "action")
+}
+
+function addingReminderMedication(reminder) {
+  return fieldHelper.getField(reminder, "addingReminderMedication")
+}
+
+
+function buildChanged(reminder, changedReminder) {
+  if (valueHelper.isValue(changedReminder)) {
+    return changedReminder
+  }
+
+  if (valueHelper.isValue(reminder.id)) {
+    return copyIdentifiers(reminder)
+  }
+
+  return reminderHelper.buildNewChanged(reminder)
+
+  function copyIdentifiers(reminder) {
+    return {
+      type: reminder.type,
+      id: reminder.id,
+      patient_id: reminder.patient_id
+    }
+  }
+}
+
+function buildNewChanged(reminder) {
+  return {
+    ...reminder
+  }
+}
+
+
+function canBeCreated(user, pathEntries) {
+  if (!userHelper.canCreateReminder(user, pathEntries)) {
+    return false
+  }
+
+  return pathHelper.isSingular(pathEntries, "patients")
 }
 
 function canDelete(user, reminder) {
@@ -52,6 +133,15 @@ function canDelete(user, reminder) {
 function canEdit(user, reminder) {
   return false
 }
+
+function canModifyField(reminder, fieldName) {
+  if (!valueHelper.isValue(reminderHelper.id(reminder))) {
+    return true
+  }
+
+  return (reminderEditableFields.includes(fieldName))
+}
+
 
 function dayOfMonth(reminder) {
   return fieldHelper.getField(reminder, "day_of_month")
@@ -114,6 +204,26 @@ function friday(reminder) {
   return fieldHelper.getField(reminder, "friday")
 }
 
+function id(reminder) {
+  return fieldHelper.getField(reminder, "id")
+}
+
+function isReminderActionValue(value) {
+  if (!valueHelper.isStringValue(value)) {
+    return false
+  }
+
+  return valueHelper.isValue(Object.keys(reminderActions).find((reminderAction) => reminderAction == value))
+}
+
+function isReminderTypeValue(value) {
+  if (!valueHelper.isStringValue(value)) {
+    return false
+  }
+
+  return valueHelper.isValue(Object.keys(reminderTypes).find((reminderType) => reminderType == value))
+}
+
 function medications(reminder) {
   return fieldHelper.getField(reminder, "medications")
 }
@@ -150,6 +260,10 @@ function remindAt(reminder) {
   return fieldHelper.getField(reminder, "remind_at")
 }
 
+function reminderMedications(reminder) {
+  return fieldHelper.getField(reminder, "reminder_medications")
+}
+
 function remindAtTimeZone(reminder) {
   return fieldHelper.getField(reminder, "remind_at_time_zone")
 }
@@ -164,6 +278,10 @@ function sunday(reminder) {
 
 function thursday(reminder) {
   return fieldHelper.getField(reminder, "thursday")
+}
+
+function toJSON(reminder) {
+  return apiHelper.toJSON(reminder, reminderKeys)
 }
 
 function tuesday(reminder) {

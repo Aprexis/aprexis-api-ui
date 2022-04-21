@@ -3,6 +3,22 @@ import { Col, FormGroup, Input } from "reactstrap"
 import { valueHelper, fieldHelper, addressHelper } from "../../helpers"
 
 class AddressEditor extends Component {
+  constructor(props) {
+    super(props)
+
+    this.isRequired = this.isRequired.bind(this)
+  }
+
+  isRequired(fieldName) {
+    const { isRequired } = this.props
+
+    if (!valueHelper.isValue(isRequired)) {
+      return false
+    }
+
+    return isRequired(fieldName)
+  }
+
   render() {
     const { addressable, allowEdit, onChangeField, prefix } = this.props
     const readOnly = valueHelper.isValue(allowEdit) ? !valueHelper.isSet(allowEdit) : true
@@ -18,6 +34,7 @@ class AddressEditor extends Component {
               name={fieldHelper.fieldName("address", prefix)}
               onChange={onChangeField}
               readOnly={readOnly}
+              required={this.isRequired(fieldHelper.fieldName("address", prefix))}
               value={valueHelper.makeString(addressHelper.address(addressable, prefix))}
             />
           </Col>
@@ -32,6 +49,7 @@ class AddressEditor extends Component {
               name={fieldHelper.fieldName("city", prefix)}
               onChange={onChangeField}
               readOnly={readOnly}
+              required={this.isRequired(fieldHelper.fieldName("city", prefix))}
               value={valueHelper.makeString(addressHelper.city(addressable, prefix))}
             />
           </Col>
@@ -43,6 +61,7 @@ class AddressEditor extends Component {
               name={fieldHelper.fieldName("state", prefix)}
               onChange={onChangeField}
               readOnly={readOnly}
+              required={this.isRequired(fieldHelper.fieldName("state", prefix))}
               value={valueHelper.makeString(addressHelper.state(addressable, prefix))}
             />
           </Col>
@@ -54,6 +73,7 @@ class AddressEditor extends Component {
               name={fieldHelper.fieldName("zip_code", prefix)}
               onChange={onChangeField}
               readOnly={readOnly}
+              required={this.isRequired(fieldHelper.fieldName("zip_code", prefix))}
               value={valueHelper.makeString(addressHelper.zipCode(addressable, prefix))}
             />
           </Col>
@@ -68,6 +88,7 @@ class AddressEditor extends Component {
               name={fieldHelper.fieldName("country", prefix)}
               onChange={onChangeField}
               readOnly={readOnly}
+              required={this.isRequired(fieldHelper.fieldName("country", prefix))}
               value={valueHelper.makeString(addressHelper.country(addressable, prefix))}
             />
           </Col>
