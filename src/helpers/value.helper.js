@@ -1,4 +1,5 @@
 export const valueHelper = {
+  arrayWithDefault,
   camelCase,
   capitalizeWords,
   changedModelName,
@@ -8,6 +9,7 @@ export const valueHelper = {
   getCircularReplacer,
   hashGet,
   hashSet,
+  hashWithDefault,
   humanize,
   importantProps,
   isFunction,
@@ -20,6 +22,14 @@ export const valueHelper = {
   splitCapitalized,
   titleize,
   yesNo
+}
+
+function arrayWithDefault(array, defaultArray = []) {
+  if (!valueHelper.isValue(array)) {
+    return defaultArray
+  }
+
+  return array
 }
 
 function camelCase(str) {
@@ -133,6 +143,14 @@ function hashGet(hash, field) {
   }
 
   return valueHelper.hashGet(hash[field[0]], field.slice(1))
+}
+
+function hashWithDefault(hash, defaultHash = {}) {
+  if (!valueHelper.isValue(hash)) {
+    return defaultHash
+  }
+
+  return hash
 }
 
 function humanize(str) {

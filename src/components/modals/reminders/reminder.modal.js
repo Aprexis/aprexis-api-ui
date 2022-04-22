@@ -117,13 +117,14 @@ const ReminderMedicationsTable = ({ reminder, removeReminderMedication }) => {
 
 const ReminderMedicationsTitle = ({ reminder, addReminderMedication }) => {
   if (valueHelper.isSet(reminderHelper.addingReminderMedication(reminder))) {
-    return "Medications"
+    return (<h3>Medications</h3>)
   }
 
   return (
     <React.Fragment>
-      Medications
+      <h3>Medications</h3>
       <button
+        class="btn btn-sm"
         type="button"
         onClick={addReminderMedication}>
         <FontAwesomeIcon icon={faPlus} />
@@ -158,7 +159,7 @@ const ReminderMedications = ({ addReminderMedication, patient, props, reminder, 
         reminder={reminder}
         selectReminderMedication={selectReminderMedication}
       />
-      <h3><ReminderMedicationsTitle reminder={reminder} addReminderMedication={addReminderMedication} /></h3>
+      <ReminderMedicationsTitle reminder={reminder} addReminderMedication={addReminderMedication} />
       <ReminderMedicationsTable reminder={reminder} removeReminderMedication={removeReminderMedication} />
     </React.Fragment>
   )

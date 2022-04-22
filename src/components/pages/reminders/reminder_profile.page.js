@@ -2,16 +2,26 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { ReminderProfilePageViewModel } from "../../view_models/pages/reminders"
-import { fieldHelper, reminderHelper, valueHelper } from "../../../helpers"
+import { fieldHelper, medicationHelper, reminderHelper, reminderSupplementHelper, valueHelper } from "../../../helpers"
+
+const Medication = ({ medication }) => {
+  return (<React.Fragment>{medicationHelper.name(medication)}<br /></React.Fragment>)
+}
 
 const ReminderMedications = ({ currentUser, reminder }) => {
+  const reminderMedications = valueHelper.arrayWithDefault(reminderHelper.medications(reminder)).map(
+    (medication, idx) => {
+      return (<Medication key={`edication-${idx}`} medication={medication} />)
+    }
+  )
+
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle><h3>Medications</h3></CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Medications", reminderHelper.displayMedications(reminder))}
+          {reminderMedications}
         </CardBody>
       </Card>
     </Col>
@@ -98,14 +108,24 @@ const ReminderSchedule = ({ currentUser, reminder }) => {
   }
 }
 
+const ReminderSupplement = ({ reminderSupplement }) => {
+  return (<React.Fragment>{reminderSupplementHelper.name(reminderSupplement)}<br /></React.Fragment>)
+}
+
 const ReminderSupplements = ({ currentUser, reminder }) => {
+  const reminderSupplements = valueHelper.arrayWithDefault(reminderHelper.reminderSupplements).map(
+    (reminderSupplement, idx) => {
+      return (<ReminderSupplement key={`reminder - supplement - ${idx}`} reminderSupplement={reminderSupplement} />)
+    }
+  )
+
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle><h3>Supplements</h3></CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Supplements", reminderHelper.displayPatientSupplements(reminder))}
+          {reminderSupplements}
         </CardBody>
       </Card>
     </Col>
