@@ -9,15 +9,17 @@ import {
   NumberFieldEditor,
   SelectFieldEditor,
   SelectPatientMedication,
+  SelectPatientSupplement,
   TextFieldEditor,
   TimeFieldEditor
 } from "../../shared"
 import { ReminderModalViewModel } from "../../view_models/modals/reminders"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, reminderHelper, reminderMedicationHelper, valueHelper } from "../../../helpers"
+import { patientHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper } from "../../../helpers"
 import { reminderActions, reminderTypes, timeZones } from "../../../types"
 
 const medicationHeadings = ["Label", ""]
+const supplementHeadings = ["Name", "Physician Name", "Physician NPI", ""]
 
 const ReminderMonthlyFrequency = ({ changeNumericField, isRequired, reminder }) => {
   return (
@@ -114,22 +116,21 @@ const ReminderMedicationsTable = ({ reminder, removeReminderMedication }) => {
   }
 }
 
-
 const ReminderMedicationsTitle = ({ reminder, addReminderMedication }) => {
   if (valueHelper.isSet(reminderHelper.addingReminderMedication(reminder))) {
     return (<h3>Medications</h3>)
   }
 
   return (
-    <React.Fragment>
-      <h3>Medications</h3>
+    <h3>
+      Medications
       <button
-        class="btn btn-sm"
+        className="btn btn-sm"
         type="button"
         onClick={addReminderMedication}>
         <FontAwesomeIcon icon={faPlus} />
       </button>
-    </React.Fragment>
+    </h3>
   )
 }
 
@@ -161,6 +162,90 @@ const ReminderMedications = ({ addReminderMedication, patient, props, reminder, 
       />
       <ReminderMedicationsTitle reminder={reminder} addReminderMedication={addReminderMedication} />
       <ReminderMedicationsTable reminder={reminder} removeReminderMedication={removeReminderMedication} />
+    </React.Fragment>
+  )
+}
+
+const ReminderSupplementsTable = ({ reminder, removeReminderSupplement }) => {
+  const reminderSupplements = reminderHelper.reminderSupplements(reminder)
+
+  return (
+    <AprexisTable
+      data={reminderSupplementRows(reminderSupplements, removeReminderSupplement)}
+      headings={supplementHeadings}
+    />
+  )
+
+  function reminderSupplementRows(reminderSupplements, removeReminderSupplement) {
+    if (!valueHelper.isValue(reminderSupplements)) {
+      return []
+    }
+
+    return reminderSupplements.map(
+      (reminderSupplement) => {
+        return [
+          reminderSupplementHelper.patientSupplementName(reminderSupplement),
+          reminderSupplementHelper.patientSupplementPhysicianName(reminderSupplement),
+          reminderSupplementHelper.patientSupplementPhysicianNpi(reminderSupplement),
+          <td>
+            <button
+              type="button"
+              onClick={(_event) => { removeReminderSupplement(reminderSupplement) }}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </button>
+          </td>
+        ]
+      }
+    )
+  }
+}
+
+const ReminderSupplementsTitle = ({ reminder, addReminderSupplement }) => {
+  if (valueHelper.isSet(reminderHelper.addingReminderSupplement(reminder))) {
+    return (<h3>Supplements</h3>)
+  }
+
+  return (
+    <h3>
+      Supplements
+      <button
+        className="btn btn-sm"
+        type="button"
+        onClick={addReminderSupplement}>
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
+    </h3>
+  )
+}
+
+const ReminderNewSupplement = ({ patient, props, reminder, selectReminderSupplement }) => {
+  if (!valueHelper.isSet(reminderHelper.addingReminderSupplement(reminder))) {
+    return (<React.Fragment />)
+  }
+
+  return (
+    <SelectPatientSupplement
+      {...valueHelper.importantProps(props)}
+      baseFilters={{ for_supersets: true }}
+      fieldLabel="New Supplement"
+      inForm={true}
+      patient_id={patientHelper.id(patient)}
+      onChange={selectReminderSupplement}
+    />
+  )
+}
+
+const ReminderSupplements = ({ addReminderSupplement, patient, props, reminder, removeReminderSupplement, selectReminderSupplement }) => {
+  return (
+    <React.Fragment>
+      <ReminderNewSupplement
+        patient={patient}
+        props={props}
+        reminder={reminder}
+        selectReminderSupplement={selectReminderSupplement}
+      />
+      <ReminderSupplementsTitle reminder={reminder} addReminderSupplement={addReminderSupplement} />
+      <ReminderSupplementsTable reminder={reminder} removeReminderSupplement={removeReminderSupplement} />
     </React.Fragment>
   )
 }
@@ -321,6 +406,15 @@ class ReminderModal extends Component {
                   reminder={reminder}
                   removeReminderMedication={this.vm.removeReminderMedication}
                   selectReminderMedication={this.vm.selectReminderMedication}
+                />
+
+                <ReminderSupplements
+                  addReminderSupplement={this.vm.addReminderSupplement}
+                  patient={this.state.patient}
+                  props={this.props}
+                  reminder={reminder}
+                  removeReminderSupplement={this.vm.removeReminderSupplement}
+                  selectReminderSupplement={this.vm.selectReminderSupplement}
                 />
               </Form>
             </Col>

@@ -2,6 +2,7 @@ import { fieldHelper } from "../field.helper"
 import { addressHelper } from "../address.helper"
 import { dateHelper } from "../date.helper"
 import { nameHelper } from "../name.helper"
+import { valueHelper } from "../value.helper"
 
 export const physicianHelper = {
   businessFax,
@@ -110,6 +111,10 @@ function name(physician, prefix = "") {
 }
 
 function nameAndNpi(physician) {
+  if (!valueHelper.isValue(physician)) {
+    return ""
+  }
+
   return `${physicianHelper.name(physician)} [${physicianHelper.npi(physician)}]`
 }
 

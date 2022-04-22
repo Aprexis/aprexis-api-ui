@@ -13,6 +13,7 @@ import { reminderActions, reminderTypes, timeZones } from "../types"
 export const reminderHelper = {
   action,
   addingReminderMedication,
+  addingReminderSupplement,
   buildChanged,
   buildNewChanged,
   canBeCreated,
@@ -43,6 +44,7 @@ export const reminderHelper = {
   remindAt,
   remindAtTimeZone,
   reminderMedications,
+  reminderSupplements,
   saturday,
   sunday,
   thursday,
@@ -91,6 +93,9 @@ function addingReminderMedication(reminder) {
   return fieldHelper.getField(reminder, "addingReminderMedication")
 }
 
+function addingReminderSupplement(reminder) {
+  return fieldHelper.getField(reminder, "addingReminderSupplement")
+}
 
 function buildChanged(reminder, changedReminder) {
   if (valueHelper.isValue(changedReminder)) {
@@ -263,6 +268,10 @@ function remindAt(reminder) {
 
 function reminderMedications(reminder) {
   return fieldHelper.getField(reminder, "reminder_medications")
+}
+
+function reminderSupplements(reminder) {
+  return fieldHelper.getField(reminder, "reminder_supplements")
 }
 
 function remindAtTimeZone(reminder) {

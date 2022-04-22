@@ -5,6 +5,7 @@ import {
   pathHelper,
   reminderHelper,
   reminderMedicationHelper,
+  reminderSupplementHelper,
   userCredentialsHelper,
   valueHelper
 } from "../../../../helpers"
@@ -28,6 +29,7 @@ class ReminderModalViewModel extends AbstractModalViewModel {
     super(props)
 
     this.addReminderMedication = this.addReminderMedication.bind(this)
+    this.addReminderSupplement = this.addReminderSupplement.bind(this)
     this.api = this.api.bind(this)
     this.dateAndTimeFields = this.dateAndTimeFields.bind(this)
     this.fetchPatient = this.fetchPatient.bind(this)
@@ -36,11 +38,17 @@ class ReminderModalViewModel extends AbstractModalViewModel {
     this.model = this.model.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.removeReminderMedication = this.removeReminderMedication.bind(this)
+    this.removeReminderSupplement = this.removeReminderSupplement.bind(this)
     this.selectReminderMedication = this.selectReminderMedication.bind(this)
+    this.selectReminderSupplement = this.selectReminderSupplement.bind(this)
   }
 
   addReminderMedication() {
     this.changeFieldValue("addingReminderMedication", true)
+  }
+
+  addReminderSupplement() {
+    this.changeFieldValue("addingReminderSupplement", true)
   }
 
   api() {
@@ -89,11 +97,22 @@ class ReminderModalViewModel extends AbstractModalViewModel {
     this.removeEntry("reminder_medications", "medication_id", reminderMedication)
   }
 
+  removeReminderSupplement(reminderSupplement) {
+    this.removeEntry("reminder_supplements", "patient_supplement_id", reminderSupplement)
+  }
+
   selectReminderMedication(_targetName, patientMedication) {
     this.changeFieldValue("addingReminderMedication", false)
     const reminderMedication = reminderMedicationHelper.buildFromPatientMedication(patientMedication)
 
     this.addEntry("reminder_medications", "medication_id", reminderMedication)
+  }
+
+  selectReminderSupplement(_targetName, patientSupplement) {
+    this.changeFieldValue("addingReminderSupplement", false)
+    const reminderSupplement = reminderSupplementHelper.buildFromPatientSupplement(patientSupplement)
+
+    this.addEntry("reminder_supplements", "patient_supplement_id", reminderSupplement)
   }
 }
 

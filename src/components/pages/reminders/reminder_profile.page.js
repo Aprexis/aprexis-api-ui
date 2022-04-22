@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { ReminderProfilePageViewModel } from "../../view_models/pages/reminders"
-import { fieldHelper, medicationHelper, reminderHelper, reminderSupplementHelper, valueHelper } from "../../../helpers"
+import { fieldHelper, medicationHelper, patientSupplementHelper, reminderHelper, valueHelper } from "../../../helpers"
 
 const Medication = ({ medication }) => {
   return (<React.Fragment>{medicationHelper.name(medication)}<br /></React.Fragment>)
@@ -108,14 +108,14 @@ const ReminderSchedule = ({ currentUser, reminder }) => {
   }
 }
 
-const ReminderSupplement = ({ reminderSupplement }) => {
-  return (<React.Fragment>{reminderSupplementHelper.name(reminderSupplement)}<br /></React.Fragment>)
+const ReminderSupplement = ({ patientSupplement }) => {
+  return (<React.Fragment>{patientSupplementHelper.name(patientSupplement)}<br /></React.Fragment>)
 }
 
 const ReminderSupplements = ({ currentUser, reminder }) => {
-  const reminderSupplements = valueHelper.arrayWithDefault(reminderHelper.reminderSupplements).map(
-    (reminderSupplement, idx) => {
-      return (<ReminderSupplement key={`reminder - supplement - ${idx}`} reminderSupplement={reminderSupplement} />)
+  const reminderSupplements = valueHelper.arrayWithDefault(reminderHelper.patientSupplements(reminder)).map(
+    (patientSupplement, idx) => {
+      return (<ReminderSupplement key={`patient-supplement-${idx}`} patientSupplement={patientSupplement} />)
     }
   )
 
