@@ -432,13 +432,13 @@ class ReminderModal extends Component {
       <div>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={(event) => { this.vm.toggleModal(clearModal) }}>
+          onClick={(_event) => { this.vm.toggleModal(clearModal) }}>
           Cancel
         </button>
         <button
           className="btn btn-sm btn-primary"
           onClick={
-            (event) => {
+            (_event) => {
               this.vm.submitModalCreateOrUpdate("reminder", reminder, changedReminder)
             }
           }>
@@ -457,7 +457,7 @@ class ReminderModal extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

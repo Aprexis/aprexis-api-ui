@@ -19,7 +19,7 @@ class ReminderProfilePageViewModel extends AbstractPageViewModel {
           "reminder",
           {
             operation: "update",
-            onUpdateView: this.refreshData,
+            onUpdateView: this.loadData,
             reminder
           }
         )

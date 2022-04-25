@@ -40,6 +40,7 @@ export const userHelper = {
   lastName,
   modelName,
   patient,
+  patientId,
   pharmacistDisplay,
   pharmacistNPI,
   pharmacyChains,
@@ -180,7 +181,7 @@ function canCreatePatientPhysician(user, pathEntries) {
   }
 }
 
-function canCreateReminder(user, pathEntries) {
+function canCreateReminder(user, _pathEntries) {
   switch (userHelper.role(user)) {
     case "aprexis_admin":
       return true
@@ -306,6 +307,10 @@ function modelName() {
 
 function patient(user) {
   return fieldHelper.getField(user, "patient")
+}
+
+function patientId(user) {
+  return fieldHelper.getField(user, "id")
 }
 
 function pharmacistDisplay(user) {

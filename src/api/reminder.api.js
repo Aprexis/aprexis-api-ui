@@ -4,9 +4,12 @@ import { reminderHelper } from "../helpers"
 export const reminderApi = {
   buildNew,
   create,
+  destroy,
+  edit,
   listForPatient,
   profile,
-  show
+  show,
+  update
 }
 
 function toJSON(reminder) {
@@ -43,6 +46,26 @@ function create(userCredentials, reminder, onSuccess, onFailure) {
   API.perform(method, path, "", userCredentials, toJSON(reminder), onSuccess, onFailure)
 }
 
+function destroy(userCredentials, reminder_id, onSuccess, onFailure) {
+  if (!API.validateId("reminder ID", reminder_id, onFailure)) {
+    return
+  }
+
+  const method = "DELETE"
+  const path = `/reminders/${reminder_id}`
+  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+}
+
+function edit(userCredentials, reminder_id, onSuccess, onFailure) {
+  if (!API.validateId("reminder ID", reminder_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/reminders/${reminder_id}/edit`
+  API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+}
+
 function listForPatient(userCredentials, patient_id, params, onSuccess, onFailure) {
   if (!API.validateId("patient ID", patient_id, onFailure)) {
     return
@@ -71,4 +94,10 @@ function show(userCredentials, reminder_id, onSuccess, onFailure) {
   const method = "GET"
   const path = `/reminders/${reminder_id}`
   API.perform(method, path, '', userCredentials, undefined, onSuccess, onFailure)
+}
+
+function update(userCredentials, reminder, onSuccess, onFailure) {
+  const method = "PUT"
+  const path = `/reminders/${reminder.id}`
+  API.perform(method, path, "", userCredentials, toJSON(reminder), onSuccess, onFailure)
 }

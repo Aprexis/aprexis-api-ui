@@ -37,6 +37,7 @@ export const reminderHelper = {
   modelName,
   monday,
   patient,
+  patientId,
   patientName,
   patientSupplements,
   recurFrom,
@@ -81,8 +82,23 @@ const reminderKeys = [
 ]
 
 const reminderEditableFields = [
+  "day_of_month",
+  "email_address",
+  "friday",
+  "monday",
   "recur_from",
-  "recur_to"
+  "recur_to",
+  "remind_at",
+  "remind_at_time_zone",
+  "reminder_medicaions",
+  "reminder_supplements",
+  "saturday",
+  "sunday",
+  "thursday",
+  "tuesday",
+  "txt_number",
+  "voice_number",
+  "wednesday"
 ]
 
 function action(reminder) {
@@ -133,11 +149,25 @@ function canBeCreated(user, pathEntries) {
 }
 
 function canDelete(user, reminder) {
-  return false
+  return reminderHelper.canEdit(user, reminder)
 }
 
 function canEdit(user, reminder) {
-  return false
+  switch (userHelper.role(user)) {
+    case "aprexis_admin":
+      return true
+
+    case "pharmacy_store_admin":
+    case "pharmacy_store_tech":
+    case "pharmacy_store_user":
+      return true
+
+    case "patient_user_role":
+      return userHelper.patientId(user) == reminderHelper.patientId(reminder)
+
+    default:
+      return false
+  }
 }
 
 function canModifyField(reminder, fieldName) {
@@ -145,7 +175,7 @@ function canModifyField(reminder, fieldName) {
     return true
   }
 
-  return (reminderEditableFields.includes(fieldName))
+  return reminderEditableFields.includes(fieldName)
 }
 
 
@@ -244,6 +274,10 @@ function monday(reminder) {
 
 function patient(reminder) {
   return fieldHelper.getField(reminder, "patient")
+}
+
+function patientId(reminder) {
+  return fieldHelper.getField(reminder, "patient_id")
 }
 
 function patientName(reminder) {

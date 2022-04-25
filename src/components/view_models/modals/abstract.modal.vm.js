@@ -285,13 +285,13 @@ class AbstractModalViewModel extends AbstractViewModel {
       <React.Fragment>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={(event) => { this.toggleModal(clearModal) }}>
+          onClick={(_event) => { this.toggleModal(clearModal) }}>
           {cancelLabel}
         </button>
         <button
           className="btn btn-sm btn-primary"
           onClick={
-            (event) => {
+            (_event) => {
               const { changedModel, model } = this.model()
 
               this.submitModal(modelName, model, changedModel)

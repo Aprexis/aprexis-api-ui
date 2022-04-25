@@ -56,17 +56,17 @@ function listRow(
 ) {
   let onProfile
   if (valueHelper.isFunction(gotoTableItemProfile)) {
-    onProfile = (event) => { gotoTableItemProfile(tableItem) }
+    onProfile = (_event) => { gotoTableItemProfile(tableItem) }
   }
 
   let onEdit
   if (valueHelper.isFunction(onEditTableItem)) {
-    onEdit = (event) => { onEditTableItem(tableItem) }
+    onEdit = (_event) => { onEditTableItem(tableItem) }
   }
 
   let onDelete
   if (valueHelper.isFunction(onDeleteTableItem)) {
-    onDelete = (event) => { onDeleteTableItem(tableItem, onRefresh) }
+    onDelete = (_event) => { onDeleteTableItem(tableItem, onRefresh) }
   }
 
   const row = [
