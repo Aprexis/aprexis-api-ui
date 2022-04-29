@@ -7,7 +7,6 @@ import { DisplayAlert } from "./shared"
 
 class Main extends Component {
   render() {
-
     return (
       <div className="main main-content sidebar">
         <div className="px-0 mx-0">

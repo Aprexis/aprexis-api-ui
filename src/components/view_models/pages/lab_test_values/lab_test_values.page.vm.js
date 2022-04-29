@@ -1,18 +1,63 @@
 import { AbstractListPageViewModel } from "../"
 import { labTestValueApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { alertHelper, filtersHelper, labTestValueHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
 
 class LabTestValuesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
+    this.canCreate = this.canCreate.bind(this)
+    this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoLabTestProfile = this.gotoLabTestProfile.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
+  }
+
+  api() {
+    return labTestValueApi
+  }
+
+  canCreate() {
+    const { currentUser } = this.props
+    const pathEntries = this.pathEntries()
+
+    return this.helper().canBeCreated(currentUser, pathEntries)
+  }
+
+  createModal() {
+    const pathEntries = this.pathEntries()
+    const patientId = pathHelper.id(pathEntries, "patients")
+    const interventionId = pathHelper.id(pathEntries, "interventions")
+    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy_store_id")
+
+    if (valueHelper.isNumberValue(interventionId)) {
+      alertHelper.warn("Creation of intervention lab test values is not yet supported")
+      return
+    }
+
+    if (!valueHelper.isNumberValue(patientId)) {
+      alertHelper.warn("Need a patient to create a lab test value")
+      return
+    }
+
+    this.api().buildNewForPatient(
+      userCredentialsHelper.get(),
+      patientId,
+      pharmacyStoreId,
+      (labTestValue) => {
+        this.props.launchModal(
+          "lab-test-value",
+          { operation: "create", onUpdateView: this.refreshData, labTestValue }
+        )
+      },
+      this.onError
+    )
   }
 
   defaultParameters() {
@@ -27,7 +72,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     const pathEntries = this.pathEntries()
     const filterDescriptions = [filtersHelper.stringFilter("Key Code", "for_key_code")]
 
@@ -58,6 +103,10 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     pathHelper.gotoPage(pathArray)
   }
 
+  helper() {
+    return labTestValueHelper
+  }
+
   loadData() {
     this.clearData()
     this.defaultParameters()
@@ -71,6 +120,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     const pathEntries = this.pathEntries()
 
     list(
+      this.api(),
       pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
@@ -86,16 +136,16 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(pathEntries, userCredentials, params, onSuccess, onError) {
+    function list(api, pathEntries, userCredentials, params, onSuccess, onError) {
       const intervention = pathEntries['interventions']
       if (valueHelper.isValue(intervention)) {
-        labTestValueApi.listForIntervention(userCredentials, intervention.value, params, onSuccess, onError)
+        api.listForIntervention(userCredentials, intervention.value, params, onSuccess, onError)
         return
       }
 
       const patient = pathEntries['patients']
       if (valueHelper.isValue(patient)) {
-        labTestValueApi.listForPatient(userCredentials, patient.value, params, onSuccess, onError)
+        api.listForPatient(userCredentials, patient.value, params, onSuccess, onError)
         return
       }
 

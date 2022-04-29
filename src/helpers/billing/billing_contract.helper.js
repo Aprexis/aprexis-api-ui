@@ -23,6 +23,7 @@ export const billingContractHelper = {
   healthPlanId,
   healthPlanName,
   id,
+  label,
   modelName,
   name,
   startDate,
@@ -164,6 +165,10 @@ function healthPlanName(billingContract) {
 
 function id(billingContract) {
   return fieldHelper.getField(billingContract, "id")
+}
+
+function label(billingContract) {
+  return `${billingContractHelper.healthPlanName(billingContract)} Contract: ${billingContractHelper.name(billingContract)}`
 }
 
 function modelName() {

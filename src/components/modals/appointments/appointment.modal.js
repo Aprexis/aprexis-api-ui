@@ -136,6 +136,7 @@ class AppointmentModal extends Component {
                     id={appointmentHelper.pharmacyStoreId(appointment)}
                     onChange={this.vm.selectPharmacyStore}
                     readOnly={!appointmentHelper.canModifyField(appointment, "pharmacy_store_id")}
+                    required={this.vm.isRequired('pharmacy_store_id')}
                   />
                 }
 
@@ -146,6 +147,7 @@ class AppointmentModal extends Component {
                     fieldOptions={venues}
                     helper={appointmentHelper}
                     model={appointment}
+                    required={this.vm.isRequired("venue")}
                   />
                 </FormGroup>
               </Form>

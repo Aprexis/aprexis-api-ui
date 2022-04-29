@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { valueHelper } from "../../helpers"
 import { billingContractHelper } from "../../helpers/billing"
-import { Autocomplete } from "./"
+import { Autocomplete, ShowRequired } from "./"
 import { SelectBillingContractViewModel } from "../view_models/shared"
 
 const SearchForBillingContract = ({ props, state, vm }) => {
-  const { readOnly } = props
+  const { readOnly, required } = props
   const { enableSearch, item, searchText, searchResults } = state
   const label = valueHelper.isValue(item) ? vm.displayModel(item) : ""
   const rowClassName = valueHelper.isSet(enableSearch) ? "mb-0 pb-0" : ""
@@ -16,7 +16,7 @@ const SearchForBillingContract = ({ props, state, vm }) => {
   return (
     <React.Fragment>
       <FormGroup row className={rowClassName} style={{ width: "100%" }}>
-        <Col xs={2}><label>{props.fieldLabel}</label></Col>
+        <Col xs={2}><label>{props.fieldLabel}<ShowRequired required={required} /></label></Col>
         <Col xs={9}>
           <label>{label}</label>
         </Col>
@@ -39,6 +39,7 @@ const SearchForBillingContract = ({ props, state, vm }) => {
         <Autocomplete
           clearFunction={vm.clearSearch}
           filters={props.baseFilters}
+          helper={this.vm_helper}
           inForm={props.inForm}
           inputName={props.fieldLabel}
           inputPlaceholder={props.fieldLabel.toLowerCase()}
@@ -49,7 +50,7 @@ const SearchForBillingContract = ({ props, state, vm }) => {
           searchMinLength={props.minLength ?? 3}
           searchText={searchText}
           sorting={{ sort: "health_plan_name,name" }}
-          tableDisplayProps={["health_plan.name", "name"]}
+          tableDisplayProps={["label"]}
         />
       }
     </React.Fragment >

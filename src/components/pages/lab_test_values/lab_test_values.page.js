@@ -34,6 +34,11 @@ const headings = [
     method: "programName"
   },
   {
+    name: "Taken At",
+    field: "value_taken_at",
+    method: "displayValueTakenAt",
+  },
+  {
     name: "Value",
     field: "value",
     method: "value"
@@ -54,6 +59,7 @@ class LabTestValuesPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
+    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -98,6 +104,22 @@ class LabTestValuesPage extends Component {
     )
   }
 
+  nav(_list) {
+    if (!this.vm.canCreate()) {
+      return
+    }
+
+    return (
+      <nav className="btn-toolbar mb-2 mb-md-0">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={this.vm.createModal}>
+          <strong>+</strong> Add Lab Test Value
+        </button>
+      </nav>
+    )
+  }
+
   render() {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
@@ -117,6 +139,7 @@ class LabTestValuesPage extends Component {
         listLabel="Lab Test Value"
         listPluralLabel="Lab Test Values"
         modal={this.state.modal}
+        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
@@ -130,7 +153,7 @@ class LabTestValuesPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

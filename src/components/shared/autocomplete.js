@@ -4,13 +4,18 @@ import { valueHelper } from "../../helpers"
 import { Spinner } from "./"
 import { AutocompleteViewModel } from "../view_models/shared"
 
-function extractPropertyValue(model, property) {
+function extractPropertyValue(model, property, helper) {
   if (!valueHelper.isValue(model)) {
     return ""
   }
 
-  const dotIndex = property.indexOf(".")
+  if (valueHelper.isFunction(helper)) {
+    if (valueHelper.isFunction(helper()[property])) {
+      return helper()[property](model)
+    }
+  }
 
+  const dotIndex = property.indexOf(".")
   if (dotIndex === -1) {
     return model[property]
   }
@@ -35,10 +40,10 @@ const InputBlock = ({ className, disabled, inputName, inputPlaceHolder, readOnly
   )
 }
 
-const TableEmpty = ({ inputName, item, searchText, tableDisplayProps }) => {
+const TableEmpty = ({ helper, inputName, item, searchText, tableDisplayProps }) => {
   let label = "No matching results found"
   if (valueHelper.isValue(item) && valueHelper.isValue(searchText)) {
-    const propertyValue = extractPropertyValue(item, tableDisplayProps[0])
+    const propertyValue = extractPropertyValue(item, tableDisplayProps[0], helper)
     if (searchText == propertyValue) {
       label = ""
     }
@@ -70,15 +75,16 @@ const TableLoading = ({ loading, tableDisplayProps }) => {
   )
 }
 
-const TableColumn = ({ option, property }) => {
-  const propertyValue = extractPropertyValue(option, property)
+const TableColumn = ({ helper, option, property }) => {
+  const propertyValue = extractPropertyValue(option, property, helper)
   return (<td className="mt-0 mb-0 pt-0 pb-0">{propertyValue}</td>)
 }
 
-const TableColumns = ({ option, rowKey, tableDisplayProps }) => {
+const TableColumns = ({ helper, option, rowKey, tableDisplayProps }) => {
   return tableDisplayProps.map(
     (property, propertyIndex) => (
       <TableColumn
+        helper={helper}
         key={`${rowKey}-${property}-${propertyIndex}`}
         option={option}
         property={property}
@@ -91,6 +97,7 @@ const TableRow = (
   {
     addField,
     clearFunction,
+    helper,
     onOptionSelect,
     option,
     rowKey,
@@ -98,7 +105,7 @@ const TableRow = (
     tableDisplayProps
   }
 ) => {
-  const onRowClick = (event) => {
+  const onRowClick = (_event) => {
     clearFunction()
     onOptionSelect(option)
 
@@ -115,6 +122,7 @@ const TableRow = (
   return (
     <tr className="mt-0 mb-0 pt-0 pb-0" onClick={onRowClick}>
       <TableColumns
+        helper={helper}
         option={option}
         rowKey={rowKey}
         tableDisplayProps={tableDisplayProps}
@@ -127,6 +135,7 @@ const TableRows = (
   {
     addField,
     clearFunction,
+    helper,
     inputName,
     item,
     loading,
@@ -149,7 +158,8 @@ const TableRows = (
   if (filteredOptions.length === 0) {
     return (
       <TableEmpty
-        nputName={inputName}
+        helper={helper}
+        inputName={inputName}
         item={item}
         searchText={searchText}
         tableDisplayProps={tableDisplayProps}
@@ -165,6 +175,7 @@ const TableRows = (
           <TableRow
             addField={addField}
             clearFunction={clearFunction}
+            helper={helper}
             key={rowKey}
             onOptionSelect={onOptionSelect}
             option={option}
@@ -181,6 +192,7 @@ const TableBody = (
   {
     addField,
     clearFunction,
+    helper,
     inputName,
     item,
     loading,
@@ -198,6 +210,7 @@ const TableBody = (
       <TableRows
         addField={addField}
         clearFunction={clearFunction}
+        helper={helper}
         inputName={inputName}
         item={item}
         loading={loading}
@@ -254,6 +267,7 @@ const AutocompleteTable = (
   {
     addField,
     clearFunction,
+    helper,
     inputName,
     item,
     loading,
@@ -272,6 +286,7 @@ const AutocompleteTable = (
       <TableBody
         addField={addField}
         clearFunction={clearFunction}
+        helper={helper}
         inputName={inputName}
         item={item}
         loading={loading}
@@ -324,6 +339,7 @@ class Autocomplete extends Component {
       clearFunction,
       disabled,
       inForm,
+      helper,
       inputName,
       inputPlaceHolder,
       item,
@@ -340,6 +356,7 @@ class Autocomplete extends Component {
       <AutocompleteTable
         addField={this.vm.addField}
         clearFunction={clearFunction}
+        helper={helper}
         inputName={inputName}
         item={item}
         loading={loading}
@@ -410,7 +427,7 @@ class Autocomplete extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

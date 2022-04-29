@@ -1,0 +1,151 @@
+import React, { Component } from "react"
+import { Col, Container, Form, FormGroup, Row } from "reactstrap"
+import {
+  SelectLabTest,
+  SelectPharmacyStore,
+  TextFieldEditor
+} from "../../shared"
+import { LabTestValueModalViewModel } from "../../view_models/modals/lab_test_values"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+import { patientHelper, labTestValueHelper, valueHelper, pathHelper } from "../../../helpers"
+
+const LabTestValueLabTest = ({ isRequired, labTestValue, onChange, props }) => {
+  return (
+    <SelectLabTest
+      {...valueHelper.importantProps(props)}
+      fieldLabel="Lab Test"
+      inForm={true}
+      id={labTestValueHelper.labTestId(labTestValue)}
+      onChange={onChange}
+      readOnly={!labTestValueHelper.canModifyField(labTestValue, "lab_test_id")}
+      required={isRequired("lab_test_id")}
+    />
+  )
+}
+
+const LabTestValuePharmacyStore = ({ isRequired, labTestValue, onChange, pathEntries, props }) => {
+  if (pathHelper.isSingular(pathEntries, "pharmacy-stores")) {
+    return (<React.Fragment />)
+  }
+
+  return (
+    <SelectPharmacyStore
+      {...valueHelper.importantProps(props)}
+      fieldLabel="Pharmacy Store"
+      inForm={true}
+      id={labTestValueHelper.pharmacyStoreId(labTestValue)}
+      onChange={onChange}
+      readOnly={!pathHelper.isSingular(pathEntries, "pharmacy-stores") && !labTestValueHelper.canModifyField(labTestValue, "pharmacy_store_id")}
+      required={isRequired("pharmacy_store_id")}
+    />
+  )
+}
+
+class LabTestValueModal extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {}
+    this.vm = new LabTestValueModalViewModel(
+      {
+        ...props,
+        view: this
+      }
+    )
+
+    this.renderFooter = this.renderFooter.bind(this)
+    this.renderHeader = this.renderHeader.bind(this)
+  }
+
+  componentDidMount() {
+    this.vm.loadData()
+  }
+
+  render() {
+    const { labTestValue } = this.state
+    const { pathEntries } = this.vm.pathEntries()
+
+    return (
+      <AprexisModal
+        {...this.props}
+        modalClassName="lab-test-value modal-xw"
+        modalFooterComponents={this.renderFooter()}
+        modalHeaderComponents={this.renderHeader()}>
+        <Container>
+          <Row>
+            <Col>
+              <Form>
+                <LabTestValuePharmacyStore
+                  isRequired={this.vm.isRequired}
+                  labTestValue={labTestValue}
+                  onChange={this.vm.changeField}
+                  pathEntries={pathEntries}
+                  props={this.props}
+                />
+
+                <LabTestValueLabTest
+                  isRequired={this.vm.isRequired}
+                  labTestValue={labTestValue}
+                  onChange={this.vm.changeField}
+                  props={this.props}
+                />
+
+                <FormGroup row>
+                  <TextFieldEditor
+                    changeField={this.vm.changeField}
+                    email={true}
+                    fieldName="value"
+                    helper={labTestValueHelper}
+                    model={labTestValue}
+                    required={this.vm.isRequired("value")}
+                  />
+                </FormGroup>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </AprexisModal>
+    )
+  }
+
+  renderFooter() {
+    const { clearModal } = this.props
+    const { changedLabTestValue, operation, labtestvalue } = this.state
+
+    return (
+      <div>
+        <button
+          className="btn btn-sm btn-secondary mr-auto"
+          onClick={(_event) => { this.vm.toggleModal(clearModal) }}>
+          Cancel
+        </button>
+        <button
+          className="btn btn-sm btn-primary"
+          onClick={
+            (_event) => {
+              this.vm.submitModalCreateOrUpdate("labtestvalue", labtestvalue, changedLabTestValue)
+            }
+          }>
+          {valueHelper.humanize(operation)}
+        </button>
+      </div>
+    )
+  }
+
+  renderHeader() {
+    const { patient } = this.state
+    const title = `Lab Test for ${patientHelper.name(patient)}`
+
+    return (
+      <AprexisModalHeader title={title} />
+    )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
+  }
+}
+
+const aprexisLabTestValueModal = aprexisWrapperModal(LabTestValueModal)
+export { aprexisLabTestValueModal as LabTestValueModal }

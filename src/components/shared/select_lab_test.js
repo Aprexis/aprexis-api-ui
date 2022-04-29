@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import { SearchForItem } from "./search_for_item"
-import { SelectPhysicianViewModel } from "../view_models/shared"
+import { SelectLabTestViewModel } from "../view_models/shared"
 
-class SelectPhysician extends Component {
+class SelectLabTest extends Component {
   constructor(props) {
     super(props)
 
-    this.vm = new SelectPhysicianViewModel(
+    this.vm = new SelectLabTestViewModel(
       {
         ...props,
         view: this
@@ -40,7 +40,7 @@ class SelectPhysician extends Component {
         required={required}
         searchText={searchText}
         searchResults={searchResults}
-        sorting={{ sort: "last_name,first_name,middle_name,npi,city,state" }}
+        sorting={{ sort: "vital,category,full_name" }}
         tableDisplayProps={["label"]}
         vm={this.vm}
       />
@@ -53,4 +53,4 @@ class SelectPhysician extends Component {
   }
 }
 
-export { SelectPhysician }
+export { SelectLabTest }

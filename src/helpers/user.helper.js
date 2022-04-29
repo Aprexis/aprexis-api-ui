@@ -13,6 +13,7 @@ export const userHelper = {
   canCreateBillingContract,
   canCreateBillingContractPharmacyChain,
   canCreateBillingContractPharmacyStore,
+  canCreateLabTestValue,
   canCreatePatient,
   canCreatePatientAllergy,
   canCreatePatientMedication,
@@ -97,6 +98,28 @@ function canCreateBillingContractPharmacyChain(user) {
 
 function canCreateBillingContractPharmacyStore(user) {
   return userHelper.hasRole(user, "aprexis_admin")
+}
+
+function canCreateLabTestValue(user, _pathEntries) {
+  switch (userHelper.role(user)) {
+    case "aprexis_admin":
+      return true
+
+    case "health_plan_admin":
+    case "health_plan_user":
+      return false
+
+    case "pharmacy_store_admin":
+    case "pharmacy_store_tech":
+    case "pharmacy_store_user":
+      return true
+
+    case "patient_user_role":
+      return true
+
+    default:
+      return false
+  }
 }
 
 function canCreatePatient(user, pathEntries) {

@@ -6,15 +6,21 @@ class SelectPatientSupplementViewModel extends AbstractSelectAutocompleteViewMod
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.displayModel = this.displayModel.bind(this)
     this.doSearch = this.doSearch.bind(this)
     this.fetchModel = this.fetchModel.bind(this)
+    this.helper = this.helper.bind(this)
     this.select = this.select.bind(this)
     this.selectEvent = this.selectEvent.bind(this)
   }
 
+  api() {
+    return patientSupplementApi
+  }
+
   displayModel(model) {
-    return patientSupplementHelper.supplementLabel(model)
+    return this.helper().label(model)
   }
 
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {
@@ -23,11 +29,15 @@ class SelectPatientSupplementViewModel extends AbstractSelectAutocompleteViewMod
       for_supplement: searchText
     }
 
-    patientSupplementApi.searchForPatient(userCredentialsHelper.get(), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().searchForPatient(userCredentialsHelper.get(), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    patientSupplementApi.show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+  }
+
+  helper() {
+    return patientSupplementHelper
   }
 
   select(item) {

@@ -1,7 +1,7 @@
 export const userRoles = {
   "": {
     has_npi: false,
-    label: "(no user)"
+    label: "No Role Assigned"
   },
   aprexis_admin: {
     has_npi: false,

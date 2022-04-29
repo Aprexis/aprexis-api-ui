@@ -1,11 +1,15 @@
 import { fieldHelper } from "./field.helper"
 import { patientHelper } from "./patient.helper"
 import { physicianHelper } from "./admin"
+import { valueHelper } from "./value.helper"
+import { dateHelper } from "./date.helper"
 
 export const patientSupplementHelper = {
   canDelete,
   canEdit,
+  displayStartDate,
   id,
+  label,
   modelName,
   name,
   patient,
@@ -20,16 +24,33 @@ export const patientSupplementHelper = {
   startDate
 }
 
-function canDelete(user, patientSupplement) {
+function canDelete(_user, _patientSupplement) {
   return false
 }
 
-function canEdit(user, patientSupplement) {
+function canEdit(_user, _patientSupplement) {
   return false
+}
+
+function displayStartDate(patientSupplement) {
+  const startDate = patientSupplementHelper.startDate(patientSupplement)
+  if (!valueHelper.isValue(startDate)) {
+    return ""
+  }
+
+  return dateHelper.displayDate(startDate)
 }
 
 function id(patientSupplement) {
   return fieldHelper.getField(patientSupplement, "id")
+}
+
+function label(patientSupplement) {
+  if (!valueHelper.isValue(patientSupplement)) {
+    return ""
+  }
+
+  return `${patientSupplementHelper.name(patientSupplement)} started on ${patientSupplementHelper.displayStartDate(patientSupplement)}`
 }
 
 function modelName() {

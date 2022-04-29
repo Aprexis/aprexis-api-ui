@@ -7,6 +7,7 @@ import { pharmacyStoreHelper } from "./pharmacy_store.helper"
 import { userHelper } from "./user.helper"
 import { medicationHelper, physicianHelper } from "./admin"
 import { patientMedications } from "../types"
+import { dateHelper } from "./date.helper"
 
 export const patientMedicationHelper = {
   additionalInformation,
@@ -21,12 +22,14 @@ export const patientMedicationHelper = {
   changePhysician,
   daysSupply,
   directions,
+  displayFilledAt,
   displayStrength,
   displayType,
   filledAt,
   healthPlanId,
   id,
   indication,
+  label,
   medication,
   medicationId,
   medicationLabel,
@@ -116,7 +119,7 @@ function canBeCreated(user, pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients")
 }
 
-function canDelete(user, patientMedication) {
+function canDelete(_user, _patientMedication) {
   return false
 }
 
@@ -212,6 +215,15 @@ function directions(patientMedication) {
   return fieldHelper.getField(patientMedication, "directions")
 }
 
+function displayFilledAt(patientMedication) {
+  const filledAt = patientMedicationHelper.filledAt(patientMedication)
+  if (!valueHelper.isValue(filledAt)) {
+    return ""
+  }
+
+  return dateHelper.displayDateTime(filledAt)
+}
+
 function displayStrength(patientMedication) {
   const strength = patientMedicationHelper.strength(patientMedication)
   const strengthUnits = patientMedicationHelper.strengthUnits(patientMedication)
@@ -260,6 +272,14 @@ function id(patientMedication) {
 
 function indication(patientMedication) {
   return fieldHelper.getField(patientMedication, "indication")
+}
+
+function label(patientMedication) {
+  if (!valueHelper.isValue(patientMedication)) {
+    return ""
+  }
+
+  return `${patientMedicationHelper.medicationLabel(patientMedication)} filled at ${patientMedicationHelper.displayFilledAt(patientMedication)}`
 }
 
 function medication(patientMedication) {

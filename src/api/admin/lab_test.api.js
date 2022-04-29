@@ -2,12 +2,19 @@ import { API } from "../"
 
 export const labTestApi = {
   index,
+  search,
   show
 }
 
 function index(userCredentials, params, onSuccess, onFailure) {
   const method = "GET"
   const path = "/admin/lab_tests"
+  API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function search(userCredentials, params, onSuccess, onFailure) {
+  const method = "GET"
+  const path = "/admin/lab_tests/search"
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
 }
 

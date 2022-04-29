@@ -32,11 +32,11 @@ function address(pharmacyChain) {
   return addressHelper.address(pharmacyChain)
 }
 
-function canDelete(user, pharmacyChain) {
+function canDelete(_user, _pharmacyChain) {
   return false
 }
 
-function canEdit(user, pharmacyChain) {
+function canEdit(_user, _pharmacyChain) {
   return false
 }
 

@@ -13,7 +13,7 @@ const headings = [
   {
     name: "Role",
     field: "role",
-    method: "role"
+    method: "displayRole"
   },
   {
     name: "Name",

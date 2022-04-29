@@ -6,12 +6,18 @@ class SelectPharmacyChainViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.determineSelectStyle = this.determineSelectStyle.bind(this)
     this.displayModel = this.displayModel.bind(this)
     this.doSearch = this.doSearch.bind(this)
     this.fetchModel = this.fetchModel.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.loadPharmacyChains = this.loadPharmacyChains.bind(this)
+  }
+
+  api() {
+    return pharmacyChainApi
   }
 
   determineSelectStyle(pharmacyChains, pharmacyChainHeaders) {
@@ -36,7 +42,7 @@ class SelectPharmacyChainViewModel extends AbstractSelectAutocompleteViewModel {
   }
 
   displayModel(model) {
-    return pharmacyChainHelper.chain(model)
+    return this.helper().chain(model)
   }
 
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {
@@ -45,11 +51,15 @@ class SelectPharmacyChainViewModel extends AbstractSelectAutocompleteViewModel {
       for_chain: searchText
     }
 
-    pharmacyChainApi.search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    pharmacyChainApi.show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+  }
+
+  helper() {
+    return pharmacyChainHelper
   }
 
   loadData() {

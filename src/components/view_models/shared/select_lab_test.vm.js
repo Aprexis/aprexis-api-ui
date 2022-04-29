@@ -1,9 +1,9 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
-import { medicationApi } from "../../../api/admin"
+import { labTestApi } from "../../../api/admin"
 import { userCredentialsHelper } from "../../../helpers"
-import { medicationHelper } from "../../../helpers/admin"
+import { labTestHelper } from "../../../helpers/admin"
 
-class SelectMedicationViewModel extends AbstractSelectAutocompleteViewModel {
+class SelectLabTestViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
     super(props)
 
@@ -15,7 +15,7 @@ class SelectMedicationViewModel extends AbstractSelectAutocompleteViewModel {
   }
 
   api() {
-    return medicationApi
+    return labTestApi
   }
 
   displayModel(model) {
@@ -25,7 +25,7 @@ class SelectMedicationViewModel extends AbstractSelectAutocompleteViewModel {
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {
     const filters = {
       ...baseFilters,
-      for_medication: searchText
+      for_lab_test: searchText
     }
 
     this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
@@ -36,8 +36,8 @@ class SelectMedicationViewModel extends AbstractSelectAutocompleteViewModel {
   }
 
   helper() {
-    return medicationHelper
+    return labTestHelper
   }
 }
 
-export { SelectMedicationViewModel }
+export { SelectLabTestViewModel }

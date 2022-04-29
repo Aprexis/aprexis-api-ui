@@ -19,7 +19,7 @@ class App extends Component {
       }
     )
 
-    history.listen((location, action) => { this.vm.loadData() })
+    history.listen((_location, _action) => { this.vm.loadData() })
   }
 
   componentDidMount() {
@@ -79,8 +79,8 @@ class App extends Component {
           clearAlert={this.vm.clearAlert}
           clearModal={this.vm.clearModal}
           context={this.props.context}
-          currentAdminUser={this.props.currentAdminUser}
-          currentUser={this.props.currentUser}
+          currentAdminUser={currentAdminUser}
+          currentUser={currentUser}
           error={this.vm.error}
           modalClose={this.vm.modalClose}
           modalOpen={this.vm.modalOpen}

@@ -7,13 +7,19 @@ class SelectPhysicianViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.displayModel = this.displayModel.bind(this)
     this.doSearch = this.doSearch.bind(this)
     this.fetchModel = this.fetchModel.bind(this)
+    this.helper = this.helper.bind(this)
+  }
+
+  api() {
+    return physicianApi
   }
 
   displayModel(model) {
-    return physicianHelper.name(model)
+    return this.helper().label(model)
   }
 
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {
@@ -22,11 +28,15 @@ class SelectPhysicianViewModel extends AbstractSelectAutocompleteViewModel {
       for_physician: searchText
     }
 
-    physicianApi.search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    physicianApi.show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+  }
+
+  helper() {
+    return physicianHelper
   }
 }
 

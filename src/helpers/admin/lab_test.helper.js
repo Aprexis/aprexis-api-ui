@@ -1,11 +1,15 @@
 import { fieldHelper } from "../"
+import { valueHelper } from "../value.helper"
 
 export const labTestHelper = {
   canDelete,
   canEdit,
   category,
+  displayVital,
   fullName,
+  isVital,
   keyCode,
+  label,
   modelName,
   name,
   normalValue,
@@ -13,11 +17,11 @@ export const labTestHelper = {
   vital
 }
 
-function canDelete(user, labTest) {
+function canDelete(_user, _labTest) {
   return false
 }
 
-function canEdit(user, labTest) {
+function canEdit(_user, _labTest) {
   return false
 }
 
@@ -25,8 +29,34 @@ function category(labTest) {
   return fieldHelper.getField(labTest, "category")
 }
 
+function displayVital(labTest) {
+  if (!labTestHelper.isVital(labTest)) {
+    return ""
+  }
+
+  return "Vital"
+}
+
 function fullName(labTest) {
   return fieldHelper.getField(labTest, "full_name")
+}
+
+function label(labTest) {
+  if (!valueHelper.isValue(labTest)) {
+    return ""
+  }
+
+  let value = `${labTestHelper.fullName(labTest)} [${labTestHelper.category(labTest)}`
+  if (labTestHelper.isVital(labTest)) {
+    value = `${value} (${labTestHelper.displayVital(labTest)})`
+  }
+  value = `${value}]`
+
+  return value
+}
+
+function isVital(labTest) {
+  return valueHelper.isSet(labTestHelper.vital(labTest))
 }
 
 function keyCode(labTest) {

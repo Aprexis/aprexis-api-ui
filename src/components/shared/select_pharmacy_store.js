@@ -1,99 +1,8 @@
 import React, { Component } from "react"
-import { Col, FormGroup, Input } from "reactstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { pharmacyStoreHelper, valueHelper } from "../../helpers"
-import { Autocomplete } from "./"
+import { SearchForItem } from "./search_for_item"
+import { SelectItemFromList } from "./select_item_from_list"
 import { SelectPharmacyStoreViewModel } from "../view_models/shared"
-
-const SearchForPharmacyStore = ({ props, state, vm }) => {
-  const { readOnly } = props
-  const { enableSearch, item, searchText, searchResults } = state
-  const label = valueHelper.isValue(item) ? vm.displayModel(item) : ""
-  const rowClassName = valueHelper.isSet(enableSearch) ? "mb-0 pb-0" : ""
-
-  return (
-    <React.Fragment>
-      <FormGroup row className={rowClassName} style={{ width: "100%" }}>
-        <Col xs={2}><label>{props.fieldLabel}</label></Col>
-        <Col xs={9}>
-          <label>{label}</label>
-        </Col>
-        {
-          !valueHelper.isSet(readOnly) &&
-          <Col xs={1}>
-            <button
-              className="mt-0 mb-0 pt-0 pb-0 mr-auto btn btn-mobile"
-              disabled={readOnly}
-              onClick={vm.toggleSearch}
-              readOnly={readOnly}
-              type="button">
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
-          </Col>
-        }
-      </FormGroup>
-      {
-        valueHelper.isSet(enableSearch) && !valueHelper.isSet(readOnly) &&
-        <Autocomplete
-          clearFunction={vm.clearSearch}
-          filters={props.baseFilters}
-          inForm={props.inForm}
-          inputName={props.fieldLabel}
-          inputPlaceholder={props.fieldLabel.toLowerCase()}
-          item={item}
-          onOptionSelect={vm.select}
-          options={searchResults}
-          searchFunction={vm.search}
-          searchMinLength={props.minLength ?? 3}
-          searchText={searchText}
-          sorting={{ sort: "name,store_number" }}
-          tableDisplayProps={["store", "pharmacy.name"]}
-        />
-      }
-    </React.Fragment >
-  )
-}
-
-const SelectPharmacyStoreFromList = ({ props, state, vm }) => {
-  const { readOnly, targetName } = props
-  const { item, models } = state
-  let modelOptions
-  if (valueHelper.isValue(models)) {
-    modelOptions = models.map((model) => modelOption(model, vm.displayModel))
-    if (!valueHelper.isValue(item)) {
-      modelOptions.push(<option key="pharmacy-store-none" value=""></option>)
-    }
-  }
-
-  return (
-    <FormGroup row style={{ width: "100%" }}>
-      <Col xs={2}><label>{props.fieldLabel}</label></Col>
-      <Col xs={9}>
-        <Input
-          bsSize="sm"
-          disabled={valueHelper.isSet(readOnly)}
-          name={targetName}
-          onChange={vm.selectEvent}
-          readOnly={readOnly}
-          type="select"
-          value={pharmacyStoreHelper.id(item)}>
-          {modelOptions}
-        </Input>
-      </Col>
-    </FormGroup>
-  )
-
-  function modelOption(model, displayModel) {
-    return (
-      <option
-        key={`pharmacy-store-${pharmacyStoreHelper.id(model)}`}
-        value={pharmacyStoreHelper.id(model)}>
-        {displayModel(model)}
-      </option>
-    )
-  }
-}
 
 class SelectPharmacyStore extends Component {
   constructor(props) {
@@ -117,28 +26,46 @@ class SelectPharmacyStore extends Component {
   }
 
   render() {
-    const { useSearch } = this.state
+    const { fieldLabel, readOnly, required } = this.props
+    const { enableSearch, item, models, searchText, searchResults } = this.state
 
-    if (valueHelper.isSet(useSearch)) {
+    if (valueHelper.isSet(this.props.useSearch)) {
       return (
-        <SearchForPharmacyStore
-          props={this.props}
-          state={this.state}
+        <SearchForItem
+          baseFilters={this.props.baseFilters}
+          enableSearch={enableSearch}
+          fieldLabel={fieldLabel}
+          helper={this.vm.helper}
+          inForm={this.props.inForm}
+          item={item}
+          minLength={this.props.minLength}
+          readOnly={readOnly}
+          required={required}
+          searchText={searchText}
+          searchResults={searchResults}
+          sorting={{ sort: "name,store_number" }}
+          tableDisplayProps={["store"]}
           vm={this.vm}
         />
       )
     }
 
     return (
-      <SelectPharmacyStoreFromList
-        props={this.props}
-        state={this.state}
+      <SelectItemFromList
+        fieldLabel={fieldLabel}
+        helper={pharmacyStoreHelper}
+        item={item}
+        models={models}
+        modelType='pharmacy-store'
+        readOnly={readOnly}
+        required={required}
+        targetName={this.props.targetName}
         vm={this.vm}
       />
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

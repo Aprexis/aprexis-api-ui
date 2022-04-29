@@ -18,6 +18,7 @@ export const physicianHelper = {
   einNumber,
   firstName,
   fullAddress,
+  label,
   lastName,
   middleName,
   modelName,
@@ -92,6 +93,14 @@ function firstName(physician, prefix = "") {
 
 function fullAddress(physician) {
   return addressHelper.fullAddress(physician)
+}
+
+function label(physician) {
+  if (!valueHelper.isValue(physician)) {
+    return ""
+  }
+
+  return `${physicianHelper.nameAndNpi(physician)}`
 }
 
 function lastName(physician, prefix = "") {

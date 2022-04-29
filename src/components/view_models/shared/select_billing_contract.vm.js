@@ -7,12 +7,18 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.determineSelectStyle = this.determineSelectStyle.bind(this)
     this.displayModel = this.displayModel.bind(this)
     this.doSearch = this.doSearch.bind(this)
     this.fetchModel = this.fetchModel.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.loadBillingContracts = this.loadBillingContracts.bind(this)
+  }
+
+  api() {
+    return billingContractApi
   }
 
   determineSelectStyle(billingContracts, billingContractHeaders) {
@@ -37,7 +43,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
   }
 
   displayModel(model) {
-    return billingContractHelper.store(model)
+    return this.helper().label(model)
   }
 
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {
@@ -46,11 +52,15 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
       for_store: searchText
     }
 
-    billingContractApi.search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    billingContractApi.show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+  }
+
+  helper() {
+    return billingContractHelper
   }
 
   loadData() {
@@ -72,7 +82,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
       return
     }
 
-    billingContractApi.listForHealthPlan(
+    this.api().listForHealthPlan(
       userCredentialsHelper.get(),
       health_plan_id,
       params,

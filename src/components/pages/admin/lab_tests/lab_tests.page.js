@@ -27,6 +27,11 @@ const headings = [
     method: "category"
   },
   {
+    name: "Vital",
+    field: "vital",
+    method: "displayVital"
+  },
+  {
     name: "Units",
     field: "units",
     method: "units"

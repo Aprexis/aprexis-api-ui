@@ -7,6 +7,7 @@ import { BillingContractPharmacyStoreModal } from "./billing/pharmacy_stores"
 import { BillingContractTermPatientModal } from "./billing/terms"
 import { BillingContractTermProfileModal } from "./billing/terms"
 import { CaregiverModal } from "./caregivers"
+import { LabTestValueModal } from "./lab_test_values"
 import { PatientAllergyModal } from "./patient_allergies"
 import { PatientConfigurationModal } from "./patients"
 import { PatientMedicationModal } from "./patient_medications"
@@ -27,6 +28,7 @@ const modalList = {
   Caregiver: CaregiverModal,
   Confirm: ConfirmModal,
   Filters: FiltersModal,
+  LabTestValue: LabTestValueModal,
   PatientAllergy: PatientAllergyModal,
   PatientMedication: PatientMedicationModal,
   PatientNote: PatientNoteModal,
