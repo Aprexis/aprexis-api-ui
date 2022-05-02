@@ -13,6 +13,7 @@ class SelectAllergyViewModel extends AbstractSelectAutocompleteViewModel {
     this.fetchModel = this.fetchModel.bind(this)
     this.helper = this.helper.bind(this)
     this.itemId = this.itemId.bind(this)
+    this.modelSearchText = this.modelSearchText.bind(this)
   }
 
   api() {
@@ -42,6 +43,10 @@ class SelectAllergyViewModel extends AbstractSelectAutocompleteViewModel {
 
   itemId(item) {
     return goldStandardAllergyHelper.allergyId(item)
+  }
+
+  modelSearchText(model) {
+    return this.displayModel(model)
   }
 }
 

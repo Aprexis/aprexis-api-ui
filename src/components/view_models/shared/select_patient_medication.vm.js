@@ -11,6 +11,7 @@ class SelectPatientMedicationViewModel extends AbstractSelectAutocompleteViewMod
     this.doSearch = this.doSearch.bind(this)
     this.fetchModel = this.fetchModel.bind(this)
     this.helper = this.helper.bind(this)
+    this.modelSearchText = this.modelSearchText.bind(this)
     this.select = this.select.bind(this)
     this.selectEvent = this.selectEvent.bind(this)
   }
@@ -38,6 +39,10 @@ class SelectPatientMedicationViewModel extends AbstractSelectAutocompleteViewMod
 
   helper() {
     return patientMedicationHelper
+  }
+
+  modelSearchText(model) {
+    return this.displayModel(model)
   }
 
   select(item) {

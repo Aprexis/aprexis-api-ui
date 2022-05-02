@@ -4,8 +4,10 @@ import { labTestValueHelper, valueHelper } from "../helpers"
 export const labTestValueApi = {
   buildNewForPatient,
   create,
+  edit,
   listForIntervention,
-  listForPatient
+  listForPatient,
+  update
 }
 
 function toJSON(labTestValue) {
@@ -53,6 +55,16 @@ function create(userCredentials, labTestValue, onSuccess, onFailure) {
   API.perform(method, path, "", userCredentials, toJSON(labTestValue), onSuccess, onFailure)
 }
 
+function edit(userCredentials, lab_test_value_id, onSuccess, onFailure) {
+  if (!API.validateId("lab test value ID", lab_test_value_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/lab_test_values/${lab_test_value_id}/edit`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
+
 function listForIntervention(userCredentials, intervention_id, params, onSuccess, onFailure) {
   if (!API.validateId("intervention ID", intervention_id, onFailure)) {
     return
@@ -71,4 +83,10 @@ function listForPatient(userCredentials, patient_id, params, onSuccess, onFailur
   const method = "GET"
   const path = `/patients/${patient_id}/lab_test_values/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function update(userCredentials, lab_test_value, onSuccess, onFailure) {
+  const method = "PUT"
+  const path = `/lab_test_values/${lab_test_value.id}`
+  API.perform(method, path, "", userCredentials, toJSON(lab_test_value), onSuccess, onFailure)
 }

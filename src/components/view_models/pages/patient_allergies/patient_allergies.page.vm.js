@@ -15,6 +15,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.canCreate = this.canCreate.bind(this)
     this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
@@ -22,23 +23,28 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoPatientAllergyProfile = this.gotoPatientAllergyProfile.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
+  }
+
+  api() {
+    return patientAllergyApi
   }
 
   canCreate() {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    return patientAllergyHelper.canBeCreated(currentUser, pathEntries)
+    return this.helper().canBeCreated(currentUser, pathEntries)
   }
 
   createModal() {
     const pathEntries = this.pathEntries()
     const patientId = pathHelper.id(pathEntries, "patients")
 
-    patientAllergyApi.buildNew(
+    this.api().buildNew(
       userCredentialsHelper.get(),
       patientId,
       (patientAllergy) => {
@@ -58,7 +64,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
   }
 
   editModal(patientAllergyToEdit) {
-    patientAllergyApi.edit(
+    this.api().edit(
       userCredentialsHelper.get(),
       patientAllergyToEdit.id,
       (patientAllergy) => {
@@ -70,7 +76,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 
@@ -82,6 +88,10 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     const pathArray = pathHelper.buildPathArray(window.location, patientAllergy, "profile")
 
     pathHelper.gotoPage(pathArray)
+  }
+
+  helper() {
+    return patientAllergyHelper
   }
 
   loadData() {

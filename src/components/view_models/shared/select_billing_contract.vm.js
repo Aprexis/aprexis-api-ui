@@ -15,6 +15,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.loadBillingContracts = this.loadBillingContracts.bind(this)
+    this.modelSearchText = this.modelSearchText.bind(this)
   }
 
   api() {
@@ -89,6 +90,10 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
       nextOperation,
       this.onError
     )
+  }
+
+  modelSearchText(model) {
+    return this.displayModel(model)
   }
 }
 

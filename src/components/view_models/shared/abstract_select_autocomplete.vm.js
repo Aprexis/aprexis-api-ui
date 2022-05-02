@@ -90,7 +90,7 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
         this.addData(
           { item, searchResults: [item] },
           () => {
-            const searchText = this.displayModel(item)
+            const searchText = this.modelSearchText(item)
             setSearchText(searchText)
           }
         )

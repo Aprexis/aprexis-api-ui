@@ -12,6 +12,7 @@ class SelectMedicationViewModel extends AbstractSelectAutocompleteViewModel {
     this.doSearch = this.doSearch.bind(this)
     this.fetchModel = this.fetchModel.bind(this)
     this.helper = this.helper.bind(this)
+    this.modelSearchText = this.modelSearchText.bind(this)
   }
 
   api() {
@@ -37,6 +38,10 @@ class SelectMedicationViewModel extends AbstractSelectAutocompleteViewModel {
 
   helper() {
     return medicationHelper
+  }
+
+  modelSearchText(model) {
+    return this.displayModel(model)
   }
 }
 

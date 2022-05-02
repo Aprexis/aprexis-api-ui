@@ -89,7 +89,7 @@ function canBeCreated(user, pathEntries) {
   return pathHelper.isSingular(pathEntries, "patients")
 }
 
-function canDelete(user, patientAllergy) {
+function canDelete(_user, _patientAllergy) {
   return false
 }
 

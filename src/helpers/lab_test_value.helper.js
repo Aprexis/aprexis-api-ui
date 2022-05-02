@@ -22,6 +22,7 @@ export const labTestValueHelper = {
   displayConfirmed,
   displayType,
   displayValueTakenAt,
+  id,
   labTestId,
   labTestKeyCode,
   labTestFullName,
@@ -35,6 +36,12 @@ export const labTestValueHelper = {
   value,
   valueTakenAt
 }
+
+const labTestValueEditableFields = [
+  "confirmed",
+  "value",
+  "value_taken_at"
+]
 
 const labTestValueKeys = [
   "id",
@@ -96,24 +103,39 @@ function canDelete(_user, _labTestValue) {
   return false
 }
 
-function canEdit(_user, _labTestValue) {
-  return false
+function canEdit(user, labTestValue) {
+  switch (userHelper.role(user)) {
+    case "aprexis_admin":
+      return true
+
+    case "pharmacy_store_admin":
+      return true
+
+    case "patient_user_role":
+    case "pharmacy_store_tech":
+    case "pharmacy_store_user":
+      return labTestValueHelper.userId(labTestValue) == userHelper.id(user)
+
+    default:
+      return false
+  }
 }
 
 function canModifyField(labTestValue, fieldName) {
   const currentUser = userCredentialsHelper.get()
 
-  switch (fieldName) {
-    case 'calculated':
-      return userHelper.hasRole(currentUser, "aprexis_admin")
+  if (valueHelper.isValue(labTestValueHelper.id(labTestValue)) && !userHelper.hasRole(currentUser, "aprexis_admin") && !labTestValueEditableFields.includes(fieldName)) {
+    return false
+  }
 
+  switch (fieldName) {
     case 'confirmed':
       return userHelper.hasRole(currentUser, "aprexis_admin") ||
         (userHelper.hasRole(["pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user"]) &&
           labTestValueHelper.userId(labTestValue) == currentUser.id)
 
     default:
-      return true
+      return !valueHelper.isValue(labTestValueHelper.id(labTestValue)) || userHelper.hasRole(currentUser, "aprexis_admin")
   }
 }
 
@@ -145,6 +167,10 @@ function displayValueTakenAt(labTestValue) {
   const valueTakenAt = this.valueTakenAt(labTestValue)
 
   return dateHelper.displayDateTime(valueTakenAt)
+}
+
+function id(labTestValue) {
+  return fieldHelper.getField(labTestValue, "id")
 }
 
 function labTestId(labTestValue) {

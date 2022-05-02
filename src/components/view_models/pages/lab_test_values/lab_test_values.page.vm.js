@@ -10,6 +10,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     this.canCreate = this.canCreate.bind(this)
     this.createModal = this.createModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoLabTestProfile = this.gotoLabTestProfile.bind(this)
@@ -70,6 +71,19 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     const sorting = { sort: "patient.last_name,patient.first_name,patient.middle_name,value_taken_at-,key_code" }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editModal(labTestValueToEdit) {
+    this.api().edit(
+      userCredentialsHelper.get(),
+      labTestValueToEdit.id,
+      (labTestValue) => {
+        this.props.launchModal(
+          "lab-test-value",
+          { operation: "update", onUpdateView: this.refreshData, labTestValue })
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(_filters, _filtersOptions) {

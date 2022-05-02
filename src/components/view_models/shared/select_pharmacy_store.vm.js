@@ -14,6 +14,7 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.loadPharmacyStores = this.loadPharmacyStores.bind(this)
+    this.modelSearchText = this.modelSearchText.bind(this)
   }
 
   api() {
@@ -88,6 +89,10 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
       nextOperation,
       this.onError
     )
+  }
+
+  modelSearchText(model) {
+    return this.displayModel(model)
   }
 }
 
