@@ -11,6 +11,11 @@ const headings = [
     method: "labTestKeyCode"
   },
   {
+    name: "Type",
+    field: "type",
+    method: "displayType"
+  },
+  {
     name: "Lab Test",
     field: "lab_test.full_name",
     method: "labTestFullName"
@@ -42,6 +47,16 @@ const headings = [
     name: "Value",
     field: "value",
     method: "value"
+  },
+  {
+    name: "Calculated",
+    field: "calculated",
+    method: "displayCalculated"
+  },
+  {
+    name: "Confirmed",
+    field: "confirmed",
+    method: "displayConfirmed"
   }
 ]
 

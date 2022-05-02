@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
+  BooleanFieldEditor,
+  DayTimeFieldEditor,
   SelectLabTest,
   SelectPharmacyStore,
   TextFieldEditor
@@ -19,6 +21,7 @@ const LabTestValueLabTest = ({ isRequired, labTestValue, onChange, props }) => {
       onChange={onChange}
       readOnly={!labTestValueHelper.canModifyField(labTestValue, "lab_test_id")}
       required={isRequired("lab_test_id")}
+      targetName="lab_test_id"
     />
   )
 }
@@ -37,6 +40,8 @@ const LabTestValuePharmacyStore = ({ isRequired, labTestValue, onChange, pathEnt
       onChange={onChange}
       readOnly={!pathHelper.isSingular(pathEntries, "pharmacy-stores") && !labTestValueHelper.canModifyField(labTestValue, "pharmacy_store_id")}
       required={isRequired("pharmacy_store_id")}
+      targetName="pharmacy_store_id"
+      useSearch={true}
     />
   )
 }
@@ -91,6 +96,25 @@ class LabTestValueModal extends Component {
                 />
 
                 <FormGroup row>
+                  <BooleanFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="confirmed"
+                    helper={labTestValueHelper}
+                    model={labTestValue}
+                    readOnly={!labTestValueHelper.canModifyField(labTestValue, "confirmed")}
+                    required={this.vm.isRequired("confirmed")}
+                  />
+                  <BooleanFieldEditor
+                    changeField={this.vm.changeField}
+                    fieldName="calculated"
+                    helper={labTestValueHelper}
+                    model={labTestValue}
+                    readOnly={!labTestValueHelper.canModifyField(labTestValue, "calculated")}
+                    required={this.vm.isRequired("calculated")}
+                  />
+                </FormGroup>
+
+                <FormGroup row>
                   <TextFieldEditor
                     changeField={this.vm.changeField}
                     email={true}
@@ -98,6 +122,18 @@ class LabTestValueModal extends Component {
                     helper={labTestValueHelper}
                     model={labTestValue}
                     required={this.vm.isRequired("value")}
+                  />
+                </FormGroup>
+
+                <FormGroup row>
+                  <DayTimeFieldEditor
+                    allowBlank={false}
+                    changeField={this.vm.changeDateTime}
+                    fieldLabel="Taken At"
+                    fieldName="value_taken_at"
+                    helper={labTestValueHelper}
+                    earliestDayTime={new Date()}
+                    model={labTestValue}
                   />
                 </FormGroup>
               </Form>
@@ -110,7 +146,7 @@ class LabTestValueModal extends Component {
 
   renderFooter() {
     const { clearModal } = this.props
-    const { changedLabTestValue, operation, labtestvalue } = this.state
+    const { changedLabTestValue, operation, labTestValue } = this.state
 
     return (
       <div>
@@ -123,7 +159,7 @@ class LabTestValueModal extends Component {
           className="btn btn-sm btn-primary"
           onClick={
             (_event) => {
-              this.vm.submitModalCreateOrUpdate("labtestvalue", labtestvalue, changedLabTestValue)
+              this.vm.submitModalCreateOrUpdate(this.vm.modelName(), labTestValue, changedLabTestValue)
             }
           }>
           {valueHelper.humanize(operation)}

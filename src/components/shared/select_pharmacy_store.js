@@ -43,8 +43,8 @@ class SelectPharmacyStore extends Component {
           required={required}
           searchText={searchText}
           searchResults={searchResults}
-          sorting={{ sort: "name,store_number" }}
-          tableDisplayProps={["store"]}
+          sorting={{ sort: "name,store_number,id" }}
+          tableDisplayProps={["identification"]}
           vm={this.vm}
         />
       )

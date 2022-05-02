@@ -34,8 +34,8 @@ class DayTimeFieldEditor extends Component {
           <DayTimePicker
             allowBlank={allowBlank}
             allowEdit={canModifyField}
+            changeDateTime={changeField}
             date={helper[method](model)}
-            dateTimeChange={changeField}
             dateField={`${fieldName}_Date`}
             dateStyle={dateStyle}
             dateTime={helper[method](model, prefix)}

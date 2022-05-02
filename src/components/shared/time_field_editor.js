@@ -31,10 +31,10 @@ class TimeFieldEditor extends Component {
             allowBlank={allowBlank}
             allowEdit={canModifyField}
             timeChange={changeField}
-            field={fieldName}
             step={step}
             style={style}
             time={helper[method](model)}
+            timeField={fieldName}
           />
         </Col>
       </React.Fragment>

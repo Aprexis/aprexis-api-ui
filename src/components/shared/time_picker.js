@@ -30,7 +30,7 @@ class TimePicker extends Component {
   }
 
   render() {
-    const { allowEdit, className, field, readOnly, required, timeStep } = this.props
+    const { allowEdit, className, readOnly, required, timeField, timeStep } = this.props
     const disabled = readOnly || !valueHelper.isSet(allowEdit)
     const step = valueHelper.isNumberValue(timeStep) ? timeStep * 60 : 60
 
@@ -39,7 +39,7 @@ class TimePicker extends Component {
         className={className}
         disabled={disabled}
         readOnly={disabled}
-        name={field}
+        name={timeField}
         onChange={this.vm.timeChange}
         required={required}
         step={step}
@@ -50,7 +50,7 @@ class TimePicker extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     if (!this.vm.propertiesChanged(nextProps, TIME_PICKER_KEYS)) {
       return true
     }

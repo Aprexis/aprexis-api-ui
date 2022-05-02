@@ -1,10 +1,17 @@
 import { API } from "./"
-import { valueHelper } from "../helpers"
+import { labTestValueHelper, valueHelper } from "../helpers"
 
 export const labTestValueApi = {
   buildNewForPatient,
+  create,
   listForIntervention,
   listForPatient
+}
+
+function toJSON(labTestValue) {
+  return {
+    lab_test_value: labTestValueHelper.toJSON(labTestValue)
+  }
 }
 
 function buildNewForPatient(userCredentials, patient_id, pharmacy_store_id, onSuccess, onFailure) {
@@ -25,6 +32,25 @@ function buildNewForPatient(userCredentials, patient_id, pharmacy_store_id, onSu
   const path = `/patients/${patient_id}/lab_test_values/new`
 
   API.perform(method, path, queryString, userCredentials, undefined, onSuccess, onFailure)
+}
+
+function create(userCredentials, labTestValue, onSuccess, onFailure) {
+  if (!API.validateId("lab test ID", labTestValue.lab_test_id, onFailure)) {
+    return
+  }
+  if (!API.validateId("patient ID", labTestValue.patient_id, onFailure)) {
+    return
+  }
+  if (!API.validateId("pharmacy store ID", labTestValue.pharmacy_store_id, onFailure, true)) {
+    return
+  }
+  if (!API.validateId("user ID", labTestValue.user_id, onFailure)) {
+    return
+  }
+
+  const method = "POST"
+  const path = `/patients//${labTestValue.patient_id}/lab_test_values`
+  API.perform(method, path, "", userCredentials, toJSON(labTestValue), onSuccess, onFailure)
 }
 
 function listForIntervention(userCredentials, intervention_id, params, onSuccess, onFailure) {

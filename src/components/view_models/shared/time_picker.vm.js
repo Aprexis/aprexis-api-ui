@@ -24,12 +24,12 @@ class TimePickerViewModel extends AbstractViewModel {
   }
 
   timeChange(event) {
-    const { field, format, locale } = this.props
+    const { format, locale, timeField } = this.props
     const { value } = jsEventHelper.fromInputEvent(event)
     const parsed = dateHelper.convertTimeStringToDate(value, format, locale)
     const validTime = dateHelper.isValidDate(parsed)
 
-    this.props.timeChange(field, value, validTime)
+    this.props.timeChange(timeField, value, validTime)
   }
 }
 

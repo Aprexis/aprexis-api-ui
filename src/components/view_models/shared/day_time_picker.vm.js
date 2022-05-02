@@ -38,7 +38,7 @@ class DayTimePickerViewModel extends AbstractViewModel {
       }
     }
 
-    this.props.dateTimeChange(field, dateTimeString, { value: dateTimeString, validTime: myValidTime })
+    this.props.changeDateTime(field, dateTimeString, { value: dateTimeString, validTime: myValidTime })
   }
 }
 

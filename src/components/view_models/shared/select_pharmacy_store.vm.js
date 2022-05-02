@@ -42,7 +42,7 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
   }
 
   displayModel(model) {
-    return this.helper().store(model)
+    return this.helper().identification(model)
   }
 
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {

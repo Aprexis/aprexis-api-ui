@@ -85,7 +85,6 @@ class AbstractModalViewModel extends AbstractViewModel {
       return true
     }
 
-
     const requiredFields = this.requiredFields()
     const invalidFieldName = Object.keys(requiredFields).find(
       (fieldName) => {

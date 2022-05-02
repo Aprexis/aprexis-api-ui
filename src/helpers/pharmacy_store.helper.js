@@ -31,7 +31,6 @@ export const pharmacyStoreHelper = {
   phone,
   state,
   storeNumber,
-  store,
   stripeCustomer,
   stripePharmacistLicensePrice,
   stripePharmacyTechnicianLicensePrice,
@@ -44,11 +43,11 @@ function address(pharmacyStore) {
   return addressHelper.address(pharmacyStore)
 }
 
-function canDelete(user, pharmacyStore) {
+function canDelete(_user, _pharmacyStore) {
   return false
 }
 
-function canEdit(user, pharmacyStore) {
+function canEdit(_user, _pharmacyStore) {
   return false
 }
 
@@ -158,21 +157,6 @@ function phone(pharmacyStore) {
 
 function state(pharmacyStore) {
   return addressHelper.state(pharmacyStore)
-}
-
-function store(pharmacyStore) {
-  let store = fieldHelper.getField(pharmacyStore, "store")
-  if (valueHelper.isStringValue(store)) {
-    return store
-  }
-
-  const name = pharmacyStoreHelper.name(pharmacyStore)
-  const storeNumber = pharmacyStoreHelper.storeNumber(pharmacyStore)
-  if (!valueHelper.isStringValue(storeNumber)) {
-    return name
-  }
-
-  return `${name} (#${storeNumber})`
 }
 
 function storeNumber(pharmacyStore) {

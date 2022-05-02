@@ -8,6 +8,7 @@ if (valueHelper.isStringValue(process.env.REACT_APP_RELATIVE_URL_ROOT)) {
 
 export const pathHelper = {
   buildPathArray,
+  convertNameToFieldId,
   gotoPage,
   haveProfile,
   id,
@@ -50,6 +51,10 @@ function buildPathArray(location, ...pathParts) {
   )
 
   return pathnameParts
+}
+
+function convertNameToFieldId(name) {
+  return `${name.substring(0, name.length - 1).replaceAll("-", "_")}_id`
 }
 
 function gotoPage(pathArray) {

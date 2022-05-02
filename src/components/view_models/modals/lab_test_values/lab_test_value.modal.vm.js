@@ -1,5 +1,6 @@
 import { AbstractModalViewModel } from ".."
-import { labTestValueApi, pharmacyStoreApi, userApi } from "../../../../api"
+import { interventionApi, labTestValueApi, patientApi, pharmacyStoreApi, userApi } from "../../../../api"
+import { labTestApi } from "../../../../api/admin"
 import {
   labTestValueHelper,
   jsEventHelper,
@@ -10,6 +11,14 @@ import {
 
 const labTestValueDateAndTimeFields = {
   value_taken_at: { label: "Value Taken At", required: false, type: "date/time" }
+}
+
+const labTestValueIdFields = {
+  interventionId: { dataName: "intervention", fetch: "fetchIntervention", pathEntryName: "interventions" },
+  labTestId: { dataName: "labTest", fetch: "fetchLabTest", pathEntryName: "lab-tests" },
+  patientId: { dataName: "patient", fetch: "fetchPatient", pathEntryName: "patients" },
+  pharmacyStoreId: { dataName: "pharmacyStore", fetch: "fetchPharmacyStore", pathEntryName: "pharmacy-stores" },
+  userId: { dataName: "user", fetch: "fetchUser", pathEntryName: "users" }
 }
 
 const labTestValueRequiredFields = {
@@ -25,6 +34,9 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
     this.api = this.api.bind(this)
     this.determineIds = this.determineIds.bind(this)
+    this.fetchIntervention = this.fetchIntervention.bind(this)
+    this.fetchLabTest = this.fetchLabTest.bind(this)
+    this.fetchPatient = this.fetchPatient.bind(this)
     this.fetchPharmacyStore = this.fetchPharmacyStore.bind(this)
     this.fetchUser = this.fetchUser.bind(this)
     this.helper = this.helper.bind(this)
@@ -42,18 +54,63 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
     return labTestValueDateAndTimeFields
   }
 
-  determineIds() {
+  determineIds(labTestValue) {
     const pathEntries = this.pathEntries()
-    let userId
+    const ids = {}
+    Object.keys(labTestValueIdFields).forEach(
+      (idFieldKey) => {
+        const idField = labTestValueIdFields[idFieldKey]
+        const { pathEntryName } = idField
+        const id = pickId(labTestValue, pathEntries, this.props, pathEntryName)
+        ids[idFieldKey] = id
+      }
+    )
+    return ids
 
-    if (pathHelper.isSingular(pathEntries, "users")) {
-      userId = pathHelper.id(pathEntries, "users")
-    } else {
-      userId = this.props.currentUser.id
+    function pickId(labTestValue, pathEntries, props, pathEntryName) {
+      const idField = pathHelper.convertNameToFieldId(pathEntryName)
+      if (valueHelper.isNumberValue(labTestValue[idField])) {
+        return labTestValue[idField]
+      }
+
+      if (pathHelper.isSingular(pathEntries, pathEntryName)) {
+        return pathHelper.id(pathEntries, pathEntryName)
+      }
+
+      const currentName = `current${valueHelper.capitalizeWords(pathEntryName.substring(0, pathEntryName.length - 1))}`
+      if (valueHelper.isValue(props[currentName])) {
+        return props[currentName].id
+      }
+
+      return
     }
+  }
 
-    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
-    return { pharmacyStoreId, userId }
+  fetchIntervention(interventionId, nextOperation) {
+    interventionApi.show(
+      userCredentialsHelper.get(),
+      interventionId,
+      nextOperation,
+      this.onError
+    )
+  }
+
+  fetchLabTest(labTestId, nextOperation) {
+    labTestApi.show(
+      userCredentialsHelper.get(),
+      labTestId,
+      nextOperation,
+      this.onError
+    )
+  }
+
+  fetchPatient(patientId, nextOperation) {
+    patientApi.show(
+      userCredentialsHelper.get(),
+      patientId,
+      nextOperation,
+      this.onError
+    )
   }
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
@@ -82,23 +139,36 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
     const { operation, labTestValue } = this.props
     this.addData({ operation, labTestValue: this.initializeDateAndTimeValidities(labTestValue) })
 
-    const { pharmacyStoreId, userId } = this.determineIds()
-    const addPharmacyStoreToData = (pharmacyStore) => {
-      this.addField("pharmacyStore", pharmacyStore, this.redrawView)
-    }
-    const loadPharmacyStoreOrRedraw = () => {
-      if (valueHelper.isNumberValue(pharmacyStoreId)) {
-        this.fetchPharmacyStore(pharmacyStoreId, addPharmacyStoreToData)
+    loadStoreDataAndRefresh(this, 0, this.determineIds(labTestValue))
+
+    function loadStoreDataAndRefresh(vm, idx, idFields) {
+      if (idx >= Object.keys(idFields).length) {
+        vm.redrawView()
         return
       }
 
-      this.redrawView()
-    }
-    const addUserToData = (user) => {
-      this.addField("user", user, loadPharmacyStoreOrRedraw)
-    }
+      const idFieldKey = Object.keys(idFields)[idx]
+      const idFieldId = idFields[idFieldKey]
+      const idField = labTestValueIdFields[idFieldKey]
+      if (!valueHelper.isNumberValue(idFieldId)) {
+        delete vm[idField.dataName]
+        loadStoreDataAndRefresh(vm, idx + 1, idFields)
+        return
+      }
 
-    this.fetchUser(userId, addUserToData)
+      vm[idField.fetch](
+        idFieldId,
+        (model) => {
+          vm.addField(
+            idField.dataName,
+            model,
+            () => {
+              loadStoreDataAndRefresh(vm, idx + 1, idFields)
+            }
+          )
+        }
+      )
+    }
   }
 
   model() {
