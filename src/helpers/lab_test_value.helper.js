@@ -3,9 +3,11 @@ import { dateHelper } from "./date.helper"
 import { fieldHelper } from "./field.helper"
 import { interventionHelper } from "./intervention.helper"
 import { pathHelper } from "./path.helper"
+import { pharmacyStoreHelper } from "./pharmacy_store.helper"
 import { userHelper } from "./user.helper"
 import { valueHelper } from "./value.helper"
 import { labTestHelper } from "./admin"
+import { patientHelper } from "./patient.helper"
 import { userCredentialsHelper } from "./user_credentials.helper"
 import { labTestValueTypes } from "../types"
 
@@ -23,15 +25,23 @@ export const labTestValueHelper = {
   displayType,
   displayValueTakenAt,
   id,
+  intervention,
+  interventionIdentification,
   labTestId,
   labTestKeyCode,
   labTestFullName,
   labTestName,
   modelName,
+  patient,
+  patientName,
+  pharmacyStore,
   pharmacyStoreId,
+  pharmacyStoreIdentification,
   programName,
   toJSON,
   type,
+  user,
+  userFullName,
   userId,
   value,
   valueTakenAt
@@ -173,6 +183,19 @@ function id(labTestValue) {
   return fieldHelper.getField(labTestValue, "id")
 }
 
+function intervention(labTestValue) {
+  return fieldHelper.getField(labTestValue, "intervention")
+}
+
+function interventionIdentification(labTestValue) {
+  const intervention = labTestValueHelper.intervention(labTestValue)
+  if (!valueHelper.isValue(intervention)) {
+    return
+  }
+
+  return interventionHelper.identification(intervention)
+}
+
 function labTestId(labTestValue) {
   return fieldHelper.getField(labTestValue, "lab_test_id")
 }
@@ -193,8 +216,24 @@ function modelName() {
   return "labTestValue"
 }
 
+function patient(labTestValue) {
+  return fieldHelper.getField(labTestValue, "patient")
+}
+
+function patientName(labTestValue) {
+  return patientHelper.name(labTestValueHelper.patient(labTestValue))
+}
+
+function pharmacyStore(labTestValue) {
+  return fieldHelper.getField(labTestValue, "pharmacy_store")
+}
+
 function pharmacyStoreId(labTestValue) {
   return fieldHelper.getField(labTestValue, "pharmacy_store_id")
+}
+
+function pharmacyStoreIdentification(labTestValue) {
+  return pharmacyStoreHelper.identification(labTestValueHelper.pharmacyStore(labTestValue))
 }
 
 function programName(labTestValue) {
@@ -207,6 +246,14 @@ function toJSON(labTestValue) {
 
 function type(labTestValue) {
   return fieldHelper.getField(labTestValue, "type")
+}
+
+function user(labTestValue) {
+  return fieldHelper.getField(labTestValue, "user")
+}
+
+function userFullName(labTestValue) {
+  return userHelper.fullName(labTestValueHelper.user(labTestValue))
 }
 
 function userId(labTestValue) {

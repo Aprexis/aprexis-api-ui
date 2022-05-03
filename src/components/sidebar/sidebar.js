@@ -102,11 +102,14 @@ const sidebarDescriptions = {
     entryName: "interventions"
   },
   "lab-tests": {
-    entryButtons: [
-      { buttonType: "Profile" }
-    ],
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Lab Test",
     entryName: "lab-tests"
+  },
+  "lab-test-values": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Lab Test Value",
+    entryName: "lab-test-values"
   },
   "medical-claims": {
     entryButtons: [{ buttonType: "Profile" }],

@@ -13,7 +13,7 @@ const PatientAllergyProfile = ({ currentUser, onEditProfile, patientAllergy }) =
             Profile
             {
               patientAllergyHelper.canEdit(currentUser, patientAllergy) &&
-              <EditButton onEdit={(event) => { onEditProfile(patientAllergy) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(patientAllergy) }} />
             }
           </h3>
         </CardTitle>

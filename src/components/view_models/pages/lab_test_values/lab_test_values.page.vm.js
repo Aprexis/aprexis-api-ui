@@ -13,7 +13,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     this.editModal = this.editModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoLabTestProfile = this.gotoLabTestProfile.bind(this)
+    this.gotoLabTestValueProfile = this.gotoLabTestValueProfile.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
@@ -111,7 +111,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoLabTestProfile(labTestValue) {
+  gotoLabTestValueProfile(labTestValue) {
     const pathArray = pathHelper.buildPathArray(window.location, labTestValue, "profile")
 
     pathHelper.gotoPage(pathArray)
