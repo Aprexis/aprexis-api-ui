@@ -46,16 +46,12 @@ const sidebarDescriptions = {
     entryName: "billing-contracts"
   },
   "caregivers": {
-    entryButtons: [
-      { buttonType: "Profile" },
-    ],
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Caregriver",
     entryName: "caregivers"
   },
   "diagnosis-codes": {
-    entryButtons: [
-      { buttonType: "Profile" }
-    ],
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Diagnosis Code",
     entryName: "diagnosis-codes"
   },
@@ -68,9 +64,12 @@ const sidebarDescriptions = {
     entryName: "diseases"
   },
   "documents": {
-    entryButtons: [
-      { buttonType: "Profile" }
-    ]
+    entryButtons: [{ buttonType: "Profile" }]
+  },
+  "faxes": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Fax",
+    entryName: "fax"
   },
   "health-plans": {
     entryButtons: [
@@ -96,6 +95,7 @@ const sidebarDescriptions = {
       { buttonType: "Profile" },
       { buttonLabel: "Answers", buttonType: "List", listName: "answers" },
       { buttonLabel: "Documents", buttonType: "List", listName: "intervention-documents" },
+      { buttonLabel: "Faxes", buttonType: "List", listName: "faxes" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" }
     ],
     entryLabel: "Intervention",
@@ -199,16 +199,12 @@ const sidebarDescriptions = {
     entryName: "physicians"
   },
   "programs": {
-    entryButtons: [
-      { buttonType: "Profile" }
-    ],
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Program",
     entryName: "programs"
   },
   "reminders": {
-    entryButtons: [
-      { buttonType: "Profile" }
-    ],
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Reminder",
     entryName: "reminders"
   },

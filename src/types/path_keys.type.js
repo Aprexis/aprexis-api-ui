@@ -18,7 +18,8 @@ import {
   pharmacyClaimApi,
   pharmacyStoreApi,
   reminderApi,
-  userApi
+  userApi,
+  faxApi
 } from "../api"
 import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi, physicianApi } from "../api/admin"
 import {
@@ -59,6 +60,7 @@ import { patientNoteHelper } from "../helpers/patient_note.helper"
 import { patientPhysicianHelper } from "../helpers/patient_physician.helper"
 import { patientSupplementHelper } from "../helpers/patient_supplement.helper"
 import { reminderHelper } from "../helpers/reminder.helper"
+import { faxHelper } from "../helpers"
 
 export const pathKeys = {
   "answers": {
@@ -105,6 +107,11 @@ export const pathKeys = {
     api: diseaseApi,
     helper: diseaseHelper,
     modelName: "Disease"
+  },
+  "faxes": {
+    api: faxApi,
+    helper: faxHelper,
+    modelName: "Fax"
   },
   "health-plans": {
     api: healthPlanApi,

@@ -1,6 +1,7 @@
 export * from "./allergy_categories.type"
 export * from "./contact_methods.type"
 export * from "./diagnosis_codes.type"
+export * from "./fax_delivery_statuses.type"
 export * from "./intervention_states.type"
 export * from "./filters.type"
 export * from "./lab_test_values.type"
