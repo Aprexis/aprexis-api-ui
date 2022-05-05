@@ -96,13 +96,19 @@ const sidebarDescriptions = {
     entryLabel: "Documents",
     entryName: "intervention-documents"
   },
+  "intervention-medications": {
+    entryButtons: [],
+    entryLabel: "Medications",
+    entryName: "intervention-medications"
+  },
   "interventions": {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Answers", buttonType: "List", listName: "answers" },
       { buttonLabel: "Documents", buttonType: "List", listName: "intervention-documents" },
       { buttonLabel: "Faxes", buttonType: "List", listName: "faxes" },
-      { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" }
+      { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
+      { buttonLabel: "Medications", buttonType: "List", listName: "intervention-medications" }
     ],
     entryLabel: "Intervention",
     entryName: "interventions"

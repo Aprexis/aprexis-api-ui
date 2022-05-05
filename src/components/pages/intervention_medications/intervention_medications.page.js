@@ -1,19 +1,26 @@
 import React, { Component } from "react"
-import { InterventionDocumentsPageViewModel } from "../../view_models/pages/intervention_documents"
+import { InterventionMedicationsPageViewModel } from "../../view_models/pages/intervention_medications"
 import { ListView } from "../../../containers"
-import { interventionDocumentHelper, valueHelper } from "../../../helpers"
+import { interventionMedicationHelper, valueHelper } from "../../../helpers"
 import { listHelper } from "../../../helpers/list.helper"
 
 const headings = [
   {
-    name: "Updated",
-    field: "updated_at",
-    method: "updatedAt"
+    name: "Type",
+    field: "type",
+    method: "displayType"
   },
   {
-    name: "Title",
-    field: "title",
-    method: "title"
+    name: "Patient",
+    field: "intervention.patient.last_name,intervention.patient.first_name,intervention.patient.middle_name",
+    method: "patientName",
+    unless: "patients"
+  },
+  {
+    name: "Pharmacy Store",
+    field: "intervention.pharamcy_store.pharmacy.name,intervention.pharmacy_store.name,intervention.pharmacy_store.store_number",
+    method: "pharmacyStoreIdentification",
+    unless: "pharmacy-stores"
   },
   {
     name: "Intervention",
@@ -22,40 +29,23 @@ const headings = [
     unless: "interventions"
   },
   {
-    name: "Consult Start Date",
-    field: "intervention.consult_start_date",
-    method: "displayConsultStartDate"
+    name: "Medication",
+    field: "medication.label",
+    method: "medicationLabel"
   },
   {
-    name: "Consult Start Date",
-    field: "intervention.consult_end_date",
-    method: "displayConsultStartDate"
-  },
-  {
-    name: "Patient",
-    field: "intervention.patient.first_name,intervention.patient.last_name",
-    method: "patientName",
-    unless: "patients"
-  },
-  {
-    name: "Pharmacy Store",
-    field: "intervention.pharmacy_store.name, intervention.pharmacy_store.pharmacy.name",
-    method: "pharmacyStoreDisplay",
-    unless: "pharmacy-stores"
-  },
-  {
-    name: "Locale",
-    field: "locale",
-    method: "displayLocale"
+    name: "Text",
+    field: "medication_text",
+    method: "medicationText"
   }
 ]
 
-class InterventionDocumentsPage extends Component {
+class InterventionMedicationsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new InterventionDocumentsPageViewModel(
+    this.vm = new InterventionMedicationsPageViewModel(
       {
         ...props,
         view: this
@@ -79,7 +69,7 @@ class InterventionDocumentsPage extends Component {
       {
         filters,
         headings,
-        listName: "intervention-documents",
+        listName: "intervention-medications",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -88,7 +78,7 @@ class InterventionDocumentsPage extends Component {
     )
   }
 
-  generateTableRow(interventionDocument) {
+  generateTableRow(interventionMedication) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -96,14 +86,14 @@ class InterventionDocumentsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoInterventionDocumentProfile,
+        gotoTableItemProfile: this.vm.gotoInterventionMedicationProfile,
         headings,
-        helper: interventionDocumentHelper,
+        helper: interventionMedicationHelper,
         launchModal: this.props.launchModal,
         onDeleteTableItem: this.vm.destroy,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: interventionDocument
+        tableItem: interventionMedication
       }
     )
   }
@@ -123,9 +113,9 @@ class InterventionDocumentsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.interventionDocuments}
-        listLabel="Document"
-        listPluralLabel="Documents"
+        list={this.state.interventionMedications}
+        listLabel="Medication"
+        listPluralLabel="Medications"
         modal={this.state.modal}
         nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
@@ -136,7 +126,7 @@ class InterventionDocumentsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Documents"
+        title="Medications"
       />
     )
   }
@@ -151,4 +141,4 @@ class InterventionDocumentsPage extends Component {
   }
 }
 
-export { InterventionDocumentsPage }
+export { InterventionMedicationsPage }

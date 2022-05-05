@@ -65,7 +65,7 @@ class InterventionDocumentsPageViewModel extends AbstractListPageViewModel {
   }
 
   title() {
-    return "Patient Diseases"
+    return "Intervention Documents"
   }
 }
 

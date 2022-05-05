@@ -7,6 +7,7 @@ import { InterventionDocumentsRouting } from "../intervention_documents"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { InterventionProfilePage } from "../../pages/interventions"
 import { pathHelper, valueHelper } from "../../../helpers"
+import { InterventionMedicationsRouting } from "../intervention_medications"
 
 class InterventionRouting extends Component {
   render() {
@@ -36,6 +37,10 @@ class InterventionRouting extends Component {
         <Route
           path={`${interventionPrefix}/lab-test-values`}
           render={(props) => (<LabTestValuesRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${interventionPrefix}/intervention-medications`}
+          render={(props) => (<InterventionMedicationsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact

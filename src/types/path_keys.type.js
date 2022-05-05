@@ -20,7 +20,8 @@ import {
   pharmacyStoreApi,
   reminderApi,
   userApi,
-  faxApi
+  faxApi,
+  interventionMedicationApi
 } from "../api"
 import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi, physicianApi } from "../api/admin"
 import {
@@ -62,7 +63,8 @@ import { patientNoteHelper } from "../helpers/patient_note.helper"
 import { patientPhysicianHelper } from "../helpers/patient_physician.helper"
 import { patientSupplementHelper } from "../helpers/patient_supplement.helper"
 import { reminderHelper } from "../helpers/reminder.helper"
-import { faxHelper } from "../helpers"
+import { faxHelper } from "../helpers/fax.helper"
+import { interventionMedicationHelper } from "../helpers/intervention_medication.helper"
 
 export const pathKeys = {
   "answers": {
@@ -129,6 +131,11 @@ export const pathKeys = {
     api: interventionDocumentApi,
     helper: interventionDocumentHelper,
     modelName: "InterventionDocument"
+  },
+  "intervention-medications": {
+    api: interventionMedicationApi,
+    helper: interventionMedicationHelper,
+    modelName: "interventionMedication"
   },
   "interventions": {
     api: interventionApi,

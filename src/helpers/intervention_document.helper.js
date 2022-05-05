@@ -17,6 +17,7 @@ export const interventionDocumentHelper = {
   generator,
   id,
   intervention,
+  interventionIdentification,
   locale,
   modelName,
   patientName,
@@ -77,6 +78,10 @@ function id(interventionDocument) {
 
 function intervention(interventionDocument) {
   return fieldHelper.getField(interventionDocument, "intervention")
+}
+
+function interventionIdentification(interventionDocument) {
+  return interventionHelper.identification(interventionDocumentHelper.intervention(interventionDocument))
 }
 
 function locale(interventionDocument) {
