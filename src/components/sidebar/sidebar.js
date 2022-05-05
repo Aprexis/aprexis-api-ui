@@ -78,12 +78,18 @@ const sidebarDescriptions = {
       { buttonLabel: "Contracts", buttonType: "List", listName: "billing-contracts" },
       { buttonLabel: "Documents", buttonType: "List", listName: "documents" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
-      { buttonLabel: "Programs", buttonType: "List", listName: "programs" },
       { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" },
+      { buttonLabel: "Programs", buttonType: "List", listName: "programs" },
+      { buttonLabel: "Program Limits", buttonType: "list", listName: "health-plan-program-limits" },
       { buttonLabel: "Users", buttonType: "List", listName: "users" }
     ],
     entryLabel: "Health Plan",
     entryName: "health-plans"
+  },
+  "health-plan-program-limits": {
+    entryButtons: [],
+    entryLabel: "Program Limit",
+    entryName: "health-plan-program-limits"
   },
   "intervention-documents": {
     entryButtons: [{ buttonType: "Profile" }],

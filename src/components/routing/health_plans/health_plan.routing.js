@@ -4,6 +4,7 @@ import { NoMatch } from "../"
 import { DocumentsRouting } from "../documents"
 import { PatientsRouting } from "../patients"
 import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
+import { HealthPlanProgramLimitsRouting } from "../health_plan_program_limits"
 import { ProgramsRouting } from "../programs"
 import { BillingClaimsRouting } from "../billing/claims"
 import { BillingContractsRouting } from "../billing/contracts"
@@ -47,6 +48,10 @@ class HealthPlanRouting extends Component {
         <Route
           path={`${healthPlanPrefix}/programs`}
           render={(props) => (<ProgramsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${healthPlanPrefix}/health-plan-program-limits`}
+          render={(props) => (<HealthPlanProgramLimitsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact

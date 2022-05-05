@@ -3,6 +3,7 @@ import {
   appointmentApi,
   caregiverApi,
   healthPlanApi,
+  healthPlanProgramLimitApi,
   interventionApi,
   interventionDocumentApi,
   labTestValueApi,
@@ -39,6 +40,7 @@ import { billingContractPharmacyStoreHelper } from "../helpers/billing/billing_c
 import { diagnosisCodeHelper } from "../helpers/admin/diagnosis_code.helper"
 import { diseaseHelper } from "../helpers/admin/disease.helper"
 import { healthPlanHelper } from "../helpers/health_plan.helper"
+import { healthPlanProgramLimitHelper } from "../helpers/health_plan_program_limit.helper"
 import { interventionDocumentHelper } from "../helpers/intervention_document.helper"
 import { pharmacyChainHelper } from "../helpers/pharmacy_chain.helper"
 import { pharmacyStoreHelper } from "../helpers/pharmacy_store.helper"
@@ -117,6 +119,11 @@ export const pathKeys = {
     api: healthPlanApi,
     helper: healthPlanHelper,
     modelName: "HealthPlan"
+  },
+  "health-plan-program-limits": {
+    api: healthPlanProgramLimitApi,
+    helper: healthPlanProgramLimitHelper,
+    modelName: "healthPlanProgramLimit"
   },
   "intervention-documents": {
     api: interventionDocumentApi,
