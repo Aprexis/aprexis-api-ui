@@ -139,6 +139,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Allergies", buttonType: "List", listName: "patient-allergies" },
       { buttonLabel: "Caregivers", buttonType: "List", listName: "caregivers" },
       { buttonLabel: "Diseases", buttonType: "List", listName: "patient-diseases" },
+      { buttonLabel: "Insurance Detail", buttonType: "Page", pageName: "patient-health-plan-insurance-details/profile-for-patient" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
       { buttonLabel: "Medical Claims", buttonType: "List", listName: "medical-claims" },
@@ -266,6 +267,7 @@ class Sidebar extends Component {
         currentUser={currentUser}
         entryDescription={entryDescription}
         gotoList={this.vm.gotoList}
+        gotoPage={this.vm.gotoPage}
         gotoProfile={this.vm.gotoProfile}
         key={`sidebar-entry-${pathEntry.key}`}
         pathPrefixArray={pathPrefixArray}
@@ -374,10 +376,10 @@ class Sidebar extends Component {
   }
 
   selectSidebar(sidebarIndex) {
-    return (event) => { this.toggleSidebar(sidebarIndex) }
+    return (_event) => { this.toggleSidebar(sidebarIndex) }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

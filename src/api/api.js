@@ -164,7 +164,7 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
       }
     }
   )
-    .catch((error) => API.handleError(method, path, error, onFailure, optional))
+    .catch((error) => { API.handleError(method, path, error, onFailure, optional) })
   return
 
   function addUserCredentials(existingHeaders, userCredentials) {
@@ -182,7 +182,7 @@ function perform(method, path, queryString, userCredentials, body, onSuccess, on
     return newHeaders
   }
 
-  function download(response, onSuccess, onFailure) {
+  function download(response, onSuccess, _onFailure) {
     const disposition = response.headers.get('Content-Disposition')
     const filename = valueHelper.isStringValue(disposition) ? disposition.split('filename=')[1] : 'download.tmp';
     response.blob()

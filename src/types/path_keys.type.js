@@ -21,7 +21,8 @@ import {
   reminderApi,
   userApi,
   faxApi,
-  interventionMedicationApi
+  interventionMedicationApi,
+  patientHealthPlanInsuranceDetailApi
 } from "../api"
 import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi, physicianApi } from "../api/admin"
 import {
@@ -65,6 +66,7 @@ import { patientSupplementHelper } from "../helpers/patient_supplement.helper"
 import { reminderHelper } from "../helpers/reminder.helper"
 import { faxHelper } from "../helpers/fax.helper"
 import { interventionMedicationHelper } from "../helpers/intervention_medication.helper"
+import { patientHealthPlanInsuranceDetailHelper } from "../helpers/patient_health_plan_insurance_detail.helper"
 
 export const pathKeys = {
   "answers": {
@@ -176,6 +178,11 @@ export const pathKeys = {
     breadcrumb: "Diseases",
     helper: patientDiseaseHelper,
     modelName: "PatientDisease"
+  },
+  "patient-health-plan-insurance-details": {
+    api: patientHealthPlanInsuranceDetailApi,
+    helper: patientHealthPlanInsuranceDetailHelper,
+    modelName: "PatientHealthPlanInsuranceDetail"
   },
   "patient-medications": {
     api: patientMedicationApi,

@@ -97,7 +97,7 @@ const RenderSidebarElements = (
               <RenderSidebarPageButton
                 buttonDescription={buttonDescription}
                 gotoPage={gotoPage}
-                key={`sidebar-${entryName}-page-${buttonDescription.apgeName}`}
+                key={`sidebar-${entryName}-page-${buttonDescription.pageName}`}
                 pathPrefixArray={pathPrefixArray}
               />
             )

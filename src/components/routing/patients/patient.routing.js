@@ -7,6 +7,7 @@ import { LabTestValuesRouting } from "../lab_test_values"
 import { MedicalClaimsRouting } from "../medical_claims"
 import { PatientAllergiesRouting } from "../patient_allergies"
 import { PatientDiseasesRouting } from "../patient_diseases"
+import { PatientHealthPlanInsuranceDetailsRouting } from "../patient_health_plan_insurance_details"
 import { PatientMedicationsRouting } from "../patient_medications"
 import { PatientNotesRouting } from "../patient_notes"
 import { PatientPhysiciansRouting } from "../patient_physicians"
@@ -52,6 +53,10 @@ class PatientRouting extends Component {
         <Route
           path={`${patientPrefix}/patient-diseases`}
           render={(props) => (<PatientDiseasesRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${patientPrefix}/patient-health-plan-insurance-details`}
+          render={(props) => (<PatientHealthPlanInsuranceDetailsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${patientPrefix}/patient-medications`}
