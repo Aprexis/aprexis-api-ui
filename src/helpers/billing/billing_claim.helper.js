@@ -69,11 +69,11 @@ function billingStatus(billingClaim) {
   return fieldHelper.getField(billingClaim, "billing_status")
 }
 
-function canDelete(user, billingClaim) {
+function canDelete(_user, _billingClaim) {
   return false
 }
 
-function canEdit(user, billingClaim) {
+function canEdit(_user, _billingClaim) {
   return false
 }
 

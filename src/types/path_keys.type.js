@@ -26,6 +26,7 @@ import {
 } from "../api"
 import { diagnosisCodeApi, diseaseApi, labTestApi, medicationApi, physicianApi } from "../api/admin"
 import {
+  billingClaimHistoryCollectionApi,
   billingClaimApi,
   billingContractApi,
   billingContractPharmacyChainApi,
@@ -35,7 +36,8 @@ import {
 // The explicit filenames is necessary because pathKeys is imported into some of the helpers, which causes a circular
 // import that fails to properly load these files if the import is done through the index.js file.
 import { labTestHelper } from "../helpers/admin/lab_test.helper"
-import { billingClaimHelper } from "../helpers/billing"
+import { billingClaimHistoryCollectionHelper } from "../helpers/billing/billing_claim_history_collection.helper"
+import { billingClaimHelper } from "../helpers/billing/billing_claim.helper"
 import { billingContractHelper } from "../helpers/billing/billing_contract.helper"
 import { billingContractPharmacyChainHelper } from "../helpers/billing/billing_contract_pharmacy_chain.helper"
 import { billingContractPharmacyStoreHelper } from "../helpers/billing/billing_contract_pharmacy_store.helper"
@@ -78,6 +80,11 @@ export const pathKeys = {
     api: appointmentApi,
     helper: appointmentHelper,
     modelName: "Appointment"
+  },
+  "billing-claim-history-collections": {
+    api: billingClaimHistoryCollectionApi,
+    helper: billingClaimHistoryCollectionHelper,
+    modelName: "BillingClaimHistoryCollection"
   },
   "billing-claims": {
     api: billingClaimApi,

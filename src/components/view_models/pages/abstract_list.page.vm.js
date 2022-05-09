@@ -64,6 +64,11 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const params = { ...filters, ...sorting, page }
 
+    if (valueHelper.isFunction(listMethods)) {
+      listMethods(userCredentials, params, onSuccess, onError)
+      return
+    }
+
     let blankIdx = -1
     for (let idx = 0; idx < listMethods.length; ++idx) {
       const { pathKey, method } = listMethods[idx]
