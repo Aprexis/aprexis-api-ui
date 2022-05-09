@@ -14,15 +14,15 @@ export const patientDiseaseHelper = {
   patientName
 }
 
-function canBeCreated(user, pathEntries) {
+function canBeCreated(_user, _pathEntries) {
   return false
 }
 
-function canDelete(user, patientDisease) {
+function canDelete(_user, _patientDisease) {
   return false
 }
 
-function canEdit(user, patientDisease) {
+function canEdit(_user, _patientDisease) {
   return false
 }
 

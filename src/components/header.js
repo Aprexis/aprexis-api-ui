@@ -66,6 +66,7 @@ class Header extends Component {
                     gotoLabTestsPage={this.props.gotoLabTestsPage}
                     gotoMedicationsPage={this.props.gotoMedicationsPage}
                     gotoPhysiciansPage={this.props.gotoPhysiciansPage}
+                    gotoSystemSettingsPage={this.props.gotoSystemSettingsPage}
                   />
 
                   <UserDropdown

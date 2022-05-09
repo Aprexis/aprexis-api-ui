@@ -6,6 +6,7 @@ import { LabTestsRouting } from "./lab_tests"
 import { MedicationsRouting } from "./medications"
 import { NoMatch } from "../"
 import { PhysiciansRouting } from "./physicians"
+import { SystemSettingsRouting } from "./system_settings"
 import { pathHelper, valueHelper } from "../../../helpers"
 
 class AdminRouting extends Component {
@@ -40,6 +41,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/physicians`}
           render={(props) => (<PhysiciansRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/system-settings`}
+          render={(props) => (<SystemSettingsRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

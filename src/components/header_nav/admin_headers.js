@@ -15,20 +15,23 @@ class AdminHeaders extends Component {
           Admin
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem onClick={(event) => { this.props.gotoDiseasesPage() }}>
+          <DropdownItem onClick={(_event) => { this.props.gotoDiseasesPage() }}>
             Diseases
           </DropdownItem>
-          <DropdownItem onClick={(event) => { this.props.gotoDiagnosisCodesPage() }}>
+          <DropdownItem onClick={(_event) => { this.props.gotoDiagnosisCodesPage() }}>
             Diagnosis Codes
           </DropdownItem>
-          <DropdownItem onClick={(event) => { this.props.gotoPhysiciansPage() }}>
+          <DropdownItem onClick={(_event) => { this.props.gotoPhysiciansPage() }}>
             HCPs
           </DropdownItem>
-          <DropdownItem onClick={(event) => { this.props.gotoLabTestsPage() }}>
+          <DropdownItem onClick={(_event) => { this.props.gotoLabTestsPage() }}>
             Lab Tests
           </DropdownItem>
-          <DropdownItem onClick={(event) => { this.props.gotoMedicationsPage() }}>
+          <DropdownItem onClick={(_event) => { this.props.gotoMedicationsPage() }}>
             Medications
+          </DropdownItem>
+          <DropdownItem onClick={(_event) => { this.props.gotoSystemSettingsPage() }}>
+            System Settings
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>

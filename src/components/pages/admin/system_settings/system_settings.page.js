@@ -1,71 +1,28 @@
 import React, { Component } from "react"
-import { LabTestValuesPageViewModel } from "../../view_models/pages/lab_test_values"
-import { ListView } from "../../../containers"
-import { valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { SystemSettingsPageViewModel } from "../../../view_models/pages/admin/system_settings"
+import { ListView } from "../../../../containers"
+import { valueHelper } from "../../../../helpers"
+import { listHelper } from "../../../../helpers/list.helper"
 
 const headings = [
   {
-    name: "Key Code",
-    field: "lab_test.key_code",
-    method: "labTestKeyCode"
-  },
-  {
-    name: "Type",
-    field: "type",
-    method: "displayType"
-  },
-  {
-    name: "Lab Test",
-    field: "lab_test.full_name",
-    method: "labTestFullName"
-  },
-  {
-    name: "Patient Name",
-    field: "patient.last_name,patient.first_name,patient.middle_name",
-    unless: "patients",
-    method: "patientName"
-  },
-  {
-    name: "Program",
-    field: "intervention.program.name",
-    unless: "interventions",
-    unlessFilters: [
-      {
-        queryParam: "for_interventions",
-        value: false
-      }
-    ],
-    method: "programName"
-  },
-  {
-    name: "Taken At",
-    field: "value_taken_at",
-    method: "displayValueTakenAt",
+    name: "Key",
+    field: "key",
+    method: "key"
   },
   {
     name: "Value",
     field: "value",
     method: "value"
-  },
-  {
-    name: "Calculated",
-    field: "calculated",
-    method: "displayCalculated"
-  },
-  {
-    name: "Confirmed",
-    field: "confirmed",
-    method: "displayConfirmed"
   }
 ]
 
-class LabTestValuesPage extends Component {
+class SystemSettingsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new LabTestValuesPageViewModel(
+    this.vm = new SystemSettingsPageViewModel(
       {
         ...props,
         view: this
@@ -74,7 +31,6 @@ class LabTestValuesPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
-    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -89,7 +45,7 @@ class LabTestValuesPage extends Component {
       {
         filters,
         headings,
-        listName: "lab-test-values",
+        listName: "system-settings",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -98,7 +54,7 @@ class LabTestValuesPage extends Component {
     )
   }
 
-  generateTableRow(labTestValue) {
+  generateTableRow(systemSetting) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -106,7 +62,7 @@ class LabTestValuesPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoLabTestValueProfile,
+        gotoTableItemProfile: this.vm.gotoSettingProfile,
         headings,
         helper: this.vm.helper(),
         launchModal: this.props.launchModal,
@@ -114,24 +70,8 @@ class LabTestValuesPage extends Component {
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: labTestValue
+        tableItem: systemSetting
       }
-    )
-  }
-
-  nav(_list) {
-    if (!this.vm.canCreate()) {
-      return
-    }
-
-    return (
-      <nav className="btn-toolbar mb-2 mb-md-0">
-        <button
-          className="btn btn-sm btn-outline-secondary"
-          onClick={this.vm.createModal}>
-          <strong>+</strong> Add Lab Test Value
-        </button>
-      </nav>
     )
   }
 
@@ -150,11 +90,10 @@ class LabTestValuesPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.labTestValues}
-        listLabel="Lab Test Value"
-        listPluralLabel="Lab Test Values"
+        list={this.state.systemSettings}
+        listLabel="Setting"
+        listPluralLabel="Settings"
         modal={this.state.modal}
-        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
@@ -163,7 +102,7 @@ class LabTestValuesPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Lab Test Values"
+        title="Settings"
       />
     )
   }
@@ -174,4 +113,4 @@ class LabTestValuesPage extends Component {
   }
 }
 
-export { LabTestValuesPage }
+export { SystemSettingsPage }

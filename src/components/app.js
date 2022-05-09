@@ -53,7 +53,7 @@ class App extends Component {
           gotoPharmacyChainsPage={this.vm.gotoPharmacyChainsPage}
           gotoPharmacyStoresPage={this.vm.gotoPharmacyStoresPage}
           gotoPhysiciansPage={this.vm.gotoPhysiciansPage}
-          gotoUserProfile={this.vm.gotoUserProfile}
+          gotoSystemSettingsPage={this.vm.gotoSystemSettingsPage}
           gotoUsersPage={this.vm.gotoUsersPage}
           history={history}
           onSignIn={this.vm.signIn}
