@@ -10,6 +10,7 @@ export const patientApi = {
   listForPharmacyStore,
   search,
   show,
+  showForUser,
   update
 }
 
@@ -98,6 +99,16 @@ function show(userCredentials, id, onSuccess, onFailure) {
 
   const method = "GET"
   const path = `/patients/${id}`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
+}
+
+function showForUser(userCredentials, user_id, onSuccess, onFailure) {
+  if (!API.validateId("user ID", user_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/admin/users/${user_id}/patient`
   API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 

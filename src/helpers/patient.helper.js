@@ -30,6 +30,7 @@ export const patientHelper = {
   healthPlan,
   healthPlanName,
   id,
+  initials,
   lastName,
   latitude,
   longitude,
@@ -265,6 +266,10 @@ function healthPlanName(patient) {
 
 function id(patient) {
   return fieldHelper.getField(patient, "id")
+}
+
+function initials(patient) {
+  return nameHelper.initials(patient)
 }
 
 function lastName(patient, prefix = "") {
