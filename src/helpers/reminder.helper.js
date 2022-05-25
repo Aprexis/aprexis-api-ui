@@ -214,14 +214,16 @@ function displayRecurTo(reminder) {
 
 function displayRemindAt(reminder) {
   const remindAt = reminderHelper.remindAt(reminder)
+  if (!dateHelper.isDateValue(remindAt)) {
+    return ""
+  }
+
   let remindAtTimeZone = reminderHelper.remindAtTimeZone(reminder)
   if (!valueHelper.isStringValue(remindAtTimeZone)) {
     remindAtTimeZone = 'America/New_York'
-  }
-  if (valueHelper.isStringValue(timeZones[remindAtTimeZone])) {
+  } else if (valueHelper.isStringValue(timeZones[remindAtTimeZone])) {
     remindAtTimeZone = timeZones[remindAtTimeZone]
   }
-
 
   return formatInTimeZone(dateHelper.makeDate(remindAt), remindAtTimeZone, "p")
 }

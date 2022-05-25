@@ -23,6 +23,7 @@ export const patientMedicationHelper = {
   daysSupply,
   directions,
   displayFilledAt,
+  displayFilledOn,
   displayStrength,
   displayType,
   filledAt,
@@ -222,6 +223,15 @@ function displayFilledAt(patientMedication) {
   }
 
   return dateHelper.displayDateTime(filledAt)
+}
+
+function displayFilledOn(patientMedication) {
+  const filledAt = patientMedicationHelper.filledAt(patientMedication)
+  if (!valueHelper.isValue(filledAt)) {
+    return ""
+  }
+
+  return dateHelper.displayDate(filledAt)
 }
 
 function displayStrength(patientMedication) {

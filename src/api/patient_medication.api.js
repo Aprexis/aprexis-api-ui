@@ -1,5 +1,6 @@
-import { API } from "./"
-import { patientMedicationHelper, valueHelper } from "../helpers"
+import { API } from "./api"
+import { patientMedicationHelper } from "../helpers/patient_medication.helper"
+import { valueHelper } from "../helpers/value.helper"
 
 export const patientMedicationApi = {
   buildNew,
@@ -7,6 +8,7 @@ export const patientMedicationApi = {
   edit,
   listForPatient,
   searchForPatient,
+  profile,
   show,
   update
 }
@@ -75,6 +77,16 @@ function listForPatient(userCredentials, patient_id, params, onSuccess, onFailur
   const method = "GET"
   const path = `/patients/${patient_id}/patient_medications/list`
   API.perform(method, path, API.buildQueryString(params), userCredentials, undefined, onSuccess, onFailure)
+}
+
+function profile(userCredentials, patient_medication_id, onSuccess, onFailure) {
+  if (!API.validateId("patient medication ID", patient_medication_id, onFailure)) {
+    return
+  }
+
+  const method = "GET"
+  const path = `/patient_medications/${patient_medication_id}/profile`
+  API.perform(method, path, "", userCredentials, undefined, onSuccess, onFailure)
 }
 
 function searchForPatient(userCredentials, patient_id, params, onSuccess, onFailure) {
