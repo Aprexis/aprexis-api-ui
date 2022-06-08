@@ -1,5 +1,5 @@
 export const allergyCategories = [
-  "Medication",
+  "Medicine",
   "Food",
   "Other"
 ]
