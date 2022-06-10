@@ -40,9 +40,6 @@ function create(userCredentials, caregiver, onSuccess, onFailure) {
   if (!API.validateId("patient ID", caregiver.patient_id, onFailure)) {
     return
   }
-  if (!API.validateId("pharmacy store ID", caregiver.pharmacy_store_id, onFailure, true)) {
-    return
-  }
 
   const method = "POST"
   const path = `/patients/${caregiver.patient_id}/caregivers`
