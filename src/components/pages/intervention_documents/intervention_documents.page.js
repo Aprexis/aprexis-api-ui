@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { InterventionDocumentsPageViewModel } from "../../view_models/pages/intervention_documents"
 import { ListView } from "../../../containers"
-import { interventionDocumentHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { interventionDocumentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -100,6 +100,7 @@ class InterventionDocumentsPage extends Component {
         headings,
         helper: interventionDocumentHelper,
         launchModal: this.props.launchModal,
+        modelName: 'interventionDocument',
         onDeleteTableItem: this.vm.destroy,
         onRefresh: this.vm.refreshData,
         pathEntries,
@@ -145,7 +146,7 @@ class InterventionDocumentsPage extends Component {
     return
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

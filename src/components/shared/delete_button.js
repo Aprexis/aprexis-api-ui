@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { faCalendarMinus, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ConfirmableButton } from "./"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class DeleteButton extends Component {
   constructor(props) {

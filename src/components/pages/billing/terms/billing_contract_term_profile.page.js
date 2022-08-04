@@ -2,15 +2,15 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from "../../../shared"
 import { BillingContractTermProfilePageViewModel } from "../../../view_models/pages/billing/terms"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { billingContractTermHelper } from "../../../../helpers/billing"
+import { valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../../helpers"
 
 const PatientSection = ({ billingContractTerm, patientType, section }) => {
   const patientSection = valueHelper.camelCase(`${patientType}_${section}`)
   return (
     <React.Fragment>
       {
-        fieldHelper.display(
+        displayHelper.display(
           `${valueHelper.humanize(section)} CPT Code`,
           billingContractTermHelper[`${patientSection}CptCode`](billingContractTerm),
           "",
@@ -20,7 +20,7 @@ const PatientSection = ({ billingContractTerm, patientType, section }) => {
       }
       {
 
-        fieldHelper.display(
+        displayHelper.display(
           `${valueHelper.humanize(section)} User Mod`,
           billingContractTermHelper[`${patientSection}UserMod`](billingContractTerm),
           "",
@@ -29,7 +29,7 @@ const PatientSection = ({ billingContractTerm, patientType, section }) => {
         )
       }
       {
-        fieldHelper.display(
+        displayHelper.display(
           `${valueHelper.humanize(section)} Charge`,
           billingContractTermHelper[`${patientSection}Charge`](billingContractTerm),
           "",
@@ -50,7 +50,7 @@ const Patient = ({ billingContractTerm, currentUser, onEditPatient, patientType 
             {valueHelper.humanize(patientType)}
             {
               billingContractTermHelper.canEdit(currentUser, billingContractTerm) &&
-              <EditButton onEdit={(event) => { onEditPatient(billingContractTerm, patientType) }} />
+              <EditButton onEdit={(_event) => { onEditPatient(billingContractTerm, patientType) }} />
             }
           </h3>
         </CardTitle>
@@ -86,59 +86,59 @@ const BillingContractTermProfile = ({ billingContractTerm, currentUser, onEditPr
             Profile
             {
               billingContractTermHelper.canEdit(currentUser, billingContractTerm) &&
-              <EditButton onEdit={(event) => { onEditProfile(billingContractTerm) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(billingContractTerm) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Diagnosis", billingContractTermHelper.diagnosis(billingContractTerm))}
-          {fieldHelper.display("Aprexis Fee", billingContractTermHelper.aprexisFee(billingContractTerm))}
+          {displayHelper.display("Diagnosis", billingContractTermHelper.diagnosis(billingContractTerm))}
+          {displayHelper.display("Aprexis Fee", billingContractTermHelper.aprexisFee(billingContractTerm))}
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Allow Claims Despite Physician Denial",
               billingContractTermHelper.allowClaimsDespitePhysicianDenial(billingContractTerm)
             )
           }
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Family Plan",
               valueHelper.yesNo(billingContractTermHelper.familyPlan(billingContractTerm))
             )
           }
           {
-            fieldHelper.display(
+            displayHelper.display(
               "EPSDT Family Plan",
               valueHelper.yesNo(billingContractTermHelper.epsdt(billingContractTerm))
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Pulls Enabled",
               billingContractTermHelper.pullsEnabled(billingContractTerm)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Pushes Enabled",
               billingContractTermHelper.pushesEnabled(billingContractTerm)
             )
           }
-          {fieldHelper.display("Unit", billingContractTermHelper.unit(billingContractTerm))}
+          {displayHelper.display("Unit", billingContractTermHelper.unit(billingContractTerm))}
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Place of Service",
               billingContractTermHelper.placeOfService(billingContractTerm)
             )
           }
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Emergency Service",
               billingContractTermHelper.emergencyService(billingContractTerm)
             )
           }
-          {fieldHelper.display("Misc", billingContractTermHelper.misc(billingContractTerm))}
-          {fieldHelper.display("Note", billingContractTermHelper.note(billingContractTerm))}
+          {displayHelper.display("Misc", billingContractTermHelper.misc(billingContractTerm))}
+          {displayHelper.display("Note", billingContractTermHelper.note(billingContractTerm))}
         </CardBody>
       </Card>
     </Col>
@@ -217,7 +217,7 @@ class BillingContractTermProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

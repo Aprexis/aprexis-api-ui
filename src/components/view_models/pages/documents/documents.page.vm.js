@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { documentApi } from "../../../../api"
-import { documentHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { documentApi, documentHelper, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const documentListMethods = [
   { pathKey: "health-plans", method: documentApi.listForHealthPlan }
@@ -25,7 +25,7 @@ class DocumentsPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    return documentHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+    return false
   }
 
   api() {
@@ -37,7 +37,7 @@ class DocumentsPageViewModel extends AbstractListPageViewModel {
     const healthPlanId = pathHelper.id(pathEntries, "health-plans")
 
     this.api().buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       healthPlanId,
       (document) => {
         this.props.launchModal(
@@ -57,7 +57,7 @@ class DocumentsPageViewModel extends AbstractListPageViewModel {
 
   editModal(documentToEdit) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       documentToEdit.id,
       (document) => {
         this.props.launchModal(
@@ -68,7 +68,7 @@ class DocumentsPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 

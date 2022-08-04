@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { fieldHelper, contactHelper } from "../../helpers"
+import { contactHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../helpers'
 
 class Contact extends Component {
   render() {
@@ -7,14 +8,14 @@ class Contact extends Component {
 
     return (
       <React.Fragment>
-        {fieldHelper.display("Contact Person", contactHelper.person(contactable, prefix))}
-        {fieldHelper.display("Contact Name", contactHelper.name(contactable, prefix))}
-        {fieldHelper.display("Contact Info", contactHelper.info(contactable, prefix))}
-        {fieldHelper.display("Gender", contactHelper.gender(contactable, prefix))}
-        {fieldHelper.phoneDisplay("Phone", contactHelper.phone(contactable, prefix), undefined, contactHelper.phoneExtension(contactable, prefix))}
-        {fieldHelper.phoneDisplay("Mobile Phone", contactHelper.mobilePhone(contactable, prefix))}
-        {fieldHelper.phoneDisplay("Fax", contactHelper.fax(contactable, prefix))}
-        {fieldHelper.display("Email", contactHelper.email(contactable, prefix))}
+        {displayHelper.display("Contact Person", contactHelper.person(contactable, prefix))}
+        {displayHelper.display("Contact Name", contactHelper.name(contactable, prefix))}
+        {displayHelper.display("Contact Info", contactHelper.info(contactable, prefix))}
+        {displayHelper.display("Gender", contactHelper.gender(contactable, prefix))}
+        {displayHelper.phoneDisplay("Phone", contactHelper.phone(contactable, prefix), undefined, contactHelper.phoneExtension(contactable, prefix))}
+        {displayHelper.phoneDisplay("Mobile Phone", contactHelper.mobilePhone(contactable, prefix))}
+        {displayHelper.phoneDisplay("Fax", contactHelper.fax(contactable, prefix))}
+        {displayHelper.display("Email", contactHelper.email(contactable, prefix))}
       </React.Fragment>
     )
   }

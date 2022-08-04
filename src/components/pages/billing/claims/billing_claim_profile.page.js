@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { EditButton, Spinner } from "../../../shared"
 import { BillingClaimProfilePageViewModel } from "../../../view_models/pages/billing/claims"
-import { dateHelper, valueHelper } from "../../../../helpers"
-import { billingClaimHelper, billingClaimServiceHelper } from "../../../../helpers/billing"
+import { dateHelper, valueHelper, billingClaimHelper, billingClaimServiceHelper } from "@aprexis/aprexis-api-utility"
 
 const BillingClaimCharges = ({ currentUser, billingClaim }) => {
   return (
@@ -49,7 +48,7 @@ const BillingClaimCharges = ({ currentUser, billingClaim }) => {
     </Col>
   )
 
-  function claimChargesList(currentUser, billingCLaim) {
+  function claimChargesList(_currentUser, billingClaim) {
     const claimServices = billingClaimHelper.claimServices(billingClaim)
     if (!valueHelper.isValue(claimServices) || claimServices.length === 0) {
       return (<tr><td colSpan="9">No claim services.</td></tr>)

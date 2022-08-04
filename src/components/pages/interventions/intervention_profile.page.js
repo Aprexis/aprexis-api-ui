@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { Spinner } from '../../shared'
 import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions'
-import { fieldHelper, interventionHelper, valueHelper } from '../../../helpers'
+import { interventionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
+import { displayHelper } from '../../../helpers'
 
 const InterventionConfiguration = ({ intervention }) => {
   return (
@@ -14,27 +15,27 @@ const InterventionConfiguration = ({ intervention }) => {
 
         <CardBody>
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Dry Run",
               valueHelper.isValue(interventionHelper.dryRunProgramPatientAssignmentId(intervention))
             )
           }
           {
-            fieldHelper.dateDisplay(
+            displayHelper.dateDisplay(
               "Consent Form Initiated At",
               interventionHelper.consentFormInitiatedAt(intervention)
             )
           }
           {
-            fieldHelper.display("Consent Form Initiator", interventionHelper.consentFormInitiator(intervention))
+            displayHelper.display("Consent Form Initiator", interventionHelper.consentFormInitiator(intervention))
           }
-          {fieldHelper.display("Consent Obtained From", interventionHelper.displayConsentObtainedFrom(intervention))}
-          {fieldHelper.display("Form of Consent", interventionHelper.consentVia(intervention))}
-          {fieldHelper.booleanDisplay("Bill Later", interventionHelper.billLater(intervention))}
-          {fieldHelper.dollarDisplay("Provider Fee", interventionHelper.providerFee(intervention))}
-          {fieldHelper.dollarDisplay("Medicare Payment Amount", interventionHelper.medicarePaymentAmount(intervention))}
+          {displayHelper.display("Consent Obtained From", interventionHelper.displayConsentObtainedFrom(intervention))}
+          {displayHelper.display("Form of Consent", interventionHelper.consentVia(intervention))}
+          {displayHelper.booleanDisplay("Bill Later", interventionHelper.billLater(intervention))}
+          {displayHelper.dollarDisplay("Provider Fee", interventionHelper.providerFee(intervention))}
+          {displayHelper.dollarDisplay("Medicare Payment Amount", interventionHelper.medicarePaymentAmount(intervention))}
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Pharmacy Claim Tracking Number",
               interventionHelper.pharmacyClaimTrackingNumber(intervention))
           }
@@ -53,18 +54,18 @@ const InterventionProfile = ({ intervention }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.notInContextDisplay("health-plans", "Health Plan", interventionHelper.healthPlanName(intervention))}
-          {fieldHelper.notInContextDisplay("patients", "Patient", interventionHelper.patientName(intervention))}
-          {fieldHelper.notInContextDisplay("programs", "Program", interventionHelper.programDisplay(intervention))}
+          {displayHelper.notInContextDisplay("health-plans", "Health Plan", interventionHelper.healthPlanName(intervention))}
+          {displayHelper.notInContextDisplay("patients", "Patient", interventionHelper.patientName(intervention))}
+          {displayHelper.notInContextDisplay("programs", "Program", interventionHelper.programDisplay(intervention))}
           {
-            fieldHelper.notInContextDisplay(
+            displayHelper.notInContextDisplay(
               "pharmacy-stores",
               "Pharmacy Store",
               interventionHelper.pharmacyStoreDisplay(intervention)
             )
           }
-          {fieldHelper.display("Pharmacist", interventionHelper.pharmacistDisplay(intervention))}
-          {fieldHelper.notInContextDisplay("users", "User", interventionHelper.userName(intervention))}
+          {displayHelper.display("Pharmacist", interventionHelper.pharmacistDisplay(intervention))}
+          {displayHelper.notInContextDisplay("users", "User", interventionHelper.userName(intervention))}
         </CardBody>
       </Card>
     </Col>
@@ -80,58 +81,58 @@ const InterventionStatus = ({ intervention }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.dateDisplay("Date of Service", interventionHelper.dateOfService(intervention))}
-          {fieldHelper.dateDisplay("Pending Until", interventionHelper.pendingUntil(intervention))}
-          {fieldHelper.display("Place of Service", interventionHelper.serviceLocation(intervention))}
-          {fieldHelper.display("Venue", interventionHelper.venue(intervention))}
-          {fieldHelper.booleanDisplay("New Patient", interventionHelper.newPatient(intervention))}
+          {displayHelper.dateDisplay("Date of Service", interventionHelper.dateOfService(intervention))}
+          {displayHelper.dateDisplay("Pending Until", interventionHelper.pendingUntil(intervention))}
+          {displayHelper.display("Place of Service", interventionHelper.serviceLocation(intervention))}
+          {displayHelper.display("Venue", interventionHelper.venue(intervention))}
+          {displayHelper.booleanDisplay("New Patient", interventionHelper.newPatient(intervention))}
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Diagnosis Code",
               interventionHelper.diagnosisCode(intervention),
               interventionHelper.diagnosisCodeLongDescription(intervention)
             )
           }
-          {fieldHelper.display("State", interventionHelper.state(intervention))}
-          {fieldHelper.display("Closed Reason", interventionHelper.closedReason(intervention))}
-          {fieldHelper.display("Closed Reason Detail", interventionHelper.closedReasonDetail(intervention))}
-          {fieldHelper.dateTimeDisplay("User Started", interventionHelper.userStarted(intervention))}
-          {fieldHelper.dateTimeDisplay("Consult Started", interventionHelper.consultStarted(intervention))}
-          {fieldHelper.dateTimeDisplay("Consult Ended", interventionHelper.consultEnded(intervention))}
+          {displayHelper.display("State", interventionHelper.state(intervention))}
+          {displayHelper.display("Closed Reason", interventionHelper.closedReason(intervention))}
+          {displayHelper.display("Closed Reason Detail", interventionHelper.closedReasonDetail(intervention))}
+          {displayHelper.dateTimeDisplay("User Started", interventionHelper.userStarted(intervention))}
+          {displayHelper.dateTimeDisplay("Consult Started", interventionHelper.consultStarted(intervention))}
+          {displayHelper.dateTimeDisplay("Consult Ended", interventionHelper.consultEnded(intervention))}
           {
-            fieldHelper.displayWithUnits(
+            displayHelper.displayWithUnits(
               "Consult Session Duration",
               interventionHelper.consultSessionDuration(intervention),
               "minutes")
           }
           {
-            fieldHelper.displayWithUnits(
+            displayHelper.displayWithUnits(
               "Consult Session Duration (Exact)",
               interventionHelper.consultSessionDurationExact(intervention),
               "minutes")
           }
           {
-            fieldHelper.displayWithUnits(
+            displayHelper.displayWithUnits(
               "Face-to-Face",
               interventionHelper.consultSessionDurationFaceToFace(intervention),
               "minutes")
           }
-          {fieldHelper.dateTimeDisplay("User Ended", interventionHelper.userEnded(intervention))}
-          {fieldHelper.display("Contact Attempts", interventionHelper.contactAttempts(intervention))}
-          {fieldHelper.display("Physician's Response", interventionHelper.physiciansResponse(intervention))}
+          {displayHelper.dateTimeDisplay("User Ended", interventionHelper.userEnded(intervention))}
+          {displayHelper.display("Contact Attempts", interventionHelper.contactAttempts(intervention))}
+          {displayHelper.display("Physician's Response", interventionHelper.physiciansResponse(intervention))}
           {
-            fieldHelper.dateTimeDisplay(
+            displayHelper.dateTimeDisplay(
               "Physician's Response Recorded At",
               interventionHelper.physiciansResponseRecordedAt(intervention)
             )
           }
-          {fieldHelper.booleanDisplay("Fax Bypassed", interventionHelper.faxBypassed(intervention))}
+          {displayHelper.booleanDisplay("Fax Bypassed", interventionHelper.faxBypassed(intervention))}
           {
-            fieldHelper.dateTimeDisplay(
+            displayHelper.dateTimeDisplay(
               "Pharmacist Agreed To Submit Claim At",
               interventionHelper.pharmacistAgreedToSubmitClaimAt(intervention))
           }
-          {fieldHelper.display("Medicare Payment Status", interventionHelper.medicarePaymentStatus(intervention))}
+          {displayHelper.display("Medicare Payment Status", interventionHelper.medicarePaymentStatus(intervention))}
         </CardBody>
       </Card>
     </Col>
@@ -190,7 +191,7 @@ class InterventionProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

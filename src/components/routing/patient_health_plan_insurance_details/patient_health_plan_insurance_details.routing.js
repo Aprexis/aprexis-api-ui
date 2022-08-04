@@ -4,7 +4,8 @@ import { Route, Switch } from "react-router-dom"
 import { NoMatch } from ".."
 //import { PatientHealthPlanInsuranceDetailsPage } from "../../pages/patient_health_plan_insurance_details"
 import { PatientHealthPlanInsuranceDetailProfileForPatientPage } from "../../pages/patient_health_plan_insurance_details"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class PatientHealthPlanInsuranceDetailsRouting extends Component {
   render() {

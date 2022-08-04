@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { PatientHealthPlanInsuranceDetailProfileForPatientPageViewModel } from "../../view_models/pages/patient_health_plan_insurance_details"
-import { fieldHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const PatientHealthPlanInsuranceDetailProfile = ({ currentUser, helper, onEditProfile, patientHealthPlanInsuranceDetail }) => {
   return (
@@ -19,10 +20,10 @@ const PatientHealthPlanInsuranceDetailProfile = ({ currentUser, helper, onEditPr
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Plan Name", helper.planName(patientHealthPlanInsuranceDetail))}
-          {fieldHelper.booleanDisplay("Has Commercial Insurance?", helper.hasCommercialInsurance(patientHealthPlanInsuranceDetail))}
-          {fieldHelper.booleanDisplay("Has Medicare", helper.hasMedicare(patientHealthPlanInsuranceDetail))}
-          {fieldHelper.display("Primary Insurance Type", helper.primaryInsuranceType(patientHealthPlanInsuranceDetail))}
+          {displayHelper.display("Plan Name", helper.planName(patientHealthPlanInsuranceDetail))}
+          {displayHelper.booleanDisplay("Has Commercial Insurance?", helper.hasCommercialInsurance(patientHealthPlanInsuranceDetail))}
+          {displayHelper.booleanDisplay("Has Medicare", helper.hasMedicare(patientHealthPlanInsuranceDetail))}
+          {displayHelper.display("Primary Insurance Type", helper.primaryInsuranceType(patientHealthPlanInsuranceDetail))}
         </CardBody>
       </Card>
     </Col>

@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { Col, FormGroup } from "reactstrap"
 import { Autocomplete } from "./autocomplete"
 import { ShowRequired } from "./show_required"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class SearchForItem extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { CalendarEvent } from "./"
 
 const TimeLabel = ({ hour, minute }) => {

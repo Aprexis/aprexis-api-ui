@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class SelectItemFromList extends Component {
   constructor(props) {

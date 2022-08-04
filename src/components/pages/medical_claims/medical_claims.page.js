@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { MedicalClaimsPageViewModel } from "../../view_models/pages/medical_claims"
 import { ListView } from "../../../containers"
-import { medicalClaimHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { medicalClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -90,6 +90,7 @@ class MedicalClaimsPage extends Component {
         headings,
         helper: medicalClaimHelper,
         launchModal: this.props.launchModal,
+        modelName: 'medicalClaim',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -99,7 +100,7 @@ class MedicalClaimsPage extends Component {
     )
   }
 
-  nav(list) {
+  nav(_list) {
     if (!this.vm.canCreate()) {
       return
     }
@@ -148,7 +149,7 @@ class MedicalClaimsPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

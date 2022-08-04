@@ -1,5 +1,6 @@
 import { AbstractPageViewModel } from "./"
-import { alertHelper, MAXIMUM_PER_PAGE, pageHelper, userCredentialsHelper, valueHelper } from "../../../helpers"
+import { MAXIMUM_PER_PAGE, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, alertHelper, userCredentialsHelper } from "../../../helpers"
 
 class AbstractListPageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -82,7 +83,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
       }
     }
     if (blankIdx >= 0) {
-      listMethods[blankIdx].method(userCredentials, params, onSuccess, onError)
+      listMethods[blankIdx].method(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
       return
     }
 
@@ -94,7 +95,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
         return false
       }
 
-      method(userCredentials, model.value, params, onSuccess, onError)
+      method(apiEnvironmentHelper.apiEnvironment(userCredentials), model.value, params, onSuccess, onError)
       return true
     }
   }

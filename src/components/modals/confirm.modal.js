@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Col, Container, Row } from 'reactstrap'
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { ConfirmModalViewModal } from "../view_models/modals"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../containers/modals"
 

@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { EditButton, Spinner } from "../../../shared"
-import {
-  BillingContractPharmacyStoreProfilePageViewModel
-} from "../../../view_models/pages/billing/pharmacy_stores"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { billingContractPharmacyStoreHelper } from "../../../../helpers/billing"
+import { BillingContractPharmacyStoreProfilePageViewModel } from "../../../view_models/pages/billing/pharmacy_stores"
+import { valueHelper, billingContractPharmacyStoreHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../../../helpers'
 
 const BillingContractPharmacyStoreProfile = (
   {
@@ -29,31 +27,31 @@ const BillingContractPharmacyStoreProfile = (
 
         <CardBody>
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Health Plan",
               billingContractPharmacyStoreHelper.healthPlanName(billingContractPharmacyStore)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Clinical Programs",
               billingContractPharmacyStoreHelper.clinical(billingContractPharmacyStore)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Transactional Programs",
               billingContractPharmacyStoreHelper.transactional(billingContractPharmacyStore)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Pulls Enabled",
               billingContractPharmacyStoreHelper.pullsEnabled(billingContractPharmacyStore)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Claims Enabled",
               billingContractPharmacyStoreHelper.claimsEnabled(billingContractPharmacyStore)
             )

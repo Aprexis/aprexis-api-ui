@@ -9,7 +9,8 @@ import {
 } from "../../shared"
 import { LabTestValueModalViewModel } from "../../view_models/modals/lab_test_values"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, labTestValueHelper, valueHelper, pathHelper } from "../../../helpers"
+import { patientHelper, labTestValueHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../helpers"
 
 const LabTestValueLabTest = ({ isRequired, labTestValue, onChange, props }) => {
   return (

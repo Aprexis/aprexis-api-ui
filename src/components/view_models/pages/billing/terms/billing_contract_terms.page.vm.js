@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../.."
-import { billingContractTermApi } from "../../../../../api/billing"
-import { pageHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
+import { billingContractTermApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 const billingContractTermListMethods = [
   { pathKey: "billing-contracts", method: billingContractTermApi.listForBillingContract }
@@ -28,7 +28,7 @@ class BillingContractTermsPageViewModel extends AbstractListPageViewModel {
 
   editProfileModal(billingContractTermToEdit) {
     billingContractTermApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingContractTermToEdit.id,
       (billingContractTerm) => {
         this.props.launchModal(
@@ -39,7 +39,7 @@ class BillingContractTermsPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 

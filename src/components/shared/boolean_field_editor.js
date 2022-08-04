@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Col, Label, Input } from "reactstrap"
-import { valueHelper, fieldHelper, jsEventHelper } from "../../helpers"
+import { valueHelper, fieldHelper, } from "@aprexis/aprexis-api-utility"
+import { displayHelper, jsEventHelper } from "../../helpers"
 
 class BooleanFieldEditor extends Component {
   render() {
@@ -34,7 +35,7 @@ class BooleanFieldEditor extends Component {
             style={{ verticalAlign: 'middle' }}
             type="checkbox"
           />
-          {!valueHelper.isSet(omitLabel) && fieldHelper.label(this.props)}
+          {!valueHelper.isSet(omitLabel) && displayHelper.label(this.props)}
         </Label>
       </Col>
     )

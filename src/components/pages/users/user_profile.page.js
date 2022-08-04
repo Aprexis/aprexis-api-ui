@@ -9,7 +9,7 @@ import {
   pharmacyChainHelper,
   pharmacyStoreHelper,
   userHelper
-} from "../../../helpers"
+} from "@aprexis/aprexis-api-utility"
 import { Spinner, AprexisTable } from "../../shared"
 import { UserProfilePageViewModel } from "../../view_models/pages/users"
 
@@ -341,6 +341,11 @@ class UserProfilePage extends Component {
         </Col>
       </Container>
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

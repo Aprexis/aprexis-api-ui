@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { EntrySidebar } from "./"
 import { SidebarViewModel } from "../view_models/sidebar"
 

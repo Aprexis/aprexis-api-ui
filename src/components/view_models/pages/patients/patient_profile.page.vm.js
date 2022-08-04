@@ -1,13 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { patientApi } from "../../../../api"
-import {
-  contextHelper,
-  healthPlanHelper,
-  pathHelper,
-  patientHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { patientApi, healthPlanHelper, patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, contextHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class PatientProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -49,7 +42,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
 
   launchEditModal(patientToEdit, modalType, operation) {
     patientApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientHelper.id(patientToEdit),
       (patient) => {
         this.props.launchModal(

@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { PharmacyChainsPageViewModel } from "../../view_models/pages/pharmacy_chains"
 import { ListView } from "../../../containers"
-import { pharmacyChainHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { pharmacyChainHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -86,6 +86,7 @@ class PharmacyChainsPage extends Component {
         headings,
         helper: pharmacyChainHelper,
         launchModal: this.props.launchModal,
+        modelName: 'pharmacyChain',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -125,6 +126,11 @@ class PharmacyChainsPage extends Component {
         title="Pharmacy Chains"
       />
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { Address, Contact, Spinner } from '../../shared'
 import { PharmacyStoreProfilePageViewModel } from "../../view_models/pages/pharmacy_stores"
-import { fieldHelper, pharmacyStoreHelper, valueHelper } from '../../../helpers'
+import { pharmacyStoreHelper, valueHelper } from '@aprexis/aprexis-api-utility'
+import { displayHelper } from "../../../helpers"
 
 const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
   return (
@@ -13,26 +14,26 @@ const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("NPI Deactivation Code", pharmacyStoreHelper.npiDeactivationReasonCode(pharmacyStore))}
-          {fieldHelper.dateDisplay("NPI Deactivation Date", pharmacyStoreHelper.npiDeactivationDate(pharmacyStore))}
-          {fieldHelper.dateDisplay("NPI Reactivation Date", pharmacyStoreHelper.npiReactivationDate(pharmacyStore))}
+          {displayHelper.display("NPI Deactivation Code", pharmacyStoreHelper.npiDeactivationReasonCode(pharmacyStore))}
+          {displayHelper.dateDisplay("NPI Deactivation Date", pharmacyStoreHelper.npiDeactivationDate(pharmacyStore))}
+          {displayHelper.dateDisplay("NPI Reactivation Date", pharmacyStoreHelper.npiReactivationDate(pharmacyStore))}
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Overide Billing Info",
               pharmacyStoreHelper.overridePharmacyOrganizationBillingInfo(pharmacyStore)
             )
           }
-          {fieldHelper.display("CCD Code", pharmacyStoreHelper.ccdCode(pharmacyStore))}
-          {fieldHelper.booleanDisplay("Stripe Customer", pharmacyStoreHelper.stripeCustomer(pharmacyStore))}
-          {fieldHelper.booleanDisplay("Stripe Subscription", pharmacyStoreHelper.stripeSubscription(pharmacyStore))}
+          {displayHelper.display("CCD Code", pharmacyStoreHelper.ccdCode(pharmacyStore))}
+          {displayHelper.booleanDisplay("Stripe Customer", pharmacyStoreHelper.stripeCustomer(pharmacyStore))}
+          {displayHelper.booleanDisplay("Stripe Subscription", pharmacyStoreHelper.stripeSubscription(pharmacyStore))}
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Stripe Pharmacist License Price",
               pharmacyStoreHelper.stripePharmacistLicensePrice(pharmacyStore)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Stripe Pharmacy Technician License Price",
               pharmacyStoreHelper.stripePharmacyTechnicianLicensePrice(pharmacyStore)
             )
@@ -53,13 +54,13 @@ const PharmacyStoreProfile = ({ pharmacyStore }) => {
 
         <CardBody>
           <Address addressable={pharmacyStore} />
-          {fieldHelper.display("Latitude", pharmacyStoreHelper.latitude(pharmacyStore))}
-          {fieldHelper.display("Longitude", pharmacyStoreHelper.longitude(pharmacyStore))}
+          {displayHelper.display("Latitude", pharmacyStoreHelper.latitude(pharmacyStore))}
+          {displayHelper.display("Longitude", pharmacyStoreHelper.longitude(pharmacyStore))}
           <Contact contactable={pharmacyStore} />
-          {fieldHelper.display("NPI", pharmacyStoreHelper.npi(pharmacyStore))}
-          {fieldHelper.display("EIN Number", pharmacyStoreHelper.einNumber(pharmacyStore))}
-          {fieldHelper.display("NABP", pharmacyStoreHelper.nabp(pharmacyStore))}
-          {fieldHelper.display("Notes", pharmacyStoreHelper.notes(pharmacyStore))}
+          {displayHelper.display("NPI", pharmacyStoreHelper.npi(pharmacyStore))}
+          {displayHelper.display("EIN Number", pharmacyStoreHelper.einNumber(pharmacyStore))}
+          {displayHelper.display("NABP", pharmacyStoreHelper.nabp(pharmacyStore))}
+          {displayHelper.display("Notes", pharmacyStoreHelper.notes(pharmacyStore))}
         </CardBody>
       </Card>
     </Col>
@@ -83,7 +84,6 @@ const PharmacyStoreDisplay = ({ pharmacyStore }) => {
     </React.Fragment>
   )
 }
-
 
 class PharmacyStoreProfilePage extends Component {
   constructor(props) {
@@ -116,6 +116,11 @@ class PharmacyStoreProfilePage extends Component {
         </Col>
       </Container>
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

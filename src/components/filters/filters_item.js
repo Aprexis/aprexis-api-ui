@@ -3,7 +3,7 @@ import { Button, Col, Row } from "reactstrap"
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { FiltersItemViewModel } from "../view_models/filters"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class FiltersItem extends Component {
   constructor(props) {

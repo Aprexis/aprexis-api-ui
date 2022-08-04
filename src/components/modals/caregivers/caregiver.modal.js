@@ -9,8 +9,7 @@ import {
 } from "../../shared"
 import { CaregiverModalViewModel } from "../../view_models/modals/caregivers"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { caregiverHelper, valueHelper } from "../../../helpers"
-import { relationships } from "../../../types"
+import { caregiverHelper, valueHelper, relationships } from "@aprexis/aprexis-api-utility"
 
 class CaregiverModal extends Component {
   constructor(props) {

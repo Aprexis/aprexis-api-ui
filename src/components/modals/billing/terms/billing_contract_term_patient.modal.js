@@ -3,8 +3,7 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { NumberFieldEditor, TextFieldEditor } from "../../../shared"
 import { BillingContractTermPatientModalViewModel } from "../../../view_models/modals/billing/terms"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
-import { valueHelper } from "../../../../helpers"
-import { billingContractTermHelper } from "../../../../helpers/billing"
+import { valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
 
 const PatientSection = ({ billingContractTerm, changeField, changeNumericField, patientType, section }) => {
   return (

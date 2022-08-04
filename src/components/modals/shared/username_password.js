@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FormGroup, Label } from 'reactstrap'
-import { valueHelper } from '../../../helpers'
+import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class UsernamePassword extends Component {
   render() {

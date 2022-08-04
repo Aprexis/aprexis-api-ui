@@ -1,4 +1,5 @@
-import { valueHelper, jsEventHelper, userCredentialsHelper, pathHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, userCredentialsHelper, pathHelper } from "../../helpers"
 
 class AbstractViewModel {
   constructor(props) {
@@ -16,7 +17,6 @@ class AbstractViewModel {
     this.create = this.create.bind(this)
     this.destroy = this.destroy.bind(this)
     this.onError = this.onError.bind(this)
-    this.modelName = this.modelName.bind(this)
     this.orderedPathEntries = this.orderedPathEntries.bind(this)
     this.pathEntries = this.pathEntries.bind(this)
     this.propertiesChanged = this.propertiesChanged.bind(this)
@@ -64,7 +64,7 @@ class AbstractViewModel {
 
   create(changedModel, nextOperation) {
     this.api().create(
-      userCredentialsHelper.getAdmin(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
       changedModel,
       nextOperation,
       this.onError
@@ -73,19 +73,11 @@ class AbstractViewModel {
 
   destroy(model, nextOperation) {
     this.api().destroy(
-      userCredentialsHelper.getAdmin(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
       this.helper().id(model),
       nextOperation,
       this.onError
     )
-  }
-
-  modelName() {
-    if (valueHelper.isFunction(this.helper)) {
-      return this.helper().modelName()
-    }
-
-    return
   }
 
   onError(message) {
@@ -148,7 +140,7 @@ class AbstractViewModel {
       )
     }
 
-    function compareObjects(propertyKey, currentObject, nextObject) {
+    function compareObjects(_propertyKey, currentObject, nextObject) {
       if (valueHelper.isFunction(currentObject.getFullYear)) {
         return +currentObject != +nextObject
       }
@@ -176,7 +168,7 @@ class AbstractViewModel {
     }
 
     this.props.view.setState(
-      (oldState, oldProps) => {
+      (oldState, _oldProps) => {
         const stateReset = Object.keys(oldState)
           .filter((key) => !keepKeys.includes(key))
           .reduce((acc, v) => ({ ...acc, [v]: undefined }), {})
@@ -212,7 +204,7 @@ class AbstractViewModel {
 
   update(changedModel, nextOperation) {
     this.api().update(
-      userCredentialsHelper.getAdmin(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
       changedModel,
       nextOperation,
       this.onError

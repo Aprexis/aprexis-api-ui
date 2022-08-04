@@ -3,8 +3,7 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { AddressEditor, DayFieldEditor, TextFieldEditor } from "../../shared"
 import { PatientSubscriberModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, valueHelper } from "../../../helpers"
-import { contactMethods } from "../../../types"
+import { patientHelper, valueHelper, contactMethods } from "@aprexis/aprexis-api-utility"
 
 class PatientSubscriberModal extends Component {
   constructor(props) {

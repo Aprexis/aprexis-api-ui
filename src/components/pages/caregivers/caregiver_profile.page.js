@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Address, Contact, EditButton, Spinner } from '../../shared'
 import { CaregiverProfilePageViewModel } from "../../view_models/pages/caregivers"
-import { fieldHelper, caregiverHelper, valueHelper } from "../../../helpers"
+import { caregiverHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const CaregiverProfile = ({ currentUser, onEditProfile, caregiver }) => {
   return (
@@ -13,15 +14,15 @@ const CaregiverProfile = ({ currentUser, onEditProfile, caregiver }) => {
             Profile
             {
               caregiverHelper.canEdit(currentUser, caregiver) &&
-              <EditButton onEdit={(event) => { onEditProfile(caregiver) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(caregiver) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.booleanDisplay("Current", caregiverHelper.isCurrentCaregiver(caregiver))}
-          {fieldHelper.display("Relationship", caregiverHelper.relationship(caregiver))}
-          {fieldHelper.booleanDisplay("Use Patient Address", caregiverHelper.usePatientAddress(caregiver))}
+          {displayHelper.booleanDisplay("Current", caregiverHelper.isCurrentCaregiver(caregiver))}
+          {displayHelper.display("Relationship", caregiverHelper.relationship(caregiver))}
+          {displayHelper.booleanDisplay("Use Patient Address", caregiverHelper.usePatientAddress(caregiver))}
           <Address addressable={caregiver} />
           <Contact contactable={caregiver} />
         </CardBody>
@@ -84,7 +85,7 @@ class CaregiverProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

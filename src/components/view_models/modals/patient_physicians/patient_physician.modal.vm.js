@@ -1,13 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi, patientPhysicianApi } from "../../../../api"
-import { physicianApi } from "../../../../api/admin"
-import {
-  jsEventHelper,
-  pathHelper,
-  patientPhysicianHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { patientApi, patientPhysicianApi, physicianApi, patientPhysicianHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientPhysicianDateAndTimeFields = {
 }
@@ -28,6 +21,7 @@ class PatientPhysicianModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectPhysician = this.selectPhysician.bind(this)
   }
@@ -42,7 +36,7 @@ class PatientPhysicianModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       nextOperation,
       this.onError
@@ -51,7 +45,7 @@ class PatientPhysicianModalViewModel extends AbstractModalViewModel {
 
   fetchPhysician(physicianId, nextOperation) {
     physicianApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       physicianId,
       nextOperation,
       this.onError
@@ -77,6 +71,10 @@ class PatientPhysicianModalViewModel extends AbstractModalViewModel {
     const { changedPatientPhysician, patientPhysician } = this.data
 
     return { changedModel: changedPatientPhysician, model: patientPhysician, modelName: this.modelName() }
+  }
+
+  modelName() {
+    return 'patientPhysician'
   }
 
   requiredFields() {

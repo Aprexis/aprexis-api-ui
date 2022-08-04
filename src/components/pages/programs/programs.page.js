@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { ProgramsPageViewModel } from "../../view_models/pages/programs"
 import { ListView } from "../../../containers"
-import { programHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { programHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -91,6 +91,7 @@ class ProgramsPage extends Component {
         headings,
         helper: programHelper,
         launchModal: this.props.launchModal,
+        modelName: 'program',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -130,6 +131,11 @@ class ProgramsPage extends Component {
         title="Programs"
       />
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

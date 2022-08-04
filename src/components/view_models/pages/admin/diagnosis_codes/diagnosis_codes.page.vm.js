@@ -1,7 +1,6 @@
 import { AbstractListPageViewModel } from "../../"
-import { diagnosisCodeApi } from "../../../../../api/admin"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../../helpers"
-import { diagnosisCodes } from "../../../../../types"
+import { diagnosisCodeApi, pageHelper, valueHelper, diagnosisCodes } from '@aprexis/aprexis-api-utility'
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -22,7 +21,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.selectIdFilter(
         "Type",
@@ -57,7 +56,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
 
     list(
       pathEntries,
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (diagnosisCodes, diagnosisCodeHeaders) => {
         this.addData(
@@ -79,7 +78,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
         return
       }
 
-      diagnosisCodeApi.list(userCredentials, params, onSuccess, onError)
+      diagnosisCodeApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
     }
   }
 

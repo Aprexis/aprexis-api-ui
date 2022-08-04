@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { DisplayAlert } from "../../components/shared"
-import { dateHelper, valueHelper } from "../../helpers"
+import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class AprexisModal extends Component {
   render() {

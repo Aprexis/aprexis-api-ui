@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown } from 'reactstrap'
-import { userHelper } from '../../helpers'
+import { userHelper } from '@aprexis/aprexis-api-utility'
 
 class AdminHeaders extends Component {
   render() {

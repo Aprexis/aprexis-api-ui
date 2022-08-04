@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavItem, NavLink } from 'reactstrap'
-import { userHelper } from '../../helpers'
+import { userHelper } from '@aprexis/aprexis-api-utility'
 
 class UserHeaders extends Component {
   render() {

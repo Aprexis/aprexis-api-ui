@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { PatientAllergyProfilePageViewModel } from "../../view_models/pages/patient_allergies"
-import { fieldHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
+import { patientAllergyHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const PatientAllergyProfile = ({ currentUser, onEditProfile, patientAllergy }) => {
   return (
@@ -19,16 +20,16 @@ const PatientAllergyProfile = ({ currentUser, onEditProfile, patientAllergy }) =
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Allergy Type", patientAllergyHelper.allergyType(patientAllergy))}
-          {fieldHelper.display("Year", patientAllergyHelper.year(patientAllergy))}
-          {fieldHelper.display("Gold Standard Allergy", patientAllergyHelper.goldStandardAllergyName(patientAllergy))}
+          {displayHelper.display("Allergy Type", patientAllergyHelper.allergyType(patientAllergy))}
+          {displayHelper.display("Year", patientAllergyHelper.year(patientAllergy))}
+          {displayHelper.display("Gold Standard Allergy", patientAllergyHelper.goldStandardAllergyName(patientAllergy))}
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Gold Standard Description",
               patientAllergyHelper.goldStandardAllergyDescription(patientAllergy)
             )
           }
-          {fieldHelper.display("Reaction", patientAllergyHelper.reaction(patientAllergy))}
+          {displayHelper.display("Reaction", patientAllergyHelper.reaction(patientAllergy))}
         </CardBody>
       </Card>
     </Col>
@@ -93,7 +94,7 @@ class PatientAllergyProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

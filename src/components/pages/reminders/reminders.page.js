@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { RemindersPageViewModel } from "../../view_models/pages/reminders"
 import { ListView } from "../../../containers"
-import { reminderHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { reminderHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -84,6 +84,7 @@ class RemindersPage extends Component {
         headings,
         helper: reminderHelper,
         launchModal: this.props.launchModal,
+        modelName: 'reminder',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -143,7 +144,7 @@ class RemindersPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

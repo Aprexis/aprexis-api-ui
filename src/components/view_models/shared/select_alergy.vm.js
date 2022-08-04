@@ -1,7 +1,6 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
-import { goldStandardAllergyApi } from "../../../api/gold_standard"
-import { userCredentialsHelper } from "../../../helpers"
-import { goldStandardAllergyHelper } from "../../../helpers/gold_standard"
+import { goldStandardAllergyApi, goldStandardAllergyHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../helpers"
 
 class SelectAllergyViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
@@ -30,11 +29,11 @@ class SelectAllergyViewModel extends AbstractSelectAutocompleteViewModel {
       for_allergy: searchText
     }
 
-    this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), id, onSuccess, onFailure)
   }
 
   helper() {

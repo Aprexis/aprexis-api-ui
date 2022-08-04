@@ -1,8 +1,6 @@
 import { AbstractModalViewModel } from "../../"
-import { pharmacyChainApi } from "../../../../../api"
-import { billingContractPharmacyChainApi } from "../../../../../api/billing"
-import { userCredentialsHelper, jsEventHelper, valueHelper } from "../../../../../helpers"
-import { billingContractPharmacyChainHelper } from "../../../../../helpers/billing"
+import { pharmacyChainApi, billingContractPharmacyChainApi, valueHelper, billingContractPharmacyChainHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper, jsEventHelper } from "../../../../../helpers"
 
 const billingContractPharmacyChainRequiredFields = {
   contract_id: { label: "Contract", testMethod: valueHelper.isNumberValue },
@@ -27,13 +25,13 @@ class BillingContractPharmacyChainModalViewModel extends AbstractModalViewModel 
     return billingContractPharmacyChainApi
   }
 
-  dateAndTimeFields(billingContractPharmacyChain) {
+  dateAndTimeFields(_billingContractPharmacyChain) {
     return {}
   }
 
   fetchPharmacyChain(pharmacy_id, nextOperation) {
     pharmacyChainApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacy_id,
       nextOperation,
       this.onError

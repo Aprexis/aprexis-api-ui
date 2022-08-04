@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../../"
-import { diagnosisCodeApi } from "../../../../../api/admin"
-import { userCredentialsHelper } from "../../../../../helpers"
+import { diagnosisCodeApi } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class DiagnosisCodeProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -12,12 +12,11 @@ class DiagnosisCodeProfilePageViewModel extends AbstractPageViewModel {
   loadData() {
     this.clearData(false)
 
-    const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const diagnosis_code_id = pathEntries["diagnosis-codes"].value
 
     diagnosisCodeApi.show(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       diagnosis_code_id,
       (diagnosisCode) => { this.addField("diagnosisCode", diagnosisCode, this.redrawView) },
       this.onError

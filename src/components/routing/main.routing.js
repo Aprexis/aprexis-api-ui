@@ -7,7 +7,8 @@ import { PharmacyChainsRouting } from "./pharmacy_chains"
 import { PharmacyStoresRouting } from "./pharmacy_stores"
 import { UsersRouting } from "./users"
 import { DashboardPage, HomePage } from "../pages"
-import { pathHelper, valueHelper } from "../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../helpers"
 
 class MainRouting extends Component {
   render() {

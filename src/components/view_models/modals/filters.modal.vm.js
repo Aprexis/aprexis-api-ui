@@ -1,6 +1,7 @@
 import { AbstractModalViewModel } from "./"
 import { Filter } from "../../filters/filter"
-import { alertHelper, jsEventHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { alertHelper, jsEventHelper } from "../../../helpers"
 
 class FiltersModalViewModel extends AbstractModalViewModel {
   constructor(props) {

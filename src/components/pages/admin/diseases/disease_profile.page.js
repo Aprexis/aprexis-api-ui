@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Spinner } from "../../../shared"
 import { DiseaseProfilePageViewModel } from "../../../view_models/pages/admin/diseases"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { diseaseHelper } from "../../../../helpers/admin"
+import { valueHelper, diseaseHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../../helpers"
 
 const DiseaseProfile = ({ disease }) => {
   return (
@@ -14,15 +14,15 @@ const DiseaseProfile = ({ disease }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Name", diseaseHelper.name(disease))}
-          {fieldHelper.display("Description", diseaseHelper.description(disease))}
+          {displayHelper.display("Name", diseaseHelper.name(disease))}
+          {displayHelper.display("Description", diseaseHelper.description(disease))}
         </CardBody>
       </Card>
     </Col>
   )
 }
 
-const DiseaseDisplay = ({ currentUser, disease }) => {
+const DiseaseDisplay = ({ disease }) => {
   if (!valueHelper.isValue(disease)) {
     return (<Spinner showAtStart={true} />)
   }

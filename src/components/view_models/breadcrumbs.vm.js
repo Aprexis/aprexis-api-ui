@@ -1,5 +1,6 @@
 import { AbstractViewModel } from "./"
-import { contextHelper, pathHelper, valueHelper } from "../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { contextHelper, pathHelper } from "../../helpers"
 import { pathKeys } from '../../types'
 
 class BreadcrumbsViewModel extends AbstractViewModel {
@@ -39,7 +40,7 @@ class BreadcrumbsViewModel extends AbstractViewModel {
     return pathKeyEntry.helper.toBreadcrumb(model)
   }
 
-  pathInformation(location) {
+  pathInformation(_location) {
     const pathEntries = this.pathEntries()
     const orderedPathEntries = this.orderedPathEntries(pathEntries)
     const haveProfile = pathHelper.haveProfile(orderedPathEntries)

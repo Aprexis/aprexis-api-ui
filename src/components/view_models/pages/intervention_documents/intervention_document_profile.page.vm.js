@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from ".."
-import { interventionDocumentApi } from "../../../../api"
-import { interventionDocumentHelper, userCredentialsHelper } from "../../../../helpers"
+import { interventionDocumentApi, interventionDocumentHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class InterventionDocumentProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -20,12 +20,12 @@ class InterventionDocumentProfilePageViewModel extends AbstractPageViewModel {
   download() {
     const { interventionDocument } = this.data
 
-    this.api().download(userCredentialsHelper.get(), this.helper().id(interventionDocument), this.redrawView, this.onError)
+    this.api().download(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), this.helper().id(interventionDocument), this.redrawView, this.onError)
   }
 
   editProfileModal(interventionDocumentToEdit) {
     interventionDocumentApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       interventionDocumentHelper.id(interventionDocumentToEdit),
       (interventionDocument) => {
         this.props.launchModal(
@@ -52,7 +52,7 @@ class InterventionDocumentProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_disease_id = pathEntries['intervention-documents'].value
     this.api().profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       patient_disease_id,
       (interventionDocument) => { this.addField('interventionDocument', interventionDocument, this.redrawView) },
       this.onError

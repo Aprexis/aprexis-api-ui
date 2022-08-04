@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { InterventionMedicationsPageViewModel } from "../../view_models/pages/intervention_medications"
 import { ListView } from "../../../containers"
-import { interventionMedicationHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { interventionMedicationHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -90,6 +90,7 @@ class InterventionMedicationsPage extends Component {
         headings,
         helper: interventionMedicationHelper,
         launchModal: this.props.launchModal,
+        modelName: 'interventionMedication',
         onDeleteTableItem: this.vm.destroy,
         onRefresh: this.vm.refreshData,
         pathEntries,
@@ -131,11 +132,11 @@ class InterventionMedicationsPage extends Component {
     )
   }
 
-  nav(list) {
+  nav(_list) {
     return
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

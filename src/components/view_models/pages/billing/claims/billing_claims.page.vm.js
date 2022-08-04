@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../../"
-import { billingClaimApi } from "../../../../../api/billing"
-import { filtersHelper, pageHelper, pathHelper } from "../../../../../helpers"
+import { billingClaimApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { filtersHelper, pathHelper } from "../../../../../helpers"
 
 const billingClaimListMethods = [
   { pathKey: "health-plans", method: billingClaimApi.listForHealthPlan },
@@ -26,7 +26,7 @@ class BillingClaimsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Patient Name", "for_patient_name")
     ]

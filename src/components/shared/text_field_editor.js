@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Col, Input } from "reactstrap"
-import { valueHelper, fieldHelper } from "../../helpers"
+import { valueHelper, fieldHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../helpers'
 
 class TextFieldEditor extends Component {
   render() {
@@ -16,9 +17,9 @@ class TextFieldEditor extends Component {
       <React.Fragment>
         {
           !valueHelper.isSet(omitLabel) &&
-          <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
+          <Col xs={displayHelper.labelXs(this.props)}><label>{displayHelper.label(this.props)}</label></Col>
         }
-        <Col xs={fieldHelper.fieldXs(this.props)}>
+        <Col xs={displayHelper.fieldXs(this.props)}>
           <Input
             className="form-control"
             cols={cols}

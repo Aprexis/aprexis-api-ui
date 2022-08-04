@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { pharmacyStoreApi } from "../../../../api"
-import { userCredentialsHelper } from "../../../../helpers"
+import { pharmacyStoreApi } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class PharmacyStoreProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -16,7 +16,7 @@ class PharmacyStoreProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const pharmacy_store_id = pathEntries['pharmacy-stores'].value
     pharmacyStoreApi.show(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       pharmacy_store_id,
       (pharmacyStore) => { this.addField('pharmacyStore', pharmacyStore, this.redrawView) },
       this.onError

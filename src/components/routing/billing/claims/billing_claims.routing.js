@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { BillingClaimRouting } from "./"
 import { NoMatch } from "../../"
 import { BillingClaimsPage } from "../../../pages/billing/claims"
-import { pathHelper, valueHelper } from "../../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../../helpers"
 
 class BillingClaimsRouting extends Component {
   render() {

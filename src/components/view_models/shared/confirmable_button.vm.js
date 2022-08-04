@@ -1,5 +1,5 @@
 import { AbstractViewModel } from "../"
-import { valueHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class ConfirmableButtonViewModal extends AbstractViewModel {
   constructor(props) {

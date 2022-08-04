@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { labTestValueApi } from "../../../../api"
-import { alertHelper, filtersHelper, labTestValueHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { labTestValueApi, labTestValueHelper, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, alertHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class LabTestValuesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -28,7 +28,16 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    return this.helper().canBeCreated(currentUser, pathEntries)
+    return canBeCreated(currentUser, pathEntries)
+
+    function canBeCreated(user, pathEntries) {
+      if (!authorizationHelper.canCreateLabTestValue(user, pathEntries)) {
+        return false
+      }
+
+      return pathHelper.isSingular(pathEntries, "patients") || pathHelper.isSinguler(pathEntries, "interventions")
+    }
+
   }
 
   createModal() {
@@ -48,7 +57,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     }
 
     this.api().buildNewForPatient(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       pharmacyStoreId,
       (labTestValue) => {
@@ -75,7 +84,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
 
   editModal(labTestValueToEdit) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       labTestValueToEdit.id,
       (labTestValue) => {
         this.props.launchModal(
@@ -153,13 +162,13 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     function list(api, pathEntries, userCredentials, params, onSuccess, onError) {
       const intervention = pathEntries['interventions']
       if (valueHelper.isValue(intervention)) {
-        api.listForIntervention(userCredentials, intervention.value, params, onSuccess, onError)
+        api.listForIntervention(apiEnvironmentHelper.apiEnvironment(userCredentials), intervention.value, params, onSuccess, onError)
         return
       }
 
       const patient = pathEntries['patients']
       if (valueHelper.isValue(patient)) {
-        api.listForPatient(userCredentials, patient.value, params, onSuccess, onError)
+        api.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials), patient.value, params, onSuccess, onError)
         return
       }
 

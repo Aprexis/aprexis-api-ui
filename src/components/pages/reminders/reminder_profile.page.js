@@ -2,13 +2,14 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { ReminderProfilePageViewModel } from "../../view_models/pages/reminders"
-import { fieldHelper, medicationHelper, patientSupplementHelper, reminderHelper, valueHelper } from "../../../helpers"
+import { medicationHelper, patientSupplementHelper, reminderHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const Medication = ({ medication }) => {
   return (<React.Fragment>{medicationHelper.name(medication)}<br /></React.Fragment>)
 }
 
-const ReminderMedications = ({ currentUser, reminder }) => {
+const ReminderMedications = ({ reminder }) => {
   const reminderMedications = valueHelper.arrayWithDefault(reminderHelper.medications(reminder)).map(
     (medication, idx) => {
       return (<Medication key={`edication-${idx}`} medication={medication} />)
@@ -37,26 +38,26 @@ const ReminderProfile = ({ currentUser, onEditProfile, reminder }) => {
             Profile
             {
               reminderHelper.canEdit(currentUser, reminder) &&
-              <EditButton onEdit={(event) => { onEditProfile(reminder) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(reminder) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Type", reminderHelper.displayType(reminder))}
-          {fieldHelper.dateDisplay("Start On", reminderHelper.recurFrom(reminder))}
-          {fieldHelper.dateDisplay("End On", reminderHelper.recurTo(reminder))}
-          {fieldHelper.display("At", reminderHelper.displayRemindAt(reminder))}
-          {fieldHelper.display("Email", reminderHelper.emailAddress(reminder))}
-          {fieldHelper.display("Phone", reminderHelper.voiceNumber(reminder))}
-          {fieldHelper.display("Text", reminderHelper.txtNumber(reminder))}
+          {displayHelper.display("Type", reminderHelper.displayType(reminder))}
+          {displayHelper.dateDisplay("Start On", reminderHelper.recurFrom(reminder))}
+          {displayHelper.dateDisplay("End On", reminderHelper.recurTo(reminder))}
+          {displayHelper.display("At", reminderHelper.displayRemindAt(reminder))}
+          {displayHelper.display("Email", reminderHelper.emailAddress(reminder))}
+          {displayHelper.display("Phone", reminderHelper.voiceNumber(reminder))}
+          {displayHelper.display("Text", reminderHelper.txtNumber(reminder))}
         </CardBody>
       </Card>
     </Col>
   )
 }
 
-const ReminderSchedule = ({ currentUser, reminder }) => {
+const ReminderSchedule = ({ reminder }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
@@ -84,26 +85,26 @@ const ReminderSchedule = ({ currentUser, reminder }) => {
         return (<React.Fragment>Unknown Schedule</React.Fragment>)
     }
 
-    function displayDailySchedule(reminder) {
+    function displayDailySchedule(_reminder) {
       return (<React.Fragment>Every Day</React.Fragment>)
     }
 
     function displayWeeklySchedule(reminder) {
       return (
         <React.Fragment>
-          {fieldHelper.booleanDisplay("Sunday", reminderHelper.sunday(reminder))}
-          {fieldHelper.booleanDisplay("Monday", reminderHelper.monday(reminder))}
-          {fieldHelper.booleanDisplay("Tuesday", reminderHelper.tuesday(reminder))}
-          {fieldHelper.booleanDisplay("Wednesday".reminderHelper.wednesday(reminder))}
-          {fieldHelper.booleanDisplay("Thursday", reminderHelper.thursday(reminder))}
-          {fieldHelper.booleanDisplay("Friday", reminderHelper.friday(reminder))}
-          {fieldHelper.booleanDisplay("Saturday", reminderHelper.saturday(reminder))}
+          {displayHelper.booleanDisplay("Sunday", reminderHelper.sunday(reminder))}
+          {displayHelper.booleanDisplay("Monday", reminderHelper.monday(reminder))}
+          {displayHelper.booleanDisplay("Tuesday", reminderHelper.tuesday(reminder))}
+          {displayHelper.booleanDisplay("Wednesday".reminderHelper.wednesday(reminder))}
+          {displayHelper.booleanDisplay("Thursday", reminderHelper.thursday(reminder))}
+          {displayHelper.booleanDisplay("Friday", reminderHelper.friday(reminder))}
+          {displayHelper.booleanDisplay("Saturday", reminderHelper.saturday(reminder))}
         </React.Fragment>
       )
     }
 
     function displayMonthlySchedule(reminder) {
-      return (fieldHelper.display("Day of Month", reminderHelper.dayOfMonth(reminder)))
+      return (displayHelper.display("Day of Month", reminderHelper.dayOfMonth(reminder)))
     }
   }
 }
@@ -112,7 +113,7 @@ const ReminderSupplement = ({ patientSupplement }) => {
   return (<React.Fragment>{patientSupplementHelper.name(patientSupplement)}<br /></React.Fragment>)
 }
 
-const ReminderSupplements = ({ currentUser, reminder }) => {
+const ReminderSupplements = ({ reminder }) => {
   const reminderSupplements = valueHelper.arrayWithDefault(reminderHelper.patientSupplements(reminder)).map(
     (patientSupplement, idx) => {
       return (<ReminderSupplement key={`patient-supplement-${idx}`} patientSupplement={patientSupplement} />)
@@ -203,7 +204,7 @@ class ReminderProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

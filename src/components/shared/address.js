@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { fieldHelper, addressHelper } from "../../helpers"
+import { addressHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../helpers'
 
 class Address extends Component {
   render() {
@@ -7,11 +8,11 @@ class Address extends Component {
 
     return (
       <React.Fragment>
-        {fieldHelper.display("Address", addressHelper.address(addressable, prefix))}
-        {fieldHelper.display("City", addressHelper.city(addressable, prefix))}
-        {fieldHelper.display("State", addressHelper.state(addressable, prefix))}
-        {fieldHelper.display("ZIP Code", addressHelper.zipCode(addressable, prefix))}
-        {fieldHelper.display("Country", addressHelper.country(addressable, prefix))}
+        {displayHelper.display("Address", addressHelper.address(addressable, prefix))}
+        {displayHelper.display("City", addressHelper.city(addressable, prefix))}
+        {displayHelper.display("State", addressHelper.state(addressable, prefix))}
+        {displayHelper.display("ZIP Code", addressHelper.zipCode(addressable, prefix))}
+        {displayHelper.display("Country", addressHelper.country(addressable, prefix))}
       </React.Fragment>
     )
   }

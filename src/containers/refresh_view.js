@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import IdleTimer from 'react-idle-timer'
-import { valueHelper } from '../helpers'
+import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class RefreshView extends Component {
   constructor(props) {

@@ -1,4 +1,5 @@
-import { valueHelper, jsEventHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { jsEventHelper } from "../../../helpers"
 import { AbstractViewModel } from "../abstract.vm"
 
 class AbstractSelectAutocompleteViewModel extends AbstractViewModel {

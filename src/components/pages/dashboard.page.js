@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { DashboardPageViewModel } from '../view_models/pages'
-import { userHelper, valueHelper } from '../../helpers'
+import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -27,6 +27,11 @@ class DashboardPage extends Component {
         Dashboard for {name}
       </div>
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

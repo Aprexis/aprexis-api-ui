@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class TableColumnHeader extends Component {
   constructor(props) {

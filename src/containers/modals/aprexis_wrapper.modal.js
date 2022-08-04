@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { dateHelper, valueHelper } from '../../helpers'
+import { dateHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 
 export function aprexisWrapperModal(WrappedModal) {
   return class extends Component {

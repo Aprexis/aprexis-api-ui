@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { HealthPlanProgramLimitRouting } from "./"
 import { NoMatch } from ".."
 import { HealthPlanProgramLimitsPage } from "../../pages/health_plan_program_limits"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class HealthPlanProgramLimitsRouting extends Component {
   render() {

@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { patientSupplementApi } from "../../../../api"
-import { filtersHelper, pageHelper } from "../../../../helpers"
+import { patientSupplementApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { filtersHelper } from "../../../../helpers"
 
 const patientSupplementListMethods = [
   { pathKey: "patients", method: patientSupplementApi.listForPatient }
@@ -31,7 +31,7 @@ class PatientSupplementsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     const filterDescriptions = [
       filtersHelper.stringFilter("Name", "for_name")
     ]

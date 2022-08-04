@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Input, Label } from 'reactstrap'
-import { filtersHelper, valueHelper } from '../../helpers'
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { filtersHelper } from '../../helpers'
 
 class StringFilter extends Component {
   render() {

@@ -1,9 +1,8 @@
 import React, { Component } from "react"
 import { LabTestsPageViewModel } from "../../../view_models/pages/admin/lab_tests"
 import { ListView } from "../../../../containers"
-import { valueHelper } from "../../../../helpers"
-import { labTestHelper } from "../../../../helpers/admin"
-import { listHelper } from "../../../../helpers/list.helper"
+import { valueHelper, labTestHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../../helpers"
 
 const headings = [
   {
@@ -88,6 +87,7 @@ class LabTestsPage extends Component {
         headings,
         helper: labTestHelper,
         launchModal: this.props.launchModal,
+        modelName: 'labTest',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

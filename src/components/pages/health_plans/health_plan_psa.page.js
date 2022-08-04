@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plans"
 import { ListView } from "../../../containers"
-import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -68,6 +68,7 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
         headings,
         helper: healthPlanPatientSearchAlgorithmHelper,
         launchModal: this.props.launchModal,
+        modelName: 'healthPlanPatientSearchAlgorithm',
         pathEntries,
         tableItem: patientSearchAlgorithm
       }
@@ -116,7 +117,7 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

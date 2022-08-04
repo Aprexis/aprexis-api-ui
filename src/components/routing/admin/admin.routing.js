@@ -8,7 +8,8 @@ import { MedicationsRouting } from "./medications"
 import { NoMatch } from "../"
 import { PhysiciansRouting } from "./physicians"
 import { SystemSettingsRouting } from "./system_settings"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class AdminRouting extends Component {
   render() {

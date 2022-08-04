@@ -1,7 +1,6 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
-import { billingContractApi } from "../../../api/billing"
-import { userCredentialsHelper, pathHelper, valueHelper } from "../../../helpers"
-import { billingContractHelper } from "../../../helpers/billing"
+import { billingContractApi, valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper, pathHelper } from "../../../helpers"
 
 class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
@@ -53,11 +52,11 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
       for_store: searchText
     }
 
-    this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), id, onSuccess, onFailure)
   }
 
   helper() {
@@ -75,7 +74,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
     const params = { page: { number: 1, size: 25 }, sort: 'health_plan.name,name' }
     if (!valueHelper.isValue(health_plan_id)) {
       billingContractApi.list(
-        userCredentialsHelper.get(),
+        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
         params,
         nextOperation,
         this.onError
@@ -84,7 +83,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
     }
 
     this.api().listForHealthPlan(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       health_plan_id,
       params,
       nextOperation,

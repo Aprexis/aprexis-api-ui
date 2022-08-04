@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { HealthPlansPageViewModel } from "../../view_models/pages/health_plans"
 import { ListView } from "../../../containers"
-import { healthPlanHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { healthPlanHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -85,6 +85,7 @@ class HealthPlansPage extends Component {
         headings,
         helper: healthPlanHelper,
         launchModal: this.props.launchModal,
+        modelName: 'healthPlan',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -126,7 +127,7 @@ class HealthPlansPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

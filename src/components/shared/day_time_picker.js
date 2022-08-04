@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, Row } from "reactstrap"
-import { dateHelper } from "../../helpers"
+import { dateHelper } from "@aprexis/aprexis-api-utility"
 import { DayPicker, TimePicker } from "./"
 import { DayTimePickerViewModel } from "../view_models/shared"
 

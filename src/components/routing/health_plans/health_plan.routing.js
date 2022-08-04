@@ -9,7 +9,8 @@ import { ProgramsRouting } from "../programs"
 import { BillingClaimsRouting } from "../billing/claims"
 import { BillingContractsRouting } from "../billing/contracts"
 import { UsersRouting } from "../users"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class HealthPlanRouting extends Component {
   render() {

@@ -11,8 +11,8 @@ import {
 } from "../../shared"
 import { PatientMedicationModalViewModel } from "../../view_models/modals/patient_medications"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, patientMedicationHelper, pathHelper, valueHelper } from "../../../helpers"
-import { patientMedications } from "../../../types"
+import { patientHelper, patientMedicationHelper, valueHelper, patientMedications } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../helpers"
 
 class PatientMedicationModal extends Component {
   constructor(props) {

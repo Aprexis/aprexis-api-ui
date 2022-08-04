@@ -3,7 +3,7 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { SelectPhysician } from "../../shared"
 import { PatientPhysicianModalViewModel } from "../../view_models/modals/patient_physicians"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, patientPhysicianHelper, valueHelper } from "../../../helpers"
+import { patientHelper, patientPhysicianHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class PatientPhysicianModal extends Component {
   constructor(props) {

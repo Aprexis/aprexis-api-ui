@@ -1,6 +1,6 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
-import { patientMedicationApi } from "../../../api"
-import { jsEventHelper, patientMedicationHelper, userCredentialsHelper } from "../../../helpers"
+import { patientMedicationApi, patientMedicationHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, userCredentialsHelper } from "../../../helpers"
 
 class SelectPatientMedicationViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
@@ -30,11 +30,11 @@ class SelectPatientMedicationViewModel extends AbstractSelectAutocompleteViewMod
       for_medication: searchText
     }
 
-    this.api().searchForPatient(userCredentialsHelper.get(), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().searchForPatient(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), id, onSuccess, onFailure)
   }
 
   helper() {

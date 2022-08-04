@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { documentApi } from "../../../../api"
-import { documentHelper, userCredentialsHelper } from "../../../../helpers"
+import { documentApi, documentHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class DocumentProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -20,12 +20,12 @@ class DocumentProfilePageViewModel extends AbstractPageViewModel {
   download() {
     const { document } = this.data
 
-    this.api().download(userCredentialsHelper.get(), this.helper().id(document), this.redrawView, this.onError)
+    this.api().download(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), this.helper().id(document), this.redrawView, this.onError)
   }
 
   editProfileModal(documentToEdit) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       this.helper().id(documentToEdit),
       (document) => {
         this.props.launchModal(
@@ -52,7 +52,7 @@ class DocumentProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const document_id = pathEntries['documents'].value
     this.api().profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       document_id,
       (document) => { this.addField('document', document, this.redrawView) },
       this.onError

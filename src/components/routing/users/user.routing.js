@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
 import { AppointmentsRouting } from "../appointments"
 import { UserProfilePage } from "../../pages/users"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class UserRouting extends Component {
   render() {

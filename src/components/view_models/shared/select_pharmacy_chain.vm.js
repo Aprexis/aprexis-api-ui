@@ -1,6 +1,6 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
-import { pharmacyChainApi } from "../../../api"
-import { pharmacyChainHelper, userCredentialsHelper, valueHelper } from "../../../helpers"
+import { pharmacyChainApi, pharmacyChainHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../helpers"
 
 class SelectPharmacyChainViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
@@ -52,11 +52,11 @@ class SelectPharmacyChainViewModel extends AbstractSelectAutocompleteViewModel {
       for_chain: searchText
     }
 
-    this.api().search(userCredentialsHelper.get(), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(userCredentialsHelper.get(), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), id, onSuccess, onFailure)
   }
 
   helper() {
@@ -71,7 +71,7 @@ class SelectPharmacyChainViewModel extends AbstractSelectAutocompleteViewModel {
   loadPharmacyChains(nextOperation) {
     const params = { page: { number: 1, size: 25 }, sort: 'name' }
     pharmacyChainApi.list(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       params,
       nextOperation,
       this.onError

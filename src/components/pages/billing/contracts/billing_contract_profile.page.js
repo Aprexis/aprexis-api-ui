@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { EditButton, Spinner } from "../../../shared"
 import { BillingContractProfilePageViewModel } from "../../../view_models/pages/billing/contracts"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { billingContractHelper } from "../../../../helpers/billing"
+import { valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../../../helpers'
 
 const BillingContractProfile = ({ currentUser, onEdit, billingContract }) => {
   return (
@@ -14,16 +14,16 @@ const BillingContractProfile = ({ currentUser, onEdit, billingContract }) => {
             Profile
             {
               billingContractHelper.canEdit(currentUser, billingContract) &&
-              <EditButton onEdit={(event) => { onEdit(billingContract) }} />
+              <EditButton onEdit={(_event) => { onEdit(billingContract) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Health Plan", billingContractHelper.healthPlanName(billingContract))}
-          {fieldHelper.booleanDisplay("Active", billingContractHelper.active(billingContract))}
-          {fieldHelper.dateDisplay("Start Date", billingContractHelper.startDate(billingContract))}
-          {fieldHelper.dateDisplay("Stop Date", billingContractHelper.stopDate(billingContract))}
+          {displayHelper.display("Health Plan", billingContractHelper.healthPlanName(billingContract))}
+          {displayHelper.booleanDisplay("Active", billingContractHelper.active(billingContract))}
+          {displayHelper.dateDisplay("Start Date", billingContractHelper.startDate(billingContract))}
+          {displayHelper.dateDisplay("Stop Date", billingContractHelper.stopDate(billingContract))}
         </CardBody>
       </Card>
     </Col>
@@ -79,7 +79,7 @@ class BillingContractProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

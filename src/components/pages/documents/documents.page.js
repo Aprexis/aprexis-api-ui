@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { DocumentsPageViewModel } from "../../view_models/pages/documents"
 import { ListView } from "../../../containers"
-import { documentHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { documentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -77,6 +77,7 @@ class DocumentsPage extends Component {
         headings,
         helper: documentHelper,
         launchModal: this.props.launchModal,
+        modelName: 'document',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -135,7 +136,7 @@ class DocumentsPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

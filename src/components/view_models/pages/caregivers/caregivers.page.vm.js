@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { caregiverApi } from "../../../../api"
-import { caregiverHelper, filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { caregiverApi, caregiverHelper, pageHelper, patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const caregiverListMethods = [
   { pathKey: "patients", method: caregiverApi.listForPatient }
@@ -25,7 +25,17 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    return caregiverHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+    return canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+
+    function canBeCreated(user, pathEntries, context) {
+      if (!pathHelper.isSingular(pathEntries, "patients") || !valueHelper.isValue(context)) {
+        return false
+      }
+
+      const patient = context.patients
+      return patientHelper.canEdit(user, patient, patientHelper.healthPlan(patient))
+    }
+
   }
 
   api() {
@@ -37,7 +47,7 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       (caregiver) => {
         this.props.launchModal(
@@ -57,7 +67,7 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
 
   editModal(caregiverToEdit) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       caregiverToEdit.id,
       (caregiver) => {
         this.props.launchModal(
@@ -68,7 +78,7 @@ class CaregiversPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Name", "for_name")
     ]

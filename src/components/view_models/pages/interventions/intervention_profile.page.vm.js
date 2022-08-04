@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { interventionApi } from "../../../../api"
-import { userCredentialsHelper } from "../../../../helpers"
+import { interventionApi } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class InterventionProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -16,7 +16,7 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const intervention_id = pathEntries['interventions'].value
     interventionApi.profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       intervention_id,
       (intervention) => { this.addField('intervention', intervention, this.redrawView) },
       this.onError

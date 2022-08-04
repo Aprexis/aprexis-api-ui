@@ -1,13 +1,6 @@
 import { AbstractListPageViewModel } from "../.."
-import { billingContractApi, billingContractPharmacyStoreApi } from "../../../../../api/billing"
-import {
-  filtersHelper,
-  pageHelper,
-  pathHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../../helpers"
-import { billingContractPharmacyStoreHelper } from "../../../../../helpers/billing"
+import { billingContractApi, billingContractPharmacyStoreApi, pageHelper, valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 const billingContractPharmacyStoreListMethods = [
   { pathKey: "billing-contracts", method: billingContractPharmacyStoreApi.listForBillingContract }
@@ -34,7 +27,15 @@ class BillingContractPharmacyStoresPageViewModel extends AbstractListPageViewMod
     const { billingContract } = this.data
     const { currentUser } = this.props
 
-    return billingContractPharmacyStoreHelper.canBeCreated(currentUser, billingContract)
+    return canBeCreated(currentUser, billingContract)
+
+    function canBeCreated(user, billingContract) {
+      if (!billingContractHelper.allowPharmacyStores(billingContract)) {
+        return false
+      }
+
+      return authorizationHelper.canCreateBillingContractPharmacyStore(user)
+    }
   }
 
   createModal() {
@@ -42,7 +43,7 @@ class BillingContractPharmacyStoresPageViewModel extends AbstractListPageViewMod
     const contractId = pathHelper.id(pathEntries, "billing-contracts")
 
     billingContractPharmacyStoreApi.buildNewForBillingContract(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       contractId,
       (billingContractPharmacyStore) => {
         this.props.launchModal(
@@ -62,7 +63,7 @@ class BillingContractPharmacyStoresPageViewModel extends AbstractListPageViewMod
 
   editModal(billingContractPharmacyStoreToEdit) {
     billingContractPharmacyStoreApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingContractPharmacyStoreToEdit.id,
       (billingContractPharmacyStore) => {
         this.props.launchModal(
@@ -80,7 +81,7 @@ class BillingContractPharmacyStoresPageViewModel extends AbstractListPageViewMod
     }
 
     billingContractApi.profile(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billing_contract_id,
       (billingContract) => {
         this.addData({ billingContract }, nextOperation)
@@ -89,7 +90,7 @@ class BillingContractPharmacyStoresPageViewModel extends AbstractListPageViewMod
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Pharmacy Store", "for_pharmacy_store_name")
     ]

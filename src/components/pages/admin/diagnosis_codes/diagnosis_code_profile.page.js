@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Spinner } from "../../../shared"
 import { DiagnosisCodeProfilePageViewModel } from "../../../view_models/pages/admin/diagnosis_codes"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { diagnosisCodeHelper } from "../../../../helpers/admin"
+import { valueHelper, diagnosisCodeHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../../../helpers'
 
 const DiagnosisCodeProfile = ({ diagnosisCode }) => {
   return (
@@ -14,17 +14,17 @@ const DiagnosisCodeProfile = ({ diagnosisCode }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Type", diagnosisCodeHelper.typeLabel(diagnosisCode))}
-          {fieldHelper.display("Short Description", diagnosisCodeHelper.shortDescription(diagnosisCode))}
-          {fieldHelper.display("Long Description", diagnosisCodeHelper.longDescription(diagnosisCode))}
-          {fieldHelper.booleanDisplay("Billable", diagnosisCodeHelper.billable(diagnosisCode))}
+          {displayHelper.display("Type", diagnosisCodeHelper.typeLabel(diagnosisCode))}
+          {displayHelper.display("Short Description", diagnosisCodeHelper.shortDescription(diagnosisCode))}
+          {displayHelper.display("Long Description", diagnosisCodeHelper.longDescription(diagnosisCode))}
+          {displayHelper.booleanDisplay("Billable", diagnosisCodeHelper.billable(diagnosisCode))}
         </CardBody>
       </Card>
     </Col>
   )
 }
 
-const DiagnosisCodeDisplay = ({ currentUser, diagnosisCode }) => {
+const DiagnosisCodeDisplay = ({ diagnosisCode }) => {
   if (!valueHelper.isValue(diagnosisCode)) {
     return (<Spinner showAtStart={true} />)
   }

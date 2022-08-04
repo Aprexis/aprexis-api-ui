@@ -1,7 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { interventionApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
-import { interventionStates } from "../../../../types"
+import { interventionApi, pageHelper, valueHelper, interventionStates } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class InterventionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -23,7 +22,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Name", "for_name"),
       filtersHelper.selectIdFilter(
@@ -93,17 +92,17 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
       const patient = pathEntries["patients"]
 
       if (valueHelper.isValue(patient)) {
-        interventionApi.listForPatient(userCredentials, patient.value, params, onSuccess, onError)
+        interventionApi.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials), patient.value, params, onSuccess, onError)
         return
       }
 
       const pharmacyStore = pathEntries["pharmacy-stores"]
       if (valueHelper.isValue(pharmacyStore)) {
-        interventionApi.listForPharmacyStore(userCredentials, pharmacyStore.value, params, onSuccess, onError)
+        interventionApi.listForPharmacyStore(apiEnvironmentHelper.apiEnvironment(userCredentials), pharmacyStore.value, params, onSuccess, onError)
         return
       }
 
-      interventionApi.list(userCredentials, params, onSuccess, onError)
+      interventionApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
     }
   }
 
