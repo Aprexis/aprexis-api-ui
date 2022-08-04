@@ -1,8 +1,9 @@
 import React from "react"
 import { UncontrolledTooltip } from "reactstrap"
+import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
-import { valueHelper, dateHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper, dateHelper, userHelper } from "@aprexis/aprexis-api-utility"
 import { contextHelper } from "./context.helper"
 
 export const displayHelper = {
@@ -24,6 +25,7 @@ export const displayHelper = {
   optionDisplay,
   phoneDisplay,
   phoneNumberForDisplay,
+  renderAccess,
   titleDisplay
 }
 
@@ -371,6 +373,66 @@ function options(props) {
           </option>
         )
       }
+    )
+  }
+}
+
+function renderAccess(user) {
+  if (!valueHelper.isValue(user)) {
+    return
+  }
+
+  const accessLocked = renderAccessLocked(user)
+  const allowLogin = renderAllowLogin(user)
+  const expired = renderExpired(user)
+
+  return (<React.Fragment>{expired}{accessLocked}{allowLogin}</React.Fragment>)
+
+  function renderAccessLocked(user) {
+    if (!userHelper.isAccessLocked(user)) {
+      return
+    }
+
+    return (
+      <span>
+        &nbsp;
+        <FontAwesomeIcon className="ml-1 red" icon={faLock} id={`access-locked-${user.id}`} />
+        <UncontrolledTooltip placement="top" boundariesElement="window" target={`access-locked-${user.id}`}>
+          Account is temporarily locked
+        </UncontrolledTooltip>
+      </span>
+    )
+  }
+
+  function renderAllowLogin(user) {
+    if (userHelper.isLoginAllowed(user)) {
+      return
+    }
+
+    return (
+      <span>
+        &nbsp;
+        <FontAwesomeIcon className="ml-1 red" icon={faUserSlash} id={`disallow-login-${user.id}`} />
+        <UncontrolledTooltip placement="top" boundariesElement="window" target={`disallow-login-${user.id}`}>
+          Login not allowed
+        </UncontrolledTooltip>
+      </span>
+    )
+  }
+
+  function renderExpired(user) {
+    if (!userHelper.isExpired(user)) {
+      return
+    }
+
+    return (
+      <span>
+        &nbsp;
+        <FontAwesomeIcon className="ml-1 red" icon={faCalendarMinus} id={`disallow-login-${user.id}`} />
+        <UncontrolledTooltip placement="top" boundariesElement="window" target={`disallow-login-${user.id}`}>
+          Account has expired
+        </UncontrolledTooltip>
+      </span>
     )
   }
 }

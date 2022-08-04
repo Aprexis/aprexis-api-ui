@@ -1,6 +1,7 @@
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { alertHelper } from "./alert.helper"
 import { pathHelper } from "./path.helper"
+import { apiEnvironmentHelper } from "./api_environment.helper"
 import { userCredentialsHelper } from "./user_credentials.helper"
 import { pathKeys } from "../types"
 
@@ -139,7 +140,7 @@ function updateContext(nextOperation) {
     const pathEntry = pathEntries[pathKey]
     const { value } = pathEntry
     pathKeys[pathKey].api.show(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       value,
       (model) => {
         workingContext[pathKey] = model

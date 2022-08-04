@@ -18,7 +18,7 @@ const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey 
       }
       <button
         className="btn btn-link ml-0 mr-0 pl-0 pr-0"
-        onClick={(event) => { gotoPage(orderedPathEntries, pathKey) }}
+        onClick={(_event) => { gotoPage(orderedPathEntries, pathKey) }}
         disabled={cannotGotoKeys.includes(pathKey)}
         type="button">
         {crumb}

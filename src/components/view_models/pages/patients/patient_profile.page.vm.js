@@ -33,7 +33,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_id = pathEntries['patients'].value
     patientApi.show(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       patient_id,
       (patient) => { this.addField('patient', patient, nextOperation) },
       this.onError

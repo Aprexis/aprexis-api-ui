@@ -10,6 +10,7 @@ import {
   pharmacyStoreHelper,
   userHelper
 } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 import { Spinner, AprexisTable } from "../../shared"
 import { UserProfilePageViewModel } from "../../view_models/pages/users"
 
@@ -318,7 +319,7 @@ class UserProfilePage extends Component {
       <Container>
         <Col>
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
-            <h1>Account for {userHelper.fullName(user)}{userHelper.renderAccess(user)}</h1>
+            <h1>Account for {userHelper.fullName(user)}{displayHelper.renderAccess(user)}</h1>
           </div>
 
           {
