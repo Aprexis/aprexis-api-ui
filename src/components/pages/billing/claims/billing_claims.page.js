@@ -2,13 +2,13 @@ import React, { Component } from "react"
 import { BillingClaimsPageViewModel } from "../../../view_models/pages/billing/claims"
 import { ListView } from "../../../../containers"
 import { valueHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { displayHelper, listHelper } from "../../../../helpers"
 
 const headings = [
   {
     name: "Pharmacy #, Aprexis #, Payer #",
     field: "reference_number,payer_claim_tracking_number",
-    labelMethod: "displayReferenceNumbers"
+    labelMethod: displayHelper.displayClaimReferenceNumbers
   },
   {
     name: "Submmitted At",
@@ -50,6 +50,7 @@ const headings = [
     method: "amountPaid"
   }
 ]
+
 
 class BillingClaimsPage extends Component {
   constructor(props) {

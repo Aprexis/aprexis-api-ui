@@ -3,7 +3,7 @@ import { UncontrolledTooltip } from "reactstrap"
 import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
-import { valueHelper, dateHelper, userHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper, dateHelper, userHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
 import { contextHelper } from "./context.helper"
 
 export const displayHelper = {
@@ -12,6 +12,7 @@ export const displayHelper = {
   dateTimeDisplay,
   display,
   displayListField,
+  displayClaimReferenceNumbers,
   displayWithUnits,
   dollarDisplay,
   fieldXs,
@@ -75,6 +76,58 @@ function display(name, value, description, suffix = ":", required = false) {
     </span>
   )
 }
+
+function displayClaimReferenceNumbers(billingClaim) {
+  const pharmacyNumber = displayPharmacyReferenceNumber(billingClaim)
+  const aprexisNumber = displayAprexisReferenceNumber(billingClaim)
+  const payerNumber = displayPayerClaimTrackingNumber(billingClaim)
+
+  return (
+    <React.Fragment>
+      <label>{pharmacyNumber}</label><br />
+      <label>{aprexisNumber}</label><br />
+      <label>{payerNumber}</label>
+    </React.Fragment>
+  )
+
+  function displayAprexisReferenceNumber(billingClaim) {
+    const referenceNumber = billingClaimHelper.referenceNumber(billingClaim)
+    if (!valueHelper.isStringValue(referenceNumber)) {
+      return "Not available"
+    }
+
+    const dash = referenceNumber.lastIndexOf("-")
+    if (dash === -1) {
+      return referenceNumber
+    }
+
+    return referenceNumber.substring(dash + 1)
+  }
+
+  function displayPayerClaimTrackingNumber(billingClaim) {
+    const payerNumber = billingClaimHelper.payerClaimTrackingNumber(billingClaim)
+    if (!valueHelper.isStringValue(payerNumber)) {
+      return "Not available"
+    }
+
+    return payerNumber
+  }
+
+  function displayPharmacyReferenceNumber(billingClaim) {
+    const referenceNumber = billingClaimHelper.referenceNumber(billingClaim)
+    if (!valueHelper.isStringValue(referenceNumber)) {
+      return "Not available"
+    }
+
+    const dash = referenceNumber.lastIndexOf("-")
+    if (dash === -1) {
+      return 'Not available'
+    }
+
+    return referenceNumber.substring(0, dash - 1)
+  }
+}
+
 
 function displayListField(model, helper, heading) {
   const method = valueHelper.isStringValue(heading.method) ? heading.method : heading.field

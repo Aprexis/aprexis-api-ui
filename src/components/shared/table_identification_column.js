@@ -43,6 +43,10 @@ class TableIdentificationColumn extends Component {
     )
 
     function labelField(tableItem, helper, heading) {
+      if (valueHelper.isFunction(heading.labelMethod)) {
+        return heading.labelMethod[tableItem]
+      }
+
       if (valueHelper.isStringValue(heading.labelMethod)) {
         return helper[heading.labelMethod](tableItem)
       }
