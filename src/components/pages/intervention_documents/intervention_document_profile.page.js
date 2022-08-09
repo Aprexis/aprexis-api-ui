@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { DownloadButton, EditButton, Spinner } from '../../shared'
 import { InterventionDocumentProfilePageViewModel } from "../../view_models/pages/intervention_documents"
-import { fieldHelper, interventionDocumentHelper, valueHelper } from "../../../helpers"
+import { interventionDocumentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const InterventionDocumentProfile = ({ currentUser, onDownload, onEditProfile, interventionDocument }) => {
   return (
@@ -13,21 +14,21 @@ const InterventionDocumentProfile = ({ currentUser, onDownload, onEditProfile, i
             Profile
             {
               interventionDocumentHelper.canEdit(currentUser, interventionDocument) &&
-              <EditButton onEdit={(event) => { onEditProfile(interventionDocument) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(interventionDocument) }} />
             }
             {
               valueHelper.isStringValue(interventionDocumentHelper.filePath(interventionDocument)) &&
-              <DownloadButton onDownload={(event) => { onDownload(interventionDocument) }} />
+              <DownloadButton onDownload={(_event) => { onDownload(interventionDocument) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Program", interventionDocumentHelper.programName(interventionDocument))}
-          {fieldHelper.display("")}
-          {fieldHelper.display("Locale", interventionDocumentHelper.displayLocale(interventionDocument))}
-          {fieldHelper.dateTimeDisplay("Created At", interventionDocumentHelper.createdAt(interventionDocument))}
-          {fieldHelper.dateTimeDisplay("Updated At", interventionDocumentHelper.updatedAt(interventionDocument))}
+          {displayHelper.display("Program", interventionDocumentHelper.programName(interventionDocument))}
+          {displayHelper.display("")}
+          {displayHelper.display("Locale", interventionDocumentHelper.displayLocale(interventionDocument))}
+          {displayHelper.dateTimeDisplay("Created At", interventionDocumentHelper.createdAt(interventionDocument))}
+          {displayHelper.dateTimeDisplay("Updated At", interventionDocumentHelper.updatedAt(interventionDocument))}
         </CardBody>
       </Card>
     </Col>
@@ -90,7 +91,7 @@ class InterventionDocumentProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

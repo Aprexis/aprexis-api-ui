@@ -1,13 +1,6 @@
 import { AbstractModalViewModel } from ".."
-import { interventionApi, labTestValueApi, patientApi, pharmacyStoreApi, userApi } from "../../../../api"
-import { labTestApi } from "../../../../api/admin"
-import {
-  labTestValueHelper,
-  jsEventHelper,
-  pathHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { interventionApi, labTestValueApi, patientApi, pharmacyStoreApi, userApi, labTestApi, labTestValueHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const labTestValueDateAndTimeFields = {
   value_taken_at: { label: "Value Taken At", required: false, type: "date/time" }
@@ -42,6 +35,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
   }
@@ -88,7 +82,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchIntervention(interventionId, nextOperation) {
     interventionApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       interventionId,
       nextOperation,
       this.onError
@@ -97,7 +91,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchLabTest(labTestId, nextOperation) {
     labTestApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       labTestId,
       nextOperation,
       this.onError
@@ -106,7 +100,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       nextOperation,
       this.onError
@@ -115,7 +109,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
     pharmacyStoreApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacyStoreId,
       nextOperation,
       this.onError
@@ -124,7 +118,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchUser(userId, nextOperation) {
     userApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       userId,
       nextOperation,
       this.onError
@@ -175,6 +169,10 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
     const { labTestValue, changedLabTestValue } = this.data
 
     return { changedModel: changedLabTestValue, model: labTestValue, modelName: this.modelName() }
+  }
+
+  modelName() {
+    return 'labTestValue'
   }
 
   requiredFields() {

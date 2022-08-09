@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Col, Row } from "reactstrap"
 import { Autocomplete } from "../shared"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { NameIdFilterViewModel } from "../view_models/filters"
 
 class NameIdFilter extends Component {

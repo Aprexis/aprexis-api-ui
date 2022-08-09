@@ -3,8 +3,7 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { DayFieldEditor, TextFieldEditor } from "../../../shared"
 import { BillingContractModalViewModel } from "../../../view_models/modals/billing/contracts"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
-import { valueHelper } from "../../../../helpers"
-import { billingContractHelper } from "../../../../helpers/billing"
+import { valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
 
 class BillingContractModal extends Component {
   constructor(props) {

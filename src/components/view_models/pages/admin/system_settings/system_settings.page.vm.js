@@ -1,7 +1,6 @@
 import { AbstractListPageViewModel } from "../.."
-import { systemSettingApi } from "../../../../../api/admin"
-import { pageHelper, userCredentialsHelper } from "../../../../../helpers"
-import { systemSettingHelper } from "../../../../../helpers/admin"
+import { systemSettingApi, pageHelper, systemSettingHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class SystemSettingsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -60,7 +59,7 @@ class SystemSettingsPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     this.api().index(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (systemSettings, systemSettingHeaders) => {
         this.addData(

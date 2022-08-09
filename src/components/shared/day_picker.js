@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { DayPickerViewModel } from "../view_models/shared"
 
 const DAY_PICKER_KEYS = [

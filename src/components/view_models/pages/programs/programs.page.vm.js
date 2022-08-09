@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { programApi } from "../../../../api"
-import { filtersHelper, pageHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { programApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, userCredentialsHelper } from "../../../../helpers"
 
 class ProgramsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -21,7 +21,7 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Name", "for_name"),
       filtersHelper.stringFilter("Type", "for_type"),
@@ -73,11 +73,11 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
       const healthPlan = pathEntries["health-plans"]
 
       if (valueHelper.isValue(healthPlan)) {
-        programApi.listForHealthPlan(userCredentials, healthPlan.value, params, onSuccess, onError)
+        programApi.listForHealthPlan(apiEnvironmentHelper.apiEnvironment(userCredentials), healthPlan.value, params, onSuccess, onError)
         return
       }
 
-      programApi.list(userCredentials, params, onSuccess, onError)
+      programApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
     }
   }
 

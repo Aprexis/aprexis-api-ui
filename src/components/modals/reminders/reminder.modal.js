@@ -15,8 +15,7 @@ import {
 } from "../../shared"
 import { ReminderModalViewModel } from "../../view_models/modals/reminders"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper } from "../../../helpers"
-import { reminderActions, reminderTypes, timeZones } from "../../../types"
+import { patientHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper, reminderActions, reminderTypes, timeZones } from "@aprexis/aprexis-api-utility"
 
 const medicationHeadings = ["Label", ""]
 const supplementHeadings = ["Name", "Physician Name", "Physician NPI", ""]

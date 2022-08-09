@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { pharmacyChainApi } from "../../../../api"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { pharmacyChainApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -21,7 +21,7 @@ class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Name", "for_name")
     ]
@@ -49,7 +49,7 @@ class PharmacyChainsPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     pharmacyChainApi.list(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (pharmacyChains, pharmacyChainHeaders) => {
         this.addData(

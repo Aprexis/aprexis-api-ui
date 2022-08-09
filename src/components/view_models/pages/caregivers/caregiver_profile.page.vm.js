@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { caregiverApi } from "../../../../api"
-import { caregiverHelper, userCredentialsHelper } from "../../../../helpers"
+import { caregiverApi, caregiverHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class CaregiverProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -12,7 +12,7 @@ class CaregiverProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(caregiverToEdit) {
     caregiverApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       caregiverHelper.id(caregiverToEdit),
       (caregiver) => {
         this.props.launchModal(
@@ -35,7 +35,7 @@ class CaregiverProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const caregiver_id = pathEntries['caregivers'].value
     caregiverApi.profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       caregiver_id,
       (caregiver) => { this.addField('caregiver', caregiver, this.redrawView) },
       this.onError

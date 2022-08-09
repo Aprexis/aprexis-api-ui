@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { SystemSettingsPageViewModel } from "../../../view_models/pages/admin/system_settings"
 import { ListView } from "../../../../containers"
-import { valueHelper } from "../../../../helpers"
-import { listHelper } from "../../../../helpers/list.helper"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../../helpers"
 
 const headings = [
   {
@@ -66,6 +66,7 @@ class SystemSettingsPage extends Component {
         headings,
         helper: this.vm.helper(),
         launchModal: this.props.launchModal,
+        modelName: 'systemSetting',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { valueHelper, dateHelper } from "../../helpers"
-import { periods } from "../../types/periods.type"
+import { valueHelper, dateHelper } from "@aprexis/aprexis-api-utility"
+import { periods } from "../../types"
 import { DayPicker, Spinner } from "./"
 import { EventCalendarViewModel } from "../view_models/shared/event_calendar.vm"
 

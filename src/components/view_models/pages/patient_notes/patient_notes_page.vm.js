@@ -1,16 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { patientApi, patientNoteApi, pharmacyStoreApi } from "../../../../api"
-import {
-  filtersHelper,
-  pageHelper,
-  pathHelper,
-  patientHelper,
-  patientNoteHelper,
-  pharmacyStoreHelper,
-  userCredentialsHelper,
-  userHelper,
-  valueHelper
-} from "../../../../helpers"
+import { patientApi, patientNoteApi, pharmacyStoreApi, pageHelper, patientHelper, pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientNoteListMethods = [
   { pathKey: "patients", method: patientNoteApi.listForPatient }
@@ -31,24 +21,29 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     this.title = this.title.bind(this)
   }
 
-  canCreate(event) {
+  canCreate(_event) {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    if (!userHelper.canCreatePatientNote(currentUser, pathEntries)) {
-      return false
-    }
+    return canBeCreated(currentUser, pathEntries)
 
-    return patientNoteHelper.canBeCreated(pathEntries)
+    function canBeCreated(currentUser, pathEntries) {
+
+      if (!authorizationHelper.canCreatePatientNote(currentUser, pathEntries)) {
+        return false
+      }
+
+      return pathHelper.isSingular(pathEntries, "patients") && pathHelper.isSingular(pathEntries, "pharmacy-stores")
+    }
   }
 
-  createModal(event) {
+  createModal(_event) {
     const pathEntries = this.pathEntries()
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
     const patientId = pathHelper.id(pathEntries, "patients")
 
     patientNoteApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       pharmacyStoreId,
       (patientNote) => {
@@ -68,7 +63,7 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     const filterDescriptions = [
       filtersHelper.dateTimeRangeFilter("Date/Time", "for_updated_at_between", { to: new Date() })
     ]

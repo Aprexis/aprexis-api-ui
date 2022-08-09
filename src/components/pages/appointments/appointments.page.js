@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { valueHelper, userHelper, appointmentHelper } from "../../../helpers"
+import { valueHelper, userHelper, appointmentHelper } from "@aprexis/aprexis-api-utility"
 import { Spinner } from "../../shared"
 import { EventCalendar } from "../../shared/event_calendar"
 import { AppointmentsPageViewModel } from "../../view_models/pages/appointments"
@@ -62,7 +62,7 @@ class AppointmentsPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

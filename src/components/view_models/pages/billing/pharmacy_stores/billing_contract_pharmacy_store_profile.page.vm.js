@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../../"
-import { billingContractPharmacyStoreApi } from "../../../../../api/billing"
-import { userCredentialsHelper } from "../../../../../helpers"
+import { billingContractPharmacyStoreApi } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -13,7 +13,7 @@ class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewM
 
   editModal(billingContractPharmacyStoreToEdit) {
     billingContractPharmacyStoreApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingContractPharmacyStoreToEdit.id,
       (billingContractPharmacyStore) => {
         this.props.launchModal(
@@ -34,7 +34,7 @@ class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewM
     const pathEntries = this.pathEntries()
     const billing_contract_pharmacy_store_id = pathEntries['billing-contract-pharmacy-stores'].value
     billingContractPharmacyStoreApi.profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       billing_contract_pharmacy_store_id,
       (billingContractPharmacyStore) => {
         this.addField('billingContractPharmacyStore', billingContractPharmacyStore, this.redrawView)

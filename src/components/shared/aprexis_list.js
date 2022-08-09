@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { faFastBackward, faFastForward, faStepBackward, faStepForward } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { valueHelper, pageHelper } from "../../helpers"
+import { valueHelper, pageHelper } from "@aprexis/aprexis-api-utility"
 import { Spinner, AprexisTable } from "./"
 
 class Page extends Component {

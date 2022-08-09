@@ -1,11 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { patientDiseaseApi } from "../../../../api"
-import {
-  pageHelper,
-  pathHelper,
-  patientDiseaseHelper,
-  userCredentialsHelper
-} from "../../../../helpers"
+import { patientDiseaseApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientDiseaseListMethods = [
   { pathKey: "patients", method: patientDiseaseApi.listForPatient }
@@ -28,10 +23,7 @@ class PatientDiseasesPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    const { currentUser } = this.props
-    const pathEntries = this.pathEntries()
-
-    return patientDiseaseHelper.canBeCreated(currentUser, pathEntries)
+    return false
   }
 
   createModal() {
@@ -39,7 +31,7 @@ class PatientDiseasesPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     patientDiseaseApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       (patientDisease) => {
         this.props.launchModal(
@@ -59,7 +51,7 @@ class PatientDiseasesPageViewModel extends AbstractListPageViewModel {
 
   editModal(patientDiseaseToEdit) {
     patientDiseaseApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientDiseaseToEdit.id,
       (patientDisease) => {
         this.props.launchModal(
@@ -70,7 +62,7 @@ class PatientDiseasesPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 

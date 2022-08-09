@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { userApi } from "../../../../api"
-import { filtersHelper, pageHelper, userHelper, pathHelper } from "../../../../helpers"
+import { userApi, pageHelper, userHelper } from "@aprexis/aprexis-api-utility"
+import { filtersHelper, pathHelper } from "../../../../helpers"
 
 const USER_STATES = [
   {
@@ -45,7 +45,7 @@ class UsersPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Name", "for_name"),
       filtersHelper.selectIdFilter(

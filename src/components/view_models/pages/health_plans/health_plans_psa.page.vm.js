@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from '../'
-import { healthPlanApi, patientSearchAlgorithmApi } from '../../../../api'
-import { userCredentialsHelper } from '../../../../helpers'
+import { healthPlanApi, patientSearchAlgorithmApi } from '@aprexis/aprexis-api-utility'
+import { apiEnvironmentHelper, userCredentialsHelper } from '../../../../helpers'
 
 class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -60,12 +60,12 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
   }
 
   loadHealthPlan(userCredentials, nextOperation) {
-    healthPlanApi.show(userCredentials, this.healthPlanId(), nextOperation, this.onError)
+    healthPlanApi.show(apiEnvironmentHelper.apiEnvironment(userCredentials), this.healthPlanId(), nextOperation, this.onError)
   }
 
   loadHealthPlanPatientSearchAlgorithms(userCredentials, nextOperation) {
     patientSearchAlgorithmApi.forHealthPlan(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       this.healthPlanId(),
       {},
       nextOperation,
@@ -74,7 +74,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
   }
 
   loadPatientSearchAlgorithms(userCredentials, nextOperation) {
-    patientSearchAlgorithmApi.legitimate(userCredentials, nextOperation, this.onError)
+    patientSearchAlgorithmApi.legitimate(apiEnvironmentHelper.apiEnvironment(userCredentials), nextOperation, this.onError)
   }
 
   title() {

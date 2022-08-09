@@ -1,7 +1,5 @@
 import { AbstractModalViewModel } from "../../"
-import { billingContractApi } from "../../../../../api/billing"
-import { valueHelper } from "../../../../../helpers"
-import { billingContractHelper } from "../../../../../helpers/billing"
+import { billingContractApi, valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
 
 const billingContractDateFields = {
   start_date: { label: "Start Date", required: true, type: "date" },
@@ -21,6 +19,7 @@ class BillingContractModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
   }
 
@@ -28,7 +27,7 @@ class BillingContractModalViewModel extends AbstractModalViewModel {
     return billingContractApi
   }
 
-  dateAndTimeFields(billingContract) {
+  dateAndTimeFields(_billingContract) {
     return billingContractDateFields
   }
 
@@ -48,6 +47,10 @@ class BillingContractModalViewModel extends AbstractModalViewModel {
     const { billingContract, changedBillingContract } = this.data
 
     return { changedModel: changedBillingContract, model: billingContract, modelName: this.modelName() }
+  }
+
+  modelName() {
+    return 'billingContract'
   }
 
   requiredFields() {

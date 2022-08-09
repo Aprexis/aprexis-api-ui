@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Address, Contact, Spinner } from "../../../shared"
 import { PhysicianProfilePageViewModel } from "../../../view_models/pages/admin/physicians"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { physicianHelper } from "../../../../helpers/admin"
+import { valueHelper, physicianHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../../helpers"
 
 const PhysicianConfiguration = ({ physician }) => {
   return (
@@ -14,12 +14,12 @@ const PhysicianConfiguration = ({ physician }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.dateDisplay("Provider Last Updated", physicianHelper.providerLastUpdateDate(physician))}
-          {fieldHelper.display("NPI", physicianHelper.npi(physician))}
-          {fieldHelper.display("NPI Deactivation Code", physicianHelper.npiDeactivationReasonCode(physician))}
-          {fieldHelper.dateDisplay("NPI Deactivation Date", physicianHelper.npiDeactivationDate(physician))}
-          {fieldHelper.dateDisplay("NPI Reactivation Date", physicianHelper.npiReactivationDate(physician))}
-          {fieldHelper.display("EIN", physicianHelper.einNumber(physician))}
+          {displayHelper.dateDisplay("Provider Last Updated", physicianHelper.providerLastUpdateDate(physician))}
+          {displayHelper.display("NPI", physicianHelper.npi(physician))}
+          {displayHelper.display("NPI Deactivation Code", physicianHelper.npiDeactivationReasonCode(physician))}
+          {displayHelper.dateDisplay("NPI Deactivation Date", physicianHelper.npiDeactivationDate(physician))}
+          {displayHelper.dateDisplay("NPI Reactivation Date", physicianHelper.npiReactivationDate(physician))}
+          {displayHelper.display("EIN", physicianHelper.einNumber(physician))}
         </CardBody>
       </Card>
     </Col>
@@ -35,13 +35,13 @@ const PhysicianProfile = ({ physician }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Clinic", physicianHelper.clinic(physician))}
+          {displayHelper.display("Clinic", physicianHelper.clinic(physician))}
           <Address addressable={physician} />
           <Contact contactable={physician} />
-          {fieldHelper.phoneDisplay("Business Phone", physicianHelper.businessPhone(physician))}
-          {fieldHelper.phoneDisplay("Business Fax", physicianHelper.businessFax(physician))}
-          {fieldHelper.display("Practice Specialy", physicianHelper.practiceSpecialty(physician))}
-          {fieldHelper.display("Credentials", physicianHelper.credentials(physician))}
+          {displayHelper.phoneDisplay("Business Phone", physicianHelper.businessPhone(physician))}
+          {displayHelper.phoneDisplay("Business Fax", physicianHelper.businessFax(physician))}
+          {displayHelper.display("Practice Specialy", physicianHelper.practiceSpecialty(physician))}
+          {displayHelper.display("Credentials", physicianHelper.credentials(physician))}
         </CardBody>
       </Card>
     </Col>
@@ -57,8 +57,8 @@ const PhysicianSource = ({ physician }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Type", physicianHelper.sourceType(physician))}
-          {fieldHelper.display("Notes", physicianHelper.sourceNotes(physician))}
+          {displayHelper.display("Type", physicianHelper.sourceType(physician))}
+          {displayHelper.display("Notes", physicianHelper.sourceNotes(physician))}
         </CardBody>
       </Card>
     </Col>
@@ -82,7 +82,7 @@ const PhysicianUser = ({ physician }) => {
   )
 }
 
-const PhysicianDisplay = ({ currentUser, physician }) => {
+const PhysicianDisplay = ({ physician }) => {
   if (!valueHelper.isValue(physician)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -134,7 +134,7 @@ class PhysicianProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

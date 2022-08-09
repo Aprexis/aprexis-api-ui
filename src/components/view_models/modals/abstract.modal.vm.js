@@ -1,6 +1,7 @@
 import React from "react"
 import { AbstractViewModel } from "../"
-import { alertHelper, dateHelper, fieldHelper, valueHelper } from "../../../helpers"
+import { dateHelper, fieldHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { alertHelper, displayHelper } from '../../../helpers'
 
 function initializeDateAndTimeValidity(dateAndTimeField, value) {
   const validDate = dateHelper.isValidDate(value)
@@ -190,7 +191,7 @@ class AbstractModalViewModel extends AbstractViewModel {
     const modelData = this.model()
     const { model, modelName } = modelData
     const changedModel = this.helper().buildChanged(model, modelData.changedModel)
-    const updated = fieldHelper.changeField(modelName, model, changedModel, event)
+    const updated = displayHelper.changeField(modelName, model, changedModel, event)
 
     this.addData(updated, this.redrawView)
   }

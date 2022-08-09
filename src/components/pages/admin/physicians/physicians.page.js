@@ -1,9 +1,13 @@
 import React, { Component } from "react"
 import { PhysiciansPageViewModel } from "../../../view_models/pages/admin/physicians"
 import { ListView } from "../../../../containers"
-import { valueHelper } from "../../../../helpers"
-import { physicianHelper } from "../../../../helpers/admin"
-import { listHelper } from "../../../../helpers/list.helper"
+import { valueHelper, physicianHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper, listHelper } from "../../../../helpers"
+
+function displayBusinessPhone(physician) {
+  const businessPhone = physicianHelper.businessPhone(physician)
+  return displayHelper.phoneNumberForDisplay(businessPhone)
+}
 
 const headings = [
   {
@@ -29,7 +33,7 @@ const headings = [
   {
     name: "Phone",
     field: "business_phone",
-    method: "displayusinessPhone"
+    method: displayBusinessPhone
   },
   {
     name: "Deactivated",
@@ -92,6 +96,7 @@ class PhysiciansPage extends Component {
         headings,
         helper: physicianHelper,
         launchModal: this.props.launchModal,
+        mopdelName: 'physician',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

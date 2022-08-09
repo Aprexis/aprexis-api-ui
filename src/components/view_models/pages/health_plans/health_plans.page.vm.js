@@ -1,11 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { healthPlanApi } from "../../../../api"
-import {
-  filtersHelper,
-  pageHelper,
-  pathHelper,
-  userCredentialsHelper
-} from "../../../../helpers"
+import { healthPlanApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class HealthPlansPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -25,7 +20,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.booleanFilter("Status", "for_active", { falseLabel: "Inactive", trueLabel: "Active" }),
       filtersHelper.stringFilter("Name", "for_name"),
@@ -55,7 +50,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     healthPlanApi.list(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (healthPlans, healthPlanHeaders) => {
         this.addData(

@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { LabTestValueProfilePageViewModel } from "../../view_models/pages/lab_test_values"
-import { fieldHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const LabTestValueProfile = ({ currentUser, onEditProfile, labTestValue, vm }) => {
   return (
@@ -19,14 +20,14 @@ const LabTestValueProfile = ({ currentUser, onEditProfile, labTestValue, vm }) =
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Type", vm.helper().displayType(labTestValue))}
-          {fieldHelper.display("Intervention", vm.helper().interventionIdentification(labTestValue))}
-          {fieldHelper.display("Pharmacy Store", vm.helper().pharmacyStoreIdentification(labTestValue))}
-          {fieldHelper.display("User", vm.helper().userFullName(labTestValue))}
-          {fieldHelper.dateTimeDisplay("Value Taken At", vm.helper().valueTakenAt(labTestValue))}
-          {fieldHelper.display("Value", vm.helper().value(labTestValue))}
-          {fieldHelper.booleanDisplay("Calculated", vm.helper().calculated(labTestValue))}
-          {fieldHelper.booleanDisplay("Confirmed", vm.helper().confirmed(labTestValue))}
+          {displayHelper.display("Type", vm.helper().displayType(labTestValue))}
+          {displayHelper.display("Intervention", vm.helper().interventionIdentification(labTestValue))}
+          {displayHelper.display("Pharmacy Store", vm.helper().pharmacyStoreIdentification(labTestValue))}
+          {displayHelper.display("User", vm.helper().userFullName(labTestValue))}
+          {displayHelper.dateTimeDisplay("Value Taken At", vm.helper().valueTakenAt(labTestValue))}
+          {displayHelper.display("Value", vm.helper().value(labTestValue))}
+          {displayHelper.booleanDisplay("Calculated", vm.helper().calculated(labTestValue))}
+          {displayHelper.booleanDisplay("Confirmed", vm.helper().confirmed(labTestValue))}
         </CardBody>
       </Card>
     </Col>

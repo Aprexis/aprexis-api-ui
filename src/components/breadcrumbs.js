@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { valueHelper } from "../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { pathKeys } from "../types"
 import { BreadcrumbsViewModel } from "./view_models"
 
@@ -18,7 +18,7 @@ const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey 
       }
       <button
         className="btn btn-link ml-0 mr-0 pl-0 pr-0"
-        onClick={(event) => { gotoPage(orderedPathEntries, pathKey) }}
+        onClick={(_event) => { gotoPage(orderedPathEntries, pathKey) }}
         disabled={cannotGotoKeys.includes(pathKey)}
         type="button">
         {crumb}
@@ -46,7 +46,7 @@ const SingularBreadcrumb = ({ gotoPage, model, modelToBreadcrumb, orderedPathEnt
       <label>/</label>
       <button
         className="btn btn-link ml-0 mr-0 pl-0 pr-0"
-        onClick={(event) => { gotoPage(orderedPathEntries, pathKey, model) }}
+        onClick={(_event) => { gotoPage(orderedPathEntries, pathKey, model) }}
         type="button">
         {crumb}
       </button>

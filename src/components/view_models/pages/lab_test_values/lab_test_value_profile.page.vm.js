@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { labTestValueApi } from "../../../../api"
-import { labTestValueHelper, userCredentialsHelper } from "../../../../helpers"
+import { labTestValueApi, labTestValueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -18,7 +18,7 @@ class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(labTestValueToEdit) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       this.helper().id(labTestValueToEdit),
       (labTestValue) => {
         this.props.launchModal(
@@ -45,7 +45,7 @@ class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const lab_test_value_id = pathEntries['lab-test-values'].value
     this.api().profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       lab_test_value_id,
       (labTestValue) => { this.addField('labTestValue', labTestValue, this.redrawView) },
       this.onError

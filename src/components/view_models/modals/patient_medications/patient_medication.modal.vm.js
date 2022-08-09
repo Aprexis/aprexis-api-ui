@@ -1,13 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi, patientMedicationApi, pharmacyStoreApi } from "../../../../api"
-import { medicationApi, physicianApi } from "../../../../api/admin"
-import {
-  jsEventHelper,
-  pathHelper,
-  patientMedicationHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { patientApi, patientMedicationApi, pharmacyStoreApi, medicationApi, physicianApi, patientMedicationHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientMedicationDateAndTimeFields = {
   filled_at: { label: "Filled At", required: false, type: "date/time" },
@@ -33,6 +26,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectMedication = this.selectMedication.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
@@ -49,7 +43,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchMedication(medicationId, nextOperation) {
     medicationApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       medicationId,
       nextOperation,
       this.onError
@@ -58,7 +52,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       nextOperation,
       this.onError
@@ -67,7 +61,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
     pharmacyStoreApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacyStoreId,
       nextOperation,
       this.onError
@@ -76,7 +70,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchPhysician(physicianId, nextOperation) {
     physicianApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       physicianId,
       nextOperation,
       this.onError
@@ -102,6 +96,10 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
     const { changedPatientMedication, patientMedication } = this.data
 
     return { changedModel: changedPatientMedication, model: patientMedication, modelName: this.modelName() }
+  }
+
+  modelName() {
+    return 'patientMedication'
   }
 
   requiredFields() {

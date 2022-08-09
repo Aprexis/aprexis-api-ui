@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { FaxRouting } from "./"
 import { NoMatch } from ".."
 import { FaxesPage } from "../../pages/faxes"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class FaxesRouting extends Component {
   render() {

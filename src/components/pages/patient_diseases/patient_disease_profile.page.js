@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { PatientDiseaseProfilePageViewModel } from "../../view_models/pages/patient_diseases"
-import { fieldHelper, patientDiseaseHelper, valueHelper } from "../../../helpers"
+import { patientDiseaseHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const PatientDiseaseProfile = ({ currentUser, onEditProfile, patientDisease }) => {
   return (
@@ -13,13 +14,13 @@ const PatientDiseaseProfile = ({ currentUser, onEditProfile, patientDisease }) =
             Profile
             {
               patientDiseaseHelper.canEdit(currentUser, patientDisease) &&
-              <EditButton onEdit={(event) => { onEditProfile(patientDisease) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(patientDisease) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Description", patientDiseaseHelper.diseaseDescription(patientDisease))}
+          {displayHelper.display("Description", patientDiseaseHelper.diseaseDescription(patientDisease))}
         </CardBody>
       </Card>
     </Col>
@@ -84,7 +85,7 @@ class PatientDiseaseProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

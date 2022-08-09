@@ -8,7 +8,7 @@ import {
 } from "../../shared"
 import { PatientConfigurationModalViewModel } from "../../view_models/modals/patients"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, valueHelper } from "../../../helpers"
+import { patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 const cognitiveImpairmentReasons = [
   "Brief interview for Mental Status (BIMS) score < 8",

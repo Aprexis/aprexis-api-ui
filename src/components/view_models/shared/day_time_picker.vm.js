@@ -1,5 +1,5 @@
 import { AbstractViewModel } from "../"
-import { dateHelper, valueHelper } from "../../../helpers"
+import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class DayTimePickerViewModel extends AbstractViewModel {
   constructor(props) {

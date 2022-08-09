@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 const renderButtonIf = (buttonIf, canCreate) => {
   if (!valueHelper.isValue(buttonIf)) {

@@ -1,5 +1,5 @@
-import { authenticationApi, userApi } from '../../../api'
-import { alertHelper, userCredentialsHelper, userHelper, valueHelper } from '../../../helpers'
+import { authenticationApi, valueHelper } from '@aprexis/aprexis-api-utility'
+import { alertHelper, apiEnvironmentHelper, userCredentialsHelper } from '../../../helpers'
 import { AbstractModalViewModel } from './'
 
 class SignInModalViewModel extends AbstractModalViewModel {
@@ -26,22 +26,14 @@ class SignInModalViewModel extends AbstractModalViewModel {
     alertHelper.clear()
 
     authenticationApi.signIn(
+      apiEnvironmentHelper.apiEnvironment(),
       username,
       password,
       (userCredentials) => {
         userCredentialsHelper.set(userCredentials)
-        userApi.show(
-          userCredentials,
-          userCredentials.id,
-          (currentUser) => {
-            userHelper.setCurrentUser(currentUser)
-
-            if (valueHelper.isFunction(nextOperation)) {
-              nextOperation()
-            }
-          },
-          this.onError
-        )
+        if (valueHelper.isFunction(nextOperation)) {
+          nextOperation()
+        }
       },
       this.onError
     )

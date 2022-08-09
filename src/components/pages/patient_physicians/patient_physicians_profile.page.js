@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { EditButton, Spinner } from '../../shared'
 import { PatientPhysicianProfilePageViewModel } from "../../view_models/pages/patient_physicians"
-import { fieldHelper, patientPhysicianHelper, valueHelper } from "../../../helpers"
+import { patientPhysicianHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const PatientPhysicianProfile = ({ currentUser, onEditProfile, patientPhysician }) => {
   return (
@@ -13,14 +14,14 @@ const PatientPhysicianProfile = ({ currentUser, onEditProfile, patientPhysician 
             Profile
             {
               patientPhysicianHelper.canEdit(currentUser, patientPhysician) &&
-              <EditButton onEdit={(event) => { onEditProfile(patientPhysician) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(patientPhysician) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("NPI", patientPhysicianHelper.physicianNpi(patientPhysician))}
-          {fieldHelper.booleanDisplay("Primary", patientPhysicianHelper.primary(patientPhysician))}
+          {displayHelper.display("NPI", patientPhysicianHelper.physicianNpi(patientPhysician))}
+          {displayHelper.booleanDisplay("Primary", patientPhysicianHelper.primary(patientPhysician))}
         </CardBody>
       </Card>
     </Col>
@@ -85,7 +86,7 @@ class PatientPhysicianProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

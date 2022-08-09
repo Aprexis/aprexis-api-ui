@@ -1,8 +1,6 @@
 import { AbstractModalViewModel } from "../../"
-import { pharmacyStoreApi } from "../../../../../api"
-import { billingContractPharmacyStoreApi } from "../../../../../api/billing"
-import { userCredentialsHelper, jsEventHelper, valueHelper } from "../../../../../helpers"
-import { billingContractPharmacyStoreHelper } from "../../../../../helpers/billing"
+import { pharmacyStoreApi, billingContractPharmacyStoreApi, valueHelper, billingContractPharmacyStoreHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper, jsEventHelper } from "../../../../../helpers"
 
 const billingContractPharmacyStoreRequiredFields = {
   contract_id: { label: "Contract", testMethod: valueHelper.isNumberValue },
@@ -19,6 +17,7 @@ class BillingContractPharmacyStoreModalViewModel extends AbstractModalViewModel 
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
     this.modelName = this.modelName.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
   }
@@ -27,13 +26,13 @@ class BillingContractPharmacyStoreModalViewModel extends AbstractModalViewModel 
     return billingContractPharmacyStoreApi
   }
 
-  dateAndTimeFields(billingContractPharmacyStore) {
+  dateAndTimeFields(_billingContractPharmacyStore) {
     return {}
   }
 
   fetchPharmacyStore(pharmacy_store_id, nextOperation) {
     pharmacyStoreApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacy_store_id,
       nextOperation,
       this.onError

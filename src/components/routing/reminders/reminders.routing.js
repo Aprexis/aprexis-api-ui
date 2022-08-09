@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { ReminderRouting } from "./"
 import { NoMatch } from ".."
 import { RemindersPage } from "../../pages/reminders"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class RemindersRouting extends Component {
   render() {

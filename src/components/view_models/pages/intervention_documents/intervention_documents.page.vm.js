@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { interventionDocumentApi } from "../../../../api"
-import { pageHelper, pathHelper } from "../../../../helpers"
+import { interventionDocumentApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../../helpers"
 
 const interventionDocumentListMethods = [
   { pathKey: "interventions", method: interventionDocumentApi.listForIntervention }
@@ -30,7 +30,7 @@ class InterventionDocumentsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 

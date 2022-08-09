@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../../"
-import { billingContractTermApi } from "../../../../../api/billing"
-import { userCredentialsHelper } from "../../../../../helpers"
+import { billingContractTermApi } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -14,7 +14,7 @@ class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
 
   editPatientModal(billingContractTermToEdit, patientType) {
     billingContractTermApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingContractTermToEdit.id,
       (billingContractTerm) => {
         this.props.launchModal(
@@ -27,7 +27,7 @@ class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(billingContractTermToEdit) {
     billingContractTermApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingContractTermToEdit.id,
       (billingContractTerm) => {
         this.props.launchModal(
@@ -48,7 +48,7 @@ class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const billing_contract_pharmacy_id = pathEntries["billing-contract-terms"].value
     billingContractTermApi.profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       billing_contract_pharmacy_id,
       (billingContractTerm) => {
         this.addField("billingContractTerm", billingContractTerm, this.redrawView)

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
-import { valueHelper, fieldHelper, addressHelper } from "../../helpers"
+import { valueHelper, fieldHelper, addressHelper } from "@aprexis/aprexis-api-utility"
 
 class AddressEditor extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { pharmacyStoreHelper, valueHelper } from "../../helpers"
+import { pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { SearchForItem } from "./search_for_item"
 import { SelectItemFromList } from "./select_item_from_list"
 import { SelectPharmacyStoreViewModel } from "../view_models/shared"

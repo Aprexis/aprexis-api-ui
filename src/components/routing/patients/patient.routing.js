@@ -15,7 +15,8 @@ import { PatientSupplementsRouting } from "../patient_supplements"
 import { PatientProfilePage } from "../../pages/patients"
 import { PharmacyClaimsRouting } from "../pharmacy_claims"
 import { RemindersRouting } from "../reminders"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class PatientRouting extends Component {
   render() {

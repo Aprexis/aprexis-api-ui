@@ -1,6 +1,7 @@
 import { AbstractViewModel } from "../"
 import { filterClasses } from "../../filters/filter_classes"
-import { filtersHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { filtersHelper } from "../../../helpers"
 
 class FiltersItemViewModel extends AbstractViewModel {
   constructor(props) {

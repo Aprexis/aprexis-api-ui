@@ -21,6 +21,11 @@ class HomePage extends Component {
       </div>
     )
   }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
+  }
 }
 
 export { HomePage }

@@ -1,6 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi, patientNoteApi, pharmacyStoreApi } from "../../../../api"
-import { pathHelper, patientNoteHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { patientApi, patientNoteApi, pharmacyStoreApi, patientNoteHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class PatientNoteModalViewModel extends AbstractModalViewModel {
   constructor(props) {
@@ -12,6 +12,7 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
   }
 
   api() {
@@ -26,7 +27,7 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
     }
 
     patientApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       (patient) => { this.addField("patient", patient, nextOperation) },
       this.onError
@@ -41,7 +42,7 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
     }
 
     pharmacyStoreApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacyStoreId,
       (pharmacyStore) => { this.addField("pharmacyStore", pharmacyStore, nextOperation) },
       this.onError

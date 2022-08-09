@@ -1,7 +1,6 @@
 import { AbstractPageViewModel } from "../.."
-import { billingClaimApi } from "../../../../../api/billing"
-import { userCredentialsHelper } from "../../../../../helpers"
-import { billingClaimHelper } from "../../../../../helpers/billing"
+import { billingClaimApi, billingClaimHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -14,7 +13,7 @@ class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
 
   editModal(billingClaimToEdit) {
     billingClaimApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingClaimHelper.id(billingClaimToEdit),
       (billingClaim) => {
         this.props.launchModal(
@@ -35,7 +34,7 @@ class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const billing_Claim_id = pathEntries['billing-claims'].value
     billingClaimApi.profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       billing_Claim_id,
       (billingClaim) => { this.addField('billingClaim', billingClaim, this.redrawView) },
       this.onError

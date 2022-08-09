@@ -1,8 +1,5 @@
 import { AbstractModalViewModel } from ".."
-import { caregiverApi } from "../../../../api"
-import { valueHelper } from "../../../../helpers"
-import { caregiverHelper } from "../../../../helpers"
-import { relationships } from "../../../../types"
+import { caregiverApi, valueHelper, caregiverHelper, relationships } from "@aprexis/aprexis-api-utility"
 
 const caregiverRequiredFields = {
   patient_id: { label: "Patient", testMethod: valueHelper.isNumberValue },
@@ -27,7 +24,7 @@ class CaregiverModalViewModel extends AbstractModalViewModel {
     return caregiverApi
   }
 
-  dateAndTimeFields(caregiver) {
+  dateAndTimeFields(_caregiver) {
     return {}
   }
 

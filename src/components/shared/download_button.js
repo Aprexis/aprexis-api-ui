@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 const DownloadButtonContent = ({ useText }) => {
   if (useText) {

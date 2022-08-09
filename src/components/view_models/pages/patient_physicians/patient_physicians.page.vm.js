@@ -1,12 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { patientPhysicianApi } from "../../../../api"
-import {
-  filtersHelper,
-  pageHelper,
-  pathHelper,
-  userCredentialsHelper,
-  patientPhysicianHelper
-} from "../../../../helpers"
+import { patientPhysicianApi, pageHelper, patientPhysicianHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientPhysicianListMethods = [
   { pathKey: "patients", method: patientPhysicianApi.listForPatient }
@@ -38,7 +32,16 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    return this.helper().canBeCreated(currentUser, pathEntries)
+    return canBeCreated(currentUser, pathEntries)
+
+    function canBeCreated(user, pathEntries) {
+      if (!authorizationHelper.canCreatePatientPhysician(user, pathEntries, true)) {
+        return false
+      }
+
+      return pathHelper.isSingular(pathEntries, "patients")
+    }
+
   }
 
   createModal() {
@@ -46,7 +49,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       {},
       (patientPhysician) => {
@@ -68,7 +71,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
 
   editModal(patientPhysicianToEdit) {
     patientPhysicianApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientPhysicianToEdit.id,
       (patientPhysician) => {
         this.props.launchModal(
@@ -79,7 +82,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     const filterDescriptions = [
       filtersHelper.stringFilter("Name", "for_physician_name")
     ]

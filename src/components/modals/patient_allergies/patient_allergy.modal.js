@@ -3,8 +3,7 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { NumberFieldEditor, SelectAllergy, SelectFieldEditor, TextFieldEditor } from "../../shared"
 import { PatientAllergyModalViewModel } from "../../view_models/modals/patient_allergies"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, patientAllergyHelper, valueHelper } from "../../../helpers"
-import { allergyCategories } from "../../../types"
+import { patientHelper, patientAllergyHelper, valueHelper, allergyCategories } from "@aprexis/aprexis-api-utility"
 
 class PatientAllergyModal extends Component {
   constructor(props) {

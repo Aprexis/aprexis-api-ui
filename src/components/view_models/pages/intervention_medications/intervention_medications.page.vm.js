@@ -1,6 +1,5 @@
 import { AbstractListPageViewModel } from ".."
-import { interventionMedicationApi } from "../../../../api"
-import { interventionMedicationHelper, pageHelper } from "../../../../helpers"
+import { interventionMedicationApi, interventionMedicationHelper, pageHelper } from "@aprexis/aprexis-api-utility"
 
 const interventionMedicationListMethods = [
   { pathKey: "interventions", method: interventionMedicationApi.listForIntervention }

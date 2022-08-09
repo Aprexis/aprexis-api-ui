@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { HealthPlanProgramLimitsPageViewModel } from "../../view_models/pages/health_plan_program_limits"
 import { ListView } from "../../../containers"
-import { valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -72,6 +72,7 @@ class HealthPlanProgramLimitsPage extends Component {
         headings,
         helper: this.vm.helper(),
         launchModal: this.props.launchModal,
+        modelName: 'healthPlanProgramLimit',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

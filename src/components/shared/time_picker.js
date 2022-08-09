@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { TimePickerViewModel } from "../view_models/shared"
 
 const TIME_PICKER_KEYS = [

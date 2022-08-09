@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { FormGroup, Col, Input, Row, Table } from "reactstrap"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { Spinner } from "./"
 import { AutocompleteViewModel } from "../view_models/shared"
 

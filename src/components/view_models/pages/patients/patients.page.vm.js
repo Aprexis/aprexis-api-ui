@@ -1,14 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { healthPlanApi, patientApi, pharmacyStoreApi } from "../../../../api"
-import {
-  filtersHelper,
-  pageHelper,
-  pathHelper,
-  patientHelper,
-  pharmacyStoreHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { healthPlanApi, patientApi, pharmacyStoreApi, pageHelper, patientHelper, pharmacyStoreHelper, valueHelper, healthPlanHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientListMethods = [
   { pathKey: "health-plans", method: patientApi.listForHealthPlan },
@@ -32,15 +24,33 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    return patientHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+    return canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+
+    function canBeCreated(user, pathEntries, context) {
+      if (!valueHelper.isValue(user) || !valueHelper.isValue(pathEntries) || !valueHelper.isValue(context)) {
+        return false
+      }
+
+      if (!authorizationHelper.canCreatePatient(user, pathEntries)) {
+        return false
+      }
+
+      if (!pathHelper.isSingular(pathEntries, "health-plans")) {
+        return false
+      }
+
+      const healthPlan = context['health-plans']
+      return valueHelper.isSet(healthPlanHelper.allowManuallyAddedPatients(healthPlan))
+    }
+
   }
 
-  createModal(event) {
+  createModal(_event) {
     const pathEntries = this.pathEntries()
     const healthPlanId = pathHelper.id(pathEntries, "health-plans")
 
     patientApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       healthPlanId,
       (patient) => {
         this.props.launchModal(
@@ -67,7 +77,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
 
   editModal(patientToEdit) {
     patientApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientHelper.id(patientToEdit),
       (patient) => {
         this.props.launchModal(
@@ -83,7 +93,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     const filterDescriptions = [
       filtersHelper.stringFilter("Name", "for_name")
     ]

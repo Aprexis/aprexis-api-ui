@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavItem, NavLink } from 'reactstrap'
-import { pharmacyChainHelper, pharmacyStoreHelper } from '../../helpers'
+import { pharmacyChainHelper, pharmacyStoreHelper } from '@aprexis/aprexis-api-utility'
 
 class PharmacyStoreHeaders extends Component {
   render() {

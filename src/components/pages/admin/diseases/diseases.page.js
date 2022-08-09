@@ -1,9 +1,8 @@
 import React, { Component } from "react"
 import { DiseasesPageViewModel } from "../../../view_models/pages/admin/diseases"
 import { ListView } from "../../../../containers"
-import { valueHelper } from "../../../../helpers"
-import { diseaseHelper } from "../../../../helpers/admin"
-import { listHelper } from "../../../../helpers/list.helper"
+import { valueHelper, diseaseHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../../helpers"
 
 const headings = [
   {
@@ -72,6 +71,7 @@ class DiseasesPage extends Component {
         headings,
         helper: diseaseHelper,
         launchModal: this.props.launchModal,
+        modelName: 'disease',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

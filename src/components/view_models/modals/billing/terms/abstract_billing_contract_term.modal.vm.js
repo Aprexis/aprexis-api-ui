@@ -1,7 +1,5 @@
 import { AbstractModalViewModel } from "../../"
-import { billingContractTermApi } from "../../../../../api/billing"
-import { valueHelper } from "../../../../../helpers"
-import { billingContractTermHelper } from "../../../../../helpers/billing"
+import { billingContractTermApi, valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
 
 const billingContractTermRequiredFields = {
   contract_id: { label: "Contract", testMethod: valueHelper.isNumberValue }
@@ -26,7 +24,7 @@ class AbstractBillingContractTermModalViewModel extends AbstractModalViewModel {
     return billingContractTermApi
   }
 
-  dateAndTimeFields(billingContractTerm) {
+  dateAndTimeFields(_billingContractTerm) {
     return {}
   }
 

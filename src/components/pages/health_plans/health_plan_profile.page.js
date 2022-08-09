@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { Address, Contact, Spinner } from '../../shared'
 import { HealthPlanProfilePageViewModel } from '../../view_models/pages/health_plans'
-import { fieldHelper, healthPlanHelper, valueHelper } from '../../../helpers'
-import { pharmacyClaimsUploaders, segmentedUploaders } from '../../../types'
+import { healthPlanHelper, valueHelper, pharmacyClaimsUploaders, segmentedUploaders } from '@aprexis/aprexis-api-utility'
+import { displayHelper } from '../../../helpers'
 
 const HealthPlanActivity = ({ healthPlan }) => {
   return (
@@ -14,8 +14,8 @@ const HealthPlanActivity = ({ healthPlan }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.booleanDisplay("Importing Patient Data", healthPlanHelper.importingPatientData(healthPlan))}
-          {fieldHelper.booleanDisplay("Importing Claims Data", healthPlanHelper.currentlyImportingData(healthPlan))}
+          {displayHelper.booleanDisplay("Importing Patient Data", healthPlanHelper.importingPatientData(healthPlan))}
+          {displayHelper.booleanDisplay("Importing Claims Data", healthPlanHelper.currentlyImportingData(healthPlan))}
         </CardBody>
       </Card>
     </Col>
@@ -31,52 +31,52 @@ const HealthPlanConfiguration = ({ healthPlan }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.titleDisplay("Billing Claims Gateway", healthPlanHelper.billingClaimsGateway(healthPlan))}
-          {fieldHelper.display("Zirmed Payer Name", healthPlanHelper.zirmedPayerNameMatching(healthPlan))}
+          {displayHelper.titleDisplay("Billing Claims Gateway", healthPlanHelper.billingClaimsGateway(healthPlan))}
+          {displayHelper.display("Zirmed Payer Name", healthPlanHelper.zirmedPayerNameMatching(healthPlan))}
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Save Claim Submission Files",
               healthPlanHelper.saveClaimSubmissionFiles(healthPlan)
             )
           }
-          {fieldHelper.display("Two Seventy Six Mode", healthPlanHelper.twoSeventySixMode(healthPlan))}
+          {displayHelper.display("Two Seventy Six Mode", healthPlanHelper.twoSeventySixMode(healthPlan))}
           {
-            fieldHelper.optionDisplay(
+            displayHelper.optionDisplay(
               "Segmented Health Plan Uploader",
               segmentedUploaders,
               healthPlanHelper.segmentedUploader(healthPlan)
             )
           }
           {
-            fieldHelper.optionDisplay(
+            displayHelper.optionDisplay(
               "Pharmacy Claim Uploader",
               pharmacyClaimsUploaders,
               healthPlanHelper.pharmacyClaimsUploader(healthPlan)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Allow Manually Added Patients",
               healthPlanHelper.allowManuallyAddedPatients(healthPlan)
             )
           }
-          {fieldHelper.booleanDisplay("Requires Person Number", healthPlanHelper.requiresPersonNumber(healthPlan))}
-          {fieldHelper.titleDisplay("Insurance Detail Type", healthPlanHelper.insuranceDetailType(healthPlan))}
+          {displayHelper.booleanDisplay("Requires Person Number", healthPlanHelper.requiresPersonNumber(healthPlan))}
+          {displayHelper.titleDisplay("Insurance Detail Type", healthPlanHelper.insuranceDetailType(healthPlan))}
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Requires Explicit Authorization",
               healthPlanHelper.requiresExplicitAuthorization(healthPlan)
             )
           }
-          {fieldHelper.booleanDisplay("Show Pharmacy Claims", healthPlanHelper.showPharmacyClaims(healthPlan))}
+          {displayHelper.booleanDisplay("Show Pharmacy Claims", healthPlanHelper.showPharmacyClaims(healthPlan))}
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Generate Completed Interventions Report",
               healthPlanHelper.generateCompletedInterventionsReport(healthPlan)
             )
           }
-          {fieldHelper.titleDisplay("CCD Generator", healthPlanHelper.ccdGenerator(healthPlan))}
-          {fieldHelper.booleanDisplay("Reminders", healthPlanHelper.enableReminders(healthPlan))}
+          {displayHelper.titleDisplay("CCD Generator", healthPlanHelper.ccdGenerator(healthPlan))}
+          {displayHelper.booleanDisplay("Reminders", healthPlanHelper.enableReminders(healthPlan))}
         </CardBody>
       </Card>
     </Col>
@@ -109,7 +109,7 @@ const HealthPlanNotes = ({ healthPlan }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Notes", healthPlanHelper.notes(healthPlan))}
+          {displayHelper.display("Notes", healthPlanHelper.notes(healthPlan))}
         </CardBody>
       </Card>
     </Col>
@@ -125,7 +125,7 @@ const HealthPlanProfile = ({ healthPlan }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Code", healthPlanHelper.code(healthPlan))}
+          {displayHelper.display("Code", healthPlanHelper.code(healthPlan))}
           <Address addressable={healthPlan} />
           <Contact contactable={healthPlan} />
         </CardBody>
@@ -203,7 +203,7 @@ class HealthPlanProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Address, Contact, Spinner } from '../../shared'
 import { PharmacyChainProfilePageViewModel } from "../../view_models/pages/pharmacy_chains"
-import { fieldHelper, pharmacyChainHelper, valueHelper } from "../../../helpers"
+import { pharmacyChainHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const PharmacyChainConfiguration = ({ pharmacyChain }) => {
   return (
@@ -13,8 +14,8 @@ const PharmacyChainConfiguration = ({ pharmacyChain }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.imageDisplay("Logo", pharmacyChainHelper.logo(pharmacyChain))}
-          {fieldHelper.display("CCD Code", pharmacyChainHelper.ccdCode(pharmacyChain))}
+          {displayHelper.imageDisplay("Logo", pharmacyChainHelper.logo(pharmacyChain))}
+          {displayHelper.display("CCD Code", pharmacyChainHelper.ccdCode(pharmacyChain))}
         </CardBody>
       </Card>
     </Col>
@@ -33,10 +34,10 @@ const PharmacyChainProfile = ({ pharmacyChain }) => {
         <CardBody>
           <Address addressable={pharmacyChain} />
           <Contact contactable={pharmacyChain} />
-          {fieldHelper.display("NPI", pharmacyChainHelper.npi(pharmacyChain))}
-          {fieldHelper.display("EIN Number", pharmacyChainHelper.einNumber(pharmacyChain))}
-          {fieldHelper.display("Parent Organization LBN", pharmacyChainHelper.parentOrganizationLbn(pharmacyChain))}
-          {fieldHelper.display("Notes", pharmacyChainHelper.notes(pharmacyChain))}
+          {displayHelper.display("NPI", pharmacyChainHelper.npi(pharmacyChain))}
+          {displayHelper.display("EIN Number", pharmacyChainHelper.einNumber(pharmacyChain))}
+          {displayHelper.display("Parent Organization LBN", pharmacyChainHelper.parentOrganizationLbn(pharmacyChain))}
+          {displayHelper.display("Notes", pharmacyChainHelper.notes(pharmacyChain))}
         </CardBody>
       </Card>
     </Col>
@@ -110,6 +111,11 @@ class PharmacyChainProfilePage extends Component {
         </Col>
       </Container>
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

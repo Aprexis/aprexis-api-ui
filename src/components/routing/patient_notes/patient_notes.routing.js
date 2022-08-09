@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { PatientNoteRouting } from "./"
 import { NoMatch } from "../"
 import { PatientNotesPage } from "../../pages/patient_notes"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class PatientNotesRouting extends Component {
   render() {

@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { InterventionDocumentRouting } from "./"
 import { NoMatch } from "../"
 import { InterventionDocumentsPage } from "../../pages/intervention_documents"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class InterventionDocumentsRouting extends Component {
   render() {

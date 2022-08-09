@@ -1,14 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi, reminderApi } from "../../../../api"
-import {
-  dateHelper,
-  pathHelper,
-  reminderHelper,
-  reminderMedicationHelper,
-  reminderSupplementHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { patientApi, reminderApi, dateHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const reminderDateAndTimeFields = {
   recur_from: { label: "Recur From", required: true, type: "date" },
@@ -36,6 +28,7 @@ class ReminderModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.removeReminderMedication = this.removeReminderMedication.bind(this)
     this.removeReminderSupplement = this.removeReminderSupplement.bind(this)
@@ -61,7 +54,7 @@ class ReminderModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       nextOperation,
       this.onError
@@ -87,6 +80,10 @@ class ReminderModalViewModel extends AbstractModalViewModel {
     const { changedReminder, reminder } = this.data
 
     return { changedModel: changedReminder, model: reminder, modelName: this.modelName() }
+  }
+
+  modelName() {
+    return 'reminder'
   }
 
   requiredFields() {

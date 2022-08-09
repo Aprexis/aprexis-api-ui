@@ -1,9 +1,8 @@
 import React, { Component } from "react"
 import { BillingContractTermsPageViewModel } from "../../../view_models/pages/billing/terms"
 import { ListView } from "../../../../containers"
-import { valueHelper } from "../../../../helpers"
-import { billingContractTermHelper } from "../../../../helpers/billing"
-import { listHelper } from "../../../../helpers/list.helper"
+import { valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../../helpers"
 
 const headings = [
   {
@@ -83,6 +82,7 @@ class BillingContractTermsPage extends Component {
         headings,
         helper: billingContractTermHelper,
         launchModal: this.props.launchModal,
+        modelName: 'billingContractTerm',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editProfileModal,
         onRefresh: this.vm.refreshData,

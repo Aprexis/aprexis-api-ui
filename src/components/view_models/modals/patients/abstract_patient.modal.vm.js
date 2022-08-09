@@ -1,6 +1,5 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi } from "../../../../api"
-import { patientHelper } from "../../../../helpers"
+import { patientApi, patientHelper } from "@aprexis/aprexis-api-utility"
 
 class AbstractPatientModalViewModel extends AbstractModalViewModel {
   constructor(props) {
@@ -14,6 +13,7 @@ class AbstractPatientModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
   }
 
   api() {
@@ -39,6 +39,10 @@ class AbstractPatientModalViewModel extends AbstractModalViewModel {
     const { changedPatient, patient } = this.data
 
     return { changedModel: changedPatient, model: patient, modelName: "patient" }
+  }
+
+  modelName() {
+    return 'patient'
   }
 }
 

@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { reminderApi } from "../../../../api"
-import { pageHelper, pathHelper, reminderHelper, userCredentialsHelper } from "../../../../helpers"
+import { reminderApi, pageHelper, reminderHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const reminderListMethods = [
   { pathKey: "patients", method: reminderApi.listForPatient }
@@ -32,7 +32,15 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    return this.helper().canBeCreated(currentUser, pathEntries)
+    return canBeCreated(currentUser, pathEntries)
+
+    function canBeCreated(user, pathEntries) {
+      if (!authorizationHelper.canCreateReminder(user, pathEntries)) {
+        return false
+      }
+
+      return pathHelper.isSingular(pathEntries, "patients")
+    }
   }
 
   createModal() {
@@ -40,7 +48,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       (reminder) => {
         this.props.launchModal(
@@ -61,7 +69,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
 
   editModal(reminderToEdit, nextOperation) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       this.helper().id(reminderToEdit),
       (reminder) => {
         this.props.launchModal(

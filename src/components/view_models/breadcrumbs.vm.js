@@ -1,6 +1,5 @@
 import { AbstractViewModel } from "./"
-import { contextHelper, pathHelper, valueHelper } from "../../helpers"
-import { pathKeys } from '../../types'
+import { breadcrumbsHelper, contextHelper, pathHelper } from "../../helpers"
 
 class BreadcrumbsViewModel extends AbstractViewModel {
   constructor(props) {
@@ -27,19 +26,10 @@ class BreadcrumbsViewModel extends AbstractViewModel {
   }
 
   modelToBreadcrumb(pathKey, model) {
-    const pathKeyEntry = pathKeys[pathKey]
-
-    if (!valueHelper.isValue(pathKeyEntry) ||
-      !valueHelper.isValue(pathKeyEntry) ||
-      !valueHelper.isValue(pathKeyEntry.helper) ||
-      !valueHelper.isFunction(pathKeyEntry.helper.toBreadcrumb)) {
-      return `${model.id}`
-    }
-
-    return pathKeyEntry.helper.toBreadcrumb(model)
+    return breadcrumbsHelper.toBreadcrumb(pathKey, model)
   }
 
-  pathInformation(location) {
+  pathInformation(_location) {
     const pathEntries = this.pathEntries()
     const orderedPathEntries = this.orderedPathEntries(pathEntries)
     const haveProfile = pathHelper.haveProfile(orderedPathEntries)

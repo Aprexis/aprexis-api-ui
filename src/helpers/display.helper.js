@@ -1,121 +1,40 @@
 import React from "react"
 import { UncontrolledTooltip } from "reactstrap"
+import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
-import { valueHelper } from "./value.helper"
-import { dateHelper } from "./date.helper"
+import { valueHelper, dateHelper, fieldHelper, userHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
 import { contextHelper } from "./context.helper"
 import { jsEventHelper } from "./js_event.helper"
-import { alertHelper } from "./alert.helper"
 
-
-export const fieldHelper = {
-  addEntry,
+export const displayHelper = {
   booleanDisplay,
-  changeDate,
-  changeDateTime,
   changeField,
-  changeTime,
-  changeValue,
-  changeValues,
-  combineValues,
   dateDisplay,
   dateTimeDisplay,
   display,
+  displayBillingStatus,
+  displayClaimReferenceNumbers,
   displayListField,
   displayWithUnits,
   dollarDisplay,
-  fieldName,
   fieldXs,
-  getField,
   imageDisplay,
   includeField,
   label,
   labelXs,
   listField,
-  method,
-  name,
   notInContextDisplay,
   options,
   optionDisplay,
   phoneDisplay,
   phoneNumberForDisplay,
-  removeEntry,
-  titleDisplay,
-  unchanged
-}
-
-function addEntryToList(model, field, newEntry) {
-  const entries = model[field]
-  if (!valueHelper.isValue(entries)) {
-    return [newEntry]
-  }
-
-  return [...entries, newEntry]
-}
-
-function addEntry(modelName, model, changedModel, field, matchField, newEntry) {
-  const entries = model[field]
-  const changedEntries = changedModel[field]
-  if (valueHelper.isValue(entries)) {
-    const existingEntry = entries.find((entry) => entry[matchField] == newEntry[matchField])
-    if (valueHelper.isValue(existingEntry)) {
-      return unchanged(modelName, model, changedModel, `${field} already has an entry`)
-    }
-  }
-
-  if (valueHelper.isValue(changedEntries)) {
-    const existingChangedEntry = changedEntries.find((changedEntry) => changedEntry[matchField] == newEntry[matchField])
-    if (valueHelper.isValue(existingChangedEntry)) {
-      return restoreOldEntry(modelName, model, changedModel, field, existingChangedEntry)
-    }
-  }
-
-  return addNewEntry(modelName, model, changedModel, field, newEntry)
-
-  function addNewEntry(modelName, model, changedModel, field, newEntry) {
-    return {
-      [modelName]: { ...model, [field]: addEntryToList(model, field, newEntry) },
-      [valueHelper.changedModelName(modelName)]: { ...changedModel, [field]: addEntryToList(changedModel, field, newEntry) }
-    }
-  }
-
-  function restoreOldEntry(modelName, model, changedModel, field, oldEntry) {
-    const restoredEntry = [...oldEntry]
-    delete restoredEntry['_destroy']
-    const newChangedEntries = changedModel[field].filter((changedEntry) => changedEntry != oldEntry)
-
-    return {
-      [modelName]: { ...model, [field]: addEntryToList(model, field, restoredEntry) },
-      [valueHelper.changedModelName(modelName)]: { ...changedModel, newChangedEntries }
-    }
-  }
+  renderAccess,
+  titleDisplay
 }
 
 function booleanDisplay(name, value, description, required = false) {
-  return fieldHelper.display(name, valueHelper.yesNo(value), description, "?", required)
-}
-
-function changeDate(modelName, model, changedModel, fieldName, date, dateValid) {
-  const nameValid = `${fieldName}_DVALID`
-  const updatedValid = { ...model[nameValid], ...dateValid }
-  return fieldHelper.changeValues(
-    modelName,
-    model,
-    changedModel,
-    { [fieldName]: date, [nameValid]: updatedValid }
-  )
-}
-
-function changeDateTime(modelName, model, changedModel, fieldName, dateTime, dateTimeValid) {
-  const nameValid = `${fieldName}_DTVALID`
-  const updatedValid = { ...model[nameValid], ...dateTimeValid }
-  return fieldHelper.changeValues(
-    modelName,
-    model,
-    changedModel,
-    { [fieldName]: dateTime, [nameValid]: updatedValid }
-  )
+  return displayHelper.display(name, valueHelper.yesNo(value), description, "?", required)
 }
 
 function changeField(modelName, model, changedModel, event) {
@@ -124,76 +43,13 @@ function changeField(modelName, model, changedModel, event) {
   return fieldHelper.changeValue(modelName, model, changedModel, name, value)
 }
 
-function changeTime(modelName, model, changedModel, fieldName, time, timeValid) {
-  const nameValid = `${fieldName}_TVALID`
-  const updatedValid = { ...model[timeValid], ...timeValid }
-
-  return fieldHelper.changeValues(
-    modelName,
-    model,
-    changedModel,
-    { [fieldName]: time, [nameValid]: updatedValid }
-  )
-}
-
-function changeValue(modelName, model, changedModel, name, value) {
-  return {
-    [modelName]: {
-      ...model,
-      [name]: value
-    },
-    [valueHelper.changedModelName(modelName)]: {
-      ...changedModel,
-      [name]: value
-    }
-  }
-}
-
-function changeValues(modelName, model, changedModel, changedValues) {
-  let updated = {
-    [modelName]: model,
-    [valueHelper.changedModelName(modelName)]: changedModel
-  }
-
-  Object.keys(changedValues).forEach(
-    (name) => {
-      const value = changedValues[name]
-
-      updated = fieldHelper.changeValue(
-        modelName,
-        updated[modelName],
-        updated[valueHelper.changedModelName(modelName)],
-        name,
-        value
-      )
-    }
-  )
-
-  return {
-    [modelName]: updated[modelName],
-    [valueHelper.changedModelName(modelName)]: updated[valueHelper.changedModelName(modelName)]
-  }
-}
-
-function combineValues(...values) {
-  if (!valueHelper.isValue(values)) {
-    return
-  }
-
-  const filteredValues = values.filter((value) => valueHelper.isStringValue(value))
-  if (filteredValues.length === 0) {
-    return
-  }
-
-  return filteredValues.join(" ")
-}
 
 function dateDisplay(name, value, description) {
-  return fieldHelper.display(name, dateHelper.displayDate(value), description)
+  return displayHelper.display(name, dateHelper.displayDate(value), description)
 }
 
 function dateTimeDisplay(name, value, description) {
-  return fieldHelper.display(name, dateHelper.displayDateTime(value), description)
+  return displayHelper.display(name, dateHelper.displayDateTime(value), description)
 }
 
 function display(name, value, description, suffix = ":", required = false) {
@@ -231,9 +87,81 @@ function display(name, value, description, suffix = ":", required = false) {
   )
 }
 
+function displayBillingStatus(billingClaim, showToolTip = false) {
+  const billingStatus = billingClaimHelper.billingStatus(billingClaim)
+  if (!showToolTip) {
+    return billingStatus
+  }
+
+  const statusDescription = billingClaimHelper.statusDescription(billingClaim)
+  if (!valueHelper.isStringValue(statusDescription)) {
+    return billingStatus
+  }
+
+  return (
+    <React.Fragment>
+      <span id="billing-status">{billingStatus}</span>
+      <UncontrolledTooltip placement="top" boundariesElement="window" target="billing-status">
+        {statusDescription}
+      </UncontrolledTooltip>
+    </React.Fragment>
+  )
+}
+
+function displayClaimReferenceNumbers(billingClaim) {
+  const pharmacyNumber = displayPharmacyReferenceNumber(billingClaim)
+  const aprexisNumber = displayAprexisReferenceNumber(billingClaim)
+  const payerNumber = displayPayerClaimTrackingNumber(billingClaim)
+
+  return (
+    <React.Fragment>
+      <label>{pharmacyNumber}</label><br />
+      <label>{aprexisNumber}</label><br />
+      <label>{payerNumber}</label>
+    </React.Fragment>
+  )
+
+  function displayAprexisReferenceNumber(billingClaim) {
+    const referenceNumber = billingClaimHelper.referenceNumber(billingClaim)
+    if (!valueHelper.isStringValue(referenceNumber)) {
+      return "Not available"
+    }
+
+    const dash = referenceNumber.lastIndexOf("-")
+    if (dash === -1) {
+      return referenceNumber
+    }
+
+    return referenceNumber.substring(dash + 1)
+  }
+
+  function displayPayerClaimTrackingNumber(billingClaim) {
+    const payerNumber = billingClaimHelper.payerClaimTrackingNumber(billingClaim)
+    if (!valueHelper.isStringValue(payerNumber)) {
+      return "Not available"
+    }
+
+    return payerNumber
+  }
+
+  function displayPharmacyReferenceNumber(billingClaim) {
+    const referenceNumber = billingClaimHelper.referenceNumber(billingClaim)
+    if (!valueHelper.isStringValue(referenceNumber)) {
+      return "Not available"
+    }
+
+    const dash = referenceNumber.lastIndexOf("-")
+    if (dash === -1) {
+      return 'Not available'
+    }
+
+    return referenceNumber.substring(0, dash - 1)
+  }
+}
+
+
 function displayListField(model, helper, heading) {
-  const method = valueHelper.isStringValue(heading.method) ? heading.method : heading.field
-  const value = helper[method](model)
+  const value = fieldMethod(helper, heading)(model)
   if (!valueHelper.isValue(value)) {
     return ""
   }
@@ -253,6 +181,15 @@ function displayListField(model, helper, heading) {
       </UncontrolledTooltip>
     </td>
   )
+
+  function fieldMethod(helper, heading) {
+    if (valueHelper.isFunction(heading.method)) {
+      return heading.method
+    }
+
+    const methodName = valueHelper.isStringValue(heading.method) ? heading.method : heading.field
+    return helper[methodName]
+  }
 }
 
 function displayWithUnits(name, value, units, description, suffix = ":", required = false) {
@@ -263,7 +200,7 @@ function displayWithUnits(name, value, units, description, suffix = ":", require
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, `${value} ${units}`, description, suffix, required)
+  return displayHelper.display(name, `${value} ${units}`, description, suffix, required)
 }
 
 function dollarDisplay(name, value, description, suffix = ":", required = false) {
@@ -274,16 +211,16 @@ function dollarDisplay(name, value, description, suffix = ":", required = false)
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, `$${value}`, description, suffix, required)
+  return displayHelper.display(name, `$${value}`, description, suffix, required)
 }
 
 function phoneDisplay(name, value, description, extension, suffix = ":", required = false) {
-  const phoneNumber = fieldHelper.phoneNumberForDisplay(value, extension)
+  const phoneNumber = displayHelper.phoneNumberForDisplay(value, extension)
   if (!valueHelper.isStringValue(phoneNumber)) {
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, phoneNumber, description, suffix, required)
+  return displayHelper.display(name, phoneNumber, description, suffix, required)
 }
 
 function phoneNumberForDisplay(number, extension) {
@@ -325,14 +262,6 @@ function phoneNumberForDisplay(number, extension) {
   }
 }
 
-function fieldName(fieldName, prefix) {
-  if (!valueHelper.isStringValue(prefix)) {
-    return fieldName
-  }
-
-  return `${prefix}_${fieldName} `
-}
-
 function fieldXs(props) {
   const { fieldXs } = props
   if (valueHelper.isValue(fieldXs)) {
@@ -344,23 +273,15 @@ function fieldXs(props) {
     return 10
   }
 
-  return fieldXsTotal - fieldHelper.labelXs(props)
-}
-
-function getField(object, fieldName, prefix) {
-  if (!valueHelper.isValue(object)) {
-    return
-  }
-
-  return object[fieldHelper.fieldName(fieldName, prefix)]
+  return fieldXsTotal - displayHelper.labelXs(props)
 }
 
 function imageDisplay(name, value, description) {
   if (valueHelper.isStringValue(value)) {
-    return fieldHelper.display(name, <img src={`data: image / jpeg; base64, ${value} `} alt="logo" />, description)
+    return displayHelper.display(name, <img src={`data: image / jpeg; base64, ${value} `} alt="logo" />, description)
   }
 
-  return fieldHelper.display(name, "")
+  return displayHelper.display(name, "")
 }
 
 function includeField(pathEntries, filters, fieldHeader) {
@@ -412,7 +333,7 @@ function includeField(pathEntries, filters, fieldHeader) {
       return true
     }
 
-    return includeCheckFilters(filters, fieldHelper["ifFilters"])
+    return includeCheckFilters(filters, displayHelper["ifFilters"])
   }
 
   function includeUnless(pathEntries, fieldHeader) {
@@ -486,40 +407,16 @@ function listField(value) {
   }
 }
 
-function method({ fieldLabel, fieldMethod, fieldName }) {
-  if (valueHelper.isValue(fieldMethod)) {
-    return fieldMethod
-  }
-
-  if (valueHelper.isStringValue(fieldName)) {
-    return valueHelper.camelCase(fieldName)
-  }
-
-  return valueHelper.camelCase(fieldLabel)
-}
-
-function name({ fieldLabel, fieldMethod, fieldName }) {
-  if (valueHelper.isValue(fieldName)) {
-    return fieldName
-  }
-
-  if (valueHelper.isValue(fieldMethod)) {
-    return valueHelper.snakeCase(fieldMethod)
-  }
-
-  return valueHelper.snakeCase(fieldLabel)
-}
-
 function notInContextDisplay(pathKey, name, value, description) {
   if (contextHelper.inContext(pathKey)) {
     return (<React.Fragment />)
   }
 
-  return fieldHelper.display(name, value, description)
+  return displayHelper.display(name, value, description)
 }
 
 function optionDisplay(name, options, value, description, suffix = ":", required = false) {
-  return fieldHelper.display(name, options[valueHelper.makeString(value)], description, suffix, required)
+  return displayHelper.display(name, options[valueHelper.makeString(value)], description, suffix, required)
 }
 
 function options(props) {
@@ -572,59 +469,66 @@ function options(props) {
   }
 }
 
-function removeEntry(modelName, model, changedModel, field, matchField, oldEntry) {
-  if (valueHelper.isNumberValue(oldEntry.id)) {
-    return destroyExistingEntry(modelName, model, changedModel, field, matchField, oldEntry)
+function renderAccess(user) {
+  if (!valueHelper.isValue(user)) {
+    return
   }
 
-  return removeAddedEntry(modelName, model, changedModel, field, matchField, oldEntry)
+  const accessLocked = renderAccessLocked(user)
+  const allowLogin = renderAllowLogin(user)
+  const expired = renderExpired(user)
 
-  function destroyExistingEntry(modelName, model, changedModel, field, matchField, oldEntry) {
-    const entries = model[field]
-    if (!valueHelper.isValue(entries)) {
-      return fieldHelper.unchanged(modelName, model, changedModel, `${field} does not have entries to remove`)
+  return (<React.Fragment>{expired}{accessLocked}{allowLogin}</React.Fragment>)
+
+  function renderAccessLocked(user) {
+    if (!userHelper.isAccessLocked(user)) {
+      return
     }
 
-    const newEntries = entries.filter((entry) => entry[matchField] != oldEntry[matchField])
-    const destroyEntry = { ...oldEntry, "_destroy": true }
-    const newChangedEntries = addEntryToList(changedModel, field, destroyEntry)
-    return {
-      [modelName]: { ...model, [field]: newEntries },
-      [valueHelper.changedModelName(modelName)]: { ...changedModel, [field]: newChangedEntries }
-    }
+    return (
+      <span>
+        &nbsp;
+        <FontAwesomeIcon className="ml-1 red" icon={faLock} id={`access-locked-${user.id}`} />
+        <UncontrolledTooltip placement="top" boundariesElement="window" target={`access-locked-${user.id}`}>
+          Account is temporarily locked
+        </UncontrolledTooltip>
+      </span>
+    )
   }
 
-  function removeAddedEntry(modelName, model, changedModel, field, matchField, addedEntry) {
-    const entries = model[field]
-    if (!valueHelper.isValue(entries)) {
-      return fieldHelper.unchanged(modelName, model, changedModel, `${field} does not have entries to remove`)
+  function renderAllowLogin(user) {
+    if (userHelper.isLoginAllowed(user)) {
+      return
     }
 
-    const changedEntries = changedModel[field]
-    if (!valueHelper.isValue(changedEntries)) {
-      return fieldHelper.unchanged(modelName, model, changedModel, `${field} does not contain an added entry to remove`)
+    return (
+      <span>
+        &nbsp;
+        <FontAwesomeIcon className="ml-1 red" icon={faUserSlash} id={`disallow-login-${user.id}`} />
+        <UncontrolledTooltip placement="top" boundariesElement="window" target={`disallow-login-${user.id}`}>
+          Login not allowed
+        </UncontrolledTooltip>
+      </span>
+    )
+  }
+
+  function renderExpired(user) {
+    if (!userHelper.isExpired(user)) {
+      return
     }
 
-    const newEntries = entries.filter((entry) => entry[matchField] != oldEntry[matchField])
-    const newChangedEntries = changedEntries.filter((changedEntry) => changedEntry[matchField] == oldEntry[matchField])
-    return {
-      [modelName]: { ...model, [field]: newEntries },
-      [valueHelper.changedModelName(modelName)]: { ...changedModel, [field]: newChangedEntries }
-    }
+    return (
+      <span>
+        &nbsp;
+        <FontAwesomeIcon className="ml-1 red" icon={faCalendarMinus} id={`disallow-login-${user.id}`} />
+        <UncontrolledTooltip placement="top" boundariesElement="window" target={`disallow-login-${user.id}`}>
+          Account has expired
+        </UncontrolledTooltip>
+      </span>
+    )
   }
 }
 
 function titleDisplay(name, value, description, suffix = ":", required = false) {
-  return fieldHelper.display(name, valueHelper.titleize(value), description, suffix, required)
-}
-
-function unchanged(modelName, model, changedModel, warning) {
-  if (valueHelper.isStringValue(warning)) {
-    alertHelper.warning(warning)
-  }
-
-  return {
-    [modelName]: model,
-    [valueHelper.changedModelName(modelName)]: changedModel
-  }
+  return displayHelper.display(name, valueHelper.titleize(value), description, suffix, required)
 }

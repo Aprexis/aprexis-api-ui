@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
-import { patientAllergyApi } from "../../../../api"
-import { patientAllergyHelper, userCredentialsHelper } from "../../../../helpers"
+import { patientAllergyApi, patientAllergyHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
 
 class PatientAllergyProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -12,7 +12,7 @@ class PatientAllergyProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(patientAllergyToEdit) {
     patientAllergyApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientAllergyHelper.id(patientAllergyToEdit),
       (patientAllergy) => {
         this.props.launchModal(
@@ -35,7 +35,7 @@ class PatientAllergyProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_allergy_id = pathEntries['patient-allergies'].value
     patientAllergyApi.profile(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       patient_allergy_id,
       (patientAllergy) => { this.addField('patientAllergy', patientAllergy, this.redrawView) },
       this.onError

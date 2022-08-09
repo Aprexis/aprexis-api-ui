@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js"
-import { valueHelper } from "./value.helper"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 export const userCredentialsHelper = {
   actAs,
@@ -71,3 +71,4 @@ function set(userCredentials) {
 function setAdmin(adminCredentials) {
   sessionStorage.setItem("aprexis-admin-credentials", encode(adminCredentials))
 }
+

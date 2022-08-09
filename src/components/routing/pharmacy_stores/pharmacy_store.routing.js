@@ -5,7 +5,8 @@ import { BillingClaimsRouting } from "../billing/claims"
 import { InterventionsRouting } from "../interventions"
 import { PatientsRouting } from "../patients"
 import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 
 class PharmacyStoreRouting extends Component {
   render() {

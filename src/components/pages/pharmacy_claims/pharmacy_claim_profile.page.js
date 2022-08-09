@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Spinner } from '../../shared'
 import { PharmacyClaimProfilePageViewModel } from "../../view_models/pages/pharmacy_claims"
-import { fieldHelper, pathHelper, pharmacyClaimHelper, valueHelper } from "../../../helpers"
+import { fieldHelper, pharmacyClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper, pathHelper } from "../../../helpers"
 
 const PharmacyClaimReferences = ({ pathEntries, pharmacyClaim }) => {
   return (
@@ -15,44 +16,44 @@ const PharmacyClaimReferences = ({ pathEntries, pharmacyClaim }) => {
         <CardBody>
           {
             !pathHelper.isSingular(pathEntries, "health-plans") &&
-            fieldHelper.displayField("Health Plan", pharmacyClaimHelper.healthPlanName(pharmacyClaim))
+            displayHelper.displayField("Health Plan", pharmacyClaimHelper.healthPlanName(pharmacyClaim))
           }
           {
             !pathHelper.isSingular(pathEntries, "patients") &&
             <React.Fragment>
-              {fieldHelper.display("Patient", pharmacyClaimHelper.patientName(pharmacyClaim))}
-              {fieldHelper.display("Member Number", pharmacyClaimHelper.memberNumber(pharmacyClaim))}
-              {fieldHelper.display("Person Number", pharmacyClaimHelper.personNumber(pharmacyClaim))}
+              {displayHelper.display("Patient", pharmacyClaimHelper.patientName(pharmacyClaim))}
+              {displayHelper.display("Member Number", pharmacyClaimHelper.memberNumber(pharmacyClaim))}
+              {displayHelper.display("Person Number", pharmacyClaimHelper.personNumber(pharmacyClaim))}
             </React.Fragment>
           }
           {
             !pathHelper.isSingular(pathEntries, "pharmacy-stores") &&
             <React.Fragment>
               {
-                fieldHelper.display(
+                displayHelper.display(
                   "Pharmacy Store",
                   pharmacyClaimHelper.pharmacyStoreIdentification(pharmacyClaim)
                 )
               }
               {
-                fieldHelper.display(
+                displayHelper.display(
                   "Pharmacy NPI",
                   pharmacyClaimHelper.pharmacyNpi(pharmacyClaim)
                 )
               }
             </React.Fragment>
           }
-          {fieldHelper.display("Medication", pharmacyClaimHelper.medicationLabel(pharmacyClaim))}
-          {fieldHelper.display("Physician", pharmacyClaimHelper.physicianName(pharmacyClaim))}
-          {fieldHelper.display("Physician NPI", pharmacyClaimHelper.physicianNpi(pharmacyClaim))}
-          {fieldHelper.booleanDisplay("Uploaded", pharmacyClaimHelper.wasUploaded(pharmacyClaim))}
+          {displayHelper.display("Medication", pharmacyClaimHelper.medicationLabel(pharmacyClaim))}
+          {displayHelper.display("Physician", pharmacyClaimHelper.physicianName(pharmacyClaim))}
+          {displayHelper.display("Physician NPI", pharmacyClaimHelper.physicianNpi(pharmacyClaim))}
+          {displayHelper.booleanDisplay("Uploaded", pharmacyClaimHelper.wasUploaded(pharmacyClaim))}
         </CardBody>
       </Card>
     </Col>
   )
 }
 
-const PharmacyClaimProfile = ({ pathEntries, pharmacyClaim }) => {
+const PharmacyClaimProfile = ({ pharmacyClaim }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
@@ -62,21 +63,21 @@ const PharmacyClaimProfile = ({ pathEntries, pharmacyClaim }) => {
 
         <CardBody>
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Identifier",
               pharmacyClaimHelper.healthPlanPatientPharmacyClaimIdentifier(pharmacyClaim)
             )
           }
-          {fieldHelper.display("Prescription Number", pharmacyClaimHelper.prescriptionNumber(pharmacyClaim))}
-          {fieldHelper.dateDisplay("Filled", pharmacyClaimHelper.fillDate(pharmacyClaim))}
-          {fieldHelper.dateDisplay("Processed", pharmacyClaimHelper.processedDate(pharmacyClaim))}
-          {fieldHelper.display("Days Supply", pharmacyClaimHelper.daysSupply(pharmacyClaim))}
-          {fieldHelper.display("Quantity", pharmacyClaimHelper.quantity(pharmacyClaim))}
-          {fieldHelper.display("NDC", pharmacyClaimHelper.ndc(pharmacyClaim))}
-          {fieldHelper.display("Drug Name", pharmacyClaimHelper.drugName(pharmacyClaim))}
-          {fieldHelper.display("Drug Class", pharmacyClaimHelper.drugClass(pharmacyClaim))}
+          {displayHelper.display("Prescription Number", pharmacyClaimHelper.prescriptionNumber(pharmacyClaim))}
+          {displayHelper.dateDisplay("Filled", pharmacyClaimHelper.fillDate(pharmacyClaim))}
+          {displayHelper.dateDisplay("Processed", pharmacyClaimHelper.processedDate(pharmacyClaim))}
+          {displayHelper.display("Days Supply", pharmacyClaimHelper.daysSupply(pharmacyClaim))}
+          {displayHelper.display("Quantity", pharmacyClaimHelper.quantity(pharmacyClaim))}
+          {displayHelper.display("NDC", pharmacyClaimHelper.ndc(pharmacyClaim))}
+          {displayHelper.display("Drug Name", pharmacyClaimHelper.drugName(pharmacyClaim))}
+          {displayHelper.display("Drug Class", pharmacyClaimHelper.drugClass(pharmacyClaim))}
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Strength",
               fieldHelper.combineValues(
                 pharmacyClaimHelper.strength(pharmacyClaim),
@@ -85,7 +86,7 @@ const PharmacyClaimProfile = ({ pathEntries, pharmacyClaim }) => {
             )
           }
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Dose",
               fieldHelper.combineValues(
                 pharmacyClaimHelper.dose(pharmacyClaim),
@@ -94,7 +95,7 @@ const PharmacyClaimProfile = ({ pathEntries, pharmacyClaim }) => {
             )
           }
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Frequency",
               fieldHelper.combineValues(
                 pharmacyClaimHelper.frequency(pharmacyClaim),
@@ -159,6 +160,11 @@ class PharmacyClaimProfilePage extends Component {
         </Col>
       </Container>
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

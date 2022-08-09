@@ -4,7 +4,8 @@ import IdleTimer from 'react-idle-timer'
 import { Footer, Header, Main } from './'
 import { Modals } from './modals'
 import { AppViewModel } from './view_models'
-import { history, valueHelper } from '../helpers'
+import { history } from '../helpers'
+import { valueHelper } from '@aprexis/aprexis-api-utility'
 import 'bootstrap/dist/css/bootstrap.css'
 
 class App extends Component {

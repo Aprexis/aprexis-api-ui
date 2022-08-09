@@ -1,4 +1,4 @@
-import { valueHelper } from "./value.helper"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 export const jsEventHelper = {
   fromInputEvent

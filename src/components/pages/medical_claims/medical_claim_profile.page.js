@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Spinner } from '../../shared'
 import { MedicalClaimProfilePageViewModel } from "../../view_models/pages/medical_claims"
-import { fieldHelper, pathHelper, medicalClaimHelper, valueHelper } from "../../../helpers"
+import { medicalClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper, pathHelper } from "../../../helpers"
 
 const MedicalClaimReferences = ({ pathEntries, medicalClaim }) => {
   return (
@@ -15,24 +16,24 @@ const MedicalClaimReferences = ({ pathEntries, medicalClaim }) => {
         <CardBody>
           {
             !pathHelper.isSingular(pathEntries, "health-plans") &&
-            fieldHelper.displayField("Health Plan", medicalClaimHelper.healthPlanName(medicalClaim))
+            displayHelper.displayField("Health Plan", medicalClaimHelper.healthPlanName(medicalClaim))
           }
           {
             !pathHelper.isSingular(pathEntries, "patients") &&
             <React.Fragment>
-              {fieldHelper.display("Patient", medicalClaimHelper.patientName(medicalClaim))}
-              {fieldHelper.display("Member Number", medicalClaimHelper.memberNumber(medicalClaim))}
-              {fieldHelper.display("Person Number", medicalClaimHelper.personNumber(medicalClaim))}
+              {displayHelper.display("Patient", medicalClaimHelper.patientName(medicalClaim))}
+              {displayHelper.display("Member Number", medicalClaimHelper.memberNumber(medicalClaim))}
+              {displayHelper.display("Person Number", medicalClaimHelper.personNumber(medicalClaim))}
             </React.Fragment>
           }
-          {fieldHelper.booleanDisplay("Uploaded", medicalClaimHelper.wasUploaded(medicalClaim))}
+          {displayHelper.booleanDisplay("Uploaded", medicalClaimHelper.wasUploaded(medicalClaim))}
         </CardBody>
       </Card>
     </Col>
   )
 }
 
-const MedicalClaimProfile = ({ pathEntries, medicalClaim }) => {
+const MedicalClaimProfile = ({ medicalClaim }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
@@ -42,14 +43,14 @@ const MedicalClaimProfile = ({ pathEntries, medicalClaim }) => {
 
         <CardBody>
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Identifier",
               medicalClaimHelper.healthPlanPatientMedicalClaimIdentifier(medicalClaim)
             )
           }
-          {fieldHelper.display("Service Date", medicalClaimHelper.serviceDate(medicalClaim))}
-          {fieldHelper.display("Processed Date", medicalClaimHelper.processedDate(medicalClaim))}
-          {fieldHelper.display("Provider NPI", medicalClaimHelper.providerNpi(medicalClaim))}
+          {displayHelper.display("Service Date", medicalClaimHelper.serviceDate(medicalClaim))}
+          {displayHelper.display("Processed Date", medicalClaimHelper.processedDate(medicalClaim))}
+          {displayHelper.display("Provider NPI", medicalClaimHelper.providerNpi(medicalClaim))}
         </CardBody>
       </Card>
     </Col>
@@ -107,6 +108,11 @@ class MedicalClaimProfilePage extends Component {
         </Col>
       </Container>
     )
+  }
+
+  shouldComponentUpdate(nextProps, _nextState) {
+    this.vm.props = { ...this.vm.props, ...nextProps }
+    return true
   }
 }
 

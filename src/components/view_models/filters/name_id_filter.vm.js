@@ -1,5 +1,6 @@
 import { AbstractViewModel } from ".."
-import { alertHelper, filtersHelper, userCredentialsHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { alertHelper, filtersHelper, userCredentialsHelper } from "../../../helpers"
 
 class NameIdFilterViewModel extends AbstractViewModel {
   constructor(props) {

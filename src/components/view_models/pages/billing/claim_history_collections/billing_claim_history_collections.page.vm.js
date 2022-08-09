@@ -1,8 +1,5 @@
 import { AbstractListPageViewModel } from "../../"
-import { billingClaimHistoryCollectionApi } from "../../../../../api/billing"
-import { pageHelper } from "../../../../../helpers"
-import { billingClaimHistoryCollectionHelper } from "../../../../../helpers/billing"
-
+import { billingClaimHistoryCollectionApi, pageHelper, billingClaimHistoryCollectionHelper } from "@aprexis/aprexis-api-utility"
 
 class BillingClaimHistoryCollectionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {

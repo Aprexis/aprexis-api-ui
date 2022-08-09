@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../../"
-import { physicianApi } from "../../../../../api/admin"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
+import { physicianApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class PhysiciansPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -21,7 +21,7 @@ class PhysiciansPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Name", "for_name"),
       filtersHelper.stringFilter("NPI", "for_npi")
@@ -50,7 +50,7 @@ class PhysiciansPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     physicianApi.list(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (physicians, physicianHeaders) => {
         this.addData(

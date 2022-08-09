@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { FaxesPageViewModel } from "../../view_models/pages/faxes"
 import { ListView } from "../../../containers"
-import { faxHelper, pathHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { faxHelper, pathHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const interventionsHeadings = [
   {
@@ -101,6 +101,7 @@ class FaxesPage extends Component {
         headings: this.headings(pathEntries),
         helper: faxHelper,
         launchModal: this.props.launchModal,
+        modelName: 'fax',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -151,7 +152,7 @@ class FaxesPage extends Component {
     )
   }
 
-  nav(list) {
+  nav(_list) {
     if (!this.vm.canCreate()) {
       return
     }

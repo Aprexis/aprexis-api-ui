@@ -1,12 +1,11 @@
 import { AbstractViewModel } from "./"
-import { authenticationApi, userApi } from "../../api"
+import { authenticationApi, userApi, userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 import {
   alertHelper,
+  apiEnvironmentHelper,
   contextHelper,
   pathHelper,
-  userCredentialsHelper,
-  userHelper,
-  valueHelper
+  userCredentialsHelper
 } from "../../helpers"
 
 class AppViewModel extends AbstractViewModel {
@@ -59,7 +58,7 @@ class AppViewModel extends AbstractViewModel {
     }
 
     userApi.actAs(
-      adminCredentials,
+      apiEnvironmentHelper.apiEnvironment(adminCredentials),
       value,
       this.selectCurrentUser,
       this.onError
@@ -87,7 +86,7 @@ class AppViewModel extends AbstractViewModel {
   fetchActAsUsers(nextOperation) {
     const adminCredentials = userCredentialsHelper.getAdmin()
     userApi.index(
-      adminCredentials,
+      apiEnvironmentHelper.apiEnvironment(adminCredentials),
       {
         for_active: true,
         page: { number: 1, size: 1000000 },
@@ -106,7 +105,7 @@ class AppViewModel extends AbstractViewModel {
     }
 
     userApi.account(
-      adminCredentials,
+      apiEnvironmentHelper.apiEnvironment(adminCredentials),
       adminCredentials.id,
       (currentAdminUser) => {
         this.addField("currentAdminUser", currentAdminUser, nextOperation)
@@ -123,7 +122,7 @@ class AppViewModel extends AbstractViewModel {
     }
 
     userApi.account(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       userCredentials.id,
       (currentUser) => {
         this.addField("currentUser", currentUser, nextOperation)
@@ -155,7 +154,7 @@ class AppViewModel extends AbstractViewModel {
   }
 
   gotoLabTestsPage() {
-    pathHelper.gotoPage(["lab-tests"])
+    pathHelper.gotoPage(["admin", "lab-tests"])
   }
 
   gotoMedicationsPage() {
@@ -249,7 +248,7 @@ class AppViewModel extends AbstractViewModel {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.remove()
-    authenticationApi.signOut(userCredentials, this.home)
+    authenticationApi.signOut(apiEnvironmentHelper.apiEnvironment(userCredentials), this.home)
   }
 }
 

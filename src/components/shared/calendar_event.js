@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { DeleteButton, EditButton } from "./"
 
 class CalendarEvent extends Component {
@@ -43,7 +43,7 @@ class CalendarEvent extends Component {
             {eventHelper.eventLabel(scheduledEvent)}
             <EditButton
               forCalendar={true}
-              onEdit={(event) => { onEditEvent(scheduledEvent) }}
+              onEdit={(_event) => { onEditEvent(scheduledEvent) }}
             />
           </React.Fragment>
         }

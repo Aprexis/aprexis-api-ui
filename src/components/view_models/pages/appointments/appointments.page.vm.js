@@ -1,15 +1,7 @@
 import { AbstractListPageViewModel } from ".."
-import { appointmentApi, pharmacyStoreApi } from "../../../../api"
-import {
-  appointmentHelper,
-  pageHelper,
-  pathHelper,
-  pharmacyStoreHelper,
-  userCredentialsHelper,
-  userHelper,
-  valueHelper
-} from "../../../../helpers"
-import { periods } from "../../../../types/periods.type"
+import { appointmentApi, pharmacyStoreApi, appointmentHelper, pageHelper, pharmacyStoreHelper, userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { periods } from "../../../../types"
 
 const appointmentsListMethods = [
   { pathKey: "users", method: appointmentApi.listForUser }
@@ -38,7 +30,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
   buildNewAllDayAppointment(date, nextOperation) {
     const userId = pathHelper.id(this.pathEntries(), "users")
     appointmentApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       userId,
       { allDay: true, scheduled_at: date, scheduled_until: date },
       nextOperation,
@@ -58,7 +50,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
     )
 
     appointmentApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       userId,
       { scheduled_at: scheduledAt, scheduled_until: scheduledUntil },
       nextOperation,
@@ -73,7 +65,22 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
     }
 
     const user = context.users
-    return appointmentHelper.canBeCreated(currentUser, user)
+    return canBeCreated(currentUser, user)
+
+    function canBeCreated(currentUser, user) {
+      if (!userHelper.hasRole(
+        user,
+        ["pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user"].includes(userHelper.role(user))
+      )) {
+        return false
+      }
+
+      if (!authorizationHelper.canCreateAppointment(currentUser)) {
+        return false
+      }
+
+      return userHelper.hasRole(user, "aprexis_admin") || userHelper.id(currentUser) === userHelper.id(user)
+    }
   }
 
   createModal(appointment, nextOperation) {
@@ -108,7 +115,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
 
   deleteAppointment(appointment) {
     appointmentApi.destroy(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       appointmentHelper.id(appointment),
       this.refreshData,
       this.onError
@@ -124,14 +131,14 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
 
   fetchAppointment(appointment, nextOperation) {
     appointmentApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       appointmentHelper.id(appointment),
       nextOperation,
       this.onError
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 
@@ -183,7 +190,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
 
     function fetchPharmacyStore(pathEntries, addField, nextOperation, onError) {
       pharmacyStoreApi.profile(
-        userCredentialsHelper.get(),
+        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
         pathHelper.id(pathEntries, "pharmacy_stores"),
         (pharmacyStore) => {
           addField("pharmacyStores", addIdentificationToPharmacyStores([pharmacyStore]), nextOperation)
@@ -206,7 +213,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
       }
 
       pharmacyStoreApi.listForUser(
-        userCredentialsHelper.get(),
+        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
         userId,
         { sort: "name,store_number" },
         (pharmacyStores) => {

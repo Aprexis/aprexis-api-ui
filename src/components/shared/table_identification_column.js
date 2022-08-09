@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { valueHelper, fieldHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../helpers"
 import { DeleteButton, EditButton } from "./"
 
 class TableIdentificationColumn extends Component {
@@ -42,11 +43,15 @@ class TableIdentificationColumn extends Component {
     )
 
     function labelField(tableItem, helper, heading) {
+      if (valueHelper.isFunction(heading.labelMethod)) {
+        return heading.labelMethod(tableItem)
+      }
+
       if (valueHelper.isStringValue(heading.labelMethod)) {
         return helper[heading.labelMethod](tableItem)
       }
 
-      let label = fieldHelper.displayListField(tableItem, helper, heading)
+      let label = displayHelper.displayListField(tableItem, helper, heading)
       if (!valueHelper.isStringValue(label)) {
         label = `(Missing ${heading.name})`
       }

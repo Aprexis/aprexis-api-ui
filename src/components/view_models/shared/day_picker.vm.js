@@ -1,5 +1,6 @@
 import { AbstractViewModel } from ".."
-import { dateHelper, jsEventHelper, valueHelper } from "../../../helpers"
+import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { jsEventHelper } from "../../../helpers"
 
 class DayPickerViewModel extends AbstractViewModel {
   constructor(props) {

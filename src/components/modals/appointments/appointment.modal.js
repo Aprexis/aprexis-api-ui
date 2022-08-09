@@ -10,8 +10,8 @@ import {
 } from "../../shared"
 import { AppointmentModalViewModel } from "../../view_models/modals/appointments"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { appointmentHelper, pathHelper, userHelper, valueHelper } from "../../../helpers"
-import { venues } from "../../../types"
+import { appointmentHelper, userHelper, valueHelper, venues } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../helpers"
 
 const AllDayAppointment = ({ appointment, onChangeDate }) => {
   return (

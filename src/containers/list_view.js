@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { RefreshView } from './'
 import { FiltersItem } from '../components/filters/filters_item'
 import { AprexisList } from '../components/shared'
-import { valueHelper } from '../helpers'
+import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class ListHeader extends Component {
   constructor(props) {

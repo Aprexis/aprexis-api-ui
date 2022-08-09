@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { AnswersPageViewModel } from "../../view_models/pages/answers"
 import { ListView } from "../../../containers"
-import { answerHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { answerHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -70,6 +70,7 @@ class AnswersPage extends Component {
         headings,
         helper: answerHelper,
         launchModal: this.props.launchModal,
+        modelName: 'answer',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

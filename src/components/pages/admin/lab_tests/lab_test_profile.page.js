@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Spinner } from "../../../shared"
 import { LabTestProfilePageViewModel } from "../../../view_models/pages/admin/lab_tests"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { labTestHelper } from "../../../../helpers/admin"
+import { valueHelper, labTestHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../../helpers"
 
 const LabTestProfile = ({ labTest }) => {
   return (
@@ -14,12 +14,12 @@ const LabTestProfile = ({ labTest }) => {
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Key Code", labTestHelper.keyCode(labTest))}
-          {fieldHelper.display("Name", labTestHelper.name(labTest))}
-          {fieldHelper.display("Category", labTestHelper.category(labTest))}
-          {fieldHelper.booleanDisplay("Vital", labTestHelper.vital(labTest))}
-          {fieldHelper.display("Units", labTestHelper.units(labTest))}
-          {fieldHelper.display("Normal Value", labTestHelper.normalValue(labTest))}
+          {displayHelper.display("Key Code", labTestHelper.keyCode(labTest))}
+          {displayHelper.display("Name", labTestHelper.name(labTest))}
+          {displayHelper.display("Category", labTestHelper.category(labTest))}
+          {displayHelper.booleanDisplay("Vital", labTestHelper.vital(labTest))}
+          {displayHelper.display("Units", labTestHelper.units(labTest))}
+          {displayHelper.display("Normal Value", labTestHelper.normalValue(labTest))}
         </CardBody>
       </Card>
     </Col>

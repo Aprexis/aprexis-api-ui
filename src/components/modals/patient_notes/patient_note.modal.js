@@ -3,7 +3,7 @@ import { Col, Container, Form, FormGroup, Label, Row } from "reactstrap"
 import { TextFieldEditor } from "../../shared"
 import { PatientNoteModalViewModel } from "../../view_models/modals/patient_notes"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { dateHelper, patientHelper, patientNoteHelper, pharmacyStoreHelper, valueHelper } from "../../../helpers"
+import { dateHelper, patientHelper, patientNoteHelper, pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class PatientNoteModal extends Component {
   constructor(props) {

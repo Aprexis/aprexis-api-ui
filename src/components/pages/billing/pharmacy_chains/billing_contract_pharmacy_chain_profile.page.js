@@ -4,8 +4,8 @@ import { EditButton, Spinner } from "../../../shared"
 import {
   BillingContractPharmacyChainProfilePageViewModel
 } from "../../../view_models/pages/billing/pharmacy_chains"
-import { fieldHelper, valueHelper } from "../../../../helpers"
-import { billingContractPharmacyChainHelper } from "../../../../helpers/billing"
+import { valueHelper, billingContractPharmacyChainHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../../../helpers'
 
 const BillingContractPharmacyChainProfile = ({ currentUser, onEditProfile, billingContractPharmacy }) => {
   return (
@@ -23,31 +23,31 @@ const BillingContractPharmacyChainProfile = ({ currentUser, onEditProfile, billi
 
         <CardBody>
           {
-            fieldHelper.display(
+            displayHelper.display(
               "Health Plan",
               billingContractPharmacyChainHelper.healthPlanName(billingContractPharmacy)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Clinical Programs",
               billingContractPharmacyChainHelper.clinical(billingContractPharmacy)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Transactional Programs",
               billingContractPharmacyChainHelper.transactional(billingContractPharmacy)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Pulls Enabled",
               billingContractPharmacyChainHelper.pullsEnabled(billingContractPharmacy)
             )
           }
           {
-            fieldHelper.booleanDisplay(
+            displayHelper.booleanDisplay(
               "Claims Enabled",
               billingContractPharmacyChainHelper.claimsEnabled(billingContractPharmacy)
             )

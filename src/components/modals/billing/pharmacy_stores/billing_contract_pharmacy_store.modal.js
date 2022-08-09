@@ -3,8 +3,8 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import { BooleanFieldEditor, SelectBillingContract, SelectPharmacyStore } from "../../../shared"
 import { BillingContractPharmacyStoreModalViewModel } from "../../../view_models/modals/billing/pharmacy_stores"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
-import { valueHelper, pathHelper } from "../../../../helpers"
-import { billingContractPharmacyStoreHelper } from "../../../../helpers/billing"
+import { valueHelper, billingContractPharmacyStoreHelper } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../../helpers"
 
 class BillingContractPharmacyStoreModal extends Component {
   constructor(props) {

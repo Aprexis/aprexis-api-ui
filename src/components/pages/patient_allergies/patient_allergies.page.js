@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { PatientAllergiesPageViewModel } from "../../view_models/pages/patient_allergies"
 import { ListView } from "../../../containers"
-import { patientAllergyHelper, valueHelper } from "../../../helpers"
-import { listHelper } from "../../../helpers/list.helper"
+import { patientAllergyHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../helpers"
 
 const headings = [
   {
@@ -72,6 +72,7 @@ class PatientAllergiesPage extends Component {
         headings,
         helper: patientAllergyHelper,
         launchModal: this.props.launchModal,
+        modelName: 'patientAllergy',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -130,7 +131,7 @@ class PatientAllergiesPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

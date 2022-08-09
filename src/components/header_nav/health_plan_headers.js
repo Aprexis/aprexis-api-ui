@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavItem, NavLink } from 'reactstrap'
-import { healthPlanHelper } from '../../helpers'
+import { healthPlanHelper } from '@aprexis/aprexis-api-utility'
 
 class HealthPlanHeaders extends Component {
   render() {

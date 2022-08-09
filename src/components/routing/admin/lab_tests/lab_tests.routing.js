@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom"
 import { LabTestRouting } from "."
 import { NoMatch } from "../.."
 import { LabTestsPage } from "../../../pages/admin/lab_tests"
-import { pathHelper, valueHelper } from "../../../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../../helpers"
 
 class LabTestsRouting extends Component {
   render() {

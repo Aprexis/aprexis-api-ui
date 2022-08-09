@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { DownloadButton, EditButton, Spinner } from '../../shared'
 import { DocumentProfilePageViewModel } from "../../view_models/pages/documents"
-import { fieldHelper, documentHelper, valueHelper } from "../../../helpers"
+import { documentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const DocumentProfile = ({ currentUser, onDownload, onEditProfile, document }) => {
   return (
@@ -13,20 +14,20 @@ const DocumentProfile = ({ currentUser, onDownload, onEditProfile, document }) =
             Profile
             {
               documentHelper.canEdit(currentUser, document) &&
-              <EditButton onEdit={(event) => { onEditProfile(document) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(document) }} />
             }
             {
               valueHelper.isStringValue(documentHelper.filename(document)) &&
-              <DownloadButton onDownload={(event) => { onDownload(document) }} />
+              <DownloadButton onDownload={(_event) => { onDownload(document) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Filename", documentHelper.filename(document))}
-          {fieldHelper.display("Content Type", documentHelper.contentType(document))}
-          {fieldHelper.dateTimeDisplay("Created At", documentHelper.createdAt(document))}
-          {fieldHelper.dateTimeDisplay("Updated At", documentHelper.updatedAt(document))}
+          {displayHelper.display("Filename", documentHelper.filename(document))}
+          {displayHelper.display("Content Type", documentHelper.contentType(document))}
+          {displayHelper.dateTimeDisplay("Created At", documentHelper.createdAt(document))}
+          {displayHelper.dateTimeDisplay("Updated At", documentHelper.updatedAt(document))}
         </CardBody>
       </Card>
     </Col>
@@ -89,7 +90,7 @@ class DocumentProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Address, Contact, EditButton, Spinner } from '../../shared'
 import { PatientProfilePageViewModel } from "../../view_models/pages/patients"
-import { fieldHelper, patientHelper, valueHelper } from "../../../helpers"
+import { patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "../../../helpers"
 
 const PatientConfiguration = ({ currentUser, onEditConfiguration, patient }) => {
   return (
@@ -13,19 +14,19 @@ const PatientConfiguration = ({ currentUser, onEditConfiguration, patient }) => 
             Configuration
             {
               patientHelper.canEdit(currentUser, patient) &&
-              <EditButton onEdit={(event) => { onEditConfiguration(patient) }} />
+              <EditButton onEdit={(_event) => { onEditConfiguration(patient) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.booleanDisplay("Cognitively Impaired", patientHelper.cognitivelyImpaired(patient))}
-          {fieldHelper.display("Cognitive Impairment Determined", patientHelper.cognitiveImpairmentDetermined(patient))}
-          {fieldHelper.booleanDisplay("No Known Allergies", patientHelper.noKnownAllergies(patient))}
-          {fieldHelper.display("Primary Care Provider NPI", patientHelper.primaryCareProviderNpi(patient))}
-          {fieldHelper.display("Number of Medications", patientHelper.medicationCount(patient))}
-          {fieldHelper.display("Latitude", patientHelper.latitude(patient))}
-          {fieldHelper.display("Longitude", patientHelper.longitude(patient))}
+          {displayHelper.booleanDisplay("Cognitively Impaired", patientHelper.cognitivelyImpaired(patient))}
+          {displayHelper.display("Cognitive Impairment Determined", patientHelper.cognitiveImpairmentDetermined(patient))}
+          {displayHelper.booleanDisplay("No Known Allergies", patientHelper.noKnownAllergies(patient))}
+          {displayHelper.display("Primary Care Provider NPI", patientHelper.primaryCareProviderNpi(patient))}
+          {displayHelper.display("Number of Medications", patientHelper.medicationCount(patient))}
+          {displayHelper.display("Latitude", patientHelper.latitude(patient))}
+          {displayHelper.display("Longitude", patientHelper.longitude(patient))}
         </CardBody>
       </Card>
     </Col>
@@ -41,23 +42,23 @@ const PatientProfile = ({ currentUser, onEditProfile, patient, requiresPersonNum
             Profile
             {
               patientHelper.canEdit(currentUser, patient) &&
-              <EditButton onEdit={(event) => { onEditProfile(patient) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(patient) }} />
             }
           </h3>
         </CardTitle>
 
         <CardBody>
-          {fieldHelper.display("Member Number", patientHelper.memberNumber(patient))}
+          {displayHelper.display("Member Number", patientHelper.memberNumber(patient))}
           {
             requiresPersonNumber() &&
-            fieldHelper.display("Person Number", patientHelper.personNumber(patient))
+            displayHelper.display("Person Number", patientHelper.personNumber(patient))
           }
-          {fieldHelper.dateDisplay("Coverage Effective Date", patientHelper.coverageEffectiveDate(patient))}
-          {fieldHelper.dateDisplay("Coverage End Date", patientHelper.coverageEndDate(patient))}
+          {displayHelper.dateDisplay("Coverage Effective Date", patientHelper.coverageEffectiveDate(patient))}
+          {displayHelper.dateDisplay("Coverage End Date", patientHelper.coverageEndDate(patient))}
           <Address addressable={patient} />
           <Contact contactable={patient} />
-          {fieldHelper.display("Preferred Contact Method", patientHelper.preferredContactMethod(patient))}
-          {fieldHelper.display("Race", patientHelper.race(patient))}
+          {displayHelper.display("Preferred Contact Method", patientHelper.preferredContactMethod(patient))}
+          {displayHelper.display("Race", patientHelper.race(patient))}
         </CardBody>
       </Card>
     </Col>
@@ -77,7 +78,7 @@ const PatientSubscriber = ({ currentUser, patient, onEditSubscriber }) => {
             Subscriber
             {
               patientHelper.canEdit(currentUser, patient) &&
-              <EditButton onEdit={(event) => { onEditSubscriber(patient) }} />
+              <EditButton onEdit={(_event) => { onEditSubscriber(patient) }} />
             }
           </h3>
         </CardTitle>
@@ -85,10 +86,10 @@ const PatientSubscriber = ({ currentUser, patient, onEditSubscriber }) => {
         {
           patientHelper.hasSubscriber(patient) &&
           <CardBody>
-            {fieldHelper.display("Name", patientHelper.subscriberName(patient))}
-            {fieldHelper.dateDisplay("DOB", patientHelper.dateOfBirth(patient, "subscriber"))}
+            {displayHelper.display("Name", patientHelper.subscriberName(patient))}
+            {displayHelper.dateDisplay("DOB", patientHelper.dateOfBirth(patient, "subscriber"))}
             <Address addressable={patient} prefix="subscriber" />
-            {fieldHelper.display("Gender", patientHelper.gender(patient, "subscriber"))}
+            {displayHelper.display("Gender", patientHelper.gender(patient, "subscriber"))}
           </CardBody>
         }
       </Card>
@@ -182,7 +183,7 @@ class PatientProfilePage extends Component {
             <h1>
               {patientHelper.name(patient)}
             </h1>
-            <label>{fieldHelper.dateDisplay("DOB", patientHelper.dateOfBirth(patient))}</label>
+            <label>{displayHelper.dateDisplay("DOB", patientHelper.dateOfBirth(patient))}</label>
           </div>
 
           <PatientDisplay
@@ -198,7 +199,7 @@ class PatientProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

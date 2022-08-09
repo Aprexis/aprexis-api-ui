@@ -1,15 +1,14 @@
 import React, { Component } from "react"
 import { BillingClaimsPageViewModel } from "../../../view_models/pages/billing/claims"
 import { ListView } from "../../../../containers"
-import { valueHelper } from "../../../../helpers"
-import { billingClaimHelper } from "../../../../helpers/billing"
-import { listHelper } from "../../../../helpers/list.helper"
+import { valueHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper, listHelper } from "../../../../helpers"
 
 const headings = [
   {
     name: "Pharmacy #, Aprexis #, Payer #",
     field: "reference_number,payer_claim_tracking_number",
-    labelMethod: "displayReferenceNumbers"
+    labelMethod: displayHelper.displayClaimReferenceNumbers
   },
   {
     name: "Submmitted At",
@@ -51,6 +50,7 @@ const headings = [
     method: "amountPaid"
   }
 ]
+
 
 class BillingClaimsPage extends Component {
   constructor(props) {
@@ -101,6 +101,7 @@ class BillingClaimsPage extends Component {
         headings,
         helper: billingClaimHelper,
         launchModal: this.props.launchModal,
+        modelName: 'billingClaim',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,

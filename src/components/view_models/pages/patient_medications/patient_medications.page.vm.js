@@ -1,18 +1,6 @@
 import { AbstractListPageViewModel } from "../"
-import { patientApi, patientMedicationApi, pharmacyStoreApi } from "../../../../api"
-import { physicianApi } from "../../../../api/admin"
-import {
-  filtersHelper,
-  pageHelper,
-  pathHelper,
-  patientHelper,
-  patientMedicationHelper,
-  pharmacyStoreHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
-import { physicianHelper } from "../../../../helpers/admin"
-import { patientMedications } from "../../../../types"
+import { patientApi, patientMedicationApi, pharmacyStoreApi, physicianApi, pageHelper, patientHelper, pharmacyStoreHelper, physicianHelper, valueHelper, patientMedications } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientMedicationListMethods = [
   { pathKey: "patients", method: patientMedicationApi.listForPatient }
@@ -38,7 +26,15 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    return patientMedicationHelper.canBeCreated(currentUser, pathEntries)
+    return canBeCreated(currentUser, pathEntries)
+
+    function canBeCreated(user, pathEntries) {
+      if (!authorizationHelper.canCreatePatientMedication(user, pathEntries)) {
+        return false
+      }
+
+      return pathHelper.isSingular(pathEntries, "patients")
+    }
   }
 
   createModal() {
@@ -47,7 +43,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
 
     patientMedicationApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       pharmacyStoreId,
       (patientMedication) => {
@@ -69,7 +65,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
 
   editModal(patientMedicationToEdit) {
     patientMedicationApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientMedicationToEdit.id,
       (patientMedication) => {
         this.props.launchModal(
@@ -80,7 +76,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     const pathEntries = this.pathEntries()
     const healthPlan = pathEntries["health-plans"]
     const patient = pathEntries["patients"]

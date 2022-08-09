@@ -1,5 +1,5 @@
 import { format } from "date-fns"
-import { valueHelper } from "./value.helper"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { filterTypes } from "../types"
 
 export const filtersHelper = {

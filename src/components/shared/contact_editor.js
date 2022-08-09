@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
-import { valueHelper, fieldHelper, contactHelper } from "../../helpers"
+import { valueHelper, fieldHelper, contactHelper } from "@aprexis/aprexis-api-utility"
 
 const Person = ({ contactable, hasContactPerson, onChangeField, prefix, readOnly }) => {
   if (!valueHelper.isSet(hasContactPerson)) {

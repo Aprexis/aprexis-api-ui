@@ -3,7 +3,7 @@ import { Form } from 'reactstrap'
 import { Filter } from '../filters/filter'
 import { FiltersModalViewModel } from '../view_models/modals'
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
-import { valueHelper } from '../../helpers'
+import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class FiltersModal extends Component {
   constructor(props) {

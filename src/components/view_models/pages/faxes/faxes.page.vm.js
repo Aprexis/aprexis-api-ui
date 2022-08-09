@@ -1,6 +1,5 @@
 import { AbstractListPageViewModel } from "../"
-import { faxApi } from "../../../../api"
-import { faxHelper, pageHelper } from "../../../../helpers"
+import { faxApi, faxHelper, pageHelper } from "@aprexis/aprexis-api-utility"
 
 const faxListMethods = [
   { pathKey: "interventions", method: faxApi.listForIntervention }
@@ -26,7 +25,6 @@ class FaxesPageViewModel extends AbstractListPageViewModel {
 
   canCreate() {
     return false
-    //return faxHelper.canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
   }
 
   api() {
@@ -39,7 +37,7 @@ class FaxesPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       (fax) => {
         this.props.launchModal(
@@ -61,7 +59,7 @@ class FaxesPageViewModel extends AbstractListPageViewModel {
   /*
   editModal(faxToEdit) {
     this.api().edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       faxToEdit.id,
       (fax) => {
         this.props.launchModal(

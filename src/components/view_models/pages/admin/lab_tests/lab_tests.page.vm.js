@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../../"
-import { labTestApi } from "../../../../../api/admin"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
+import { labTestApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class LabTestsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -21,7 +21,7 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Key Code", "for_key_code"),
       filtersHelper.stringFilter("Name", "for_name")
@@ -50,7 +50,7 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     labTestApi.index(
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (labTests, labTestHeaders) => {
         this.addData(

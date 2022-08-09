@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from ".."
-import { answerApi } from "../../../../api"
-import { filtersHelper, pageHelper, userCredentialsHelper, valueHelper } from "../../../../helpers"
+import { answerApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, filtersHelper, userCredentialsHelper } from "../../../../helpers"
 
 class AnswersPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -20,7 +20,7 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.stringFilter("Question Key", "for_question_key")
     ]
@@ -44,7 +44,7 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
 
     list(
       pathEntries,
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (answers, answerHeaders) => {
         this.addData(
@@ -62,7 +62,7 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
       const intervention = pathEntries["interventions"]
 
       if (valueHelper.isValue(intervention)) {
-        answerApi.listForIntervention(userCredentials, intervention.value, params, onSuccess, onError)
+        answerApi.listForIntervention(apiEnvironmentHelper.apiEnvironment(userCredentials), intervention.value, params, onSuccess, onError)
         return
       }
 

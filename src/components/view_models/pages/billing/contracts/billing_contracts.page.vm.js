@@ -1,7 +1,6 @@
 import { AbstractListPageViewModel } from "../../"
-import { billingContractApi } from "../../../../../api/billing"
-import { filtersHelper, pageHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
-import { billingContractHelper } from "../../../../../helpers/billing"
+import { billingContractApi, pageHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 const billingContractListMethods = [
   { pathKey: "health-plans", method: billingContractApi.listForHealthPlan }
@@ -27,7 +26,15 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
     const { currentUser } = this.props
     const pathEntries = this.pathEntries()
 
-    return billingContractHelper.canBeCreated(currentUser, pathEntries)
+    return canBeCreated(currentUser, pathEntries)
+
+    function canBeCreated(user, pathEntries) {
+      if (!authorizationHelper.canCreateBillingContract(user)) {
+        return false
+      }
+
+      return pathHelper.isSingular(pathEntries, "health-plans")
+    }
   }
 
   createModal() {
@@ -35,7 +42,7 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
     const healthPlanId = pathHelper.id(pathEntries, "health-plans")
 
     billingContractApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       healthPlanId,
       (billingContract) => {
         this.props.launchModal(
@@ -55,7 +62,7 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
 
   editModal(billingContractToEdit) {
     billingContractApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       billingContractHelper.id(billingContractToEdit),
       (billingContract) => {
         this.props.launchModal(
@@ -66,7 +73,7 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return [
       filtersHelper.booleanFilter("Status", "for_active", { falseLabel: "Inactive", trueLabel: "Active" }),
       filtersHelper.stringFilter("Name", "for_name")

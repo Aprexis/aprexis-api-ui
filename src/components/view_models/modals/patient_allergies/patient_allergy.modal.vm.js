@@ -1,15 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { patientApi, patientAllergyApi } from "../../../../api"
-import { goldStandardAllergyApi } from "../../../../api/gold_standard"
-import {
-  fieldHelper,
-  jsEventHelper,
-  pathHelper,
-  patientAllergyHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
-
+import { patientApi, patientAllergyApi, goldStandardAllergyApi, fieldHelper, patientAllergyHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 const patientAllergyRequiredFields = {
   patient_id: { label: "Patient", testMethod: valueHelper.isNumberValue }
 }
@@ -26,6 +17,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     this.loadData = this.loadData.bind(this)
     this.minSearchLength = this.minSearchLength.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectGoldStandardAllergy = this.selectGoldStandardAllergy.bind(this)
   }
@@ -58,7 +50,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     }
 
     goldStandardAllergyApi.match_name(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       value,
       (goldStandardAllergy) => {
         updated = patientAllergyHelper.changeGoldStandardAllergy(
@@ -80,7 +72,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
 
   fetchGoldStandardAllergy(goldStandardAllergyId, nextOperation) {
     goldStandardAllergyApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       goldStandardAllergyId,
       nextOperation,
       this.onError
@@ -89,7 +81,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       nextOperation,
       this.onError
@@ -119,6 +111,10 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     const { changedPatientAllergy, patientAllergy } = this.data
 
     return { changedModel: changedPatientAllergy, model: patientAllergy, modelName: "patientAllergy" }
+  }
+
+  modelName() {
+    return 'patientAllergy'
   }
 
   requiredFields() {

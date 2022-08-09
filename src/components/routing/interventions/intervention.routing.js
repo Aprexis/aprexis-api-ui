@@ -6,7 +6,8 @@ import { FaxesRouting } from "../faxes"
 import { InterventionDocumentsRouting } from "../intervention_documents"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { InterventionProfilePage } from "../../pages/interventions"
-import { pathHelper, valueHelper } from "../../../helpers"
+import { valueHelper } from '@aprexis/aprexis-api-utility'
+import { pathHelper } from "../../../helpers"
 import { InterventionMedicationsRouting } from "../intervention_medications"
 
 class InterventionRouting extends Component {

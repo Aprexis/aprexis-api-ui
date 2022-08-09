@@ -1,11 +1,6 @@
 import { AbstractListPageViewModel } from ".."
-import { pharmacyClaimApi } from "../../../../api"
-import {
-  pageHelper,
-  pathHelper,
-  pharmacyClaimHelper,
-  userCredentialsHelper
-} from "../../../../helpers"
+import { pharmacyClaimApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const pharmacyClaimListMethods = [
   { pathKey: "patients", method: pharmacyClaimApi.listForPatient }
@@ -28,10 +23,7 @@ class PharmacyClaimsPageViewModel extends AbstractListPageViewModel {
   }
 
   canCreate() {
-    const { currentUser } = this.props
-    const pathEntries = this.pathEntries()
-
-    return pharmacyClaimHelper.canBeCreated(currentUser, pathEntries)
+    return false
   }
 
   createModal() {
@@ -39,7 +31,7 @@ class PharmacyClaimsPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     pharmacyClaimApi.buildNew(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       (pharmacyClaim) => {
         this.props.launchModal(
@@ -59,7 +51,7 @@ class PharmacyClaimsPageViewModel extends AbstractListPageViewModel {
 
   editModal(pharmacyClaimToEdit) {
     pharmacyClaimApi.edit(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacyClaimToEdit.id,
       (pharmacyClaim) => {
         this.props.launchModal(
@@ -70,7 +62,7 @@ class PharmacyClaimsPageViewModel extends AbstractListPageViewModel {
     )
   }
 
-  filterDescriptions(filters, filtersOptions) {
+  filterDescriptions(_filters, _filtersOptions) {
     return []
   }
 

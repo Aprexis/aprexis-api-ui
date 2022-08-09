@@ -1,12 +1,6 @@
 import { AbstractModalViewModel } from "../"
-import { appointmentApi, pharmacyStoreApi, userApi } from "../../../../api"
-import {
-  appointmentHelper,
-  jsEventHelper,
-  pathHelper,
-  userCredentialsHelper,
-  valueHelper
-} from "../../../../helpers"
+import { appointmentApi, pharmacyStoreApi, userApi, appointmentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const appointmentDateFields = {
   scheduled_at: { label: "Begin Date", required: true, type: "date" },
@@ -33,6 +27,7 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.model = this.model.bind(this)
+    this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.selectPharmacyStore = this.selectPharmacyStore.bind(this)
   }
@@ -51,7 +46,7 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
     pharmacyStoreApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       pharmacyStoreId,
       nextOperation,
       this.onError
@@ -60,7 +55,7 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
 
   fetchUser(userId, nextOperation) {
     userApi.show(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       userId,
       nextOperation,
       this.onError
@@ -86,6 +81,10 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
     const { appointment, changedAppointment } = this.data
 
     return { changedModel: changedAppointment, model: appointment, modelName: this.modelName() }
+  }
+
+  modelName() {
+    return 'appointment'
   }
 
   requiredFields() {

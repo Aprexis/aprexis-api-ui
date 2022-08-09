@@ -1,6 +1,5 @@
 import { AbstractListPageViewModel } from "../"
-import { healthPlanProgramLimitApi } from "../../../../api"
-import { healthPlanProgramLimitHelper, pageHelper } from "../../../../helpers"
+import { healthPlanProgramLimitApi, healthPlanProgramLimitHelper, pageHelper } from "@aprexis/aprexis-api-utility"
 
 const healthPlanProgramLimitListMethods = [
   { pathKey: "health-plans", method: healthPlanProgramLimitApi.listForHealthPlan }

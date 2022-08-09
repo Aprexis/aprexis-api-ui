@@ -16,7 +16,7 @@ import { PatientPhysicianModal } from "./patient_physicians"
 import { PatientProfileModal } from "./patients"
 import { PatientSubscriberModal } from "./patients"
 import { ReminderModal } from "./reminders"
-import { valueHelper } from "../../helpers"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 const modalList = {
   Appointment: AppointmentModal,

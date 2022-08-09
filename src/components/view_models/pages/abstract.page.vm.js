@@ -1,4 +1,5 @@
 import { AbstractViewModel } from "../"
+
 class AbstractPageViewModel extends AbstractViewModel {
   constructor(props) {
     if (new.target === AbstractPageViewModel) {

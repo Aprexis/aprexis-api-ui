@@ -1,5 +1,6 @@
 import { AbstractViewModel } from "../"
-import { dateHelper, jsEventHelper } from "../../../helpers"
+import { dateHelper } from "@aprexis/aprexis-api-utility"
+import { jsEventHelper } from "../../../helpers"
 
 class TimePickerViewModel extends AbstractViewModel {
   constructor(props) {

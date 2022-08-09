@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Col, Input } from "reactstrap"
-import { valueHelper, fieldHelper } from "../../helpers"
+import { valueHelper, fieldHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../helpers'
 
 class SelectFieldEditor extends Component {
   render() {
@@ -10,15 +11,15 @@ class SelectFieldEditor extends Component {
     const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
     const fieldValue = valueHelper.makeString(helper[method](model, prefix))
-    const options = fieldHelper.options(this.props)
+    const options = displayHelper.options(this.props)
 
     return (
       <React.Fragment>
         {
           !valueHelper.isSet(omitLabel) &&
-          <Col xs={fieldHelper.labelXs(this.props)}><label>{fieldHelper.label(this.props)}</label></Col>
+          <Col xs={displayHelper.labelXs(this.props)}><label>{displayHelper.label(this.props)}</label></Col>
         }
-        <Col xs={fieldHelper.fieldXs(this.props)}>
+        <Col xs={displayHelper.fieldXs(this.props)}>
           <Input
             className="form-control"
             disabled={!canModifyField}

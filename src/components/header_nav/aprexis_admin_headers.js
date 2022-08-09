@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Select from "react-select"
-import { jsEventHelper, userHelper, valueHelper } from "../../helpers"
+import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
+import { jsEventHelper } from "../../helpers"
 
 class AprexisAdminHeaders extends Component {
   constructor(props) {

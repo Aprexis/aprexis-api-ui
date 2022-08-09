@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink, UncontrolledDropdown } from "reactstrap"
-import { userCredentialsHelper, userHelper, valueHelper } from "../../helpers"
+import { userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { userCredentialsHelper } from "../../helpers"
 
 class UserDropdown extends Component {
   constructor(props) {

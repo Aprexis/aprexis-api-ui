@@ -1,6 +1,6 @@
 import React from "react"
-import { valueHelper } from "./value.helper"
-import { fieldHelper } from "./field.helper"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from "./display.helper"
 import { TableColumnHeader, TableIdentificationColumn } from "../components/shared"
 
 export const listHelper = {
@@ -19,7 +19,7 @@ function listHeader(
     sorting
   }
 ) {
-  return headings.filter((heading) => fieldHelper.includeField(pathEntries, filters, heading))
+  return headings.filter((heading) => displayHelper.includeField(pathEntries, filters, heading))
     .map(
       (heading) => {
         const { name, field } = heading
@@ -47,6 +47,7 @@ function listRow(
     headings,
     helper,
     launchModal,
+    modelName,
     onDeleteTableItem,
     onEditTableItem,
     onRefresh,
@@ -77,7 +78,7 @@ function listRow(
           heading={headings[0]}
           helper={helper}
           launchModal={launchModal}
-          modelName={helper.modelName()}
+          modelName={modelName}
           onClick={onProfile}
           onDelete={onDelete}
           onEdit={onEdit}
@@ -87,8 +88,8 @@ function listRow(
     }
   ]
 
-  headings.filter((heading, idx) => idx > 0 && fieldHelper.includeField(pathEntries, filters, heading))
-    .forEach((heading) => { row.push(fieldHelper.listField(helper[heading.method](tableItem))) })
+  headings.filter((heading, idx) => idx > 0 && displayHelper.includeField(pathEntries, filters, heading))
+    .forEach((heading) => { row.push(displayHelper.displayListField(tableItem, helper, heading)) })
 
   return row
 }
