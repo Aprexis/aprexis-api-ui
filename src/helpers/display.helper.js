@@ -13,8 +13,9 @@ export const displayHelper = {
   dateDisplay,
   dateTimeDisplay,
   display,
-  displayListField,
+  displayBillingStatus,
   displayClaimReferenceNumbers,
+  displayListField,
   displayWithUnits,
   dollarDisplay,
   fieldXs,
@@ -83,6 +84,27 @@ function display(name, value, description, suffix = ":", required = false) {
       </UncontrolledTooltip>
       <br />
     </span>
+  )
+}
+
+function displayBillingStatus(billingClaim, showToolTip = false) {
+  const billingStatus = billingClaimHelper.billingStatus(billingClaim)
+  if (!showToolTip) {
+    return billingStatus
+  }
+
+  const statusDescription = billingClaimHelper.statusDescription(billingClaim)
+  if (!valueHelper.isStringValue(statusDescription)) {
+    return billingStatus
+  }
+
+  return (
+    <React.Fragment>
+      <span id="billing-status">{billingStatus}</span>
+      <UncontrolledTooltip placement="top" boundariesElement="window" target="billing-status">
+        {statusDescription}
+      </UncontrolledTooltip>
+    </React.Fragment>
   )
 }
 

@@ -49,8 +49,6 @@ class LabTestsPageViewModel extends AbstractListPageViewModel {
     this.removeField("labTestHeaders")
     const { filters, sorting, page } = this.data
 
-    console.log(`Lab tests`)
-
     labTestApi.index(
       apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },

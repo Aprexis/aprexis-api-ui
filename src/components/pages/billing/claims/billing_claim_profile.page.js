@@ -3,6 +3,7 @@ import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { EditButton, Spinner } from "../../../shared"
 import { BillingClaimProfilePageViewModel } from "../../../view_models/pages/billing/claims"
 import { dateHelper, valueHelper, billingClaimHelper, billingClaimServiceHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper } from '../../../../helpers'
 
 const BillingClaimCharges = ({ currentUser, billingClaim }) => {
   return (
@@ -212,7 +213,7 @@ class BillingClaimProfilePage extends Component {
           <div>
             Payer Reference #: {billingClaimHelper.displayPayerClaimTrackingNumber(billingClaim)}<br />
             Submitted: {dateHelper.displayDate(billingClaimHelper.submittedAt(billingClaim), "MMMM dd, yyyy")}<br />
-            Billing Status: {billingClaimHelper.displayBillingStatus(billingClaim, true)}
+            Billing Status: {displayHelper.displayBillingStatus(billingClaim, true)}
           </div>
           <p />
 
