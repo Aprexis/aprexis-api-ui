@@ -56,7 +56,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
 
     list(
       pathEntries,
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      userCredentials,
       { ...filters, ...sorting, page },
       (diagnosisCodes, diagnosisCodeHeaders) => {
         this.addData(
@@ -74,7 +74,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
       const disease = pathEntries['diseases']
 
       if (valueHelper.isValue(disease) && valueHelper.isValue(disease.value)) {
-        diagnosisCodeApi.listForDisease(userCredentials, disease.value, params, onSuccess, onError)
+        diagnosisCodeApi.listForDisease(apiEnvironmentHelper.apiEnvironment(userCredentials), disease.value, params, onSuccess, onError)
         return
       }
 

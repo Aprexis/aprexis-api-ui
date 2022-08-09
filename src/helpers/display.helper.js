@@ -3,11 +3,13 @@ import { UncontrolledTooltip } from "reactstrap"
 import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
-import { valueHelper, dateHelper, userHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper, dateHelper, fieldHelper, userHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
 import { contextHelper } from "./context.helper"
+import { jsEventHelper } from "./js_event.helper"
 
 export const displayHelper = {
   booleanDisplay,
+  changeField,
   dateDisplay,
   dateTimeDisplay,
   display,
@@ -33,6 +35,13 @@ export const displayHelper = {
 function booleanDisplay(name, value, description, required = false) {
   return displayHelper.display(name, valueHelper.yesNo(value), description, "?", required)
 }
+
+function changeField(modelName, model, changedModel, event) {
+  const { name, value } = jsEventHelper.fromInputEvent(event)
+
+  return fieldHelper.changeValue(modelName, model, changedModel, name, value)
+}
+
 
 function dateDisplay(name, value, description) {
   return displayHelper.display(name, dateHelper.displayDate(value), description)
@@ -130,8 +139,7 @@ function displayClaimReferenceNumbers(billingClaim) {
 
 
 function displayListField(model, helper, heading) {
-  const method = valueHelper.isStringValue(heading.method) ? heading.method : heading.field
-  const value = helper[method](model)
+  const value = fieldMethod(helper, heading)(model)
   if (!valueHelper.isValue(value)) {
     return ""
   }
@@ -151,6 +159,15 @@ function displayListField(model, helper, heading) {
       </UncontrolledTooltip>
     </td>
   )
+
+  function fieldMethod(helper, heading) {
+    if (valueHelper.isFunction(heading.method)) {
+      return heading.method
+    }
+
+    const methodName = valueHelper.isStringValue(heading.method) ? heading.method : heading.field
+    return helper[methodName]
+  }
 }
 
 function displayWithUnits(name, value, units, description, suffix = ":", required = false) {
@@ -381,7 +398,7 @@ function optionDisplay(name, options, value, description, suffix = ":", required
 }
 
 function options(props) {
-  const selectName = displayHelper.name(props).replace(/_/g, "-")
+  const selectName = fieldHelper.name(props).replace(/_/g, "-")
   const { fieldOptions } = props
 
   if (Array.isArray(fieldOptions)) {

@@ -2,7 +2,12 @@ import React, { Component } from "react"
 import { PhysiciansPageViewModel } from "../../../view_models/pages/admin/physicians"
 import { ListView } from "../../../../containers"
 import { valueHelper, physicianHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { displayHelper, listHelper } from "../../../../helpers"
+
+function displayBusinessPhone(physician) {
+  const businessPhone = physicianHelper.businessPhone(physician)
+  return displayHelper.phoneNumberForDisplay(businessPhone)
+}
 
 const headings = [
   {
@@ -28,7 +33,7 @@ const headings = [
   {
     name: "Phone",
     field: "business_phone",
-    method: "displayusinessPhone"
+    method: displayBusinessPhone
   },
   {
     name: "Deactivated",

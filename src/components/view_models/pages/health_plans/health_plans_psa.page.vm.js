@@ -35,7 +35,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
 
     this.clearData()
     this.loadHealthPlan(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      userCredentials,
       (healthPlan) => {
         this.loadPatientSearchAlgorithms(
           userCredentials,
@@ -74,7 +74,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
   }
 
   loadPatientSearchAlgorithms(userCredentials, nextOperation) {
-    patientSearchAlgorithmApi.legitimate(userCredentials, nextOperation, this.onError)
+    patientSearchAlgorithmApi.legitimate(apiEnvironmentHelper.apiEnvironment(userCredentials), nextOperation, this.onError)
   }
 
   title() {

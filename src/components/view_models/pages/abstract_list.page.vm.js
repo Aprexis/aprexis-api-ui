@@ -66,7 +66,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
     const params = { ...filters, ...sorting, page }
 
     if (valueHelper.isFunction(listMethods)) {
-      listMethods(userCredentials, params, onSuccess, onError)
+      listMethods(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
       return
     }
 

@@ -64,7 +64,9 @@ const sidebarDescriptions = {
     entryName: "diseases"
   },
   "documents": {
-    entryButtons: [{ buttonType: "Profile" }]
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Document",
+    entryName: "documents"
   },
   "faxes": {
     entryButtons: [{ buttonType: "Profile" }],
@@ -146,7 +148,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },
       { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" },
       { buttonLabel: "Pharmacy Claims", buttonType: "List", listName: "pharmacy-claims" },
-      { buttonLabel: "Physicians", buttonType: "List", listName: "patient-physicians" },
+      { buttonLabel: "HCPs", buttonType: "List", listName: "patient-physicians" },
       { buttonLabel: "Reminders", buttonType: "List", listName: "reminders" },
       { buttonLabel: "Supplements", buttonType: "List", listName: "patient-supplements" }
     ],
@@ -175,7 +177,7 @@ const sidebarDescriptions = {
   },
   "patient-physicians": {
     entryButtons: [{ buttonType: "Profile" }],
-    entryLabel: "Physician",
+    entryLabel: "HCP",
     entryName: "patient-physicians"
   },
   "patient-supplements": {

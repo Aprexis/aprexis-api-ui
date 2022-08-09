@@ -121,7 +121,7 @@ class CaregiversPage extends Component {
     )
   }
 
-  nav(list) {
+  nav(_list) {
     if (!this.vm.canCreate()) {
       return
     }

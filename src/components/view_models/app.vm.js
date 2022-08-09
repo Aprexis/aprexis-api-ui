@@ -154,7 +154,7 @@ class AppViewModel extends AbstractViewModel {
   }
 
   gotoLabTestsPage() {
-    pathHelper.gotoPage(["lab-tests"])
+    pathHelper.gotoPage(["admin", "lab-tests"])
   }
 
   gotoMedicationsPage() {

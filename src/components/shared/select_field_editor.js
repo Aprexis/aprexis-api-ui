@@ -11,7 +11,7 @@ class SelectFieldEditor extends Component {
     const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
     const fieldValue = valueHelper.makeString(helper[method](model, prefix))
-    const options = fieldHelper.options(this.props)
+    const options = displayHelper.options(this.props)
 
     return (
       <React.Fragment>

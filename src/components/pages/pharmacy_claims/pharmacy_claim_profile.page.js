@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
 import { Spinner } from '../../shared'
 import { PharmacyClaimProfilePageViewModel } from "../../view_models/pages/pharmacy_claims"
-import { pathHelper, pharmacyClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { fieldHelper, pharmacyClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper, pathHelper } from "../../../helpers"
 
 const PharmacyClaimReferences = ({ pathEntries, pharmacyClaim }) => {
   return (
@@ -79,7 +79,7 @@ const PharmacyClaimProfile = ({ pharmacyClaim }) => {
           {
             displayHelper.display(
               "Strength",
-              displayHelper.combineValues(
+              fieldHelper.combineValues(
                 pharmacyClaimHelper.strength(pharmacyClaim),
                 pharmacyClaimHelper.strengthUnits(pharmacyClaim)
               )
@@ -88,7 +88,7 @@ const PharmacyClaimProfile = ({ pharmacyClaim }) => {
           {
             displayHelper.display(
               "Dose",
-              displayHelper.combineValues(
+              fieldHelper.combineValues(
                 pharmacyClaimHelper.dose(pharmacyClaim),
                 pharmacyClaimHelper.doseUnits(pharmacyClaim)
               )
@@ -97,7 +97,7 @@ const PharmacyClaimProfile = ({ pharmacyClaim }) => {
           {
             displayHelper.display(
               "Frequency",
-              displayHelper.combineValues(
+              fieldHelper.combineValues(
                 pharmacyClaimHelper.frequency(pharmacyClaim),
                 pharmacyClaimHelper.frequencyUnits(pharmacyClaim)
               )

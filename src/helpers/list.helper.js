@@ -89,7 +89,7 @@ function listRow(
   ]
 
   headings.filter((heading, idx) => idx > 0 && displayHelper.includeField(pathEntries, filters, heading))
-    .forEach((heading) => { row.push(displayHelper.listField(helper[heading.method](tableItem))) })
+    .forEach((heading) => { row.push(displayHelper.displayListField(tableItem, helper, heading)) })
 
   return row
 }
