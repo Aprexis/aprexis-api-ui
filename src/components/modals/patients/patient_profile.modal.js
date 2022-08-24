@@ -186,12 +186,12 @@ class PatientProfileModal extends Component {
       <div>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={(event) => { this.vm.toggleModal(clearModal) }}>
+          onClick={(_event) => { this.vm.toggleModal(clearModal) }}>
           Cancel
         </button>
         <button
           className="btn btn-sm btn-primary"
-          onClick={(event) => { this.vm.submitModalCreateOrUpdate("patient", patient, changedPatient) }}>
+          onClick={(_event) => { this.vm.submitModalCreateOrUpdate("patient", patient, changedPatient) }}>
           {valueHelper.humanize(operation)}
         </button>
       </div>
@@ -207,7 +207,7 @@ class PatientProfileModal extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }
