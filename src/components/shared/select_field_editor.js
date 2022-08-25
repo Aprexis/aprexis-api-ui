@@ -5,12 +5,11 @@ import { displayHelper } from '../../helpers'
 
 class SelectFieldEditor extends Component {
   render() {
-    const { changeField, helper, model, omitLabel, prefix, required } = this.props
+    const { changeField, fieldValue, helper, model, omitLabel, prefix, required } = this.props
     const name = fieldHelper.name(this.props)
     const fieldName = fieldHelper.fieldName(name, prefix)
     const canModifyField = helper.canModifyField(model, fieldName)
     const method = fieldHelper.method(this.props)
-    const fieldValue = valueHelper.makeString(helper[method](model, prefix))
     const options = displayHelper.options(this.props)
 
     return (
@@ -28,12 +27,20 @@ class SelectFieldEditor extends Component {
             readOnly={!canModifyField}
             required={required}
             type="select"
-            value={fieldValue}>
+            value={value(fieldValue, model, helper, method, prefix)}>
             {options}
           </Input>
         </Col>
       </React.Fragment>
     )
+
+    function value(fieldValue, model, helper, method, prefix) {
+      if (valueHelper.isStringValue(fieldValue)) {
+        return fieldValue
+      }
+
+      return valueHelper.makeString(helper[method](model, prefix))
+    }
   }
 }
 
