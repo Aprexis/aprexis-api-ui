@@ -4,11 +4,12 @@ import {
   DayFieldEditor,
   NumberFieldEditor,
   SelectDiagnosisCode,
-  SelectFieldEditor
+  SelectFieldEditor,
+  SelectUser
 } from "../../shared"
 import { ExternalInterventionProfileModalViewModel } from "../../view_models/modals/interventions"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { interventionHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { interventionHelper, userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { displayHelper } from "../../../helpers"
 
 const consentObtainedFrom = [
@@ -53,6 +54,7 @@ class ExternalInterventionProfileModal extends Component {
   }
 
   render() {
+    const { currentUser } = this.props
     const { intervention, consentObtainedFromType, placesOfService } = this.state
 
     return (
@@ -155,8 +157,21 @@ class ExternalInterventionProfileModal extends Component {
                   id={interventionHelper.diagnosisCodeId(intervention)}
                   minSearchLength={this.vm.minSearchLength()}
                   onChange={this.vm.selectDiagnosisCode}
-                  readOnly={!interventionHelper.canModifyField(intervention, "diagnosis_code_id")}
                 />
+
+                {
+                  userHelper.hasRole(currentUser, ["pharmacy_store_admin", "pharmacy_store_user"]) &&
+                  <SelectUser
+                    {...valueHelper.importantProps(this.props)}
+                    baseFilters={{ for_pharmacy_store: interventionHelper.pharmacyStoreId(intervention), for_role: ["pharmacy_store_admin", "pharmacy_store_user"] }}
+                    fieldLabel="Pharmacist"
+                    inForm={true}
+                    id={interventionHelper.pharmacistId(intervention)}
+                    minSearchLength={this.vm.minSearchLength()}
+                    onChange={this.vm.selectPharmacist}
+                    tableDisplayProps={["first_name", "last_name", "npi"]}
+                  />
+                }
               </Form>
             </Col>
           </Row>
