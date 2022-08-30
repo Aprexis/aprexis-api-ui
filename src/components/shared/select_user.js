@@ -27,7 +27,7 @@ class SelectUser extends Component {
   render() {
     const { readOnly, required } = this.props
     const { enableSearch, item, searchText, searchResults, tableDisplayProps } = this.state
-    const myTableDisplayProps = valueHelper.isValue(tableDisplayProps) ? tableDisplayProps : ["first_name", "last_name"]
+    const myTableDisplayProps = valueHelper.isValue(tableDisplayProps) ? tableDisplayProps : ["first_name", "last_name", "pharmacist_npi"]
 
     return (
       <SearchForItem

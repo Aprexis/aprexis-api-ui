@@ -15,7 +15,7 @@ import { displayHelper } from "../../../helpers"
 const consentObtainedFrom = [
   { label: '', value: undefined },
   { label: 'Patient', value: 'Patient' },
-  { label: 'Caregiver', value: 'Caregiver' }
+  /*{ label: 'Caregiver', value: 'Caregiver' }*/
 ]
 
 const consentVia = [
@@ -123,7 +123,7 @@ class ExternalInterventionProfileModal extends Component {
                 <FormGroup row>
                   <NumberFieldEditor
                     changeField={this.vm.changeNumericField}
-                    fieldLabel="Consult Session Duration"
+                    fieldLabel="Consult Session Duration (minutes)"
                     fieldName="consult_session_duration"
                     fieldXs={5}
                     helper={interventionHelper}
@@ -138,7 +138,7 @@ class ExternalInterventionProfileModal extends Component {
                 <FormGroup row>
                   <SelectFieldEditor
                     changeField={this.vm.changeField}
-                    fieldLabel='New Patient'
+                    fieldLabel='Patient Status'
                     fieldName='new_patient'
                     fieldOptions={[{ label: '', value: undefined }, { label: 'Existing Patient', value: false }, { label: 'New Patient', value: true }]}
                     fieldXs={5}
@@ -157,10 +157,26 @@ class ExternalInterventionProfileModal extends Component {
                   id={interventionHelper.diagnosisCodeId(intervention)}
                   minSearchLength={this.vm.minSearchLength()}
                   onChange={this.vm.selectDiagnosisCode}
+                  required={true}
                 />
 
+                <FormGroup row>
+                  <NumberFieldEditor
+                    changeField={this.vm.changeNumericField}
+                    fieldLabel="Usual and Customary Fee"
+                    fieldName="provider_fee"
+                    fieldXs={5}
+                    helper={interventionHelper}
+                    labelXs={1}
+                    model={intervention}
+                    min={1}
+                    max={31}
+                    required={true}
+                  />
+                </FormGroup>
+
                 {
-                  userHelper.hasRole(currentUser, ["pharmacy_store_admin", "pharmacy_store_user"]) &&
+                  !userHelper.hasRole(currentUser, ["pharmacy_store_admin", "pharmacy_store_user"]) &&
                   <SelectUser
                     {...valueHelper.importantProps(this.props)}
                     baseFilters={{ for_pharmacy_store: interventionHelper.pharmacyStoreId(intervention), for_role: ["pharmacy_store_admin", "pharmacy_store_user"] }}
@@ -169,6 +185,7 @@ class ExternalInterventionProfileModal extends Component {
                     id={interventionHelper.pharmacistId(intervention)}
                     minSearchLength={this.vm.minSearchLength()}
                     onChange={this.vm.selectPharmacist}
+                    required={true}
                     tableDisplayProps={["first_name", "last_name", "npi"]}
                   />
                 }
