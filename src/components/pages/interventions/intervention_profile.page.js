@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
+import { faClipboardCheck, faFileInvoice } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Spinner } from '../../shared'
 import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions'
 import { interventionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
@@ -183,11 +185,23 @@ class InterventionProfilePage extends Component {
         <Col>
           <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3">
             <h1>Intervention</h1>
+
+            <nav>
+              <button className='mt-0 mb-0 pt-0 pb-0 ml-1 btn btn-xs' onClick={this.vm.gotoVerifyIntervention}>
+                <FontAwesomeIcon icon={faClipboardCheck} />
+                Verify
+              </button>
+
+              <button className='mt-0 mb-0 pt-0 pb-0 ml-1 btn btn-xs' onClick={(_event) => { this.vm.submitBillingClaim(intervention) }}>
+                <FontAwesomeIcon icon={faFileInvoice} />
+                Submit Claim
+              </button>
+            </nav>
           </div>
 
           <InterventionDisplay currentUser={this.props.currentUser} intervention={intervention} />
         </Col>
-      </Container>
+      </Container >
     )
   }
 

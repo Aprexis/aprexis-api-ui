@@ -5,10 +5,11 @@ import { NoMatch } from "../"
 import { FaxesRouting } from "../faxes"
 import { InterventionDocumentsRouting } from "../intervention_documents"
 import { LabTestValuesRouting } from "../lab_test_values"
-import { InterventionProfilePage } from "../../pages/interventions"
+import { InterventionProfilePage, InterventionVerifyPage } from "../../pages/interventions"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { pathHelper } from "../../../helpers"
 import { InterventionMedicationsRouting } from "../intervention_medications"
+import { BillingClaimsRouting } from "../billing/claims"
 
 class InterventionRouting extends Component {
   render() {
@@ -26,6 +27,10 @@ class InterventionRouting extends Component {
         <Route
           path={`${interventionPrefix}/answers`}
           render={(props) => (<AnswersRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${interventionPrefix}/billing-claims`}
+          render={(props) => (<BillingClaimsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${interventionPrefix}/intervention-documents`}
@@ -47,6 +52,11 @@ class InterventionRouting extends Component {
           exact
           path={`${interventionPrefix}/profile`}
           render={(props) => (<InterventionProfilePage {...props} {...contextProps} />)}
+        />
+        <Route
+          exact
+          path={`${interventionPrefix}/verify`}
+          render={(props) => (<InterventionVerifyPage {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

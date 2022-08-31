@@ -435,7 +435,7 @@ function options(props) {
         const { value, label } = optionValues(fieldOption)
 
         return (
-          <option key={`${selectName} -${value} `} value={value}>
+          <option key={`${selectName}-${value}`} value={value}>
             {label}
           </option>
         )

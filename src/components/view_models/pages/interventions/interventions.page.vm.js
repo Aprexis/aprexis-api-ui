@@ -1,11 +1,13 @@
 import { AbstractListPageViewModel } from "../"
 import { interventionApi, pageHelper, valueHelper, interventionStates } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class InterventionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.canCreate = this.canCreate.bind(this)
+    this.createExternalModal = this.createExternalModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
@@ -14,6 +16,37 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
+  }
+
+  canCreate() {
+    return canBeCreated(this.props.currentUser, this.pathEntries(), this.props.context)
+
+    function canBeCreated(user, pathEntries, context) {
+      if (!valueHelper.isValue(user) || !valueHelper.isValue(pathEntries) || !valueHelper.isValue(context)) {
+        return false
+      }
+
+      return authorizationHelper.canCreateIntervention(user, pathEntries)
+    }
+  }
+
+  createExternalModal(_event) {
+    const pathEntries = this.pathEntries()
+    const patientId = pathHelper.id(pathEntries, "patients")
+    const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
+
+    interventionApi.buildNewExternal(
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      patientId,
+      pharmacyStoreId,
+      (intervention) => {
+        this.props.launchModal(
+          "external-intervention-profile",
+          { operation: "create", onUpdateView: this.refreshData, intervention }
+        )
+      },
+      this.onError
+    )
   }
 
   defaultParameters() {

@@ -6,6 +6,7 @@ export const authorizationHelper = {
   canCreateBillingContract,
   canCreateBillingContractPharmacyChain,
   canCreateBillingContractPharmacyStore,
+  canCreateIntervention,
   canCreateLabTestValue,
   canCreatePatient,
   canCreatePatientAllergy,
@@ -78,6 +79,18 @@ function canCreateLabTestValue(user, _pathEntries) {
     default:
       return false
   }
+}
+
+function canCreateIntervention(user, pathEntries) {
+  if (!valueHelper.isNumberValue(pathHelper.id(pathEntries, "patients"))) {
+    return false
+  }
+
+  if (userHelper.hasRole(user, "aprexis_admin")) {
+    return valueHelper.isNumberValue(pathHelper.id(pathEntries, "pharmacy-stores"))
+  }
+
+  return canCreateForPharmacyStore(user, pathEntries)
 }
 
 function canCreatePatient(user, pathEntries) {

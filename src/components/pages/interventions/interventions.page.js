@@ -61,6 +61,7 @@ class InterventionsPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
+    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -106,6 +107,22 @@ class InterventionsPage extends Component {
     )
   }
 
+  nav(_list) {
+    if (!this.vm.canCreate()) {
+      return
+    }
+
+    return (
+      <nav className="btn-toolbar mb-2 mb-md-0">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={this.vm.createExternalModal}>
+          <strong>+</strong> Add External Intervention
+        </button>
+      </nav>
+    )
+  }
+
   render() {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
@@ -125,6 +142,7 @@ class InterventionsPage extends Component {
         listLabel="Intervention"
         listPluralLabel="Interventions"
         modal={this.state.modal}
+        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
