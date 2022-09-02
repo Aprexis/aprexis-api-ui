@@ -4,6 +4,10 @@ import { ListView } from "../../../containers"
 import { interventionHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../helpers"
 
+function titleizeState(intervention) {
+  return valueHelper.titleize(interventionHelper.state(intervention))
+}
+
 const headings = [
   {
     name: "Patient Name",
@@ -28,7 +32,7 @@ const headings = [
   {
     name: "State",
     field: "state",
-    method: "state"
+    method: titleizeState
   },
   {
     name: "Date of Service",
