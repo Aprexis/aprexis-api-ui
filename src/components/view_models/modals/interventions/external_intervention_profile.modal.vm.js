@@ -76,7 +76,13 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
       return
     }
 
-    return consentObtainedFrom.type
+    switch (consentObtainedFrom.relationship) {
+      case 'Patient':
+        return 'Patient'
+
+      default:
+        return 'Caregiver'
+    }
   }
 
   create(changedModel) {
@@ -174,7 +180,8 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
       return
     }
 
-    this.clearConsentObtainedFrom(this.redrawView)
+    this.onError('Can only obtain consent from the patient at this time')
+    this.redrawView()
   }
 
   selectDiagnosisCode(event) {

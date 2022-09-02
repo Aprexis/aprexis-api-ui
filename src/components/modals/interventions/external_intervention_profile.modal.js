@@ -15,7 +15,7 @@ import { displayHelper } from "../../../helpers"
 const consentObtainedFrom = [
   { label: '', value: undefined },
   { label: 'Patient', value: 'Patient' },
-  /*{ label: 'Caregiver', value: 'Caregiver' }*/
+  { label: 'Caregiver', value: 'Caregiver' }
 ]
 
 const consentVia = [
@@ -198,7 +198,7 @@ class ExternalInterventionProfileModal extends Component {
   }
 
   renderFooter() {
-    const { changedExternalIntervention, clearModal, operation, intervention } = this.state
+    const { changedIntervention, clearModal, operation, intervention } = this.state
 
     return (
       <div>
@@ -209,7 +209,7 @@ class ExternalInterventionProfileModal extends Component {
         </button>
         <button
           className="btn btn-sm btn-primary"
-          onClick={(_event) => { this.vm.submitModalCreateOrUpdate("intervention", intervention, changedExternalIntervention) }}>
+          onClick={(_event) => { this.vm.submitModalCreateOrUpdate("intervention", intervention, changedIntervention) }}>
           {valueHelper.humanize(operation)}
         </button>
       </div>

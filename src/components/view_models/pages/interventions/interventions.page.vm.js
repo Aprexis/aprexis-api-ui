@@ -1,21 +1,28 @@
 import { AbstractListPageViewModel } from "../"
-import { interventionApi, pageHelper, valueHelper, interventionStates } from "@aprexis/aprexis-api-utility"
+import { interventionApi, pageHelper, valueHelper, interventionHelper, interventionStates } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class InterventionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
     this.canCreate = this.canCreate.bind(this)
     this.createExternalModal = this.createExternalModal.bind(this)
     this.defaultParameters = this.defaultParameters.bind(this)
+    this.editExternalModal = this.editExternalModal.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoInterventionProfile = this.gotoInterventionProfile.bind(this)
+    this.helper = this.helper.bind(this)
     this.interventionStateOptions = this.interventionStateOptions.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
+  }
+
+  api() {
+    return interventionApi
   }
 
   canCreate() {
@@ -35,7 +42,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
 
-    interventionApi.buildNewExternal(
+    this.api().buildNewExternal(
       apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       patientId,
       pharmacyStoreId,
@@ -53,6 +60,19 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     const filters = { for_state: "active" }
     const sorting = { sort: "patients.last_name,patients.first_name,patients.middle_name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
+  }
+
+  editExternalModal(interventionToEdit) {
+    this.api().edit(
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      interventionToEdit.id,
+      (intervention) => {
+        this.props.launchModal(
+          "external-intervention-profile",
+          { operation: "update", onUpdateView: this.refreshData, intervention })
+      },
+      this.onError
+    )
   }
 
   filterDescriptions(_filters, _filtersOptions) {
@@ -77,6 +97,10 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     const pathArray = pathHelper.buildPathArray(window.location, intervention, "profile")
 
     pathHelper.gotoPage(pathArray)
+  }
+
+  helper() {
+    return interventionHelper
   }
 
   interventionStateOptions() {
@@ -106,6 +130,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     const pathEntries = this.pathEntries()
 
     list(
+      this.api(),
       pathEntries,
       userCredentials,
       { ...filters, ...sorting, page },
@@ -121,21 +146,21 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(pathEntries, userCredentials, params, onSuccess, onError) {
+    function list(api, pathEntries, userCredentials, params, onSuccess, onError) {
       const patient = pathEntries["patients"]
 
       if (valueHelper.isValue(patient)) {
-        interventionApi.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials), patient.value, params, onSuccess, onError)
+        api.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials), patient.value, params, onSuccess, onError)
         return
       }
 
       const pharmacyStore = pathEntries["pharmacy-stores"]
       if (valueHelper.isValue(pharmacyStore)) {
-        interventionApi.listForPharmacyStore(apiEnvironmentHelper.apiEnvironment(userCredentials), pharmacyStore.value, params, onSuccess, onError)
+        api.listForPharmacyStore(apiEnvironmentHelper.apiEnvironment(userCredentials), pharmacyStore.value, params, onSuccess, onError)
         return
       }
 
-      interventionApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
+      api.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
     }
   }
 
