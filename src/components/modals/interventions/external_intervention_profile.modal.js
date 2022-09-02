@@ -9,13 +9,13 @@ import {
 } from "../../shared"
 import { ExternalInterventionProfileModalViewModel } from "../../view_models/modals/interventions"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { interventionHelper, userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { displayHelper } from "../../../helpers"
 
 const consentObtainedFrom = [
   { label: '', value: undefined },
   { label: 'Patient', value: 'Patient' },
-  /*{ label: 'Caregiver', value: 'Caregiver' }*/
+  { label: 'Caregiver', value: 'Caregiver' }
 ]
 
 const consentVia = [
@@ -74,7 +74,7 @@ class ExternalInterventionProfileModal extends Component {
                     fieldLabel="Date of Service"
                     fieldName="date_of_service"
                     fieldXs={5}
-                    helper={interventionHelper}
+                    helper={this.vm.helper()}
                     labelXs={1}
                     model={intervention}
                     style={{ width: 110 }}
@@ -86,8 +86,9 @@ class ExternalInterventionProfileModal extends Component {
                     fieldLabel='Place of Service'
                     fieldName='place_of_service'
                     fieldOptions={this.vm.placeOfServiceOptions(placesOfService)}
+                    fieldValue={this.vm.helper().placeOfService(intervention)}
                     fieldXs={5}
-                    helper={interventionHelper}
+                    helper={this.vm.helper()}
                     labelXs={1}
                     model={intervention}
                     required={true}
@@ -112,8 +113,9 @@ class ExternalInterventionProfileModal extends Component {
                     fieldLabel='Consent Given'
                     fieldName='consent_via'
                     fieldOptions={consentVia}
+                    fieldValue={this.vm.helper().consentVia(intervention)}
                     fieldXs={5}
-                    helper={interventionHelper}
+                    helper={this.vm.helper()}
                     labelXs={1}
                     model={intervention}
                     required={true}
@@ -126,7 +128,7 @@ class ExternalInterventionProfileModal extends Component {
                     fieldLabel="Consult Session Duration (minutes)"
                     fieldName="consult_session_duration"
                     fieldXs={5}
-                    helper={interventionHelper}
+                    helper={this.vm.helper()}
                     labelXs={1}
                     model={intervention}
                     min={1}
@@ -138,11 +140,25 @@ class ExternalInterventionProfileModal extends Component {
                 <FormGroup row>
                   <SelectFieldEditor
                     changeField={this.vm.changeField}
+                    fieldLabel='Intervention State'
+                    fieldName='state'
+                    fieldOptions={[{ label: 'Consult', value: 'consult' }, { label: 'Completed', value: 'completed' }]}
+                    fieldValue={this.vm.helper().state(intervention)}
+                    fieldXs={5}
+                    helper={this.vm.helper()}
+                    labelXs={1}
+                    model={intervention}
+                    required={true}
+                  />
+
+                  <SelectFieldEditor
+                    changeField={this.vm.changeField}
                     fieldLabel='Patient Status'
                     fieldName='new_patient'
                     fieldOptions={[{ label: '', value: undefined }, { label: 'Existing Patient', value: false }, { label: 'New Patient', value: true }]}
+                    fieldValue={this.vm.helper().newPatient(intervention)}
                     fieldXs={5}
-                    helper={interventionHelper}
+                    helper={this.vm.helper()}
                     labelXs={1}
                     model={intervention}
                     required={true}
@@ -154,7 +170,7 @@ class ExternalInterventionProfileModal extends Component {
                   baseFilters={{ for_type: 'Icd10' }}
                   fieldLabel="Diagnosis Code"
                   inForm={true}
-                  id={interventionHelper.diagnosisCodeId(intervention)}
+                  id={this.vm.helper().diagnosisCodeId(intervention)}
                   minSearchLength={this.vm.minSearchLength()}
                   onChange={this.vm.selectDiagnosisCode}
                   required={true}
@@ -166,7 +182,7 @@ class ExternalInterventionProfileModal extends Component {
                     fieldLabel="Usual and Customary Fee"
                     fieldName="provider_fee"
                     fieldXs={5}
-                    helper={interventionHelper}
+                    helper={this.vm.helper()}
                     labelXs={1}
                     model={intervention}
                     min={1}
@@ -179,10 +195,10 @@ class ExternalInterventionProfileModal extends Component {
                   !userHelper.hasRole(currentUser, ["pharmacy_store_admin", "pharmacy_store_user"]) &&
                   <SelectUser
                     {...valueHelper.importantProps(this.props)}
-                    baseFilters={{ for_pharmacy_store: interventionHelper.pharmacyStoreId(intervention), for_role: ["pharmacy_store_admin", "pharmacy_store_user"] }}
+                    baseFilters={{ for_pharmacy_store: this.vm.helper().pharmacyStoreId(intervention), for_role: ["pharmacy_store_admin", "pharmacy_store_user"] }}
                     fieldLabel="Pharmacist"
                     inForm={true}
-                    id={interventionHelper.pharmacistId(intervention)}
+                    id={this.vm.helper().pharmacistId(intervention)}
                     minSearchLength={this.vm.minSearchLength()}
                     onChange={this.vm.selectPharmacist}
                     required={true}
@@ -198,7 +214,7 @@ class ExternalInterventionProfileModal extends Component {
   }
 
   renderFooter() {
-    const { changedExternalIntervention, clearModal, operation, intervention } = this.state
+    const { changedIntervention, clearModal, operation, intervention } = this.state
 
     return (
       <div>
@@ -209,7 +225,7 @@ class ExternalInterventionProfileModal extends Component {
         </button>
         <button
           className="btn btn-sm btn-primary"
-          onClick={(_event) => { this.vm.submitModalCreateOrUpdate("intervention", intervention, changedExternalIntervention) }}>
+          onClick={(_event) => { this.vm.submitModalCreateOrUpdate("intervention", intervention, changedIntervention) }}>
           {valueHelper.humanize(operation)}
         </button>
       </div>

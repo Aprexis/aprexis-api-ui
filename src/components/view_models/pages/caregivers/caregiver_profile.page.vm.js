@@ -19,7 +19,7 @@ class CaregiverProfilePageViewModel extends AbstractPageViewModel {
           "caregiver",
           {
             operation: "update",
-            onUpdateView: this.refreshData,
+            onUpdateView: this.loadData,
             caregiver
           }
         )

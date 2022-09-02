@@ -4,6 +4,10 @@ import { ListView } from "../../../containers"
 import { interventionHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../helpers"
 
+function titleizeState(intervention) {
+  return valueHelper.titleize(interventionHelper.state(intervention))
+}
+
 const headings = [
   {
     name: "Patient Name",
@@ -28,7 +32,7 @@ const headings = [
   {
     name: "State",
     field: "state",
-    method: "state"
+    method: titleizeState
   },
   {
     name: "Date of Service",
@@ -86,8 +90,10 @@ class InterventionsPage extends Component {
   }
 
   generateTableRow(intervention) {
+    const { currentUser } = this.props
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
+    const editModal = determineEditModal(currentUser, intervention, this.vm)
 
     return listHelper.listRow(
       {
@@ -99,12 +105,24 @@ class InterventionsPage extends Component {
         launchModal: this.props.launchModal,
         modelName: 'intervention',
         onDeleteTableItem: this.vm.destroy,
-        onEditTableItem: this.vm.editModal,
+        onEditTableItem: editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
         tableItem: intervention
       }
     )
+
+    function determineEditModal(currentUser, intervention, vm) {
+      if (!interventionHelper.canEdit(currentUser, intervention)) {
+        return
+      }
+
+      if (interventionHelper.programType(intervention) == 'External Clinical Program') {
+        return vm.editExternalModal
+      }
+
+      return
+    }
   }
 
   nav(_list) {

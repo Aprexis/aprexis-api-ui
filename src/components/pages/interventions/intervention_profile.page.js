@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { faClipboardCheck, faFileInvoice } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Spinner } from '../../shared'
+import { EditButton, Spinner } from '../../shared'
 import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions'
 import { interventionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 import { displayHelper } from '../../../helpers'
@@ -47,12 +47,18 @@ const InterventionConfiguration = ({ intervention }) => {
   )
 }
 
-const InterventionProfile = ({ intervention }) => {
+const InterventionProfile = ({ intervention, onEditModal }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
         <CardTitle>
-          <h3>Profile</h3>
+          <h3>
+            Profile
+            {
+              valueHelper.isFunction(onEditModal) &&
+              <EditButton onEdit={(_event) => { onEditModal(intervention) }} />
+            }
+          </h3>
         </CardTitle>
 
         <CardBody>
@@ -95,7 +101,7 @@ const InterventionStatus = ({ intervention }) => {
               interventionHelper.diagnosisCodeLongDescription(intervention)
             )
           }
-          {displayHelper.display("State", interventionHelper.state(intervention))}
+          {displayHelper.display("State", valueHelper.titleize(interventionHelper.state(intervention)))}
           {displayHelper.display("Closed Reason", interventionHelper.closedReason(intervention))}
           {displayHelper.display("Closed Reason Detail", interventionHelper.closedReasonDetail(intervention))}
           {displayHelper.dateTimeDisplay("User Started", interventionHelper.userStarted(intervention))}
@@ -141,7 +147,7 @@ const InterventionStatus = ({ intervention }) => {
   )
 }
 
-const InterventionDisplay = ({ intervention }) => {
+const InterventionDisplay = ({ intervention, onEditModal }) => {
   if (!valueHelper.isValue(intervention)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -149,7 +155,7 @@ const InterventionDisplay = ({ intervention }) => {
   return (
     <React.Fragment>
       <Row>
-        <InterventionProfile intervention={intervention} />
+        <InterventionProfile intervention={intervention} onEditModal={onEditModal} />
         <InterventionStatus intervention={intervention} />
       </Row>
 
@@ -178,7 +184,9 @@ class InterventionProfilePage extends Component {
   }
 
   render() {
+    const { currentUser } = this.props
     const { intervention } = this.state
+    const onEditModal = determineEditModal(currentUser, intervention, this.vm)
 
     return (
       <Container>
@@ -192,17 +200,32 @@ class InterventionProfilePage extends Component {
                 Verify
               </button>
 
-              <button className='mt-0 mb-0 pt-0 pb-0 ml-1 btn btn-xs' onClick={(_event) => { this.vm.submitBillingClaim(intervention) }}>
-                <FontAwesomeIcon icon={faFileInvoice} />
-                Submit Claim
-              </button>
+              {
+                this.vm.helper().state(intervention) == 'completed' &&
+                <button className='mt-0 mb-0 pt-0 pb-0 ml-1 btn btn-xs' onClick={(_event) => { this.vm.submitBillingClaim(intervention) }}>
+                  <FontAwesomeIcon icon={faFileInvoice} />
+                  Submit Claim
+                </button>
+              }
             </nav>
           </div>
 
-          <InterventionDisplay currentUser={this.props.currentUser} intervention={intervention} />
+          <InterventionDisplay currentUser={this.props.currentUser} intervention={intervention} onEditModal={onEditModal} />
         </Col>
       </Container >
     )
+
+    function determineEditModal(currentUser, intervention, vm) {
+      if (!interventionHelper.canEdit(currentUser, intervention)) {
+        return
+      }
+
+      if (interventionHelper.programType(intervention) == 'External Clinical Program') {
+        return vm.editExternalModal
+      }
+
+      return
+    }
   }
 
   shouldComponentUpdate(nextProps, _nextState) {

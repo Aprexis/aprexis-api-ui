@@ -6,10 +6,30 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
+    this.api = this.api.bind(this)
+    this.editExternalModal = this.editExternalModal.bind(this)
     this.gotoBillingClaim = this.gotoBillingClaim.bind(this)
     this.gotoVerifyIntervention = this.gotoVerifyIntervention.bind(this)
+    this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.submitBillingClaim = this.submitBillingClaim.bind(this)
+  }
+
+  api() {
+    return interventionApi
+  }
+
+  editExternalModal(interventionToEdit) {
+    this.api().edit(
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      this.helper().id(interventionToEdit),
+      (intervention) => {
+        this.props.launchModal(
+          "external-intervention-profile",
+          { operation: "update", onUpdateView: this.loadData, intervention })
+      },
+      this.onError
+    )
   }
 
   gotoBillingClaim(billingClaim) {
@@ -20,13 +40,17 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
     pathHelper.gotoPage(pathArray)
   }
 
+  helper() {
+    return interventionHelper
+  }
+
   loadData() {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const interventionId = pathEntries['interventions'].value
-    interventionApi.profile(
+    this.api().profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials),
       interventionId,
       (intervention) => { this.addField('intervention', intervention, this.redrawView) },
@@ -43,7 +67,7 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
 
   submitBillingClaim(intervention) {
     const userCredentials = userCredentialsHelper.get()
-    const interventionId = interventionHelper.id(intervention)
+    const interventionId = this.helper().id(intervention)
 
     billingClaimApi.createForIntervention(
       apiEnvironmentHelper.apiEnvironment(userCredentials),
