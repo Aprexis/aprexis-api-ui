@@ -3,6 +3,7 @@ import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
 import {
   DayFieldEditor,
   NumberFieldEditor,
+  SelectCaregiver,
   SelectDiagnosisCode,
   SelectFieldEditor,
   SelectUser
@@ -121,6 +122,23 @@ class ExternalInterventionProfileModal extends Component {
                     required={true}
                   />
                 </FormGroup>
+
+                {
+                  consentObtainedFromType == 'Caregiver' &&
+                  <FormGroup row>
+                    <SelectCaregiver
+                      {...valueHelper.importantProps(this.props)}
+                      baseFilters={{ for_patient: this.vm.helper().patientId(intervention) }}
+                      fieldLabel="Caregiver"
+                      inForm={true}
+                      id={this.vm.helper().consentObtainedFromId(intervention)}
+                      patientId={this.vm.helper().patientId(intervention)}
+                      minSearchLength={this.vm.minSearchLength()}
+                      onChange={this.vm.selectCaregiver}
+                      required={true}
+                    />
+                  </FormGroup>
+                }
 
                 <FormGroup row>
                   <NumberFieldEditor
