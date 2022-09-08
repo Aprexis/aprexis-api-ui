@@ -1,5 +1,5 @@
 import { AbstractModalViewModel } from "../"
-import { diagnosisCodeApi, interventionApi, userApi, dateHelper, fieldHelper, interventionHelper, placeOfServiceApi, placeOfServiceHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { caregiverApi, diagnosisCodeApi, interventionApi, userApi, dateHelper, fieldHelper, interventionHelper, placeOfServiceApi, placeOfServiceHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, displayHelper, jsEventHelper, userCredentialsHelper } from "../../../../helpers"
 
 const interventionDateAndTimeFields = {
@@ -21,6 +21,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
     this.consentObtainedFrom = this.consentObtainedFrom.bind(this)
     this.create = this.create.bind(this)
     this.dateAndTimeFields = this.dateAndTimeFields.bind(this)
+    this.fetchCaregiver = this.fetchCaregiver.bind(this)
     this.fetchDiagnosisCode = this.fetchDiagnosisCode.bind(this)
     this.fetchPharmacist = this.fetchPharmacist.bind(this)
     this.helper = this.helper.bind(this)
@@ -31,6 +32,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
     this.modelName = this.modelName.bind(this)
     this.requiredFields = this.requiredFields.bind(this)
     this.placeOfServiceOptions = this.placeOfServiceOptions.bind(this)
+    this.selectCaregiver = this.selectCaregiver.bind(this)
     this.selectConsentObtainedFromType = this.selectConsentObtainedFromType.bind(this)
     this.selectDiagnosisCode = this.selectDiagnosisCode.bind(this)
     this.selectPharmacist = this.selectPharmacist.bind(this)
@@ -96,6 +98,15 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
 
   dateAndTimeFields() {
     return interventionDateAndTimeFields
+  }
+
+  fetchCaregiver(caregiverId, nextOperation) {
+    caregiverApi.show(
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      caregiverId,
+      nextOperation,
+      this.onError
+    )
   }
 
   fetchDiagnosisCode(diagnosisCodeId, nextOperation) {
@@ -171,16 +182,27 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
     return interventionRequiredFields
   }
 
+  selectCaregiver(event) {
+    const { value } = jsEventHelper.fromInputEvent(event)
+    const addConsentObtainedFromAndRedraw = (caregiver) => {
+      const modelData = this.model()
+      const { model, modelName } = modelData
+      const changedModel = this.helper().buildChanged(model, modelData.changedModel)
+      const updated = interventionHelper.changeConsentObtainedFrom(modelName, model, changedModel, 'Caregiver', caregiver)
+      this.addData(updated, this.redrawView)
+    }
+
+    this.fetchCaregiver(value, addConsentObtainedFromAndRedraw)
+  }
+
   selectConsentObtainedFromType(event) {
     const { value } = jsEventHelper.fromInputEvent(event)
     this.addField('consentObtainedFromType', value)
-    console.log(`Consent obtained from ${value}`)
     if (value == 'Patient') {
       this.setConsentObtainedFromPatient(this.redrawView)
       return
     }
 
-    this.onError('Can only obtain consent from the patient at this time')
     this.redrawView()
   }
 

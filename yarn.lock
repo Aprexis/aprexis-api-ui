@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@aprexis/aprexis-api-utility@^1.2.29":
-  version "1.2.29"
-  resolved "https://registry.yarnpkg.com/@aprexis/aprexis-api-utility/-/aprexis-api-utility-1.2.29.tgz#861886dc81a68393d086101827bd07054fae5696"
-  integrity sha512-XzRpFbuMcH2Zc36ZhTlnM5V9NMtONBFitU7D8LCs13pkEcEBU9GYNzqQzMghUl9Zsk8fgphI/XCn9rFeHYgVHQ==
+"@aprexis/aprexis-api-utility@^1.2.32":
+  version "1.2.32"
+  resolved "https://registry.yarnpkg.com/@aprexis/aprexis-api-utility/-/aprexis-api-utility-1.2.32.tgz#c6de8f50d5b343b758c068fec12714aeae061b05"
+  integrity sha512-cMF+S+wOqk3j+Sb1vyEdhAUbmMBGnh1uWKRRFj5QsBp0n8arbYt7R5cZnQvg87+KZfMq6NOADJu9SXASe/u0oQ==
   dependencies:
     date-fns "^2.28.0"
     date-fns-tz "^1.3.4"
