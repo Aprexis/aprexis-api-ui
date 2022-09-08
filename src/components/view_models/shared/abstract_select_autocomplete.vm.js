@@ -76,15 +76,17 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
 
   startSearch() {
     const { id } = this.props
-    const setSearchText = (searchText) => {
+    const setSearchText = (searchText, useSearch) => {
       const enableSearch = !valueHelper.isValue(searchText)
-      this.addData({ enableSearch, searchText, useSearch: true, wasId: id }, this.redrawView)
+      this.addData({ enableSearch, searchText, useSearch, wasId: id }, this.redrawView)
     }
     if (!valueHelper.isValue(id)) {
       setSearchText()
       return
     }
 
+    const { useSearch } = this.data
+    const newUseSearch = valueHelper.isValue(useSearch) ? useSearch : true
     this.fetchModel(
       id,
       (item) => {
@@ -92,7 +94,7 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
           { item, searchResults: [item] },
           () => {
             const searchText = this.modelSearchText(item)
-            setSearchText(searchText)
+            setSearchText(searchText, newUseSearch)
           }
         )
       },

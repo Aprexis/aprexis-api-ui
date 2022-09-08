@@ -1,6 +1,6 @@
 import { AbstractSelectAutocompleteViewModel } from "./"
 import { caregiverApi, valueHelper, caregiverHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, userCredentialsHelper } from "../../../helpers"
 
 class SelectCaregiverViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {
@@ -15,6 +15,7 @@ class SelectCaregiverViewModel extends AbstractSelectAutocompleteViewModel {
     this.loadData = this.loadData.bind(this)
     this.loadCaregivers = this.loadCaregivers.bind(this)
     this.modelSearchText = this.modelSearchText.bind(this)
+    this.selection = this.selection.bind(this)
   }
 
   api() {
@@ -84,6 +85,14 @@ class SelectCaregiverViewModel extends AbstractSelectAutocompleteViewModel {
 
   modelSearchText(model) {
     return this.displayModel(model)
+  }
+
+  selection(event) {
+    const { value } = jsEventHelper.fromInputEvent(event)
+    const { models } = this.data
+    const item = models.find((caregiver) => this.helper().id(caregiver) == value)
+
+    this.select(item)
   }
 }
 

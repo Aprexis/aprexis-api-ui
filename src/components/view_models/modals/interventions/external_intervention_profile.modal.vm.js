@@ -198,7 +198,6 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
   selectConsentObtainedFromType(event) {
     const { value } = jsEventHelper.fromInputEvent(event)
     this.addField('consentObtainedFromType', value)
-    console.log(`Consent obtained from ${value}`)
     if (value == 'Patient') {
       this.setConsentObtainedFromPatient(this.redrawView)
       return
