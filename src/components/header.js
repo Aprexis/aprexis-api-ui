@@ -76,7 +76,7 @@ class Header extends Component {
                     gotoAccount={this.props.gotoAccount}
                     history={history}
                     onSignIn={this.props.onSignIn}
-                    onSignOut={(event) => { this.props.onSignOut("Logged out") }}
+                    onSignOut={(_event) => { this.props.onSignOut("Logged out") }}
                   />
                 </Nav>
               </Collapse>
@@ -86,7 +86,6 @@ class Header extends Component {
 
         <AprexisAdminHeaders
           actAs={this.props.actAs}
-          actAsUsers={this.props.actAsUsers}
           currentAdminUser={currentAdminUser}
           currentUser={currentUser}
         />

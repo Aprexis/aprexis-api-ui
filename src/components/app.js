@@ -42,7 +42,6 @@ class App extends Component {
 
         <Header
           actAs={this.vm.actAs}
-          actAsUsers={this.state.actAsUsers}
           currentAdminUser={currentAdminUser}
           currentUser={currentUser}
           gotoAccount={this.vm.gotoAccount}

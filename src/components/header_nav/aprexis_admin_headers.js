@@ -1,54 +1,31 @@
 import React, { Component } from "react"
-import Select from "react-select"
-import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { jsEventHelper } from "../../helpers"
+import { userHelper } from '@aprexis/aprexis-api-utility'
+import { SelectUser } from '../shared'
+import { jsEventHelper } from '../../helpers'
 
 class AprexisAdminHeaders extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { username: '' }
-
-    this.actAsOption = this.actAsOption.bind(this)
-    this.actAsOptions = this.actAsOptions.bind(this)
-    this.changeUsername = this.changeUsername.bind(this)
-    this.userLabel = this.userLabel.bind(this)
-  }
-
-  actAsOption(actAsUser) {
-    return { value: actAsUser.id, label: this.userLabel(actAsUser) }
-  }
-
-  actAsOptions(actAsUsers) {
-    return actAsUsers.map(this.actAsOption)
-  }
-
-  changeUsername(event) {
-    const { value } = jsEventHelper.fromInputEvent(event)
-
-    this.setState({ username: value })
-  }
-
   render() {
-    const { currentUser, currentAdminUser, actAsUsers } = this.props
-    if (!userHelper.hasRole(currentAdminUser, "aprexis_admin") || !valueHelper.isValue(actAsUsers)) {
+    const { actAs, currentUser, currentAdminUser } = this.props
+    if (!userHelper.hasRole(currentAdminUser, "aprexis_admin")) {
       return (<React.Fragment />)
     }
 
     return (
-      <Select
-        className="aprexis-admin-act-as"
-        inputValue={this.state.username}
-        onInputChange={this.changeUsername}
-        onChange={this.props.actAs}
-        options={this.actAsOptions(actAsUsers)}
-        value={this.actAsOption(currentUser)}
+      <SelectUser
+        asAdmin={true}
+        baseFilters={{ for_active: true }}
+        enableSearch={true}
+        fieldLabel='Act As'
+        id={userHelper.id(currentUser)}
+        onChange={selectActAs}
+        tableDisplayProps={['fullName', 'username', 'displayRole']}
       />
     )
-  }
 
-  userLabel(user) {
-    return `${userHelper.fullName(user)} (${userHelper.username(user)}) ${userHelper.displayRole(user)}`
+    function selectActAs(event) {
+      const { value } = jsEventHelper.fromInputEvent(event)
+      actAs({ value })
+    }
   }
 }
 

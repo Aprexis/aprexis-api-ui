@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { SearchForItem } from "./search_for_item"
 import { SelectUserViewModel } from "../view_models/shared"
-import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class SelectUser extends Component {
   constructor(props) {
@@ -25,25 +24,24 @@ class SelectUser extends Component {
   }
 
   render() {
-    const { readOnly, required } = this.props
-    const { enableSearch, item, searchText, searchResults, tableDisplayProps } = this.state
-    const myTableDisplayProps = valueHelper.isValue(tableDisplayProps) ? tableDisplayProps : ["first_name", "last_name", "pharmacist_npi"]
+    const { baseFilters, fieldLabel, minLength, readOnly, required } = this.props
+    const { enableSearch, item, searchText, searchResults } = this.state
 
     return (
       <SearchForItem
-        baseFilters={this.props.baseFilters}
+        baseFilters={baseFilters}
         enableSearch={enableSearch}
-        fieldLabel={this.props.fieldLabel}
+        fieldLabel={fieldLabel}
         helper={this.vm.helper}
         inForm={this.props.inForm}
         item={item}
-        minLength={this.props.minLength}
+        minLength={minLength}
         readOnly={readOnly}
         required={required}
         searchText={searchText}
         searchResults={searchResults}
         sorting={{ sort: "last_name,first_name,email" }}
-        tableDisplayProps={myTableDisplayProps}
+        tableDisplayProps={this.vm.getTableDisplayProps()}
         vm={this.vm}
       />
     )
