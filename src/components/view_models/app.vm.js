@@ -1,5 +1,5 @@
 import { AbstractViewModel } from "./"
-import { authenticationApi, userApi, userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
+import { authenticationApi, userApi, valueHelper } from '@aprexis/aprexis-api-utility'
 import {
   alertHelper,
   apiEnvironmentHelper,
@@ -15,7 +15,6 @@ class AppViewModel extends AbstractViewModel {
     this.actAs = this.actAs.bind(this)
     this.clearAlert = this.clearAlert.bind(this)
     this.error = this.error.bind(this)
-    this.fetchActAsUsers = this.fetchActAsUsers.bind(this)
     this.getCurrentAdminUser = this.getCurrentAdminUser.bind(this)
     this.getCurrentUser = this.getCurrentUser.bind(this)
     this.gotoAccount = this.gotoAccount.bind(this)
@@ -81,20 +80,6 @@ class AppViewModel extends AbstractViewModel {
     }
     this.addField("errorCount", errorCount)
     this.redrawView(nextOperation)
-  }
-
-  fetchActAsUsers(nextOperation) {
-    const adminCredentials = userCredentialsHelper.getAdmin()
-    userApi.index(
-      apiEnvironmentHelper.apiEnvironment(adminCredentials),
-      {
-        for_active: true,
-        page: { number: 1, size: 1000000 },
-        sort: 'last_name, first_name'
-      },
-      (actAsUsers) => { this.addField("actAsUsers", actAsUsers, nextOperation) },
-      this.onError
-    )
   }
 
   getCurrentAdminUser(nextOperation) {
@@ -201,7 +186,7 @@ class AppViewModel extends AbstractViewModel {
   }
 
   loadData() {
-    this.clearData(false, ["actAsUsers"])
+    this.clearData(false)
     this.getCurrentUser(
       () => {
         this.getCurrentAdminUser(
@@ -209,11 +194,7 @@ class AppViewModel extends AbstractViewModel {
             this.loadContext(
               (context) => {
                 this.addField("context", context)
-                if (userHelper.hasRole(this.data.currentAdminUser, 'aprexis_admin')) {
-                  this.fetchActAsUsers(this.redrawView)
-                } else {
-                  this.redrawView()
-                }
+                this.redrawView()
               }
             )
           }

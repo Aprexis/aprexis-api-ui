@@ -1,7 +1,6 @@
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { jsEventHelper } from "../../../helpers"
+import { jsEventHelper, userCredentialsHelper } from "../../../helpers"
 import { AbstractViewModel } from "../abstract.vm"
-
 class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
   constructor(props) {
     if (new.target === AbstractSelectAutocompleteViewModel) {
@@ -13,6 +12,7 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
     super(props)
 
     this.clearSearch = this.clearSearch.bind(this)
+    this.getUserCredentials = this.getUserCredentials.bind(this)
     this.loadData = this.loadData.bind(this)
     this.select = this.select.bind(this)
     this.selectEvent = this.selectEvent.bind(this)
@@ -24,6 +24,15 @@ class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
 
   clearSearch() {
     this.addField("searchResults", [], this.redrawView)
+  }
+
+  getUserCredentials() {
+    const { asAdmin } = this.props
+    if (valueHelper.isSet(asAdmin)) {
+      return userCredentialsHelper.getAdmin()
+    }
+
+    return userCredentialsHelper.get()
   }
 
   loadData() {
