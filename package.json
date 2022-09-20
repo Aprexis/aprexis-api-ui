@@ -8,7 +8,7 @@
   },
   "author": "Aprexis",
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "^1.3.5",
+    "@aprexis/aprexis-api-utility": "^1.4.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
