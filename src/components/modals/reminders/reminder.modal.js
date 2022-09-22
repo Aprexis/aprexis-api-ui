@@ -15,7 +15,7 @@ import {
 } from "../../shared"
 import { ReminderModalViewModel } from "../../view_models/modals/reminders"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { patientHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper, reminderActions, reminderTypes, timeZones } from "@aprexis/aprexis-api-utility"
+import { patientHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper, reminderActions, reminderTypes, timeZones, usaTimeZones } from "@aprexis/aprexis-api-utility"
 
 const medicationHeadings = ["Label", ""]
 const supplementHeadings = ["Name", "Physician Name", "Physician NPI", ""]
@@ -263,6 +263,7 @@ class ReminderModal extends Component {
 
     this.renderFooter = this.renderFooter.bind(this)
     this.renderHeader = this.renderHeader.bind(this)
+    this.timeZoneOptions = this.timeZoneOptions.bind(this)
   }
 
   componentDidMount() {
@@ -348,7 +349,7 @@ class ReminderModal extends Component {
                     changeField={this.vm.changeField}
                     fieldLabel="Time Zone"
                     fieldName="remind_at_time_zone"
-                    fieldOptions={["", ...Object.keys(timeZones)]}
+                    fieldOptions={this.timeZoneOptions()}
                     fieldXs={4}
                     helper={reminderHelper}
                     method="type"
@@ -459,6 +460,12 @@ class ReminderModal extends Component {
   shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
+  }
+
+  timeZoneOptions() {
+    const timeZonesHash = valueHelper.isSet(this.props.useAllTimeZones) ? timeZones : usaTimeZones
+
+    return ["", ...Object.keys(timeZonesHash)]
   }
 }
 
