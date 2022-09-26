@@ -27,6 +27,7 @@ const PatientConfiguration = ({ currentUser, onEditConfiguration, patient }) => 
           {displayHelper.display("Number of Medications", patientHelper.medicationCount(patient))}
           {displayHelper.display("Latitude", patientHelper.latitude(patient))}
           {displayHelper.display("Longitude", patientHelper.longitude(patient))}
+          {displayHelper.display("Time Zone", patientHelper.displayTimeZone(patient))}
         </CardBody>
       </Card>
     </Col>
