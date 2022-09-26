@@ -4,6 +4,7 @@ import {
   BooleanFieldEditor,
   NumberFieldEditor,
   SelectFieldEditor,
+  SelectTimeZone,
   TextFieldEditor
 } from "../../shared"
 import { PatientConfigurationModalViewModel } from "../../view_models/modals/patients"
@@ -107,6 +108,19 @@ class PatientConfigurationModal extends Component {
                     helper={patientHelper}
                     max={180}
                     min={-180}
+                    model={patient}
+                  />
+                </FormGroup>
+
+                <FormGroup row>
+                  <SelectTimeZone
+                    changeFieldValue={this.vm.changeFieldValue}
+                    cols={3}
+                    fieldName="time_zone"
+                    fieldLabel="Time Zone"
+                    fieldMethod="displayTimeZone"
+                    fieldXs={4}
+                    helper={patientHelper}
                     model={patient}
                   />
                 </FormGroup>

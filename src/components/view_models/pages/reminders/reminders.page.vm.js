@@ -62,7 +62,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "start_date-,remind_at,remind_at_time_zone,patient.last_name,patient.first_name" }
+    const sorting = { sort: "start_date-,remind_at,patient.last_name,patient.first_name" }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
   }

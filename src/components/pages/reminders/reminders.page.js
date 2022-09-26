@@ -17,7 +17,7 @@ const headings = [
   },
   {
     name: "Time",
-    field: "remind_at,remind_at_time_zone",
+    field: "remind_at",
     method: "displayRemindAt"
   },
   {
