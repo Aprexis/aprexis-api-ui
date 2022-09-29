@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { AnswersPageViewModel } from "../../view_models/pages/answers"
 import { ListView } from "../../../containers"
-import { answerHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../helpers"
 
 const headings = [
@@ -68,7 +68,7 @@ class AnswersPage extends Component {
         filters,
         gotoTableItemProfile: this.vm.gotoAnswerProfile,
         headings,
-        helper: answerHelper,
+        helper: this.vm.helper(),
         launchModal: this.props.launchModal,
         modelName: 'answer',
         onDeleteTableItem: this.vm.destroy,
@@ -111,7 +111,7 @@ class AnswersPage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

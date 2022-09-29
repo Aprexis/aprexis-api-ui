@@ -32,7 +32,7 @@ const PharmacyClaimReferences = ({ pathEntries, pharmacyClaim }) => {
               {
                 displayHelper.display(
                   "Pharmacy Store",
-                  pharmacyClaimHelper.pharmacyStoreIdentification(pharmacyClaim)
+                  pharmacyClaimHelper.pharmacyStoreId(pharmacyClaim)
                 )
               }
               {

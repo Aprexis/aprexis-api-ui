@@ -8,7 +8,7 @@
   },
   "author": "Aprexis",
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "^1.5.5",
+    "@aprexis/aprexis-api-utility": "^1.6.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
@@ -35,6 +35,7 @@
     "react-spinners": "^0.10.6",
     "react-tooltip": "^4.2.15",
     "reactstrap": "^8.9.0",
+    "sanitize-html": "^2.7.2",
     "sass": "^1.34.1",
     "web-vitals": "^1.0.1"
   },

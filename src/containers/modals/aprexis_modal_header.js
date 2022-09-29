@@ -1,4 +1,13 @@
 import React, { Component } from 'react'
+import { Sanitize } from '../../components/shared'
+
+function Title({ title }) {
+  if (typeof title === 'object') {
+    return title
+  }
+
+  return (<Sanitize html={title} />)
+}
 
 class AprexisModalHeader extends Component {
   render() {
@@ -6,7 +15,7 @@ class AprexisModalHeader extends Component {
 
     return (
       <div>
-        <h2>{title}</h2>
+        <h2><Title title={title} /></h2>
         {children}
       </div>
     )

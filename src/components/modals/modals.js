@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { ConfirmModal, FiltersModal, SignInModal } from "./"
+import { AnswerModal } from "./answers"
 import { AppointmentModal } from "./appointments"
 import { BillingContractModal } from "./billing/contracts"
 import { BillingContractPharmacyChainModal } from "./billing/pharmacy_chains"
@@ -20,6 +21,7 @@ import { ReminderModal } from "./reminders"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 const modalList = {
+  Answer: AnswerModal,
   Appointment: AppointmentModal,
   BillingContract: BillingContractModal,
   BillingContractPharmacyChain: BillingContractPharmacyChainModal,
