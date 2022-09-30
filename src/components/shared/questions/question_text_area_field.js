@@ -4,14 +4,17 @@ import { answerHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 
 class QuestionTextAreaField extends Component {
   render() {
-    const { answer, changeField } = this.props
+    const { answer, changeField, className, placeholder, style } = this.props
 
     return (
       <FormGroup row>
         <Col>
           <textarea
+            className={`form-control ${className}`}
             name='value'
             onChange={changeField}
+            placeholder={placeholder}
+            style={style}
             value={renderValue()}
           />
         </Col>

@@ -15,7 +15,7 @@ function LabelWithTooltip({ label, labelTooltip, questionKey, toggle, tooltipOpe
 }
 
 function SimpleLabel({ label }) {
-  return (<span>{label}</span>)
+  return (<Sanitize html={label} />)
 }
 
 class QuestionLabel extends Component {
@@ -28,7 +28,10 @@ class QuestionLabel extends Component {
 
   render() {
     const { question } = this.props
-    const label = questionHelper.label(question)
+    let label = questionHelper.label(question)
+    if (!valueHelper.isStringValue(label)) {
+      label = valueHelper.humanize(questionHelper.questionKey(question))
+    }
     const labelTooltip = questionHelper.labelTooltip(question)
 
     if (!valueHelper.isStringValue(labelTooltip)) {

@@ -5,30 +5,33 @@ import { QuestionRadioButtonField } from './question_radio_button_field'
 import { QuestionSelectField } from './question_select_field'
 import { QuestionTextAreaField } from './question_text_area_field'
 import { QuestionTextField } from './question_text_field'
+import { questionHtmlOptionsParser } from '../../../helpers'
+
 
 class QuestionField extends Component {
   render() {
     const { answer } = this.props
     const question = answerHelper.question(answer)
+    const { className, multiple, placeholder, style } = questionHtmlOptionsParser.parseHtmlOptions(question)
 
     switch (questionHelper.questionType(question)) {
       case 'CheckBox':
-        return (<QuestionCheckBoxField {...this.props} />)
+        return (<QuestionCheckBoxField {...this.props} className={className} style={style} />)
 
       case 'RadioButton':
-        return (<QuestionRadioButtonField {...this.props} />)
+        return (<QuestionRadioButtonField {...this.props} className={className} style={style} />)
 
       case 'Select':
-        return (<QuestionSelectField {...this.props} />)
+        return (<QuestionSelectField {...this.props} className={className} multiple={multiple} style={style} />)
 
       case 'TextField':
-        return (<QuestionTextField {...this.props} />)
+        return (<QuestionTextField {...this.props} className={className} placeholder={placeholder} style={style} />)
 
       case 'TextArea':
-        return (<QuestionTextAreaField {...this.props} />)
+        return (<QuestionTextAreaField {...this.props} className={className} placehodler={placeholder} style={style} />)
 
       default:
-        return (<QuestionTextAreaField {...this.props} />)
+        return (<QuestionTextAreaField {...this.props} className={className} placeholder={placeholder} style={style} />)
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
 import { answerHelper, questionHelper, questionChoiceHelper, questionChoiceOptionsHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { jsEventHelper } from '../../../helpers'
 
 function Options({ question }) {
   const questionOptions = renderQuestionOptions()
@@ -31,8 +32,12 @@ function Options({ question }) {
 
     return choices.map(
       (choice) => {
-        const id = questionChoiceHelper.id(choice)
-        const value = questionChoiceHelper.value(choice)
+        let id = questionChoiceHelper.id(choice)
+        let value = questionChoiceHelper.value(choice)
+        if (Array.isArray(value)) {
+          id = value[0]
+          value = value[1]
+        }
 
         return (<option key={`option-${id}`} value={id}>{value}</option>)
       }
@@ -42,22 +47,48 @@ function Options({ question }) {
 
 class QuestionSelectField extends Component {
   render() {
-    const { answer, changeField } = this.props
+    const { answer, changeFieldValue, className, multiple, style } = this.props
 
     return (
       <FormGroup row>
         <Col>
           <Input
-            className="form-control"
+            className={`form-control ${className}`}
+            multiple={valueHelper.isSet(multiple)}
             name='value'
-            onChange={changeField}
+            onChange={selectOptions}
+            style={style}
             type="select"
-            value={answerHelper.value(answer)}>
+            value={selectValues(answerHelper.value(answer))}>
             <Options question={answerHelper.question(answer)} />
           </Input>
         </Col>
       </FormGroup>
     )
+
+    function selectOptions(event) {
+      if (!valueHelper.isSet(multiple)) {
+        const { value } = jsEventHelper.fromInputEvent(event)
+        changeFieldValue('value', value)
+        return
+      }
+
+      const options = Object.keys(event.target).map((key) => event.target[key])
+      const multipleValues = options.filter((option) => !valueHelper.isValue(option.tag) && valueHelper.isValue(option.value) && option.selected).map((option) => option.value)
+      if (multipleValues.length === 1 && multipleValues[0] == '') {
+        changeFieldValue('value')
+      }
+
+      changeFieldValue('value', multipleValues.join(','))
+    }
+
+    function selectValues(value) {
+      if (!valueHelper.isValue(multiple)) {
+        return value
+      }
+
+      return value.split(',')
+    }
   }
 }
 

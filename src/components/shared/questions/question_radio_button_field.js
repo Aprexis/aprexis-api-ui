@@ -4,38 +4,43 @@ import { answerHelper, questionHelper, questionOptionHelper, valueHelper } from 
 
 const defaultQuestionOptions = [
   {
+    id: 1,
+    label: 'Yes'
+  },
+  {
     id: 0,
     label: 'No'
   },
   {
-    id: 1,
-    label: 'Yes'
+    id: '',
+    label: 'No Answer'
   }
 ]
 
-function Option({ changeFieldValue, questionOption, value }) {
+function Option({ changeFieldValue, className, questionOption, style, value }) {
   const id = questionOptionHelper.id(questionOption)
   const label = questionOptionHelper.label(questionOption)
-  const active = value == id
+  const active = (value == id) && (valueHelper.isNumberValue(value, false) == valueHelper.isNumberValue(id, false))
 
   return (
     <Col>
       <Button
         active={active}
-        className='btn btn-sm btn-secondary mr-auto'
-        onClick={() => { changeFieldValue('value', id) }}>
+        className={`btn btn-sm btn-secondary mr-auto ${className}`}
+        onClick={() => { changeFieldValue('value', id) }}
+        style={style}>
         {label}
       </Button>
     </Col>
   )
 }
 
-function Options({ changeFieldValue, question, value }) {
+function Options({ changeFieldValue, className, question, value }) {
   const questionOptions = determineQuestionOptions()
 
   return questionOptions.map(
     (questionOption, idx) => {
-      return (<Option changeFieldValue={changeFieldValue} key={`radio-button-option-${idx}`} questionOption={questionOption} value={value} />)
+      return (<Option changeFieldValue={changeFieldValue} className={className} key={`radio-button-option-${idx}`} questionOption={questionOption} value={value} />)
     }
   )
 
@@ -51,12 +56,12 @@ function Options({ changeFieldValue, question, value }) {
 
 class QuestionRadioButtonField extends Component {
   render() {
-    const { answer, changeFieldValue } = this.props
+    const { answer, changeFieldValue, className, style } = this.props
 
     return (
       <FormGroup row>
         <ButtonGroup>
-          <Options changeFieldValue={changeFieldValue} question={answerHelper.question(answer)} value={answerHelper.value(answer)} />
+          <Options changeFieldValue={changeFieldValue} className={className} question={answerHelper.question(answer)} style={style} value={answerHelper.value(answer)} />
         </ButtonGroup>
       </FormGroup>
     )

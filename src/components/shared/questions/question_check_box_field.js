@@ -1,36 +1,35 @@
 import React, { Component } from 'react'
 import { FormGroup, Col, Input } from 'reactstrap'
 import { answerHelper } from '@aprexis/aprexis-api-utility'
+import { jsEventHelper } from '../../../helpers'
 
-function Options() {
-  return (
-    <React.Fragment>
-      <option value='0'>No</option>
-      <option value='1'>Yes</option>
-      <option></option>
-    </React.Fragment>
-  )
-}
 
 class QuestionCheckBoxField extends Component {
   render() {
-    const { answer, changeField } = this.props
+    const { answer, changeFieldValue, className, style } = this.props
+    const value = answerHelper.value(answer)
+    const checked = value == '0'
 
     return (
       <FormGroup row>
         <Col>
           <Input
-            bsSize="sm"
-            className="form-control"
+            className={`form-control ${className}`}
             name='value'
-            onChange={changeField}
-            type="select"
-            value={answerHelper.value(answer)}>
-            <Options />
-          </Input>
+            onChange={toggle}
+            style={style}
+            type='checkbox'
+            checked={checked}
+          />
         </Col>
       </FormGroup>
     )
+
+    function toggle(event) {
+      const { name, value } = jsEventHelper.fromInputEvent(event)
+
+      changeFieldValue(name, value ? '0' : '')
+    }
   }
 }
 

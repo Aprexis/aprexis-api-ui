@@ -43,7 +43,14 @@ class AnswerModal extends Component {
           <Row>
             <Col>
               <Form>
-                <QuestionField answer={answer} changeField={this.vm.changeField} changeFieldValue={this.vm.changeFieldValue} />
+                <QuestionField
+                  answer={answer}
+                  changeDate={this.vm.changeDate}
+                  changeDateTime={this.vm.changeDateTime}
+                  changeField={this.vm.changeField}
+                  changeFieldValue={this.vm.changeFieldValue}
+                  changeTime={this.vm.changeTime}
+                />
               </Form>
             </Col>
           </Row>
