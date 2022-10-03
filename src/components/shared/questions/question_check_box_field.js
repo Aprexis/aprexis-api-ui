@@ -14,7 +14,7 @@ class QuestionCheckBoxField extends Component {
       <FormGroup row>
         <Col>
           <Input
-            className={`form-control ${className}`}
+            className={`form-control-small ${className}`}
             name='value'
             onChange={toggle}
             style={style}

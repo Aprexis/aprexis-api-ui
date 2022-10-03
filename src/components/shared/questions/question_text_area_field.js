@@ -31,7 +31,7 @@ class QuestionTextAreaField extends Component {
         return JSON.stringify(value, null, 2)
       }
 
-      return valueHelper.makeString(answerHelper.value(answer))
+      return valueHelper.makeString(value)
     }
   }
 }

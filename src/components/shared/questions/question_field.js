@@ -16,19 +16,19 @@ class QuestionField extends Component {
 
     switch (questionHelper.questionType(question)) {
       case 'CheckBox':
-        return (<QuestionCheckBoxField {...this.props} className={className} style={style} />)
+        return (<QuestionCheckBoxField {...this.props} className={className} placeholder={placeholder} style={style} />)
 
       case 'RadioButton':
-        return (<QuestionRadioButtonField {...this.props} className={className} style={style} />)
+        return (<QuestionRadioButtonField {...this.props} className={className} placeholder={placeholder} style={style} />)
 
       case 'Select':
-        return (<QuestionSelectField {...this.props} className={className} multiple={multiple} style={style} />)
+        return (<QuestionSelectField {...this.props} className={className} multiple={multiple} placeholder={placeholder} style={style} />)
 
       case 'TextField':
         return (<QuestionTextField {...this.props} className={className} placeholder={placeholder} style={style} />)
 
       case 'TextArea':
-        return (<QuestionTextAreaField {...this.props} className={className} placehodler={placeholder} style={style} />)
+        return (<QuestionTextAreaField {...this.props} className={className} placeholder={placeholder} style={style} />)
 
       default:
         return (<QuestionTextAreaField {...this.props} className={className} placeholder={placeholder} style={style} />)
