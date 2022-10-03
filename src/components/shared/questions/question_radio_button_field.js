@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup, FormGroup, Col } from 'reactstrap'
+import { Alert, Button, ButtonGroup, FormGroup, Col } from 'reactstrap'
 import { answerHelper, questionHelper, questionOptionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
+import { Sanitize } from '../sanitize'
 
 const defaultQuestionOptions = [
   {
@@ -20,6 +21,7 @@ const defaultQuestionOptions = [
 function Option({ changeFieldValue, className, questionOption, style, value }) {
   const id = questionOptionHelper.id(questionOption)
   const label = questionOptionHelper.label(questionOption)
+  const popupText = questionOptionHelper.popupText(questionOption)
   const active = (value == id) && (valueHelper.isNumberValue(value, false) == valueHelper.isNumberValue(id, false))
 
   return (
@@ -31,6 +33,12 @@ function Option({ changeFieldValue, className, questionOption, style, value }) {
         style={style}>
         {label}
       </Button>
+      {
+        valueHelper.isStringValue(popupText) && active &&
+        <Alert color='info'>
+          <label><Sanitize html={popupText} /></label>
+        </Alert>
+      }
     </Col>
   )
 }
