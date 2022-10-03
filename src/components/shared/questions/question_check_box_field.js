@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { FormGroup, Col, Input } from 'reactstrap'
-import { answerHelper } from '@aprexis/aprexis-api-utility'
+import { answerHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 import { jsEventHelper } from '../../../helpers'
+import { QuestionPopup } from './question_popup'
 
 
 class QuestionCheckBoxField extends Component {
   render() {
-    const { answer, changeFieldValue, className, style } = this.props
+    const { answer, question, changeFieldValue, className, style } = this.props
     const value = answerHelper.value(answer)
     const checked = value == '0'
 
@@ -22,13 +23,17 @@ class QuestionCheckBoxField extends Component {
             checked={checked}
           />
         </Col>
+        {
+          checked &&
+          <QuestionPopup question={question} />
+        }
       </FormGroup>
     )
 
     function toggle(event) {
-      const { name, value } = jsEventHelper.fromInputEvent(event)
+      const { value } = jsEventHelper.fromInputEvent(event)
 
-      changeFieldValue(name, value ? '0' : '')
+      changeFieldValue('value', valueHelper.isSet(value) ? '0' : '')
     }
   }
 }

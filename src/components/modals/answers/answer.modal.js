@@ -28,7 +28,6 @@ class AnswerModal extends Component {
 
   render() {
     const { answer } = this.state
-
     if (!valueHelper.isValue(answer)) {
       return (<Spinner />)
     }
