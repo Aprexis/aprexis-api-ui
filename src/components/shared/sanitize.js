@@ -6,6 +6,13 @@ function Sanitize({ html }) {
     html,
     {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'span']),
+      allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        'span': ['class', 'style']
+      },
+      allowedClasses: {
+        'span': ['hidden']
+      }
     }
   )
 
