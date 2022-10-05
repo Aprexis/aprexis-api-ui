@@ -5,13 +5,15 @@ function Sanitize({ html }) {
   const clean = sanitizeHtml(
     html,
     {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'span']),
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'overlay', 'span']),
       allowedAttributes: {
         ...sanitizeHtml.defaults.allowedAttributes,
+        'a': sanitizeHtml.defaults.allowedAttributes.a.concat(['data-doaction', 'data-group', 'data-target']),
+        'overlay': ['class'],
         'span': ['class', 'style']
       },
       allowedClasses: {
-        'span': ['hidden']
+        'span': ['*']
       }
     }
   )

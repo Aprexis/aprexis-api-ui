@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import { Tooltip } from 'reactstrap'
 import { questionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { Sanitize } from '../'
+import { QuestionHtml } from './question_html'
 
 function LabelWithTooltip({ label, labelTooltip, questionKey, toggle, tooltipOpen }) {
   return (
     <React.Fragment>
-      <span style={{ textDecoration: 'underline', textDecorationColor: 'grey', textDecorationStyle: 'dashed' }} id={`tooltip-${questionKey}`}><Sanitize html={label} /></span>
+      <span style={{ textDecoration: 'underline', textDecorationColor: 'grey', textDecorationStyle: 'dashed' }} id={`tooltip-${questionKey}`}><QuestionHtml html={label} /></span>
       <Tooltip placement="right" isOpen={tooltipOpen} target={`tooltip-${questionKey}`} toggle={toggle}>
-        <Sanitize html={labelTooltip} />
+        <QuestionHtml html={labelTooltip} />
       </Tooltip>
     </React.Fragment>
   )
 }
 
 function SimpleLabel({ label }) {
-  return (<Sanitize html={label} />)
+  return (<QuestionHtml html={label} />)
 }
 
 class QuestionLabel extends Component {

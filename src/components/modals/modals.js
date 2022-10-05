@@ -47,6 +47,7 @@ const modalList = {
 class Modals extends Component {
   render() {
     const { modalProps, modalName } = this.props
+
     if (!valueHelper.isValue(modalName)) {
       return (<React.Fragment />)
     }

@@ -10,6 +10,7 @@ $red: #790000;
 $light-red: #C89797;
 $green: #155724;
 $teal: #0183A4;
+$light-teal: #90E4C1;
 $white: #fff;
 $gray: #dee2e6;
 $darker-gray: #464646;
@@ -20,6 +21,30 @@ $text-muted: #6c757d;
 @font-face {
   font-family: 'Work Sans', sans-serif;
   src: local('Work Sans'), url(https://fonts.googleapis.com/css?family=Work+Sans);
+}
+
+a {
+  text-decoration: none;
+  color: $light-teal;
+
+  img {
+    margin-right: 5px;
+  }
+
+  &:visited {
+    text-decoration: none;
+    color: $light-teal;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.help {
+    background-color: transparent;
+    outline: none;
+    padding: 0 3px;
+  }
 }
 
 body {
@@ -148,6 +173,13 @@ header {
   td {
     padding: 0;
   }
+}
+
+.html-overlay {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
 }
 
 @media (min-width: 1400px) {

@@ -30,6 +30,7 @@ function QuestionFieldValue({ question, ...remainder }) {
       return (<QuestionTextAreaField {...remainder} className={className} placeholder={placeholder} question={question} style={style} />)
   }
 }
+
 class QuestionField extends Component {
   render() {
     const { answer, ...remainder } = this.props
