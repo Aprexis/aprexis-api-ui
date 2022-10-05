@@ -186,7 +186,12 @@ class AppViewModel extends AbstractViewModel {
   }
 
   loadData() {
-    this.clearData(false)
+    let dataToKeep = ['lastLocation', 'modal']
+    if (window.location.pathname != this.data.lastLocation) {
+      dataToKeep = ['lastLocation']
+      this.addField('lastLocation', window.location.pathname)
+    }
+    this.clearData(false, dataToKeep)
     this.getCurrentUser(
       () => {
         this.getCurrentAdminUser(

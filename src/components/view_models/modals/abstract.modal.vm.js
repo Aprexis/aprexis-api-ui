@@ -324,6 +324,7 @@ class AbstractModalViewModel extends AbstractViewModel {
       this.onError(`Unrecognized ${valueHelper.humanize(this.modelName())} model ${modalModelName}`)
       return
     }
+
     if (!this.checkRequiredFields(modalModel) || !this.checkValidDatesAndTimes(modalModel)) {
       this.redrawView()
       return

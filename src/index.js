@@ -15,6 +15,8 @@ import './styles/styles.scss'
 import 'core-js/es/map'
 import 'core-js/es/set'
 
+require('bootstrap')
+
 ReactDOM.render((
   <Router history={history}>
     <LastLocationProvider>

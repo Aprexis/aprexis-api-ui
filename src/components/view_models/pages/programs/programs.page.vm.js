@@ -55,7 +55,7 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
 
     list(
       pathEntries,
-      userCredentials,
+      apiEnvironmentHelper.apiEnvironment(userCredentials),
       { ...filters, ...sorting, page },
       (programs, programHeaders) => {
         this.addData(
@@ -69,15 +69,15 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
       this.onError
     )
 
-    function list(pathEntries, userCredentials, params, onSuccess, onError) {
+    function list(pathEntries, credentials, params, onSuccess, onError) {
       const healthPlan = pathEntries["health-plans"]
 
       if (valueHelper.isValue(healthPlan)) {
-        programApi.listForHealthPlan(apiEnvironmentHelper.apiEnvironment(userCredentials), healthPlan.value, params, onSuccess, onError)
+        programApi.listForHealthPlan(credentials, healthPlan.value, params, onSuccess, onError)
         return
       }
 
-      programApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
+      programApi.list(credentials, params, onSuccess, onError)
     }
   }
 

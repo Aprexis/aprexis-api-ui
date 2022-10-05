@@ -26,7 +26,7 @@ class SignInModal extends Component {
       <React.Fragment>
         <button
           className='btn btn-sm btn-secondary mr-auto'
-          onClick={(event) => { toggleModal(clearModal) }}>
+          onClick={(_event) => { toggleModal(clearModal) }}>
           Cancel
         </button>
         <button

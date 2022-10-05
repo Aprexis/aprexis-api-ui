@@ -19,7 +19,7 @@ const headings = [
   {
     name: "Pharmacy Store",
     field: "intervention.pharamcy_store.pharmacy.name,intervention.pharmacy_store.name,intervention.pharmacy_store.store_number",
-    method: "pharmacyStoreIdentification",
+    method: "pharmacyStoreId",
     unless: "pharmacy-stores"
   },
   {

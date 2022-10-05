@@ -9,4 +9,5 @@ export * from "./filters.helper"
 export * from "./js_event.helper"
 export * from './list.helper'
 export * from "./path.helper"
+export * from "./question_html_options_parser"
 export * from "./user_credentials.helper"

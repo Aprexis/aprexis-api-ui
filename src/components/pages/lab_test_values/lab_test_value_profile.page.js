@@ -22,7 +22,7 @@ const LabTestValueProfile = ({ currentUser, onEditProfile, labTestValue, vm }) =
         <CardBody>
           {displayHelper.display("Type", vm.helper().displayType(labTestValue))}
           {displayHelper.display("Intervention", vm.helper().interventionIdentification(labTestValue))}
-          {displayHelper.display("Pharmacy Store", vm.helper().pharmacyStoreIdentification(labTestValue))}
+          {displayHelper.display("Pharmacy Store", vm.helper().pharmacyStoreId(labTestValue))}
           {displayHelper.display("User", vm.helper().userFullName(labTestValue))}
           {displayHelper.dateTimeDisplay("Value Taken At", vm.helper().valueTakenAt(labTestValue))}
           {displayHelper.display("Value", vm.helper().value(labTestValue))}
