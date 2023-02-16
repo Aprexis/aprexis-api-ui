@@ -17,6 +17,11 @@ const headings = [
     method: "pharmacyStoreId"
   },
   {
+    name: "For Patient",
+    field: "patient_viewable",
+    method: "displayPatientViewable"
+  },
+  {
     name: "Note",
     field: "note",
     method: "note",

@@ -28,7 +28,6 @@ class PatientNotesPageViewModel extends AbstractListPageViewModel {
     return canBeCreated(currentUser, pathEntries)
 
     function canBeCreated(currentUser, pathEntries) {
-
       if (!authorizationHelper.canCreatePatientNote(currentUser, pathEntries)) {
         return false
       }
