@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Label, Row } from "reactstrap"
-import { TextFieldEditor } from "../../shared"
+import { BooleanFieldEditor, TextFieldEditor } from "../../shared"
 import { PatientNoteModalViewModel } from "../../view_models/modals/patient_notes"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
 import { dateHelper, patientHelper, patientNoteHelper, pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
@@ -74,6 +74,17 @@ class PatientNoteModal extends Component {
                   }
 
                   <FormGroup row>
+                    <BooleanFieldEditor
+                      changeField={this.vm.changeField}
+                      fieldLabel="For Patient"
+                      fieldName="patient_viewable"
+                      fieldXs={4}
+                      helper={patientNoteHelper}
+                      model={patientNote}
+                    />
+                  </FormGroup>
+
+                  <FormGroup row>
                     <TextFieldEditor
                       changeField={this.vm.changeField}
                       cols={80}
@@ -99,12 +110,12 @@ class PatientNoteModal extends Component {
       <div>
         <button
           className="btn btn-sm btn-secondary mr-auto"
-          onClick={(event) => { this.vm.toggleModal(clearModal) }}>
+          onClick={(_event) => { this.vm.toggleModal(clearModal) }}>
           Cancel
         </button>
         <button
           className="btn btn-sm btn-primary"
-          onClick={(event) => { this.vm.submitModalCreateOrUpdate("patientNote", patientNote, changedPatientNote) }}>
+          onClick={(_event) => { this.vm.submitModalCreateOrUpdate("patientNote", patientNote, changedPatientNote) }}>
           {valueHelper.humanize(operation)}
         </button>
       </div>
@@ -120,7 +131,7 @@ class PatientNoteModal extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }

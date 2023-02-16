@@ -24,7 +24,19 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const myVM = this.vm
+    window.onbeforeunload = function () {
+      if (valueHelper.isValue(myVM)) {
+        myVM.loadData()
+      }
+      return
+    }
+
     this.vm.loadData()
+  }
+
+  componentDidUnmoutn() {
+    window.onbeforeunload = null
   }
 
   render() {

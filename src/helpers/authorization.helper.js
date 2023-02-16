@@ -17,27 +17,27 @@ export const authorizationHelper = {
 }
 
 function canCreateForHealthPlan(user, pathEntries) {
-  if (!userHelper.hasRole(user, "health_plan_admin", "health_plan_user")) {
+  if (!userHelper.hasRole(user, ["health_plan_admin", "health_plan_user"])) {
     return false
   }
 
-  const { healthPlans } = user
+  const { health_plans } = user
   const healthPlanId = pathHelper.id(pathEntries, "health_plans")
-  return valueHelper.isValue(healthPlans.find((hp) => hp.id == healthPlanId))
+  return valueHelper.isValue(health_plans.find((hp) => hp.id == healthPlanId))
 }
 
 function canCreateForPharmacyStore(user, pathEntries, allowNil = false) {
-  if (!userHelper.hasRole(user, "pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user")) {
+  if (!userHelper.hasRole(user, ["pharmacy_store_admin", "pharmacy_store_tech", "pharmacy_store_user"])) {
     return false
   }
 
-  const { pharmacyStores } = user
   const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
   if (!valueHelper.isValue(pharmacyStoreId)) {
     return allowNil
   }
 
-  return valueHelper.isValue(pharmacyStores.find((ps) => ps.id == pharmacyStoreId))
+  const { pharmacy_stores } = user
+  return valueHelper.isValue(pharmacy_stores.find((ps) => ps.id == pharmacyStoreId))
 }
 
 function canCreateAppointment(user) {
