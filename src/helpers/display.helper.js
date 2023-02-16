@@ -161,6 +161,10 @@ function displayClaimReferenceNumbers(billingClaim) {
 
 
 function displayListField(model, helper, heading) {
+  console.log("Display list field")
+  console.log(`  Model: ${JSON.stringify(model, null, 2)}`)
+  console.log(`  Helper: ${JSON.stringify(helper, null, 2)}`)
+  console.log(`  Heading: ${JSON.stringify(heading, null, 2)}`)
   const value = fieldMethod(helper, heading)(model)
   if (!valueHelper.isValue(value)) {
     return ""
