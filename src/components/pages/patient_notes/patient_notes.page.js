@@ -14,7 +14,7 @@ const headings = [
     name: "Pharmacy Store",
     field: "pharmacy_store.name,pharmacy_store.number,pharmacy_store.id",
     unless: "pharmacy-stores",
-    method: "pharmacyStoreId"
+    method: "pharmacyStoreIdentification"
   },
   {
     name: "For Patient",
