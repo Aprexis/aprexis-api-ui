@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { FaxesPageViewModel } from "../../view_models/pages/faxes"
 import { ListView } from "../../../containers"
-import { faxHelper, pathHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { faxHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper, pathHelper } from "../../../helpers"
 
 const interventionsHeadings = [
   {
