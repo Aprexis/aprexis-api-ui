@@ -27,7 +27,7 @@ class SelectPatientMedicationViewModel extends AbstractSelectAutocompleteViewMod
   doSearch(searchText, baseFilters, sorting, onSuccess, onFailure) {
     const filters = {
       ...baseFilters,
-      for_medication: searchText
+      for_medication_text: searchText
     }
 
     this.api().searchForPatient(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
