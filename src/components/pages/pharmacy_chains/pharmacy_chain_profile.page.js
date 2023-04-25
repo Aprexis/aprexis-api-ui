@@ -4,6 +4,7 @@ import { Address, Contact, Spinner } from '../../shared'
 import { PharmacyChainProfilePageViewModel } from "../../view_models/pages/pharmacy_chains"
 import { pharmacyChainHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { displayHelper } from "../../../helpers"
+import { ModelConfigs } from "../../shared"
 
 const PharmacyChainConfiguration = ({ pharmacyChain }) => {
   return (
@@ -16,6 +17,7 @@ const PharmacyChainConfiguration = ({ pharmacyChain }) => {
         <CardBody>
           {displayHelper.imageDisplay("Logo", pharmacyChainHelper.logo(pharmacyChain))}
           {displayHelper.display("CCD Code", pharmacyChainHelper.ccdCode(pharmacyChain))}
+          <ModelConfigs helper={pharmacyChainHelper} modelConfigurable={pharmacyChain} />
         </CardBody>
       </Card>
     </Col>

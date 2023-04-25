@@ -4,6 +4,7 @@ import { Address, Contact, Spinner } from '../../shared'
 import { PharmacyStoreProfilePageViewModel } from "../../view_models/pages/pharmacy_stores"
 import { pharmacyStoreHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 import { displayHelper } from "../../../helpers"
+import { ModelConfigs } from "../../shared"
 
 const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
   return (
@@ -38,6 +39,7 @@ const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
               pharmacyStoreHelper.stripePharmacyTechnicianLicensePrice(pharmacyStore)
             )
           }
+          <ModelConfigs helper={pharmacyStoreHelper} modelConfigurable={pharmacyStore} />
         </CardBody>
       </Card>
     </Col>

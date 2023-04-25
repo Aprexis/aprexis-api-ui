@@ -20,6 +20,7 @@ export * from "./delete_button"
 export * from "./display_alert"
 export * from "./download_button"
 export * from "./edit_button"
+export * from './model_configs'
 export * from "./number_field_editor"
 export * from "./sanitize"
 export * from "./search_for_item"

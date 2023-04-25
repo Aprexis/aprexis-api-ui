@@ -4,6 +4,7 @@ import { Address, Contact, Spinner } from '../../shared'
 import { HealthPlanProfilePageViewModel } from '../../view_models/pages/health_plans'
 import { healthPlanHelper, valueHelper, pharmacyClaimsUploaders, segmentedUploaders } from '@aprexis/aprexis-api-utility'
 import { displayHelper } from '../../../helpers'
+import { ModelConfigs } from '../../shared'
 
 const HealthPlanActivity = ({ healthPlan }) => {
   return (
@@ -77,6 +78,7 @@ const HealthPlanConfiguration = ({ healthPlan }) => {
           }
           {displayHelper.titleDisplay("CCD Generator", healthPlanHelper.ccdGenerator(healthPlan))}
           {displayHelper.booleanDisplay("Reminders", healthPlanHelper.enableReminders(healthPlan))}
+          <ModelConfigs helper={healthPlanHelper} modelConfigurable={healthPlan} />
         </CardBody>
       </Card>
     </Col>
