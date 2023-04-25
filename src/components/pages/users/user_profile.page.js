@@ -11,7 +11,7 @@ import {
   userHelper
 } from "@aprexis/aprexis-api-utility"
 import { displayHelper } from "../../../helpers"
-import { Spinner, AprexisTable } from "../../shared"
+import { Spinner, AprexisTable, ModelConfigs } from "../../shared"
 import { UserProfilePageViewModel } from "../../view_models/pages/users"
 
 class UserNpi extends Component {
@@ -288,6 +288,7 @@ class UserProfile extends Component {
             <strong className="text-muted">Phone:</strong> {userHelper.phone(user)}<br />
             <strong className="text-muted">State:</strong> {userHelper.state(user)}<br />
             <strong className="text-muted">Timezone:</strong> {userHelper.timeZone(user)}<br />
+            <ModelConfigs helper={userHelper} modelConfigurable={user} />
           </CardBody>
         </Card>
       </Col>
