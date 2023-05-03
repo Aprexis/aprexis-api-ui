@@ -91,7 +91,7 @@ class AppViewModel extends AbstractViewModel {
 
     userApi.account(
       apiEnvironmentHelper.apiEnvironment(adminCredentials),
-      adminCredentials.id,
+      adminCredentials.user_id,
       (currentAdminUser) => {
         this.addField("currentAdminUser", currentAdminUser, nextOperation)
       },
@@ -108,7 +108,7 @@ class AppViewModel extends AbstractViewModel {
 
     userApi.account(
       apiEnvironmentHelper.apiEnvironment(userCredentials),
-      userCredentials.id,
+      userCredentials.user_id,
       (currentUser) => {
         this.addField("currentUser", currentUser, nextOperation)
       },
@@ -118,7 +118,7 @@ class AppViewModel extends AbstractViewModel {
 
   gotoAccount() {
     const userCredentials = userCredentialsHelper.get()
-    pathHelper.gotoPage(["users", userCredentials.id, "profile"])
+    pathHelper.gotoPage(["users", userCredentials.user_id, "profile"])
   }
 
   gotoBillingClaimHistoryCollectionsPage() {
