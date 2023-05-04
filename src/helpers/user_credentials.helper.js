@@ -1,5 +1,6 @@
 import CryptoJS from "crypto-js"
-import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { dateHelper, userApi, valueHelper } from "@aprexis/aprexis-api-utility"
+import { apiEnvironmentHelper } from "./api_environment.helper"
 
 export const userCredentialsHelper = {
   actAs,
@@ -11,6 +12,35 @@ export const userCredentialsHelper = {
 }
 
 const mySecretKey = process.env.REACT_APP_APREXIS_KEY
+
+function refreshCredentials(agingUsername, agingToken, userType, getFunction, setFunction) {
+  const workingCredentials = getFunction()
+  if (!valueHelper.isValue(workingCredentials) || workingCredentials.username != agingUsername || workingCredentials.token != agingToken) {
+    return
+  }
+  if (userType == 'user') {
+    const userCredentials = userCredentialsHelper.getAdmin()
+    if (userCredentials.username == agingUsername) {
+      return
+    }
+  }
+
+  userApi.refreshToken(
+    apiEnvironmentHelper.apiEnvironment(workingCredentials),
+    (newUserCredentials) => { setFunction(newUserCredentials) }
+  )
+}
+
+function requestRefreshCredentials(userCredentials, userType, getFunction, setFunction) {
+  const { username, token, expires } = userCredentials
+  const expireTime = dateHelper.makeDate(expires)
+  const now = Date.now()
+  const difference = expireTime.getTime() - now
+  const tenMinutes = 10 * 60 * 1000
+  const delay = Math.max(60 * 1000, difference - tenMinutes)
+
+  setTimeout(refreshCredentials, delay, username, token, userType, getFunction, setFunction)
+}
 
 function decode(cipherText) {
   if (!valueHelper.isValue(cipherText)) {
@@ -66,9 +96,11 @@ function remove() {
 
 function set(userCredentials) {
   sessionStorage.setItem("aprexis-user-credentials", encode(userCredentials))
+  requestRefreshCredentials(userCredentials, 'user', userCredentialsHelper.get, userCredentialsHelper.set)
 }
 
 function setAdmin(adminCredentials) {
   sessionStorage.setItem("aprexis-admin-credentials", encode(adminCredentials))
+  requestRefreshCredentials(adminCredentials, 'admin', userCredentialsHelper.getAdmin, userCredentialsHelper.setAdmin)
 }
 

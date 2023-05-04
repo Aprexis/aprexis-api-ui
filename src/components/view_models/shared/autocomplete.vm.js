@@ -18,7 +18,7 @@ class AutocompleteViewModel extends AbstractViewModel {
     const { clearFunction, filters, searchFunction, searchMinLength, sorting } = this.props
     const searchInput = event.target
     const searchText = jsEventHelper.fromInputEvent(event).value
-    const onSuccess = (results) => {
+    const onSuccess = (_results) => {
       this.addField("loading", false, this.redrawView)
     }
     const onFailure = () => this.addField("loading", false)
