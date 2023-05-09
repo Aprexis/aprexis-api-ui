@@ -31,7 +31,7 @@ class BooleanFilter extends Component {
             disabled={valueHelper.isSet(filterDescription.disabled) || valueHelper.isSet(this.props.readOnly)}
             mutliple="false"
             name={name}
-            onChange={(event) => { this.props.onChange(filterDescription, event) }}
+            onChange={(event) => { this.props.onChange(event) }}
             type="select"
             value={value}>
             {options}

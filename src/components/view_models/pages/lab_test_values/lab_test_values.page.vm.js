@@ -97,7 +97,10 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     const pathEntries = this.pathEntries()
-    const filterDescriptions = [filtersHelper.stringFilter("Key Code", "for_key_code")]
+    const filterDescriptions = [
+      filtersHelper.stringFilter("Key Code", "for_key_code"),
+      filtersHelper.booleanFilter("Latest", "for_latest")
+    ]
 
     if (valueHelper.isValue(pathEntries['patients']) && !valueHelper.isValue(pathEntries['interventions'])) {
       filterDescriptions.push(
