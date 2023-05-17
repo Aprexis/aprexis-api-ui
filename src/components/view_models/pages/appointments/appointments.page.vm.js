@@ -32,27 +32,20 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
     appointmentApi.buildNew(
       apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       userId,
-      { allDay: true, scheduled_at: date, scheduled_until: date },
+      { allDay: true, scheduled_at: date, duration: 24 * 60 },
       nextOperation,
       this.onError
     )
   }
 
-  buildNewAppointment(date, hour, minute, minutes, nextOperation) {
+  buildNewAppointment(date, hour, minute, duration, nextOperation) {
     const userId = pathHelper.id(this.pathEntries(), "users")
     const scheduledAt = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute)
-    const scheduledUntil = new Date(
-      scheduledAt.getFullYear(),
-      scheduledAt.getMonth(),
-      scheduledAt.getDate(),
-      hour,
-      minute + minutes
-    )
 
     appointmentApi.buildNew(
       apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
       userId,
-      { scheduled_at: scheduledAt, scheduled_until: scheduledUntil },
+      { scheduled_at: scheduledAt, duration },
       nextOperation,
       this.onError
     )

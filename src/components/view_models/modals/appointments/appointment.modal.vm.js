@@ -4,12 +4,10 @@ import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper 
 
 const appointmentDateFields = {
   scheduled_at: { label: "Begin Date", required: true, type: "date" },
-  scheduled_until: { label: "End Date", required: true, type: "date" },
 }
 
 const appointmentDateAndTimeFields = {
-  scheduled_at: { label: "Scheduled At", required: true, type: "date/time" },
-  scheduled_until: { label: "Scheduled Until", required: true, type: "date/time" },
+  scheduled_at: { label: "Scheduled At", required: true, type: "date/time" }
 }
 
 const appointmentRequiredFields = {

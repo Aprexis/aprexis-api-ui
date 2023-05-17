@@ -10,7 +10,7 @@ import {
 } from "../../shared"
 import { AppointmentModalViewModel } from "../../view_models/modals/appointments"
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
-import { appointmentHelper, userHelper, valueHelper, venues } from "@aprexis/aprexis-api-utility"
+import { appointmentDurations, appointmentHelper, userHelper, valueHelper, venues } from "@aprexis/aprexis-api-utility"
 import { pathHelper } from "../../../helpers"
 
 const AllDayAppointment = ({ appointment, onChangeDate }) => {
@@ -25,20 +25,11 @@ const AllDayAppointment = ({ appointment, onChangeDate }) => {
         earliestDate={new Date()}
         model={appointment}
       />
-      <DayFieldEditor
-        allowBlank={false}
-        changeField={onChangeDate}
-        fieldLabel="End Date"
-        fieldName="scheduled_until"
-        helper={appointmentHelper}
-        earliestDate={new Date()}
-        model={appointment}
-      />
     </FormGroup>
   )
 }
 
-const TimeRangeAppointment = ({ appointment, onChangeDayTime }) => {
+const TimeRangeAppointment = ({ appointment, onChangeDayTime, onChangeField }) => {
   return (
     <FormGroup row>
       <DayTimeFieldEditor
@@ -51,26 +42,25 @@ const TimeRangeAppointment = ({ appointment, onChangeDayTime }) => {
         model={appointment}
         timeStep={15}
       />
-      <DayTimeFieldEditor
+      <SelectFieldEditor
         allowBlank={false}
-        changeField={onChangeDayTime}
-        fieldLabel="Scheduled Until"
-        fieldName="scheduled_until"
+        changeField={onChangeField}
+        fieldLabel="Duration"
+        fieldName="duration"
+        fieldOptions={appointmentDurations}
         helper={appointmentHelper}
-        earliestDayTime={new Date()}
         model={appointment}
-        timeStep={15}
       />
     </FormGroup>
   )
 }
 
-const AppointmentTimeEditor = ({ appointment, onChangeDate, onChangeDayTime }) => {
+const AppointmentTimeEditor = ({ appointment, onChangeDate, onChangeDayTime, onChangeField }) => {
   if (valueHelper.isSet(appointmentHelper.allDay(appointment))) {
     return (<AllDayAppointment appointment={appointment} onChangeDate={onChangeDate} />)
   }
 
-  return (<TimeRangeAppointment appointment={appointment} onChangeDayTime={onChangeDayTime} />)
+  return (<TimeRangeAppointment appointment={appointment} onChangeDayTime={onChangeDayTime} onChangeField={onChangeField} />)
 }
 
 class AppointmentModal extends Component {
@@ -125,6 +115,7 @@ class AppointmentModal extends Component {
                   appointment={appointment}
                   onChangeDate={this.vm.changeDate}
                   onChangeDayTime={this.vm.changeDayTime}
+                  onChangeField={this.vm.changeField}
                 />
 
                 {

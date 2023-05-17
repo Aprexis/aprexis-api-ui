@@ -35,7 +35,7 @@ const DayTimes = (
       const scheduledEvent = eventHelper.findScheduledEvent(scheduledEvents, currentDate, hour, minute, 15)
       let addEvent
       if (!valueHelper.isValue(scheduledEvent)) {
-        addEvent = (event) => { onAddEvent(currentDate, hour, minute, 15) }
+        addEvent = (_event) => { onAddEvent(currentDate, hour, minute, 15) }
       }
 
       const eventStarts = scheduledEvent != lastScheduledEvent
@@ -79,7 +79,7 @@ class DayCalendar extends Component {
     const allDayEvent = eventHelper.findAllDayEvent(scheduledEvents, currentDate)
     let addAllDayEvent
     if (!valueHelper.isValue(allDayEvent)) {
-      addAllDayEvent = (event) => { this.props.onAddAllDayEvent(currentDate) }
+      addAllDayEvent = (_event) => { this.props.onAddAllDayEvent(currentDate) }
     }
 
     return (
