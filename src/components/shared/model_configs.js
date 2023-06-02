@@ -11,7 +11,11 @@ function ModelConfigString({ label, value }) {
 }
 
 function ModelConfigField({ field, helper, modelConfigurable }) {
-  const { label, type } = modelConfigFields[field]
+  if (!valueHelper.isValue(modelConfigFields[field])) {
+    console.log(`${field} is not recognized for ${JSON.stringify(modelConfigurable)}`)
+  }
+
+  const { label, type } = (modelConfigFields[field] || { label: field, type: 'String' })
   const value = helper.modelConfigField(modelConfigurable, field)
 
   switch (type) {
