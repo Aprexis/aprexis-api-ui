@@ -1,10 +1,15 @@
 import React, { Component } from "react"
-import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plans"
+import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plan_patient_search_algorithms"
 import { ListView } from "../../../containers"
 import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../helpers"
 
 const headings = [
+  {
+    name: "Health Plan",
+    method: "healthPlanName",
+    unless: "health-plans"
+  },
   {
     name: "Name",
     method: "name"
@@ -81,9 +86,10 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
       return []
     }
 
-    return patientSearchAlgorithms.patient_search_algorithms.names.map(
+    const ordered = patientSearchAlgorithms.patient_search_algorithms.names.map(
       (psa) => healthPlanPatientSearchAlgorithms.find((hpPsa) => hpPsa.type == psa)
     ).filter((hpPsa) => valueHelper.isValue(hpPsa))
+    return ordered
   }
 
   render() {

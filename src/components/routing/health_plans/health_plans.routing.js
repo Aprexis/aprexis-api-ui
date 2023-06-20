@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { HealthPlanRouting } from "./"
+import { HealthPlanRouting } from "./health_plan.routing"
 import { NoMatch } from "../"
 import { HealthPlansPage } from "../../pages/health_plans"
 import { valueHelper } from '@aprexis/aprexis-api-utility'

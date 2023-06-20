@@ -3,8 +3,9 @@ import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
 import { DocumentsRouting } from "../documents"
 import { PatientsRouting } from "../patients"
-import { HealthPlanPatientSearchAlgorithmsPage, HealthPlanProfilePage } from "../../pages/health_plans"
+import { HealthPlanProfilePage } from "../../pages/health_plans"
 import { HealthPlanProgramLimitsRouting } from "../health_plan_program_limits"
+import { HealthPlanPatientSearchAlgorithmsRouting } from "../health_plan_patient_search_algorithms"
 import { ProgramsRouting } from "../programs"
 import { BillingClaimsRouting } from "../billing/claims"
 import { BillingContractsRouting } from "../billing/contracts"
@@ -40,7 +41,7 @@ class HealthPlanRouting extends Component {
         <Route
           exact
           path={`${healthPlanPrefix}/patient-search-algorithms`}
-          render={(props) => (<HealthPlanPatientSearchAlgorithmsPage {...props} {...contextProps} />)}
+          render={(props) => (<HealthPlanPatientSearchAlgorithmsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${healthPlanPrefix}/patients`}

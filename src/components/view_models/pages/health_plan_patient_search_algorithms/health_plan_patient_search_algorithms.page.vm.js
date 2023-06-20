@@ -1,4 +1,4 @@
-import { AbstractListPageViewModel } from '../'
+import { AbstractListPageViewModel } from '..'
 import { healthPlanApi, patientSearchAlgorithmApi } from '@aprexis/aprexis-api-utility'
 import { apiEnvironmentHelper, userCredentialsHelper } from '../../../../helpers'
 
