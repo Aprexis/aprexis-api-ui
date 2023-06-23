@@ -341,9 +341,6 @@ function includeField(pathEntries, filters, fieldHeader) {
       return true
     }
 
-    console.log(`PE: ${JSON.stringify(pathEntries, null, 2)}`)
-    console.log(`Header: ${JSON.stringify(fieldHeader["unless"])}`)
-
     return !includeCheckPathEntry(pathEntries, fieldHeader["unless"])
   }
 

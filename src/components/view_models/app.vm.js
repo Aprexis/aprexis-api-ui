@@ -38,6 +38,7 @@ class AppViewModel extends AbstractViewModel {
     this.selectCurrentUser = this.selectCurrentUser.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.signOutError = this.signOutError.bind(this)
 
     this.props = {
       ...this.props,
@@ -234,7 +235,12 @@ class AppViewModel extends AbstractViewModel {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.remove()
-    authenticationApi.signOut(apiEnvironmentHelper.apiEnvironment(userCredentials), this.home)
+    authenticationApi.signOut(apiEnvironmentHelper.apiEnvironment(userCredentials), this.home, this.signOutError)
+  }
+
+  signOutError(error) {
+    console.log(`Error: ${JSON.stringify(error)}`)
+    // Look for expired message. Complete the logout in that case.
   }
 }
 

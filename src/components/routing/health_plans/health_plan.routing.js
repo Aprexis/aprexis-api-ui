@@ -24,6 +24,8 @@ class HealthPlanRouting extends Component {
     }
     const healthPlanPrefix = pathHelper.singularPrefix(window.location, "health-plans", ":health_plan_id")
 
+    console.log(`HP: ${healthPlanPrefix}`)
+
     return (
       <Switch>
         <Route
@@ -39,7 +41,6 @@ class HealthPlanRouting extends Component {
           render={(props) => (<DocumentsRouting {...props} {...contextProps} />)}
         />
         <Route
-          exact
           path={`${healthPlanPrefix}/patient-search-algorithms`}
           render={(props) => (<HealthPlanPatientSearchAlgorithmsRouting {...props} {...contextProps} />)}
         />

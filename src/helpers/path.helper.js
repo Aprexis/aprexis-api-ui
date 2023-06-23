@@ -50,6 +50,8 @@ function buildPathArray(location, ...pathParts) {
     }
   )
 
+  console.log(`Result; ${JSON.stringify(pathnameParts, null, 2)}`)
+
   return pathnameParts
 }
 

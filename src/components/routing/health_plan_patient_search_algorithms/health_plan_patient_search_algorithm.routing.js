@@ -16,6 +16,8 @@ class HealthPlanPatientSearchAlgorithmRouting extends Component {
     }
     const healthPlanPatientSearchAlgorithmPrefix = pathHelper.singularPrefix(window.location, "patient-search-algorithms", ":patient_search_algorithm_id")
 
+    console.log(`PSA: ${healthPlanPatientSearchAlgorithmPrefix}`)
+
     return (
       <Switch>
         <Route

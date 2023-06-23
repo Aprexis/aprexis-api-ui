@@ -6,13 +6,13 @@ import { listHelper } from "../../../helpers"
 
 const headings = [
   {
+    name: "Name",
+    method: "name"
+  },
+  {
     name: "Health Plan",
     method: "healthPlanName",
     unless: "health-plans"
-  },
-  {
-    name: "Name",
-    method: "name"
   },
   {
     name: "Type",
@@ -70,6 +70,7 @@ class HealthPlanPatientSearchAlgorithmsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
+        gotoTableItemProfile: this.vm.gotoPatientSearchAlgorithmProfile,
         headings,
         helper: healthPlanPatientSearchAlgorithmHelper,
         launchModal: this.props.launchModal,

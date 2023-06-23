@@ -180,6 +180,11 @@ const sidebarDescriptions = {
     entryLabel: "HCP",
     entryName: "patient-physicians"
   },
+  "patient-search-algorithms": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Patient Search Algorithm",
+    entryName: "patient-search-algorithms"
+  },
   "patient-supplements": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Supplement",

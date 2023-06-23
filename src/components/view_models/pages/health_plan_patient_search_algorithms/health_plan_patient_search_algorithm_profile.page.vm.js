@@ -1,5 +1,5 @@
 import { AbstractPageViewModel } from '..'
-import { healthPlanPatientSearchAlgorithmApi } from '@aprexis/aprexis-api-utility'
+import { patientSearchAlgorithmApi } from '@aprexis/aprexis-api-utility'
 import { apiEnvironmentHelper, userCredentialsHelper } from '../../../../helpers'
 
 class HealthPlanPatientSearchAlgorithmProfilePageViewModel extends AbstractPageViewModel {
@@ -15,7 +15,7 @@ class HealthPlanPatientSearchAlgorithmProfilePageViewModel extends AbstractPageV
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const patient_search_algorithm_id = pathEntries['patient-search-algorithms'].value
-    healthPlanPatientSearchAlgorithmApi.profile(
+    patientSearchAlgorithmApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials),
       patient_search_algorithm_id,
       (healthPlanPatientSearchAlgorithm) => { this.addField('healthPlanPatientSearchAlgorithm', healthPlanPatientSearchAlgorithm, this.redrawView) },

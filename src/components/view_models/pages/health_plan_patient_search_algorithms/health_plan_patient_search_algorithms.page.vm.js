@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from '..'
 import { healthPlanApi, patientSearchAlgorithmApi } from '@aprexis/aprexis-api-utility'
-import { apiEnvironmentHelper, userCredentialsHelper } from '../../../../helpers'
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from '../../../../helpers'
 
 class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -8,6 +8,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
 
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
+    this.gotoPatientSearchAlgorithmProfile = this.gotoPatientSearchAlgorithmProfile.bind(this)
     this.healthPlanId = this.healthPlanId.bind(this)
     this.loadData = this.loadData.bind(this)
     this.loadHealthPlan = this.loadHealthPlan.bind(this)
@@ -22,6 +23,12 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
 
   filtersOptions() {
     return {}
+  }
+
+  gotoPatientSearchAlgorithmProfile(patientSearchAlgorithm) {
+    const pathArray = pathHelper.buildPathArray(window.location, patientSearchAlgorithm, "profile")
+
+    pathHelper.gotoPage(pathArray)
   }
 
   healthPlanId() {
