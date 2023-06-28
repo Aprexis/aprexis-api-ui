@@ -24,8 +24,6 @@ class HealthPlanRouting extends Component {
     }
     const healthPlanPrefix = pathHelper.singularPrefix(window.location, "health-plans", ":health_plan_id")
 
-    console.log(`HP: ${healthPlanPrefix}`)
-
     return (
       <Switch>
         <Route

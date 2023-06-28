@@ -8,11 +8,14 @@
   },
   "author": "Aprexis",
   "//": {
-    "comment": "If you want to use a local copy of a module, copy it into this hash and specify the local folder in the dependencies",
-    "@aprexis/aprexis-api-utility": "^v2.2.0"
+    "comment": "If you want to use the published version of the module, copy the local file reference to this hash and specify the version in the dependencies",
+    "@aprexis/aprexis-api-utility": "file:../aprexis-api-utility"
+  },
+  "//": {
+    "comment": "If you want to use a local copy of a module, copy it into this hash and specify the local folder in the dependencies"
   },
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "file:../aprexis-api-utility",
+    "@aprexis/aprexis-api-utility": "^v2.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",

@@ -1,7 +1,78 @@
 import React, { Component } from 'react'
-import { Col, Container } from 'reactstrap'
-import { healthPlanPatientSearchAlgorithmHelper } from "@aprexis/aprexis-api-utility"
+import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
+import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { Spinner } from '../../shared'
+import { displayHelper } from '../../../helpers'
 import { HealthPlanPatientSearchAlgorithmProfilePageViewModel } from "../../view_models/pages/health_plan_patient_search_algorithms"
+
+const PatientSearchAlgorithmProfile = ({ patientSearchAlgorithm, pathEntries }) => {
+  return (
+    <Col className="col-sm d-flex">
+      <Card className="card flex-fill">
+        <CardTitle>
+          <h3>Configuration</h3>
+        </CardTitle>
+
+        <CardBody>
+          {displayHealthPlan()}
+          {displayHelper.display('Algorithm Type', healthPlanPatientSearchAlgorithmHelper.type(patientSearchAlgorithm))}
+        </CardBody>
+      </Card>
+    </Col>
+  )
+
+  function displayHealthPlan() {
+    if (valueHelper.isValue(pathEntries['health-plans'])) {
+      return
+    }
+
+    return displayHelper.display("Health Plan", healthPlanPatientSearchAlgorithmHelper.healthPlanName(patientSearchAlgorithm))
+  }
+}
+
+const PatientSearchAlgorithmBatch = ({ batch }) => {
+  return displayHelper.dateTimeDisplay('Run', batch)
+}
+
+const PatientSearchAlgorithmBatches = ({ patientSearchAlgorithm }) => {
+  const batches = healthPlanPatientSearchAlgorithmHelper.batches(patientSearchAlgorithm).map(
+    (batch, idx) => {
+      return (<PatientSearchAlgorithmBatch key={`patient-search-algorithm-batch-${idx}`} batch={batch} />)
+    }
+  )
+
+  return (
+    <Col className="col-sm d-flex">
+      <Card className="card flex-fill">
+        <CardTitle>
+          <h3>Batches</h3>
+        </CardTitle>
+
+        <CardBody>
+          {batches}
+        </CardBody>
+      </Card>
+    </Col>
+  )
+}
+
+const PatientSearchAlgorithmDisplay = ({ patientSearchAlgorithm, pathEntries }) => {
+  if (!valueHelper.isValue(patientSearchAlgorithm)) {
+    return (<Spinner showAtStart={true} />)
+  }
+
+  return (
+    <React.Fragment>
+      <Row>
+        <PatientSearchAlgorithmProfile patientSearchAlgorithm={patientSearchAlgorithm} pathEntries={pathEntries} />
+      </Row>
+
+      <Row>
+        <PatientSearchAlgorithmBatches patientSearchAlgorithm={patientSearchAlgorithm} />
+      </Row>
+    </React.Fragment>
+  )
+}
 
 class HealthPlanPatientSearchAlgorithmProfilePage extends Component {
   constructor(props) {
@@ -22,6 +93,7 @@ class HealthPlanPatientSearchAlgorithmProfilePage extends Component {
 
   render() {
     const { healthPlanPatientSearchAlgorithm } = this.state
+    const pathEntries = this.vm.pathEntries()
 
     return (
       <Container>
@@ -30,7 +102,7 @@ class HealthPlanPatientSearchAlgorithmProfilePage extends Component {
             <h1>{healthPlanPatientSearchAlgorithmHelper.name(healthPlanPatientSearchAlgorithm)}</h1>
           </div>
 
-          <div>Not implemented yet</div>
+          <PatientSearchAlgorithmDisplay patientSearchAlgorithm={healthPlanPatientSearchAlgorithm} pathEntries={pathEntries} />
         </Col>
       </Container>
     )
