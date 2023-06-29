@@ -8,7 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 group :development do
-  gem 'capistrano', '~> 3.16'
+  gem 'capistrano', '~> 3.17'
   gem 'capistrano-bundler', '~> 2.0', '>= 2.0.1'
   gem 'capistrano-nvm', '~> 0.0.7', require: false
   gem 'capistrano-yarn', '~> 2.0', '>= 2.0.2'
