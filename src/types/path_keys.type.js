@@ -14,6 +14,8 @@ import {
   patientMedicationApi,
   patientNoteApi,
   patientPhysicianApi,
+  patientSearchAlgorithmApi,
+  patientSearchAlgorithmBatchApi,
   patientSupplementApi,
   pharmacyChainApi,
   pharmacyClaimApi,
@@ -43,6 +45,8 @@ import {
   diseaseHelper,
   healthPlanHelper,
   healthPlanProgramLimitHelper,
+  healthPlanPatientSearchAlgorithmHelper,
+  healthPlanPatientSearchAlgorithmBatchHelper,
   interventionDocumentHelper,
   pharmacyChainHelper,
   pharmacyStoreHelper,
@@ -79,6 +83,11 @@ export const pathKeys = {
     api: appointmentApi,
     helper: appointmentHelper,
     modelName: "Appointment"
+  },
+  "batches": {
+    api: patientSearchAlgorithmBatchApi,
+    helper: healthPlanPatientSearchAlgorithmBatchHelper,
+    modelName: 'PatientSearchAlgorithmBatch'
   },
   "billing-claim-history-collections": {
     api: billingClaimHistoryCollectionApi,
@@ -207,6 +216,12 @@ export const pathKeys = {
     breadcrumb: "HCPs",
     helper: patientPhysicianHelper,
     modelName: "PatientPhysician"
+  },
+  "patient-search-algorithms": {
+    api: patientSearchAlgorithmApi,
+    breadcrumb: "Algorithms",
+    helper: healthPlanPatientSearchAlgorithmHelper,
+    modelName: 'PatoentSearchAlgorithm'
   },
   "patient-supplements": {
     api: patientSupplementApi,

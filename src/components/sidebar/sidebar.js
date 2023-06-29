@@ -15,6 +15,11 @@ const sidebarDescriptions = {
     entryLabel: "Appointment",
     entryName: "appointments"
   },
+  "batches": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Batch",
+    entryName: "batches"
+  },
   "billing-claims": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Claim",

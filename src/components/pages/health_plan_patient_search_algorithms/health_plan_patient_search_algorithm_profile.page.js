@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { Spinner } from '../../shared'
-import { displayHelper } from '../../../helpers'
+import { AprexisList, Spinner } from '../../shared'
+import { displayHelper, listHelper } from '../../../helpers'
 import { HealthPlanPatientSearchAlgorithmProfilePageViewModel } from "../../view_models/pages/health_plan_patient_search_algorithms"
+
+const batchHeadings = [
+  {
+    name: "Run",
+    method: "batch"
+  }
+]
 
 const PatientSearchAlgorithmProfile = ({ patientSearchAlgorithm, pathEntries }) => {
   return (
@@ -30,16 +37,8 @@ const PatientSearchAlgorithmProfile = ({ patientSearchAlgorithm, pathEntries }) 
   }
 }
 
-const PatientSearchAlgorithmBatch = ({ batch }) => {
-  return displayHelper.dateTimeDisplay('Run', batch)
-}
-
-const PatientSearchAlgorithmBatches = ({ patientSearchAlgorithm }) => {
-  const batches = healthPlanPatientSearchAlgorithmHelper.batches(patientSearchAlgorithm).map(
-    (batch, idx) => {
-      return (<PatientSearchAlgorithmBatch key={`patient-search-algorithm-batch-${idx}`} batch={batch} />)
-    }
-  )
+const PatientSearchAlgorithmBatches = ({ gotoPatientSearchAlgorithmBatchProfile, patientSearchAlgorithm, pathEntries }) => {
+  const batches = healthPlanPatientSearchAlgorithmHelper.batches(patientSearchAlgorithm)
 
   return (
     <Col className="col-sm d-flex">
@@ -49,14 +48,47 @@ const PatientSearchAlgorithmBatches = ({ patientSearchAlgorithm }) => {
         </CardTitle>
 
         <CardBody>
-          {batches}
+          <AprexisList
+            generateTableHeadings={generateTableHeadings}
+            generateTableRow={generateTableRow}
+            list={batches}
+            listLabel={'Run'}
+            listPluralLabel={'Runs'}
+          />
         </CardBody>
       </Card>
     </Col>
   )
+
+  function generateTableHeadings() {
+    return listHelper.listHeader(
+      {
+        headings: batchHeadings,
+        listName: "batches",
+        pathEntries
+      }
+    )
+  }
+
+  function generateTableRow(patientSearchAlgorithmBatch) {
+    return listHelper.listRow(
+      {
+        gotoTableItemProfile: gotoPatientSearchAlgorithmBatchProfile,
+        headings: batchHeadings,
+        helper: {
+          canDelete: () => { return false },
+          canEdit: () => { return false },
+          batch: (patientSearchAlgorithmBatch) => { return patientSearchAlgorithmBatch }
+        },
+        modelName: 'healthPlanPatientSearchBatch',
+        pathEntries,
+        tableItem: patientSearchAlgorithmBatch
+      }
+    )
+  }
 }
 
-const PatientSearchAlgorithmDisplay = ({ patientSearchAlgorithm, pathEntries }) => {
+const PatientSearchAlgorithmDisplay = ({ gotoPatientSearchAlgorithmBatchProfile, patientSearchAlgorithm, pathEntries }) => {
   if (!valueHelper.isValue(patientSearchAlgorithm)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -68,7 +100,11 @@ const PatientSearchAlgorithmDisplay = ({ patientSearchAlgorithm, pathEntries }) 
       </Row>
 
       <Row>
-        <PatientSearchAlgorithmBatches patientSearchAlgorithm={patientSearchAlgorithm} />
+        <PatientSearchAlgorithmBatches
+          gotoPatientSearchAlgorithmBatchProfile={gotoPatientSearchAlgorithmBatchProfile}
+          patientSearchAlgorithm={patientSearchAlgorithm}
+          pathEntries={pathEntries}
+        />
       </Row>
     </React.Fragment>
   )
@@ -102,7 +138,11 @@ class HealthPlanPatientSearchAlgorithmProfilePage extends Component {
             <h1>{healthPlanPatientSearchAlgorithmHelper.name(healthPlanPatientSearchAlgorithm)}</h1>
           </div>
 
-          <PatientSearchAlgorithmDisplay patientSearchAlgorithm={healthPlanPatientSearchAlgorithm} pathEntries={pathEntries} />
+          <PatientSearchAlgorithmDisplay
+            gotoPatientSearchAlgorithmBatchProfile={this.vm.gotoPatientSearchAlgorithmBatchProfile}
+            patientSearchAlgorithm={healthPlanPatientSearchAlgorithm}
+            pathEntries={pathEntries}
+          />
         </Col>
       </Container>
     )
