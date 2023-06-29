@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.16'
+lock '~> 3.17'
 
 set :application, 'aprexis-api-ui'
 set :repo_url, 'git@github.com:Aprexis/aprexis-api-ui.git'
@@ -20,7 +20,7 @@ set :default_shell, 'bash -l'
 set :pty, true
 set :use_sudo, false
 set :nvm_type, :user
-set :nvm_node, 'v16.3.0'
+set :nvm_node, 'v16.20.1'
 set :nvm_map_bins, %w[node npm yarn]
 
 set :yarn_flags, %w[]
