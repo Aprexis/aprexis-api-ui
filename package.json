@@ -15,7 +15,7 @@
     "comment": "If you want to use a local copy of a module, copy it into this hash and specify the local folder in the dependencies"
   },
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "^v2.3.0",
+    "@aprexis/aprexis-api-utility": "^v2.4.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",

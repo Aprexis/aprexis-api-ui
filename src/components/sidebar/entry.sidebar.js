@@ -20,7 +20,7 @@ const RenderSidebarButton = ({ buttonLabel, gotoMethod }) => {
   return (
     <button
       className="rounded-0 btn-sm btn-link w-100 pl-5"
-      onClick={(event) => { gotoMethod() }}>
+      onClick={(_event) => { gotoMethod() }}>
       {buttonLabel}
     </button>
   )

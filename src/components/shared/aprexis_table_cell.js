@@ -3,8 +3,13 @@ import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class AprexisHeaderCell extends Component {
   render() {
-    const { colSpan, content, onCellClick } = this.props
-    let className = "aprexis-table-header-cell"
+    const { headingIndex, colSpan, content, onCellClick } = this.props
+    let className
+    if (headingIndex == 0) {
+      className = "aprexis-table-header-cell-left"
+    } else {
+      className = "aprexis-table-header-cell"
+    }
     if (valueHelper.isValue(onCellClick)) {
       className = `${className} aprexis-link`
     }
@@ -17,10 +22,12 @@ class AprexisHeaderCell extends Component {
 
 class AprexisCell extends Component {
   render() {
-    const { content, colSpan, onCellClick, group } = this.props
+    const { cellIndex, content, colSpan, onCellClick, group } = this.props
     let className
     if (valueHelper.isSet(group)) {
       className = "aprexis-table-group-cell"
+    } else if (cellIndex == 0) {
+      className = "aprexis-table-cell-left"
     } else {
       className = "aprexis-table-cell"
     }
@@ -57,7 +64,7 @@ class AprexisTableCell extends Component {
   }
 
   render() {
-    const { cell, colSpan, group, header } = this.props
+    const { cell, cellIndex, colSpan, group, header, headingIndex } = this.props
     if (React.isValidElement(cell)) {
       return cell
     }
@@ -73,10 +80,10 @@ class AprexisTableCell extends Component {
     }
 
     if (valueHelper.isSet(header)) {
-      return (<AprexisHeaderCell content={content} colSpan={colSpan} onCellClick={onCellClick} />)
+      return (<AprexisHeaderCell content={content} colSpan={colSpan} headingIndex={headingIndex} onCellClick={onCellClick} />)
     }
 
-    return (<AprexisCell content={content} colSpan={colSpan} onCellClick={onCellClick} group={group} />)
+    return (<AprexisCell cellIndex={cellIndex} content={content} colSpan={colSpan} onCellClick={onCellClick} group={group} />)
   }
 }
 
