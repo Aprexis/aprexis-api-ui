@@ -16,8 +16,6 @@ class HealthPlanPatientSearchAlgorithmBatchesRouting extends Component {
     }
     const healthPlanPatientSearchAlgorithmsPrefix = pathHelper.pluralPrefix(window.location, "batches")
 
-    console.log(`Batches: ${healthPlanPatientSearchAlgorithmsPrefix}`)
-
     return (
       <Switch>
         <Route

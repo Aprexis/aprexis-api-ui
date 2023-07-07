@@ -1,5 +1,5 @@
 import { history } from "./history"
-import { valueHelper } from "@aprexis/aprexis-api-utility"
+import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 let reactUrlRoot = ""
 if (valueHelper.isStringValue(process.env.REACT_APP_RELATIVE_URL_ROOT)) {
@@ -49,8 +49,6 @@ function buildPathArray(location, ...pathParts) {
       pathnameParts.push(value)
     }
   )
-
-  console.log(`Result; ${JSON.stringify(pathnameParts, null, 2)}`)
 
   return pathnameParts
 }
@@ -164,7 +162,7 @@ function parsePathEntries(location) {
     pathEntries[part] = { index }
 
     const valueIdx = idx + 1
-    if (valueIdx < parts.length && (parts[valueIdx] == "new" || !isNaN(parts[valueIdx]))) {
+    if (valueIdx < parts.length && (parts[valueIdx] == "new" || !isNaN(parts[valueIdx]) || dateHelper.isDateValue(parts[valueIdx]))) {
       pathEntries[part].value = parts[valueIdx]
       idx = valueIdx
     }

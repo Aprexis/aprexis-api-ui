@@ -19,7 +19,7 @@ class DataRow extends Component {
     }
 
     const renderedCells = cells.map(
-      (cell, cellIndex) => { return (<AprexisTableCell cell={cell} key={`aprexis-table-row-${rowIndex}-${cellIndex}`} />) }
+      (cell, cellIndex) => { return (<AprexisTableCell cell={cell} cellIndex={cellIndex} key={`aprexis-table-row-${rowIndex}-${cellIndex}`} />) }
     )
 
     return (
@@ -105,6 +105,7 @@ class Header extends Component {
             cell={heading}
             colSpan={1}
             header={true}
+            headingIndex={headingIndex}
             key={`aprexis-header-row-${headingIndex}`}
           />
         )

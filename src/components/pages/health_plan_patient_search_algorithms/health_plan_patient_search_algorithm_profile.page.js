@@ -5,9 +5,10 @@ import { AprexisList, Spinner } from '../../shared'
 import { displayHelper, listHelper } from '../../../helpers'
 import { HealthPlanPatientSearchAlgorithmProfilePageViewModel } from "../../view_models/pages/health_plan_patient_search_algorithms"
 
-const batchHeadings = [
+const headings = [
   {
     name: "Run",
+    field: "batch",
     method: "batch"
   }
 ]
@@ -63,7 +64,7 @@ const PatientSearchAlgorithmBatches = ({ gotoPatientSearchAlgorithmBatchProfile,
   function generateTableHeadings() {
     return listHelper.listHeader(
       {
-        headings: batchHeadings,
+        headings,
         listName: "batches",
         pathEntries
       }
@@ -74,13 +75,13 @@ const PatientSearchAlgorithmBatches = ({ gotoPatientSearchAlgorithmBatchProfile,
     return listHelper.listRow(
       {
         gotoTableItemProfile: gotoPatientSearchAlgorithmBatchProfile,
-        headings: batchHeadings,
+        headings,
         helper: {
           canDelete: () => { return false },
           canEdit: () => { return false },
           batch: (patientSearchAlgorithmBatch) => { return patientSearchAlgorithmBatch }
         },
-        modelName: 'healthPlanPatientSearchBatch',
+        modelName: 'healthPlanPatientSearchAlgorithmBatch',
         pathEntries,
         tableItem: patientSearchAlgorithmBatch
       }

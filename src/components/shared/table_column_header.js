@@ -66,7 +66,7 @@ class TableColumnHeader extends Component {
 
     let updateSorting
     if (valueHelper.isFunction(this.props.onUpdateSorting)) {
-      updateSorting = (event) => {
+      updateSorting = (_event) => {
         this.props.onUpdateSorting(this.getSortField(), this.props.onRefresh)
       }
     }
@@ -77,15 +77,13 @@ class TableColumnHeader extends Component {
         onClick={updateSorting}
         scope="col"
         style={{ cursor: "pointer" }}>
-        <div className="d-flex flex-row">
-          <label>
-            {label}&nbsp;
-            {
-              this.isSortingColumn() &&
-              <FontAwesomeIcon icon={icon} style={{ color, marginLeft: ".5rem" }} />
-            }
-          </label>
-        </div>
+        <label>
+          {label}&nbsp;
+          {
+            this.isSortingColumn() &&
+            <FontAwesomeIcon icon={icon} style={{ color, marginLeft: ".5rem" }} />
+          }
+        </label>
       </th>
     )
   }

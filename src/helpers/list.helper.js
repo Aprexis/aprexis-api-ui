@@ -21,13 +21,19 @@ function listHeader(
 ) {
   return headings.filter((heading) => displayHelper.includeField(pathEntries, filters, heading))
     .map(
-      (heading) => {
+      (heading, headingIndex) => {
         const { name, field } = heading
+        let className;
+        if (headingIndex == 0) {
+          className = 'aprexis-table-header-cell-left'
+        } else {
+          className = 'aprexis-table-header-cell'
+        }
 
         return (
           <TableColumnHeader
             key={`${listName}-table-heading-${field}`}
-            className="aprexis-table-header-cell"
+            className={className}
             label={name}
             sortFieldName={field}
             sorting={sorting}

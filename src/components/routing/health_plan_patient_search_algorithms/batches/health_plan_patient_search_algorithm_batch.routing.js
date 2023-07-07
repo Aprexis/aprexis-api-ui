@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { NoMatch } from "../.."
-import { HealthPlanPatientSearchAlgorithmProfilePage } from "../../../pages/health_plan_patient_search_algorithms/batches"
+import { HealthPlanPatientSearchAlgorithmBatchProfilePage } from "../../../pages/health_plan_patient_search_algorithms/batches"
 import { pathHelper } from "../../../../helpers"
 
 class HealthPlanPatientSearchAlgorithmBatchRouting extends Component {
@@ -21,7 +21,7 @@ class HealthPlanPatientSearchAlgorithmBatchRouting extends Component {
         <Route
           exact
           path={`${healthPlanPatientSearchAlgorithmBatchPrefix}/profile`}
-          render={(props) => (<HealthPlanPatientSearchAlgorithmProfilePage {...props} {...contextProps} />)}
+          render={(props) => (<HealthPlanPatientSearchAlgorithmBatchProfilePage {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

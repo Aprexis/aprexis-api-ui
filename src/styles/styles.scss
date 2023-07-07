@@ -47,6 +47,24 @@ a {
   }
 }
 
+.aprexis-table-header-cell {
+  background-color: $medium-blue;
+  text-align: center;
+}
+
+.aprexis-table-header-cell-left {
+  background-color: $medium-blue;
+  text-align: left;
+}
+
+.aprexis-table-cell {
+  text-align: center;
+}
+
+.aprexis-table-cell-left {
+  text-align: left;
+}
+
 body {
   padding-top: 94px;
   background-color: $white;
@@ -86,10 +104,6 @@ header {
 
 .aprexis-link {
   text-decoration: underline;
-}
-
-.aprexis-table-header-cell {
-  background-color: $medium-blue;
 }
 
 .btn-uppercase {
