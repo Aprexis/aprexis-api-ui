@@ -43,6 +43,8 @@ import {
   billingContractPharmacyStoreHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  programApi,
+  programHelper,
   healthPlanHelper,
   healthPlanProgramLimitHelper,
   healthPlanPatientSearchAlgorithmHelper,
@@ -256,6 +258,11 @@ export const pathKeys = {
     api: physicianApi,
     helper: physicianHelper,
     modelName: "Physician"
+  },
+  "programs": {
+    api: programApi,
+    helper: programHelper,
+    modelName: "Program"
   },
   "reminders": {
     api: reminderApi,

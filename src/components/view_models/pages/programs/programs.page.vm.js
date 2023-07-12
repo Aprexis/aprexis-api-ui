@@ -1,6 +1,6 @@
 import { AbstractListPageViewModel } from "../"
 import { programApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, filtersHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class ProgramsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
@@ -9,7 +9,7 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    //this.gotoProgramProfile = this.gotoProgramProfile.bind(this)
+    this.gotoProgramProfile = this.gotoProgramProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -33,13 +33,11 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  /* TODO: enable once page is implemented.
   gotoProgramProfile(program) {
     const pathArray = pathHelper.buildPathArray(window.location, program, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
-  */
 
   loadData() {
     this.clearData()

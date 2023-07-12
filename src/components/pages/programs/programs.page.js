@@ -69,6 +69,7 @@ class ProgramsPage extends Component {
     return listHelper.listHeader(
       {
         filters,
+        gotoTableItemProfile: this.vm.gotoProgramProfile,
         headings,
         listName: "programs",
         pathEntries,
