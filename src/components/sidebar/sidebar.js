@@ -73,6 +73,11 @@ const sidebarDescriptions = {
     entryLabel: "Document",
     entryName: "documents"
   },
+  "dry-run-program-patient-assignments": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: 'Dry Run',
+    entryName: "dry-run-program-patient-assignments"
+  },
   "faxes": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Fax",
@@ -212,6 +217,7 @@ const sidebarDescriptions = {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Claims", buttonType: "List", listName: "billing-claims" },
+      { buttonLabel: "Dry Runs", buttonType: "List", listName: "dry-run-program-patient-assignments" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" }
     ],
@@ -224,7 +230,10 @@ const sidebarDescriptions = {
     entryName: "physicians"
   },
   "programs": {
-    entryButtons: [{ buttonType: "Profile" }],
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Dry Runs", buttonType: "List", listName: "dry-run-program-patient-assignments" }
+    ],
     entryLabel: "Program",
     entryName: "programs"
   },

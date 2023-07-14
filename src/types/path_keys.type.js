@@ -47,6 +47,8 @@ import {
   programHelper,
   healthPlanHelper,
   healthPlanProgramLimitHelper,
+  dryRunProgramPatientAssignmentApi,
+  dryRunProgramPatientAssignmentHelper,
   healthPlanPatientSearchAlgorithmHelper,
   healthPlanPatientSearchAlgorithmBatchHelper,
   interventionDocumentHelper,
@@ -130,6 +132,11 @@ export const pathKeys = {
     api: diseaseApi,
     helper: diseaseHelper,
     modelName: "Disease"
+  },
+  "dry-run-program-patient-assignments": {
+    api: dryRunProgramPatientAssignmentApi,
+    helper: dryRunProgramPatientAssignmentHelper,
+    modelName: "DryRunProgramPatientAssignment"
   },
   "faxes": {
     api: faxApi,

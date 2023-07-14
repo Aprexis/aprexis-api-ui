@@ -71,7 +71,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
   }
 
   loadHealthPlanPatientSearchAlgorithms(userCredentials, nextOperation) {
-    patientSearchAlgorithmApi.forHealthPlan(
+    patientSearchAlgorithmApi.indexForHealthPlan(
       apiEnvironmentHelper.apiEnvironment(userCredentials),
       this.healthPlanId(),
       {},
