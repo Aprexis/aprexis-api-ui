@@ -19,7 +19,6 @@ const headings = [
   {
     name: "Yes Program",
     field: "yes_program_name",
-    method: "yesProgramName"
   },
   {
     name: "No Patients",
@@ -29,7 +28,6 @@ const headings = [
   {
     name: "No Program",
     field: "no_program_name",
-    method: "noProgramName"
   }
 ]
 
@@ -105,6 +103,23 @@ class HealthPlanPatientSearchAlgorithmBatchProfilePage extends Component {
       {
         ...props,
         view: this
+      }
+    )
+
+    headings.forEach(
+      (heading) => {
+        switch (heading.name) {
+          case 'No Program':
+            heading.method = this.vm.noProgramName
+            break
+
+          case 'Yes Program':
+            heading.method = this.vm.yesProgramName
+            break
+
+          default:
+            break
+        }
       }
     )
   }

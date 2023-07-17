@@ -6,9 +6,10 @@ import { listHelper } from "../../../helpers"
 
 const headings = [
   {
-    name: "Patient Name",
+    name: "Patient",
     field: "patient.first_name,patient.middle_name,patient.last_name",
-    method: "patientName"
+    method: "patientName",
+    unless: 'patient'
   },
   {
     name: "Health Plan",

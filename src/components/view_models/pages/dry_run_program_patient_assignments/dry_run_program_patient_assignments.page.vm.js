@@ -21,6 +21,7 @@ class DryRunProgramPatientAssignmentsPageViewModel extends AbstractListPageViewM
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
     this.gotoDryRunProgramPatientAssignmentProfile = this.gotoDryRunProgramPatientAssignmentProfile.bind(this)
+    this.gotoPatient = this.gotoPatient.bind(this)
     this.loadData = this.loadData.bind(this)
     this.parentId = this.parentId.bind(this)
     this.refreshData = this.refreshData.bind(this)
@@ -45,6 +46,12 @@ class DryRunProgramPatientAssignmentsPageViewModel extends AbstractListPageViewM
     const pathArray = pathHelper.buildPathArray(window.location, dryRunProgramPatientAssignment, "profile")
 
     pathHelper.gotoPage(pathArray)
+  }
+
+  gotoPatient(healthPlanId, patientId) {
+    const pathEntries = ['health-plans', healthPlanId, 'patients', patientId, 'profile']
+
+    return () => pathHelper.gotoPage(pathEntries)
   }
 
   parentId() {

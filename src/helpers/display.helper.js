@@ -159,11 +159,14 @@ function displayClaimReferenceNumbers(billingClaim) {
   }
 }
 
-
 function displayListField(model, helper, heading) {
   const value = fieldMethod(helper, heading)(model)
   if (!valueHelper.isValue(value)) {
     return ""
+  }
+
+  if (typeof value === 'object') {
+    return value
   }
 
   const longValue = `${value}`

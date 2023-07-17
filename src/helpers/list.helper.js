@@ -4,9 +4,24 @@ import { displayHelper } from "./display.helper"
 import { TableColumnHeader, TableIdentificationColumn } from "../components/shared"
 
 export const listHelper = {
+  listButton,
   listHeader,
   listRow
 }
+
+function listButton(label, target) {
+  return (
+    <td className='aprexis-table-cell'>
+      <button
+        className="btn btn-link ml-0 mr-0 pl-0 pr-0 pt-0 pb-0"
+        onClick={(_event) => { target() }}
+        type="button">
+        {label}
+      </button>
+    </td>
+  )
+}
+
 
 function listHeader(
   {
