@@ -20,8 +20,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aprexis/aprexis-api-utility@file:../aprexis-api-utility":
-  version "2.5.0"
+"@aprexis/aprexis-api-utility@^v2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@aprexis/aprexis-api-utility/-/aprexis-api-utility-2.6.0.tgz#1bb4aa8dffed41a64f95512ceae152b9a4f1f788"
+  integrity sha512-9IgkfE2xVke24R1c1YTL49jRd8/wGuzayd1sLY05DVU/Ud44nTNz1WvvflPdnDJItZDMY23QM9g9onjLq9+C5Q==
   dependencies:
     date-fns "^2.29.3"
     date-fns-tz "^2.0.0"
