@@ -13,7 +13,7 @@ class InterventionVerifyPageViewModel extends AbstractPageViewModel {
 
   fetchIntervention(userCredentials, intervention_id, onSuccess) {
     interventionApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       intervention_id,
       (intervention) => { this.addField('intervention', intervention, onSuccess) },
       this.onError
@@ -35,7 +35,7 @@ class InterventionVerifyPageViewModel extends AbstractPageViewModel {
 
   verifyIntervention(userCredentials, intervention_id, onSuccess) {
     interventionApi.verify(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       intervention_id,
       (verification) => { this.addField('verification', verification, onSuccess) },
       this.onError

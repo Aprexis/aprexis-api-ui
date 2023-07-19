@@ -27,6 +27,7 @@ class BillingContractPharmacyStoreModal extends Component {
   }
 
   render() {
+    const { reconnectAndRetry } = this.props
     const { billingContractPharmacyStore } = this.state
     const pathEntries = this.vm.pathEntries()
     const billingContractId = pathHelper.id(pathEntries, "billing-contracts")
@@ -56,6 +57,7 @@ class BillingContractPharmacyStoreModal extends Component {
                         "contract_id"
                       )
                     }
+                    reconnectAndRetry={reconnectAndRetry}
                   />
                 }
 
@@ -73,6 +75,7 @@ class BillingContractPharmacyStoreModal extends Component {
                         "pharmacy_store_id"
                       )
                     }
+                    reconnectAndRetry={reconnectAndRetry}
                   />
                 }
 

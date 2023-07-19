@@ -13,7 +13,7 @@ class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewM
 
   editModal(billingContractPharmacyStoreToEdit) {
     billingContractPharmacyStoreApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractPharmacyStoreToEdit.id,
       (billingContractPharmacyStore) => {
         this.props.launchModal(
@@ -34,7 +34,7 @@ class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewM
     const pathEntries = this.pathEntries()
     const billing_contract_pharmacy_store_id = pathEntries['billing-contract-pharmacy-stores'].value
     billingContractPharmacyStoreApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       billing_contract_pharmacy_store_id,
       (billingContractPharmacyStore) => {
         this.addField('billingContractPharmacyStore', billingContractPharmacyStore, this.redrawView)

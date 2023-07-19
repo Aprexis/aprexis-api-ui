@@ -50,7 +50,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
     }
 
     goldStandardAllergyApi.match_name(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       value,
       (goldStandardAllergy) => {
         updated = patientAllergyHelper.changeGoldStandardAllergy(
@@ -72,7 +72,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
 
   fetchGoldStandardAllergy(goldStandardAllergyId, nextOperation) {
     goldStandardAllergyApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       goldStandardAllergyId,
       nextOperation,
       this.onError
@@ -81,7 +81,7 @@ class PatientAllergyModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       nextOperation,
       this.onError

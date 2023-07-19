@@ -16,7 +16,7 @@ class DiagnosisCodeProfilePageViewModel extends AbstractPageViewModel {
     const diagnosis_code_id = pathEntries["diagnosis-codes"].value
 
     diagnosisCodeApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       diagnosis_code_id,
       (diagnosisCode) => { this.addField("diagnosisCode", diagnosisCode, this.redrawView) },
       this.onError

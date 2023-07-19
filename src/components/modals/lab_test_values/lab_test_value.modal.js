@@ -21,6 +21,7 @@ const LabTestValueLabTest = ({ isRequired, labTestValue, onChange, props }) => {
       id={labTestValueHelper.labTestId(labTestValue)}
       onChange={onChange}
       readOnly={!labTestValueHelper.canModifyField(labTestValue, "lab_test_id")}
+      reconnectAndRetry={props.reconnectAndRetry}
       required={isRequired("lab_test_id")}
       targetName="lab_test_id"
     />
@@ -40,6 +41,7 @@ const LabTestValuePharmacyStore = ({ isRequired, labTestValue, onChange, pathEnt
       id={labTestValueHelper.pharmacyStoreId(labTestValue)}
       onChange={onChange}
       readOnly={!pathHelper.isSingular(pathEntries, "pharmacy-stores") && !labTestValueHelper.canModifyField(labTestValue, "pharmacy_store_id")}
+      reconnectAndRetry={props.reconnectAndRetry}
       required={isRequired("pharmacy_store_id")}
       targetName="pharmacy_store_id"
       useSearch={true}

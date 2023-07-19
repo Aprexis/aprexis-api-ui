@@ -55,7 +55,7 @@ class ExternalInterventionProfileModal extends Component {
   }
 
   render() {
-    const { currentUser } = this.props
+    const { currentUser, reconnectAndRetry } = this.props
     const { intervention, consentObtainedFromType, placesOfService } = this.state
 
     return (
@@ -191,6 +191,7 @@ class ExternalInterventionProfileModal extends Component {
                   id={this.vm.helper().diagnosisCodeId(intervention)}
                   minSearchLength={this.vm.minSearchLength()}
                   onChange={this.vm.selectDiagnosisCode}
+                  reconnectAndRetry={reconnectAndRetry}
                   required={true}
                 />
 

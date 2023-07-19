@@ -55,11 +55,11 @@ class SelectCaregiverViewModel extends AbstractSelectAutocompleteViewModel {
     }
     const { patientId } = this.props
 
-    this.api().searchForPatient(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), patientId, { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().searchForPatient(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), patientId, { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), id, onSuccess, onFailure)
   }
 
   helper() {
@@ -75,7 +75,7 @@ class SelectCaregiverViewModel extends AbstractSelectAutocompleteViewModel {
     const params = { page: { number: 1, size: 25 }, sort: 'relationship,first_name,last_name' }
     const { patientId } = this.props
     caregiverApi.listForPatient(
-      apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()),
+      apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry),
       patientId,
       params,
       nextOperation,

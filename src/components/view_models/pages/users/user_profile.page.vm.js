@@ -16,7 +16,7 @@ class UserProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const user_id = pathEntries.users.value
     userApi.account(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       user_id,
       (user) => { this.addField("user", user, this.redrawView) },
       this.onError

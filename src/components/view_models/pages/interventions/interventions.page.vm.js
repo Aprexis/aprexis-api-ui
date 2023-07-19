@@ -43,7 +43,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
 
     this.api().buildNewExternal(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       pharmacyStoreId,
       (intervention) => {
@@ -64,7 +64,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
 
   editExternalModal(interventionToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       interventionToEdit.id,
       (intervention) => {
         this.props.launchModal(
@@ -125,6 +125,7 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
+    const { reconnectAndRetry } = this.props
     this.removeField("interventionHeaders")
     const { filters, sorting, page } = this.data
     const pathEntries = this.pathEntries()
@@ -150,17 +151,17 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
       const patient = pathEntries["patients"]
 
       if (valueHelper.isValue(patient)) {
-        api.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials), patient.value, params, onSuccess, onError)
+        api.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), patient.value, params, onSuccess, onError)
         return
       }
 
       const pharmacyStore = pathEntries["pharmacy-stores"]
       if (valueHelper.isValue(pharmacyStore)) {
-        api.listForPharmacyStore(apiEnvironmentHelper.apiEnvironment(userCredentials), pharmacyStore.value, params, onSuccess, onError)
+        api.listForPharmacyStore(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), pharmacyStore.value, params, onSuccess, onError)
         return
       }
 
-      api.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
+      api.list(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), params, onSuccess, onError)
     }
   }
 

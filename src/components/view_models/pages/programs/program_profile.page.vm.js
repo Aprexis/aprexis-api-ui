@@ -16,7 +16,7 @@ class ProgramProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const health_plan_id = pathEntries['programs'].value
     programApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       health_plan_id,
       (program) => { this.addField('program', program, this.redrawView) },
       this.onError

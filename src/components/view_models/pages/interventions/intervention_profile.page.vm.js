@@ -21,7 +21,7 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
 
   editExternalModal(interventionToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       this.helper().id(interventionToEdit),
       (intervention) => {
         this.props.launchModal(
@@ -51,7 +51,7 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const interventionId = pathEntries['interventions'].value
     this.api().profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       interventionId,
       (intervention) => { this.addField('intervention', intervention, this.redrawView) },
       this.onError
@@ -70,7 +70,7 @@ class InterventionProfilePageViewModel extends AbstractPageViewModel {
     const interventionId = this.helper().id(intervention)
 
     billingClaimApi.createForIntervention(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       interventionId,
       this.gotoBillingClaim,
       (_failure) => { this.gotoVerifyIntervention() }

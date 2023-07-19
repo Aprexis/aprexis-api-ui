@@ -97,7 +97,7 @@ function putModelIntoContext(pathKey, model) {
   sessionStorage.setItem("aprexis-api-ui-context", contextJSON)
 }
 
-function updateContext(nextOperation) {
+function updateContext(reconnectAndRetry, nextOperation) {
   const userCredentials = userCredentialsHelper.get()
   const pathEntries = pathHelper.parsePathEntries(window.location)
   const context = contextHelper.currentContext()
@@ -117,10 +117,10 @@ function updateContext(nextOperation) {
     }
   )
 
-  loadModelIntoContext(userCredentials, contextKeys, 0, pathEntries, context, nextOperation)
+  loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, 0, pathEntries, context, nextOperation)
   return
 
-  function loadModelIntoContext(userCredentials, contextKeys, contextKeyIdx, pathEntries, context, nextOperation) {
+  function loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx, pathEntries, context, nextOperation) {
     let workingContext = { ...context }
 
     if (!valueHelper.isValue(contextKeys) || contextKeyIdx === contextKeys.length) {
@@ -140,11 +140,11 @@ function updateContext(nextOperation) {
     const pathEntry = pathEntries[pathKey]
     const { value } = pathEntry
     pathKeys[pathKey].api.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
       value,
       (model) => {
         workingContext[pathKey] = model
-        loadModelIntoContext(userCredentials, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
+        loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
       },
       (message) => {
         alertHelper.error(message)

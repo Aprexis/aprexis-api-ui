@@ -48,7 +48,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       (reminder) => {
         this.props.launchModal(
@@ -69,7 +69,7 @@ class RemindersPageViewModel extends AbstractListPageViewModel {
 
   editModal(reminderToEdit, nextOperation) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       this.helper().id(reminderToEdit),
       (reminder) => {
         this.props.launchModal(

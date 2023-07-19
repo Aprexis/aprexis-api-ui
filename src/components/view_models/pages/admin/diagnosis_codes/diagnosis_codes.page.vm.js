@@ -56,7 +56,7 @@ class DiagnosisCodesPageViewModel extends AbstractListPageViewModel {
 
     list(
       pathEntries,
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
       (diagnosisCodes, diagnosisCodeHeaders) => {
         this.addData(

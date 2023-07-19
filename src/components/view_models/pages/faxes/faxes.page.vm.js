@@ -37,7 +37,7 @@ class FaxesPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       (fax) => {
         this.props.launchModal(
@@ -59,7 +59,7 @@ class FaxesPageViewModel extends AbstractListPageViewModel {
   /*
   editModal(faxToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       faxToEdit.id,
       (fax) => {
         this.props.launchModal(

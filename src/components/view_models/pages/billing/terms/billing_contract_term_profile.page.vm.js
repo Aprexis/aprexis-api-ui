@@ -14,7 +14,7 @@ class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
 
   editPatientModal(billingContractTermToEdit, patientType) {
     billingContractTermApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractTermToEdit.id,
       (billingContractTerm) => {
         this.props.launchModal(
@@ -27,7 +27,7 @@ class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(billingContractTermToEdit) {
     billingContractTermApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractTermToEdit.id,
       (billingContractTerm) => {
         this.props.launchModal(
@@ -48,7 +48,7 @@ class BillingContractTermProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const billing_contract_pharmacy_id = pathEntries["billing-contract-terms"].value
     billingContractTermApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       billing_contract_pharmacy_id,
       (billingContractTerm) => {
         this.addField("billingContractTerm", billingContractTerm, this.redrawView)

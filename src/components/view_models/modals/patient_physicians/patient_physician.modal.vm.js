@@ -36,7 +36,7 @@ class PatientPhysicianModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       nextOperation,
       this.onError
@@ -45,7 +45,7 @@ class PatientPhysicianModalViewModel extends AbstractModalViewModel {
 
   fetchPhysician(physicianId, nextOperation) {
     physicianApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       physicianId,
       nextOperation,
       this.onError

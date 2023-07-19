@@ -23,7 +23,7 @@ class Header extends Component {
   }
 
   render() {
-    const { currentAdminUser, currentUser, history } = this.props
+    const { currentAdminUser, currentUser, history, reconnectAndRetry } = this.props
 
     return (
       <header
@@ -49,16 +49,18 @@ class Header extends Component {
 
               <Collapse isOpen={!this.state.collapsed} navbar>
                 <Nav className="header-nav ml-md-auto" navbar>
-                  <HealthPlanHeaders currentUser={currentUser} gotoHealthPlansPage={this.props.gotoHealthPlansPage} />
+                  <HealthPlanHeaders currentUser={currentUser} gotoHealthPlansPage={this.props.gotoHealthPlansPage} reconnectAndRetry={reconnectAndRetry} />
                   <PharmacyChainHeaders
                     currentUser={currentUser}
                     gotoPharmacyChainsPage={this.props.gotoPharmacyChainsPage}
+                    reconnectAndRetry={reconnectAndRetry}
                   />
                   <PharmacyStoreHeaders
                     currentUser={currentUser}
                     gotoPharmacyStoresPage={this.props.gotoPharmacyStoresPage}
+                    reconnectAndRetry={reconnectAndRetry}
                   />
-                  <UserHeaders currentUser={currentUser} gotoUsersPage={this.props.gotoUsersPage} />
+                  <UserHeaders currentUser={currentUser} gotoUsersPage={this.props.gotoUsersPage} reconnectAndRetry={reconnectAndRetry} />
                   <AdminHeaders
                     currentUser={currentUser}
                     gotoBillingClaimHistoryCollectionsPage={this.props.gotoBillingClaimHistoryCollectionsPage}
@@ -68,6 +70,7 @@ class Header extends Component {
                     gotoMedicationsPage={this.props.gotoMedicationsPage}
                     gotoPhysiciansPage={this.props.gotoPhysiciansPage}
                     gotoSystemSettingsPage={this.props.gotoSystemSettingsPage}
+                    reconnectAndRetry={reconnectAndRetry}
                   />
 
                   <UserDropdown
@@ -77,6 +80,7 @@ class Header extends Component {
                     history={history}
                     onSignIn={this.props.onSignIn}
                     onSignOut={(_event) => { this.props.onSignOut("Logged out") }}
+                    reconnectAndRetry={reconnectAndRetry}
                   />
                 </Nav>
               </Collapse>
@@ -88,6 +92,7 @@ class Header extends Component {
           actAs={this.props.actAs}
           currentAdminUser={currentAdminUser}
           currentUser={currentUser}
+          reconnectAndRetry={reconnectAndRetry}
         />
       </header>
     )

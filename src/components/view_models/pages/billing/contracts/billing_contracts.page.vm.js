@@ -42,7 +42,7 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
     const healthPlanId = pathHelper.id(pathEntries, "health-plans")
 
     billingContractApi.buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), this.props.reconnectAndRetry,
       healthPlanId,
       (billingContract) => {
         this.props.launchModal(
@@ -62,7 +62,7 @@ class BillingContractsPageViewModel extends AbstractListPageViewModel {
 
   editModal(billingContractToEdit) {
     billingContractApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractHelper.id(billingContractToEdit),
       (billingContract) => {
         this.props.launchModal(

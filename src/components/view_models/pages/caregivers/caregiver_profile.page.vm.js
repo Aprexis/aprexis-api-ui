@@ -12,7 +12,7 @@ class CaregiverProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(caregiverToEdit) {
     caregiverApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       caregiverHelper.id(caregiverToEdit),
       (caregiver) => {
         this.props.launchModal(
@@ -35,7 +35,7 @@ class CaregiverProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const caregiver_id = pathEntries['caregivers'].value
     caregiverApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       caregiver_id,
       (caregiver) => { this.addField('caregiver', caregiver, this.redrawView) },
       this.onError

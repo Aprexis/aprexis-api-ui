@@ -52,11 +52,11 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
       for_store: searchText
     }
 
-    this.api().search(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), id, onSuccess, onFailure)
   }
 
   helper() {
@@ -74,7 +74,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
     const params = { page: { number: 1, size: 25 }, sort: 'health_plan.name,name' }
     if (!valueHelper.isValue(health_plan_id)) {
       billingContractApi.list(
-        apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()),
+        apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry),
         params,
         nextOperation,
         this.onError
@@ -83,7 +83,7 @@ class SelectBillingContractViewModel extends AbstractSelectAutocompleteViewModel
     }
 
     this.api().listForHealthPlan(
-      apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()),
+      apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry),
       health_plan_id,
       params,
       nextOperation,

@@ -52,11 +52,11 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
       for_store: searchText
     }
 
-    this.api().search(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().search(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), id, onSuccess, onFailure)
   }
 
   helper() {
@@ -74,7 +74,7 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
     const params = { page: { number: 1, size: 25 }, sort: 'name' }
     if (!valueHelper.isValue(user_id)) {
       pharmacyStoreApi.list(
-        apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()),
+        apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry),
         params,
         nextOperation,
         this.onError
@@ -83,7 +83,7 @@ class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
     }
 
     pharmacyStoreApi.listForUser(
-      apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()),
+      apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry),
       user_id,
       params,
       nextOperation,

@@ -57,7 +57,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     }
 
     this.api().buildNewForPatient(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       pharmacyStoreId,
       (labTestValue) => {
@@ -84,7 +84,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
 
   editModal(labTestValueToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       labTestValueToEdit.id,
       (labTestValue) => {
         this.props.launchModal(
@@ -141,6 +141,7 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
+    const { reconnectAndRetry } = this.props
     this.removeField("labTestValueHeaders")
     const { filters, sorting, page } = this.data
     const pathEntries = this.pathEntries()
@@ -165,13 +166,13 @@ class LabTestValuesPageViewModel extends AbstractListPageViewModel {
     function list(api, pathEntries, userCredentials, params, onSuccess, onError) {
       const intervention = pathEntries['interventions']
       if (valueHelper.isValue(intervention)) {
-        api.listForIntervention(apiEnvironmentHelper.apiEnvironment(userCredentials), intervention.value, params, onSuccess, onError)
+        api.listForIntervention(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), intervention.value, params, onSuccess, onError)
         return
       }
 
       const patient = pathEntries['patients']
       if (valueHelper.isValue(patient)) {
-        api.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials), patient.value, params, onSuccess, onError)
+        api.listForPatient(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), patient.value, params, onSuccess, onError)
         return
       }
 

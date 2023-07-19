@@ -84,6 +84,7 @@ class AppointmentModal extends Component {
   }
 
   render() {
+    const { reconnectAndRetry } = this.props
     const { appointment } = this.state
     const pathEntries = this.vm.pathEntries()
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
@@ -127,6 +128,7 @@ class AppointmentModal extends Component {
                     id={appointmentHelper.pharmacyStoreId(appointment)}
                     onChange={this.vm.selectPharmacyStore}
                     readOnly={!appointmentHelper.canModifyField(appointment, "pharmacy_store_id")}
+                    reconnectAndRetry={reconnectAndRetry}
                     required={this.vm.isRequired('pharmacy_store_id')}
                   />
                 }

@@ -17,7 +17,7 @@ class PhysicianProfilePageViewModel extends AbstractPageViewModel {
     const physician_id = pathEntries["physicians"].value
 
     physicianApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       physician_id,
       (physician) => { this.addField("physician", physician, this.redrawView) },
       this.onError

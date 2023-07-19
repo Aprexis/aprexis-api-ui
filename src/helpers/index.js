@@ -1,6 +1,7 @@
 export * from "./history"
 export * from './api_environment.helper'
 export * from "./alert.helper"
+export * from "./authentication.helper"
 export * from "./authorization.helper"
 export * from "./breadcrumbs.helper"
 export * from "./context.helper"

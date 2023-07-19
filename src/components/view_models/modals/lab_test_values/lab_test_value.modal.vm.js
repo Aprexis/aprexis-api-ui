@@ -82,7 +82,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchIntervention(interventionId, nextOperation) {
     interventionApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       interventionId,
       nextOperation,
       this.onError
@@ -91,7 +91,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchLabTest(labTestId, nextOperation) {
     labTestApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       labTestId,
       nextOperation,
       this.onError
@@ -100,7 +100,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       nextOperation,
       this.onError
@@ -109,7 +109,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
     pharmacyStoreApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       pharmacyStoreId,
       nextOperation,
       this.onError
@@ -118,7 +118,7 @@ class LabTestValueModalViewModel extends AbstractModalViewModel {
 
   fetchUser(userId, nextOperation) {
     userApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       userId,
       nextOperation,
       this.onError

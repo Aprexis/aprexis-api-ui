@@ -50,7 +50,7 @@ class HealthPlansPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     healthPlanApi.list(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
       (healthPlans, healthPlanHeaders) => {
         this.addData(

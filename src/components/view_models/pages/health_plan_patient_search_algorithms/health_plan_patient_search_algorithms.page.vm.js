@@ -67,12 +67,12 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
   }
 
   loadHealthPlan(userCredentials, nextOperation) {
-    healthPlanApi.show(apiEnvironmentHelper.apiEnvironment(userCredentials), this.healthPlanId(), nextOperation, this.onError)
+    healthPlanApi.show(apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry), this.healthPlanId(), nextOperation, this.onError)
   }
 
   loadHealthPlanPatientSearchAlgorithms(userCredentials, nextOperation) {
     patientSearchAlgorithmApi.indexForHealthPlan(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       this.healthPlanId(),
       {},
       nextOperation,
@@ -81,7 +81,7 @@ class HealthPlanPatientSearchAlgorithmsPageViewModel extends AbstractListPageVie
   }
 
   loadPatientSearchAlgorithms(userCredentials, nextOperation) {
-    patientSearchAlgorithmApi.legitimate(apiEnvironmentHelper.apiEnvironment(userCredentials), nextOperation, this.onError)
+    patientSearchAlgorithmApi.legitimate(apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry), nextOperation, this.onError)
   }
 
   title() {

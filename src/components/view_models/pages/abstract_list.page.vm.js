@@ -60,13 +60,14 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
   }
 
   fetchList(listMethods, onSuccess, onError) {
+    const { reconnectAndRetry } = this.props
     const userCredentials = userCredentialsHelper.get()
     const { filters, sorting, page } = this.data
     const pathEntries = this.pathEntries()
     const params = { ...filters, ...sorting, page }
 
     if (valueHelper.isFunction(listMethods)) {
-      listMethods(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
+      listMethods(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), params, onSuccess, onError)
       return
     }
 
@@ -83,7 +84,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
       }
     }
     if (blankIdx >= 0) {
-      listMethods[blankIdx].method(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
+      listMethods[blankIdx].method(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), params, onSuccess, onError)
       return
     }
 
@@ -95,7 +96,7 @@ class AbstractListPageViewModel extends AbstractPageViewModel {
         return false
       }
 
-      method(apiEnvironmentHelper.apiEnvironment(userCredentials), model.value, params, onSuccess, onError)
+      method(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), model.value, params, onSuccess, onError)
       return true
     }
   }

@@ -37,7 +37,7 @@ class DocumentsPageViewModel extends AbstractListPageViewModel {
     const healthPlanId = pathHelper.id(pathEntries, "health-plans")
 
     this.api().buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       healthPlanId,
       (document) => {
         this.props.launchModal(
@@ -57,7 +57,7 @@ class DocumentsPageViewModel extends AbstractListPageViewModel {
 
   editModal(documentToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       documentToEdit.id,
       (document) => {
         this.props.launchModal(

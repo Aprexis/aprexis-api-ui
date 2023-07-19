@@ -35,7 +35,7 @@ class App extends Component {
     this.vm.loadData()
   }
 
-  componentDidUnmoutn() {
+  componentWillUnmount() {
     window.onbeforeunload = null
   }
 
@@ -71,6 +71,7 @@ class App extends Component {
           history={history}
           onSignIn={this.vm.signIn}
           onSignOut={this.vm.signOut}
+          reconnectAndRetry={this.vm.reconnectAndRetyr}
         />
 
         <Main
@@ -82,6 +83,7 @@ class App extends Component {
           error={this.vm.error}
           launchModal={this.vm.launchModal}
           modalIsOpen={valueHelper.isValue(modal)}
+          reconnectAndRetry={this.vm.reconnectAndRetry}
         />
 
         <Footer currentUser={currentUser} />
@@ -97,6 +99,7 @@ class App extends Component {
           error={this.vm.error}
           modalClose={this.vm.modalClose}
           modalOpen={this.vm.modalOpen}
+          reconnectAndRetry={this.vm.reconnectAndRetry}
         />
       </div>
     )

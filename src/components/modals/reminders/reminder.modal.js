@@ -146,6 +146,7 @@ const ReminderNewMedication = ({ patient, props, reminder, selectReminderMedicat
       inForm={true}
       patient_id={patientHelper.id(patient)}
       onChange={selectReminderMedication}
+      reconnectAndRetry={props.reconnectAndRetry}
     />
   )
 }
@@ -230,6 +231,7 @@ const ReminderNewSupplement = ({ patient, props, reminder, selectReminderSupplem
       inForm={true}
       patient_id={patientHelper.id(patient)}
       onChange={selectReminderSupplement}
+      reconnectAndRetry={props.reconnectAndRetry}
     />
   )
 }

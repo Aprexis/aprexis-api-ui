@@ -17,7 +17,7 @@ class LabTestProfilePageViewModel extends AbstractPageViewModel {
     const lab_test_id = pathEntries["lab-tests"].value
 
     labTestApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       lab_test_id,
       (labTest) => { this.addField("labTest", labTest, this.redrawView) },
       this.onError

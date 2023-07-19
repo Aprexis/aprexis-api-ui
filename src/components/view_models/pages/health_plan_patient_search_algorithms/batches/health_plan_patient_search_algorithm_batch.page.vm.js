@@ -1,4 +1,3 @@
-import React from 'react'
 import { AbstractPageViewModel } from '../..'
 import { healthPlanPatientSearchAlgorithmHelper, healthPlanPatientSearchStageHelper, patientSearchAlgorithmBatchApi, valueHelper } from '@aprexis/aprexis-api-utility'
 import { apiEnvironmentHelper, listHelper, pathHelper, userCredentialsHelper } from '../../../../../helpers'
@@ -48,7 +47,7 @@ class HealthPlanPatientSearchAlgorithmBatchPageViewModel extends AbstractPageVie
     const patient_search_algorithm_id = pathEntries['patient-search-algorithms'].value
     const batch = pathEntries['batches'].value
     patientSearchAlgorithmBatchApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_search_algorithm_id,
       batch,
       (healthPlanPatientSearchAlgorithmBatch) => { this.addField('healthPlanPatientSearchAlgorithmBatch', healthPlanPatientSearchAlgorithmBatch, this.redrawView) },
