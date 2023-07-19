@@ -46,7 +46,7 @@ const modalList = {
 
 class Modals extends Component {
   render() {
-    const { modalProps, modalName } = this.props
+    const { modalProps, modalName, reconnectAndRetry } = this.props
 
     if (!valueHelper.isValue(modalName)) {
       return (<React.Fragment />)
@@ -62,7 +62,7 @@ class Modals extends Component {
     }
 
     return (
-      <Modal {...this.props} {...modalProps} date={new Date()} />
+      <Modal {...this.props} {...modalProps} date={new Date()} reconnectAndRetry={reconnectAndRetry} />
     )
   }
 }

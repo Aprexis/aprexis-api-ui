@@ -30,7 +30,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
   buildNewAllDayAppointment(date, nextOperation) {
     const userId = pathHelper.id(this.pathEntries(), "users")
     appointmentApi.buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       userId,
       { allDay: true, scheduled_at: date, duration: 24 * 60 },
       nextOperation,
@@ -43,7 +43,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
     const scheduledAt = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute)
 
     appointmentApi.buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       userId,
       { scheduled_at: scheduledAt, duration },
       nextOperation,
@@ -108,7 +108,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
 
   deleteAppointment(appointment) {
     appointmentApi.destroy(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       appointmentHelper.id(appointment),
       this.refreshData,
       this.onError
@@ -124,7 +124,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
 
   fetchAppointment(appointment, nextOperation) {
     appointmentApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       appointmentHelper.id(appointment),
       nextOperation,
       this.onError
@@ -146,6 +146,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
   }
 
   refreshData() {
+    const { reconnectAndRetry } = this.props
     const pathEntries = this.pathEntries()
     const fetchAppointmentsList = () => {
       fetchAppointments(this.fetchList, this.addData, this.redrawView, this.onError)
@@ -183,7 +184,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
 
     function fetchPharmacyStore(pathEntries, addField, nextOperation, onError) {
       pharmacyStoreApi.profile(
-        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), reconnectAndRetry),
         pathHelper.id(pathEntries, "pharmacy_stores"),
         (pharmacyStore) => {
           addField("pharmacyStores", addIdentificationToPharmacyStores([pharmacyStore]), nextOperation)
@@ -206,7 +207,7 @@ class AppointmentsPageViewModel extends AbstractListPageViewModel {
       }
 
       pharmacyStoreApi.listForUser(
-        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+        apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), reconnectAndRetry),
         userId,
         { sort: "name,store_number" },
         (pharmacyStores) => {

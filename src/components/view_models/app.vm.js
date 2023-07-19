@@ -3,6 +3,7 @@ import { authenticationApi, userApi, valueHelper } from '@aprexis/aprexis-api-ut
 import {
   alertHelper,
   apiEnvironmentHelper,
+  authenticationHelper,
   contextHelper,
   pathHelper,
   userCredentialsHelper
@@ -35,10 +36,11 @@ class AppViewModel extends AbstractViewModel {
     this.loadData = this.loadData.bind(this)
     this.modalClose = this.modalClose.bind(this)
     this.modalOpen = this.modalOpen.bind(this)
+    this.reconnectAndRetry = this.reconnectAndRetry.bind(this)
     this.selectCurrentUser = this.selectCurrentUser.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
-    this.signOutError = this.signOutError.bind(this)
+    this.startForUser = this.startForUser.bind(this)
 
     this.props = {
       ...this.props,
@@ -58,7 +60,7 @@ class AppViewModel extends AbstractViewModel {
     }
 
     userApi.actAs(
-      apiEnvironmentHelper.apiEnvironment(adminCredentials),
+      apiEnvironmentHelper.apiEnvironment(adminCredentials, this.reconnectAndRetry),
       value,
       this.selectCurrentUser,
       this.onError
@@ -91,7 +93,7 @@ class AppViewModel extends AbstractViewModel {
     }
 
     userApi.account(
-      apiEnvironmentHelper.apiEnvironment(adminCredentials),
+      apiEnvironmentHelper.apiEnvironment(adminCredentials, this.reconnectAndRetry),
       adminCredentials.user_id,
       (currentAdminUser) => {
         this.addField("currentAdminUser", currentAdminUser, nextOperation)
@@ -108,7 +110,7 @@ class AppViewModel extends AbstractViewModel {
     }
 
     userApi.account(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.reconnectAndRetry),
       userCredentials.user_id,
       (currentUser) => {
         this.addField("currentUser", currentUser, nextOperation)
@@ -183,13 +185,14 @@ class AppViewModel extends AbstractViewModel {
   }
 
   loadContext(nextOperation) {
-    contextHelper.updateContext(nextOperation)
+    contextHelper.updateContext(this.reconnectAndRetry, nextOperation)
   }
 
   loadData() {
-    let dataToKeep = ['lastLocation', 'modal']
-    if (window.location.pathname != this.data.lastLocation) {
-      dataToKeep = ['lastLocation']
+    let dataToKeep = ['lastLocation']
+    if (window.location.pathname == this.data.lastLocation) {
+      dataToKeep.push('modal')
+    } else {
       this.addField('lastLocation', window.location.pathname)
     }
     this.clearData(false, dataToKeep)
@@ -217,6 +220,121 @@ class AppViewModel extends AbstractViewModel {
     this.addField("modalIsOpen", true, () => { this.redrawView(nextOperation) })
   }
 
+  reconnectAndRetry(error, workingCredentials, retryAfterReconnect) {
+    const { onError } = this
+    const { username, password } = userCredentialsHelper.getUsernamePassword()
+    if (!valueHelper.isStringValue(username) || !valueHelper.isStringValue(password)) {
+      onError(error)
+      return
+    }
+    if (alreadyUpdatedOrUpdating()) {
+      return
+    }
+
+    signinAndRetry()
+
+    function alreadyUpdatedOrUpdating() {
+      const state = userCredentialsHelper.getStatus()
+      if (!valueHelper.isValue(state)) {
+        return false
+      }
+
+      switch (state.status) {
+        case 'reconnected':
+          if (Date.now() - state.at > 5 * 1000) {
+            return false
+          }
+          reconnectedRetry()
+          return true
+
+        case 'reconnecting':
+          reconnectingRetry()
+          return true
+
+        default:
+          return false
+      }
+    }
+
+    function reconnectedRetry() {
+      const userCredentials = userCredentialsHelper.get()
+      if (userCredentials.user_id == workingCredentials.user_id) {
+        retryAfterReconnect(userCredentials)
+        return
+      }
+
+      const adminCredentials = userCredentialsHelper.getAdmin()
+      retryAfterReconnect(adminCredentials)
+    }
+
+    function reconnectingRetry() {
+      const timeout = setTimeout(
+        () => {
+          const state = userCredentialsHelper.getStatus()
+
+          if (valueHelper.isValue(state) && state.status == 'reconnected') {
+            clearTimeout(timeout)
+            reconnectedRetry()
+          }
+        },
+        100
+      )
+
+      return
+    }
+
+    function signinAndRetry() {
+      userCredentialsHelper.setStatus('reconnecting')
+      const uuid = authenticationHelper.makeUuid()
+
+      authenticationApi.signIn(
+        apiEnvironmentHelper.apiEnvironment(),
+        username,
+        password,
+        uuid,
+        (userCredentials) => {
+          reconnectActAsAndRetry(userCredentials)
+        },
+        onError
+      )
+    }
+
+    function reconnectActAsAndRetry(newCredentials) {
+      const existingAdminCredentials = userCredentialsHelper.getAdmin()
+      const existingCredentials = userCredentialsHelper.get()
+
+      if (existingCredentials.user_id != newCredentials.user_id) {
+        userCredentialsHelper.setAdmin(newCredentials)
+        userApi.actAs(
+          apiEnvironmentHelper.apiEnvironment(newCredentials),
+          existingCredentials.id,
+          actingAsUser,
+          onError
+        )
+        return
+      }
+
+      if (valueHelper.isValue(existingAdminCredentials)) {
+        userCredentialsHelper.setAdmin(newCredentials)
+      }
+      userCredentialsHelper.set(newCredentials)
+      userCredentialsHelper.setStatus('reconnected')
+
+      if (valueHelper.isFunction(retryAfterReconnect)) {
+        retryAfterReconnect(newCredentials)
+      }
+
+      function actingAsUser(userCredentials) {
+        userCredentialsHelper.set(userCredentials)
+        userCredentialsHelper.setStatus('reconnected')
+
+        if (valueHelper.isFunction(retryAfterReconnect)) {
+          retryAfterReconnect(workingCredentials.user_id == newCredentials.user_id ? newCredentials : userCredentials)
+        }
+      }
+    }
+  }
+
   selectCurrentUser(userCredentials) {
     const adminCredentials = userCredentialsHelper.getAdmin()
 
@@ -227,7 +345,7 @@ class AppViewModel extends AbstractViewModel {
   }
 
   signIn() {
-    this.launchModal("sign-in", { modalProps: { updateView: this.home } })
+    this.launchModal("sign-in", { modalProps: { updateView: this.startForUser } })
     alertHelper.clear()
   }
 
@@ -235,12 +353,12 @@ class AppViewModel extends AbstractViewModel {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.remove()
-    authenticationApi.signOut(apiEnvironmentHelper.apiEnvironment(userCredentials), this.home, this.signOutError)
+    authenticationApi.signOut(apiEnvironmentHelper.apiEnvironment(userCredentials), this.home, this.home)
   }
 
-  signOutError(error) {
-    console.log(`Error: ${JSON.stringify(error)}`)
-    // Look for expired message. Complete the logout in that case.
+  startForUser(username, password) {
+    userCredentialsHelper.setUsernamePassword(username, password)
+    this.home()
   }
 }
 

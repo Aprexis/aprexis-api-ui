@@ -44,7 +44,7 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
     pharmacyStoreApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       pharmacyStoreId,
       nextOperation,
       this.onError
@@ -53,7 +53,7 @@ class AppointmentModalViewModel extends AbstractModalViewModel {
 
   fetchUser(userId, nextOperation) {
     userApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       userId,
       nextOperation,
       this.onError

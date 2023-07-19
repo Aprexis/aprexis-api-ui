@@ -32,7 +32,7 @@ class AnswersPageViewModel extends AbstractListPageViewModel {
 
   editModal(answerToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       answerToEdit.id,
       (answer) => {
         this.props.launchModal(

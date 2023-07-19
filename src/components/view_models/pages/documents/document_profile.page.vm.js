@@ -20,12 +20,12 @@ class DocumentProfilePageViewModel extends AbstractPageViewModel {
   download() {
     const { document } = this.data
 
-    this.api().download(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()), this.helper().id(document), this.redrawView, this.onError)
+    this.api().download(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry), this.helper().id(document), this.redrawView, this.onError)
   }
 
   editProfileModal(documentToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       this.helper().id(documentToEdit),
       (document) => {
         this.props.launchModal(
@@ -52,7 +52,7 @@ class DocumentProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const document_id = pathEntries['documents'].value
     this.api().profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       document_id,
       (document) => { this.addField('document', document, this.redrawView) },
       this.onError

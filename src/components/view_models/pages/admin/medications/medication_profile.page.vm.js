@@ -17,7 +17,7 @@ class MedicationProfilePageViewModel extends AbstractPageViewModel {
     const medication_id = pathEntries["medications"].value
 
     medicationApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       medication_id,
       (medication) => { this.addField("medication", medication, this.redrawView) },
       this.onError

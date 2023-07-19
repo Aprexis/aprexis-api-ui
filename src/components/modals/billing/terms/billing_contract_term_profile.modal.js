@@ -27,6 +27,7 @@ class BillingContractTermProfileModal extends Component {
   }
 
   render() {
+    const { reconnectAndRetry } = this.props
     const { billingContractTerm } = this.state
     const pathEntries = this.vm.pathEntries()
     const billingContractId = pathHelper.id(pathEntries, "billing-contracts")
@@ -55,6 +56,7 @@ class BillingContractTermProfileModal extends Component {
                         "contract_id"
                       )
                     }
+                    reconnectAndRetry={reconnectAndRetry}
                   />
                 }
 

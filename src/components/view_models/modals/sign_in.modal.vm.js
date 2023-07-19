@@ -1,6 +1,5 @@
 import { authenticationApi, valueHelper } from '@aprexis/aprexis-api-utility'
-import { v4 as uuidv4, v5 as uuidv5 } from 'uuid'
-import { alertHelper, apiEnvironmentHelper, userCredentialsHelper } from '../../../helpers'
+import { alertHelper, apiEnvironmentHelper, authenticationHelper, userCredentialsHelper } from '../../../helpers'
 import { AbstractModalViewModel } from './'
 
 class SignInModalViewModel extends AbstractModalViewModel {
@@ -44,16 +43,16 @@ class SignInModalViewModel extends AbstractModalViewModel {
   submitModal() {
     const { updateView } = this.props
     const { username, password } = this.data
-    const uuid = makeUuid()
+    const uuid = authenticationHelper.makeUuid()
 
-    this.signIn(username, password, uuid, () => { this.toggleModal(updateView) })
-
-    function makeUuid() {
-      const nameSpace = "6fb78d24-34bb-489e-8459-2928fe5a7921"
-      const application = 'aprexis-api-ui'
-
-      return `${uuidv5(application, nameSpace)}-${uuidv4()}`
-    }
+    this.signIn(
+      username,
+      password,
+      uuid,
+      () => {
+        this.toggleModal(() => { updateView(username, password) })
+      }
+    )
   }
 }
 

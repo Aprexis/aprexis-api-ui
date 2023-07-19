@@ -17,7 +17,7 @@ class DiseaseProfilePageViewModel extends AbstractPageViewModel {
     const disease_id = pathEntries["diseases"].value
 
     diseaseApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       disease_id,
       (disease) => { this.addField("disease", disease, this.redrawView) },
       this.onError

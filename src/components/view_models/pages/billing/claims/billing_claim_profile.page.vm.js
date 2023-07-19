@@ -13,7 +13,7 @@ class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
 
   editModal(billingClaimToEdit) {
     billingClaimApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingClaimHelper.id(billingClaimToEdit),
       (billingClaim) => {
         this.props.launchModal(
@@ -34,7 +34,7 @@ class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const billing_Claim_id = pathEntries['billing-claims'].value
     billingClaimApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       billing_Claim_id,
       (billingClaim) => { this.addField('billingClaim', billingClaim, this.redrawView) },
       this.onError

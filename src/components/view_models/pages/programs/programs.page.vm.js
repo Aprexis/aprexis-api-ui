@@ -53,7 +53,7 @@ class ProgramsPageViewModel extends AbstractListPageViewModel {
 
     list(
       pathEntries,
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
       (programs, programHeaders) => {
         this.addData(

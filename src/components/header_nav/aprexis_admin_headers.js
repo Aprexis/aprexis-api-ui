@@ -18,6 +18,7 @@ class AprexisAdminHeaders extends Component {
         fieldLabel='Act As'
         id={userHelper.id(currentUser)}
         onChange={selectActAs}
+        reconnectAndRetry={this.props.reconnectAndRetry}
         tableDisplayProps={['fullName', 'username', 'displayRole']}
       />
     )

@@ -45,6 +45,7 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
+    const { reconnectAndRetry } = this.props
     this.removeField("pharmacyStoreHeaders")
     const { filters, sorting, page } = this.data
     const pathEntries = this.pathEntries()
@@ -69,11 +70,11 @@ class PharmacyStoresPageViewModel extends AbstractListPageViewModel {
       const pharmacyChain = pathEntries['pharmacy-chains']
 
       if (valueHelper.isValue(pharmacyChain)) {
-        pharmacyStoreApi.listForPharmacyChain(apiEnvironmentHelper.apiEnvironment(userCredentials), pharmacyChain.value, params, onSuccess, onError)
+        pharmacyStoreApi.listForPharmacyChain(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), pharmacyChain.value, params, onSuccess, onError)
         return
       }
 
-      pharmacyStoreApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials), params, onSuccess, onError)
+      pharmacyStoreApi.list(apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry), params, onSuccess, onError)
     }
   }
 

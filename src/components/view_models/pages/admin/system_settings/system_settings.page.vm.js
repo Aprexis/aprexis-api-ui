@@ -59,7 +59,7 @@ class SystemSettingsPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     this.api().index(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
       (systemSettings, systemSettingHeaders) => {
         this.addData(

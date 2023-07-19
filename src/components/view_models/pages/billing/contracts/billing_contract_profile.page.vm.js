@@ -13,7 +13,7 @@ class BillingContractProfilePageViewModel extends AbstractPageViewModel {
 
   editModal(billingContractToEdit) {
     billingContractApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractHelper.id(billingContractToEdit),
       (billingContract) => {
         this.props.launchModal(
@@ -34,7 +34,7 @@ class BillingContractProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const billing_contract_id = pathEntries['billing-contracts'].value
     billingContractApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       billing_contract_id,
       (billingContract) => { this.addField('billingContract', billingContract, this.redrawView) },
       this.onError

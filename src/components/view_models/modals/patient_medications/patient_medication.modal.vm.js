@@ -43,7 +43,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchMedication(medicationId, nextOperation) {
     medicationApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       medicationId,
       nextOperation,
       this.onError
@@ -52,7 +52,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchPatient(patientId, nextOperation) {
     patientApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       nextOperation,
       this.onError
@@ -61,7 +61,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacyStore(pharmacyStoreId, nextOperation) {
     pharmacyStoreApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       pharmacyStoreId,
       nextOperation,
       this.onError
@@ -70,7 +70,7 @@ class PatientMedicationModalViewModel extends AbstractModalViewModel {
 
   fetchPhysician(physicianId, nextOperation) {
     physicianApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       physicianId,
       nextOperation,
       this.onError

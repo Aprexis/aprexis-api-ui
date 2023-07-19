@@ -49,7 +49,7 @@ class DiseasesPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     diseaseApi.index(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
       (diseases, diseaseHeaders) => {
         this.addData(

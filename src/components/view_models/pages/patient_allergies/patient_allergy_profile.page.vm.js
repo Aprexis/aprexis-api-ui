@@ -12,7 +12,7 @@ class PatientAllergyProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(patientAllergyToEdit) {
     patientAllergyApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientAllergyHelper.id(patientAllergyToEdit),
       (patientAllergy) => {
         this.props.launchModal(
@@ -35,7 +35,7 @@ class PatientAllergyProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_allergy_id = pathEntries['patient-allergies'].value
     patientAllergyApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_allergy_id,
       (patientAllergy) => { this.addField('patientAllergy', patientAllergy, this.redrawView) },
       this.onError

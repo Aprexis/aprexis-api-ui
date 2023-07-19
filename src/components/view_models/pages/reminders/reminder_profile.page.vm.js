@@ -12,7 +12,7 @@ class ReminderProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(reminderToEdit) {
     reminderApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       reminderHelper.id(reminderToEdit),
       (reminder) => {
         this.props.launchModal(
@@ -35,7 +35,7 @@ class ReminderProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const reminder_id = pathEntries['reminders'].value
     reminderApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       reminder_id,
       (reminder) => { this.addField('reminder', reminder, this.redrawView) },
       this.onError

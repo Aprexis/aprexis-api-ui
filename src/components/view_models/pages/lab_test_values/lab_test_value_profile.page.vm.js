@@ -18,7 +18,7 @@ class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(labTestValueToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       this.helper().id(labTestValueToEdit),
       (labTestValue) => {
         this.props.launchModal(
@@ -45,7 +45,7 @@ class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const lab_test_value_id = pathEntries['lab-test-values'].value
     this.api().profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       lab_test_value_id,
       (labTestValue) => { this.addField('labTestValue', labTestValue, this.redrawView) },
       this.onError

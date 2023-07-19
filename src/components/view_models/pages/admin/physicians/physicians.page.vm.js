@@ -50,7 +50,7 @@ class PhysiciansPageViewModel extends AbstractListPageViewModel {
     const { filters, sorting, page } = this.data
 
     physicianApi.list(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
       (physicians, physicianHeaders) => {
         this.addData(

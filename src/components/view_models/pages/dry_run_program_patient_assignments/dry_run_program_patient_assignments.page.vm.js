@@ -79,7 +79,7 @@ class DryRunProgramPatientAssignmentsPageViewModel extends AbstractListPageViewM
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("dryRunProgramPatientAssignmentHeaders")
-    const apiCredentials = apiEnvironmentHelper.apiEnvironment(userCredentials)
+    const apiCredentials = apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry)
     const { parentType, parentId } = this.parentId()
     const { filters, sorting, page } = this.data
 

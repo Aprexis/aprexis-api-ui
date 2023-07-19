@@ -64,7 +64,7 @@ class AbstractViewModel {
 
   create(changedModel, nextOperation) {
     this.api().create(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin(), this.props.reconnectAndRetry),
       changedModel,
       nextOperation,
       this.onError
@@ -73,7 +73,7 @@ class AbstractViewModel {
 
   destroy(model, nextOperation) {
     this.api().destroy(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin(), this.props.reconnectAndRetry),
       this.helper().id(model),
       nextOperation,
       this.onError
@@ -204,7 +204,7 @@ class AbstractViewModel {
 
   update(changedModel, nextOperation) {
     this.api().update(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin(), this.props.reconnectAndRetry),
       changedModel,
       nextOperation,
       this.onError

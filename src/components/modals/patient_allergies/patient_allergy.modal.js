@@ -26,6 +26,7 @@ class PatientAllergyModal extends Component {
   }
 
   render() {
+    const { reconnectAndRetry } = this.props
     const { patientAllergy } = this.state
 
     return (
@@ -68,6 +69,7 @@ class PatientAllergyModal extends Component {
                   minSearchLength={this.vm.minSearchLength()}
                   onChange={this.vm.selectGoldStandardAllergy}
                   readOnly={!patientAllergyHelper.canModifyField(patientAllergy, "gold_standard_allergy_id")}
+                  reconnectAndRetry={reconnectAndRetry}
                 />
 
                 <FormGroup row>

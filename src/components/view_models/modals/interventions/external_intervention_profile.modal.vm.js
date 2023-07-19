@@ -89,7 +89,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
 
   create(changedModel) {
     this.api().createExternal(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin(), this.props.reconnectAndRetry),
       changedModel,
       () => { this.toggleModal(this.props.onUpdateView) },
       this.onError
@@ -102,7 +102,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
 
   fetchCaregiver(caregiverId, nextOperation) {
     caregiverApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       caregiverId,
       nextOperation,
       this.onError
@@ -111,7 +111,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
 
   fetchDiagnosisCode(diagnosisCodeId, nextOperation) {
     diagnosisCodeApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       diagnosisCodeId,
       nextOperation,
       this.onError
@@ -120,7 +120,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
 
   fetchPharmacist(pharmacistId, nextOperation) {
     userApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       pharmacistId,
       nextOperation,
       this.onError
@@ -143,7 +143,7 @@ class ExternalInterventionProfileModalViewModel extends AbstractModalViewModel {
 
   loadPlacesOfService(onSuccess) {
     placeOfServiceApi.index(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.getAdmin(), this.props.reconnectAndRetry),
       { sort: 'name' },
       (placesOfService) => { this.addData({ placesOfService }, onSuccess) },
       this.onError

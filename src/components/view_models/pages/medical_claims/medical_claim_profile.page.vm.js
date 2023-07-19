@@ -16,7 +16,7 @@ class MedicalClaimProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_allergy_id = pathEntries['medical-claims'].value
     medicalClaimApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_allergy_id,
       (medicalClaim) => { this.addField('medicalClaim', medicalClaim, this.redrawView) },
       this.onError

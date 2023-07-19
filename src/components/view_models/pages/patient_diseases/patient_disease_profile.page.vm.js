@@ -12,7 +12,7 @@ class PatientDiseaseProfilePageViewModel extends AbstractPageViewModel {
 
   editProfileModal(patientDiseaseToEdit) {
     patientDiseaseApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientDiseaseHelper.id(patientDiseaseToEdit),
       (patientDisease) => {
         this.props.launchModal(
@@ -35,7 +35,7 @@ class PatientDiseaseProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_disease_id = pathEntries['patient-diseases'].value
     patientDiseaseApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_disease_id,
       (patientDisease) => { this.addField('patientDisease', patientDisease, this.redrawView) },
       this.onError

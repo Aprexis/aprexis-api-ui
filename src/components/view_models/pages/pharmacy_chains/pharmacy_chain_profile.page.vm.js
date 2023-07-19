@@ -16,7 +16,7 @@ class PharmacyChainProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const pharmacy_chain_id = pathEntries['pharmacy-chains'].value
     pharmacyChainApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       pharmacy_chain_id,
       (pharmacyChain) => { this.addField('pharmacyChain', pharmacyChain, this.redrawView) },
       this.onError

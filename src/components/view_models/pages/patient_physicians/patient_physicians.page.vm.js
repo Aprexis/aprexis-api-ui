@@ -49,7 +49,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       {},
       (patientPhysician) => {
@@ -71,7 +71,7 @@ class PatientPhysiciansPageViewModel extends AbstractListPageViewModel {
 
   editModal(patientPhysicianToEdit) {
     patientPhysicianApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientPhysicianToEdit.id,
       (patientPhysician) => {
         this.props.launchModal(

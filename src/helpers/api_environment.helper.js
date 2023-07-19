@@ -19,6 +19,6 @@ function apiPath() {
   }
 }
 
-function apiEnvironment(userCredentials) {
-  return { ...apiPathValues, userCredentials }
+function apiEnvironment(userCredentials, reconnectAndRetry) {
+  return { ...apiPathValues, reconnectAndRetry, userCredentials }
 }

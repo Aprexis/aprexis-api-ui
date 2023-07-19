@@ -26,6 +26,7 @@ class PatientPhysicianModal extends Component {
   }
 
   render() {
+    const { reconnectAndRetry } = this.props
     const { patientPhysician } = this.state
 
     return (
@@ -46,6 +47,7 @@ class PatientPhysicianModal extends Component {
                   id={patientPhysicianHelper.physicianId(patientPhysician)}
                   onChange={this.vm.selectPhysician}
                   readOnly={!patientPhysicianHelper.canModifyField(patientPhysician, "physician_id")}
+                  reconnectAndRetry={reconnectAndRetry}
                 />
 
                 <FormGroup row>

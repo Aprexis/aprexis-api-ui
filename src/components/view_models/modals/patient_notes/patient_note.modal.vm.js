@@ -27,7 +27,7 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
     }
 
     patientApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       (patient) => { this.addField("patient", patient, nextOperation) },
       this.onError
@@ -42,7 +42,7 @@ class PatientNoteModalViewModel extends AbstractModalViewModel {
     }
 
     pharmacyStoreApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       pharmacyStoreId,
       (pharmacyStore) => { this.addField("pharmacyStore", pharmacyStore, nextOperation) },
       this.onError

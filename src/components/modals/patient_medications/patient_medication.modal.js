@@ -35,6 +35,7 @@ class PatientMedicationModal extends Component {
   }
 
   render() {
+    const { reconnectAndRetry } = this.props
     const pathEntries = this.vm.pathEntries()
     const patientId = pathHelper.id(pathEntries, "patients")
     const pharmacyStoreId = pathHelper.id(pathEntries, "pharmacy-stores")
@@ -69,6 +70,7 @@ class PatientMedicationModal extends Component {
                     id={patientMedicationHelper.pharmacyStoreId(patientMedication)}
                     onChange={this.vm.selectPharmacyStore}
                     readOnly={!patientMedicationHelper.canModifyField(patientMedication, "pharmacy_store_id")}
+                    reconnectAndRetry={reconnectAndRetry}
                   />
                 }
 
@@ -80,6 +82,7 @@ class PatientMedicationModal extends Component {
                   id={patientMedicationHelper.physicianId(patientMedication)}
                   onChange={this.vm.selectPhysician}
                   readOnly={!patientMedicationHelper.canModifyField(patientMedication, "physician_id")}
+                  reconnectAndRetry={reconnectAndRetry}
                 />
 
                 <SelectMedication
@@ -90,6 +93,7 @@ class PatientMedicationModal extends Component {
                   id={patientMedicationHelper.medicationId(patientMedication)}
                   onChange={this.vm.selectMedication}
                   readOnly={!patientMedicationHelper.canModifyField(patientMedication, "medication_id")}
+                  reconnectAndRetry={reconnectAndRetry}
                 />
 
                 <FormGroup row>

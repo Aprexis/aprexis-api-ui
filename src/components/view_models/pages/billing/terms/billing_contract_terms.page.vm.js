@@ -28,7 +28,7 @@ class BillingContractTermsPageViewModel extends AbstractListPageViewModel {
 
   editProfileModal(billingContractTermToEdit) {
     billingContractTermApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractTermToEdit.id,
       (billingContractTerm) => {
         this.props.launchModal(

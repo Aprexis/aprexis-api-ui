@@ -31,7 +31,7 @@ class BillingContractPharmacyChainModalViewModel extends AbstractModalViewModel 
 
   fetchPharmacyChain(pharmacy_id, nextOperation) {
     pharmacyChainApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       pharmacy_id,
       nextOperation,
       this.onError

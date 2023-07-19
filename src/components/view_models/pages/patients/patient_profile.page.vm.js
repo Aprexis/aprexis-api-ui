@@ -33,7 +33,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
     const pathEntries = this.pathEntries()
     const patient_id = pathEntries['patients'].value
     patientApi.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_id,
       (patient) => { this.addField('patient', patient, nextOperation) },
       this.onError
@@ -42,7 +42,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
 
   launchEditModal(patientToEdit, modalType, operation) {
     patientApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientHelper.id(patientToEdit),
       (patient) => {
         this.props.launchModal(

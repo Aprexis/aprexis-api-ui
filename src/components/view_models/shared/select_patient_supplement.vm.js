@@ -30,11 +30,11 @@ class SelectPatientSupplementViewModel extends AbstractSelectAutocompleteViewMod
       for_supplement: searchText
     }
 
-    this.api().searchForPatient(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
+    this.api().searchForPatient(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), this.props.patient_id, { ...filters, ...sorting }, onSuccess, onFailure)
   }
 
   fetchModel(id, onSuccess, onFailure) {
-    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials()), id, onSuccess, onFailure)
+    this.api().show(apiEnvironmentHelper.apiEnvironment(this.getUserCredentials(), this.props.reconnectAndRetry), id, onSuccess, onFailure)
   }
 
   helper() {

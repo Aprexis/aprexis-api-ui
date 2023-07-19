@@ -6,9 +6,15 @@ export const userCredentialsHelper = {
   actAs,
   get,
   getAdmin,
+  getStatus,
+  getUsernamePassword,
   remove,
+  removeStatus,
+  removeUsernamePassword,
   set,
-  setAdmin
+  setAdmin,
+  setStatus,
+  setUsernamePassword
 }
 
 const mySecretKey = process.env.REACT_APP_APREXIS_KEY
@@ -48,7 +54,12 @@ function decode(cipherText) {
   }
 
   const bytes = CryptoJS.AES.decrypt(cipherText, mySecretKey);
-  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  const json = bytes.toString(CryptoJS.enc.Utf8)
+  if (!valueHelper.isStringValue(json)) {
+    return
+  }
+
+  return JSON.parse(json);
 }
 
 function encode(credentials) {
@@ -78,6 +89,24 @@ function getAdmin() {
   return decode(adminCipherText)
 }
 
+function getStatus() {
+  const credentialsStateCypherText = sessionStorage.getItem("aprexis-credentials-state")
+  if (!valueHelper.isValue(credentialsStateCypherText)) {
+    return { at: Date.now(), status: "" }
+  }
+
+  const state = decode(credentialsStateCypherText)
+  if (!valueHelper.isValue(state)) {
+    return { at: Date.now(), status: "" }
+  }
+
+  return state
+}
+
+function getUsernamePassword() {
+  return decode(sessionStorage.getItem("aprexis-username-password"))
+}
+
 function remove() {
   let credentials = userCredentialsHelper.getAdmin()
   if (!valueHelper.isValue(credentials)) {
@@ -94,6 +123,14 @@ function remove() {
   }
 }
 
+function removeStatus() {
+  sessionStorage.removeItem("aprexis-credentials-state")
+}
+
+function removeUsernamePassword() {
+  sessionStorage.removeItem("aprexis-username-password")
+}
+
 function set(userCredentials) {
   sessionStorage.setItem("aprexis-user-credentials", encode(userCredentials))
   requestRefreshCredentials(userCredentials, 'user', userCredentialsHelper.get, userCredentialsHelper.set)
@@ -104,3 +141,12 @@ function setAdmin(adminCredentials) {
   requestRefreshCredentials(adminCredentials, 'admin', userCredentialsHelper.getAdmin, userCredentialsHelper.setAdmin)
 }
 
+function setStatus(status) {
+  const credentialsState = { at: Date.now(), status }
+
+  sessionStorage.setItem("aprexis-credentials-state", encode(credentialsState))
+}
+
+function setUsernamePassword(username, password) {
+  sessionStorage.setItem("aprexis-username-password", encode({ username, password }))
+}

@@ -49,7 +49,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
     const patientId = pathHelper.id(pathEntries, "patients")
 
     this.api().buildNew(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientId,
       (patientAllergy) => {
         this.props.launchModal(
@@ -69,7 +69,7 @@ class PatientAllergiesPageViewModel extends AbstractListPageViewModel {
 
   editModal(patientAllergyToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       patientAllergyToEdit.id,
       (patientAllergy) => {
         this.props.launchModal(

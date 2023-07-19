@@ -43,7 +43,7 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
     const contractId = pathHelper.id(pathEntries, "billing-contracts")
 
     billingContractPharmacyChainApi.buildNewForBillingContract(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       contractId,
       (billingContractPharmacyChain) => {
         this.props.launchModal(
@@ -63,7 +63,7 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
 
   editModal(billingContractPharmacyChainToEdit) {
     billingContractPharmacyChainApi.edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billingContractPharmacyChainToEdit.id,
       (billingContractPharmacyChain) => {
         this.props.launchModal(
@@ -87,7 +87,7 @@ class BillingContractPharmacyChainsPageViewModel extends AbstractListPageViewMod
     }
 
     billingContractApi.profile(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       billing_contract_id,
       (billingContract) => {
         this.addData({ billingContract }, nextOperation)

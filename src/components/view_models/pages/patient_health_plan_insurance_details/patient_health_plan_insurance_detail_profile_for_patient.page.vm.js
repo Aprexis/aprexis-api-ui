@@ -19,7 +19,7 @@ class PatientHealthPlanInsuranceDetailProfileForPatientPageViewModel extends Abs
   /*
   editProfileModal(patientHealthPlanInsuranceDetailToEdit) {
     this.api().edit(
-      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get()),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       this.helper().id(patientHealthPlanInsuranceDetailToEdit),
       (patientHealthPlanInsuranceDetail) => {
         this.props.launchModal(
@@ -47,7 +47,7 @@ class PatientHealthPlanInsuranceDetailProfileForPatientPageViewModel extends Abs
     const pathEntries = this.pathEntries()
     const patient_id = pathEntries['patients'].value
     this.api().profileForPatient(
-      apiEnvironmentHelper.apiEnvironment(userCredentials),
+      apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_id,
       (patientHealthPlanInsuranceDetail) => {
         this.addField('patientHealthPlanInsuranceDetail', patientHealthPlanInsuranceDetail, this.redrawView)
