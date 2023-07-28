@@ -55,6 +55,11 @@ const sidebarDescriptions = {
     entryLabel: "Caregriver",
     entryName: "caregivers"
   },
+  "condition-medications": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Condition Medication",
+    entryName: "condition-medications"
+  },
   "diagnosis-codes": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Diagnosis Code",

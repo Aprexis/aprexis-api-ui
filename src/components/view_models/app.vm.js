@@ -20,6 +20,7 @@ class AppViewModel extends AbstractViewModel {
     this.getCurrentUser = this.getCurrentUser.bind(this)
     this.gotoAccount = this.gotoAccount.bind(this)
     this.gotoBillingClaimHistoryCollectionsPage = this.gotoBillingClaimHistoryCollectionsPage.bind(this)
+    this.gotoConditionMedicationsPage = this.gotoConditionMedicationsPage.bind(this)
     this.gotoDiagnosisCodesPage = this.gotoDiagnosisCodesPage.bind(this)
     this.gotoDiseasesPage = this.gotoDiseasesPage.bind(this)
     this.gotoHealthPlansPage = this.gotoHealthPlansPage.bind(this)
@@ -128,6 +129,9 @@ class AppViewModel extends AbstractViewModel {
     pathHelper.gotoPage(["admin", "billing-claim-history-collections"])
   }
 
+  gotoConditionMedicationsPage() {
+    pathHelper.gotoPage(["admin", "condition-medications"])
+  }
 
   gotoDiagnosisCodesPage() {
     pathHelper.gotoPage(["admin", "diagnosis-codes"])

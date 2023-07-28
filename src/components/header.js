@@ -64,6 +64,7 @@ class Header extends Component {
                   <AdminHeaders
                     currentUser={currentUser}
                     gotoBillingClaimHistoryCollectionsPage={this.props.gotoBillingClaimHistoryCollectionsPage}
+                    gotoConditionMedicationsPage={this.props.gotoConditionMedicationsPage}
                     gotoDiagnosisCodesPage={this.props.gotoDiagnosisCodesPage}
                     gotoDiseasesPage={this.props.gotoDiseasesPage}
                     gotoLabTestsPage={this.props.gotoLabTestsPage}

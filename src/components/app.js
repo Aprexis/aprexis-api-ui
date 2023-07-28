@@ -58,6 +58,7 @@ class App extends Component {
           currentUser={currentUser}
           gotoAccount={this.vm.gotoAccount}
           gotoBillingClaimHistoryCollectionsPage={this.vm.gotoBillingClaimHistoryCollectionsPage}
+          gotoConditionMedicationsPage={this.vm.gotoConditionMedicationsPage}
           gotoDiagnosisCodesPage={this.vm.gotoDiagnosisCodesPage}
           gotoDiseasesPage={this.vm.gotoDiseasesPage}
           gotoHealthPlansPage={this.vm.gotoHealthPlansPage}

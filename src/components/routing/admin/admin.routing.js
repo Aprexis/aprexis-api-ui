@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { BillingClaimHistoryCollectionsRouting } from "../billing/claim_history_collections"
+import { ConditionMedicationsRouting } from "./condition_medications"
 import { DiagnosisCodesRouting } from "./diagnosis_codes"
 import { DiseasesRouting } from "./diseases"
 import { LabTestsRouting } from "./lab_tests"
@@ -27,6 +28,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/billing-claim-history-collections`}
           render={(props) => (<BillingClaimHistoryCollectionsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/condition-medications`}
+          render={(props) => (<ConditionMedicationsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${adminPrefix}/diagnosis-codes`}
