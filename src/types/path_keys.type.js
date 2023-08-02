@@ -7,6 +7,7 @@ import {
   interventionApi,
   interventionDocumentApi,
   labTestValueApi,
+  loadProviderApi,
   medicalClaimApi,
   patientApi,
   patientAllergyApi,
@@ -56,6 +57,7 @@ import {
   pharmacyStoreHelper,
   physicianHelper,
   userHelper,
+  loadProviderHelper,
   medicationHelper,
   patientHelper,
   caregiverHelper,
@@ -178,6 +180,11 @@ export const pathKeys = {
     breadcrumb: "Tests",
     helper: labTestValueHelper,
     modelName: "LabTestValue"
+  },
+  "load-providers": {
+    api: loadProviderApi,
+    helper: loadProviderHelper,
+    modelName: "LoadProvider"
   },
   "medical-claims": {
     api: medicalClaimApi,

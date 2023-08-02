@@ -1,33 +1,28 @@
 import React, { Component } from "react"
-import { MedicationsPageViewModel } from "../../../view_models/pages/admin/medications"
+import { LoadProvidersPageViewModel } from "../../../view_models/pages/admin/load_providers"
 import { ListView } from "../../../../containers"
-import { valueHelper, medicationHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper, loadProviderHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../../helpers"
 
 const headings = [
   {
-    name: "Label",
-    field: "label",
-    method: "label"
+    name: "NPI",
+    field: "npi",
+    method: "npi"
   },
   {
-    name: "Is Superset?",
-    field: "medication_superset",
-    method: "displayMedicationSuperset"
-  },
-  {
-    name: "Superset Label",
-    field: "superset.label",
-    method: "supersetLabel"
+    name: "Provider Name",
+    field: "provider_last_name_legal_name,provider_first_name,provider_middle_name",
+    method: "providerName"
   }
 ]
 
-class MedicationsPage extends Component {
+class LoadProvidersPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new MedicationsPageViewModel(
+    this.vm = new LoadProvidersPageViewModel(
       {
         ...props,
         view: this
@@ -50,7 +45,7 @@ class MedicationsPage extends Component {
       {
         filters,
         headings,
-        listName: "medications",
+        listName: "load-providers",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -59,7 +54,7 @@ class MedicationsPage extends Component {
     )
   }
 
-  generateTableRow(medication) {
+  generateTableRow(loadProvider) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -67,16 +62,16 @@ class MedicationsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoMedicationProfile,
+        gotoTableItemProfile: this.vm.gotoLoadProviderProfile,
         headings,
-        helper: medicationHelper,
+        helper: loadProviderHelper,
         launchModal: this.props.launchModal,
-        modelName: 'medication',
+        modelName: 'loadProvider',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: medication
+        tableItem: loadProvider
       }
     )
   }
@@ -96,9 +91,9 @@ class MedicationsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.medications}
-        listLabel="Medication"
-        listPluralLabel="Medications"
+        list={this.state.loadProviders}
+        listLabel="Load PRovider"
+        listPluralLabel="Load Providers"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -108,7 +103,7 @@ class MedicationsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Medications"
+        title="Load Providers"
       />
     )
   }
@@ -119,4 +114,4 @@ class MedicationsPage extends Component {
   }
 }
 
-export { MedicationsPage }
+export { LoadProvidersPage }

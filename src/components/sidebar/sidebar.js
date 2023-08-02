@@ -140,6 +140,11 @@ const sidebarDescriptions = {
     entryLabel: "Lab Test Value",
     entryName: "lab-test-values"
   },
+  "load-providers": {
+    entryButtons: [],
+    entryLabel: "Load Provider",
+    entryName: "load-providers"
+  },
   "medical-claims": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Medical Claim",
@@ -156,6 +161,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Allergies", buttonType: "List", listName: "patient-allergies" },
       { buttonLabel: "Caregivers", buttonType: "List", listName: "caregivers" },
       { buttonLabel: "Diseases", buttonType: "List", listName: "patient-diseases" },
+      { buttonLabel: "HCPs", buttonType: "List", listName: "patient-physicians" },
       { buttonLabel: "Insurance Detail", buttonType: "Page", pageName: "patient-health-plan-insurance-details/profile-for-patient" },
       { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
@@ -163,9 +169,9 @@ const sidebarDescriptions = {
       { buttonLabel: "Medications", buttonType: "List", listName: "patient-medications" },
       { buttonLabel: "Notes", buttonType: "List", listName: "patient-notes" },
       { buttonLabel: "Pharmacy Claims", buttonType: "List", listName: "pharmacy-claims" },
-      { buttonLabel: "HCPs", buttonType: "List", listName: "patient-physicians" },
       { buttonLabel: "Reminders", buttonType: "List", listName: "reminders" },
-      { buttonLabel: "Supplements", buttonType: "List", listName: "patient-supplements" }
+      { buttonLabel: "Supplements", buttonType: "List", listName: "patient-supplements" },
+      { buttonLabel: "User", buttonType: "page", pageName: "user" }
     ],
     entryLabel: "Patient",
     entryName: "patients"
@@ -296,6 +302,7 @@ class Sidebar extends Component {
         gotoPage={this.vm.gotoPage}
         gotoProfile={this.vm.gotoProfile}
         key={`sidebar-entry-${pathEntry.key}`}
+        pathEntry={pathEntry}
         pathPrefixArray={pathPrefixArray}
         sidebarOpen={sidebarIndex === selectedIndex}
         onToggleSidebar={this.selectSidebar(sidebarIndex)}

@@ -5,6 +5,7 @@ import { ConditionMedicationsRouting } from "./condition_medications"
 import { DiagnosisCodesRouting } from "./diagnosis_codes"
 import { DiseasesRouting } from "./diseases"
 import { LabTestsRouting } from "./lab_tests"
+import { LoadProvidersRouting } from "./load_providers"
 import { MedicationsRouting } from "./medications"
 import { NoMatch } from "../"
 import { PhysiciansRouting } from "./physicians"
@@ -44,6 +45,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/lab-tests`}
           render={(props) => (<LabTestsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/load-providers`}
+          render={(props) => (<LoadProvidersRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${adminPrefix}/medications`}

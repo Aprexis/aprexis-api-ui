@@ -1,16 +1,16 @@
-import React, { Component } from "react"
-import { Col, Container } from "reactstrap"
-import { valueHelper, userHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
-import { Spinner, UserProfile } from "../../shared"
-import { UserProfilePageViewModel } from "../../view_models/pages/users"
+import React, { Component } from 'react'
+import { Container, Col } from 'reactstrap'
+import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
+import { Spinner, UserProfile } from '../../shared'
+import { UserPageViewModel } from '../../view_models/pages/patients'
+import { displayHelper } from '../../../helpers'
 
-class UserProfilePage extends Component {
+class UserPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new UserProfilePageViewModel(
+    this.vm = new UserPageViewModel(
       {
         ...props,
         view: this
@@ -52,5 +52,4 @@ class UserProfilePage extends Component {
   }
 }
 
-export { UserProfilePage }
-
+export { UserPage }

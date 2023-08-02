@@ -5,6 +5,7 @@ import { CaregiversRouting } from "../caregivers"
 import { InterventionsRouting } from "../interventions"
 import { LabTestValuesRouting } from "../lab_test_values"
 import { MedicalClaimsRouting } from "../medical_claims"
+import { UserPage } from "../../pages/patients"
 import { PatientAllergiesRouting } from "../patient_allergies"
 import { PatientDiseasesRouting } from "../patient_diseases"
 import { PatientHealthPlanInsuranceDetailsRouting } from "../patient_health_plan_insurance_details"
@@ -87,6 +88,10 @@ class PatientRouting extends Component {
         <Route
           path={`${patientPrefix}/reminders`}
           render={(props) => (<RemindersRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${patientPrefix}/user`}
+          render={(props) => (<UserPage {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>
