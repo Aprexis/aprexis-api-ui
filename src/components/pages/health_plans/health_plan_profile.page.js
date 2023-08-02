@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Address, Contact, Spinner } from '../../shared'
+import { Address, Contact, ModelConfigs, Spinner } from '../../shared'
 import { HealthPlanProfilePageViewModel } from '../../view_models/pages/health_plans'
 import { healthPlanHelper, valueHelper, pharmacyClaimsUploaders, segmentedUploaders } from '@aprexis/aprexis-api-utility'
 import { displayHelper } from '../../../helpers'
-import { ModelConfigs } from '../../shared'
 
 const HealthPlanActivity = ({ healthPlan }) => {
   return (

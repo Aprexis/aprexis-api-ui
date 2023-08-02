@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { faClipboardCheck, faFileInvoice } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { EditButton, Spinner } from '../../shared'
+import { EditButton, ModelConfigs, Spinner } from '../../shared'
 import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions'
 import { interventionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 import { displayHelper } from '../../../helpers'
@@ -41,6 +41,7 @@ const InterventionConfiguration = ({ intervention }) => {
               "Pharmacy Claim Tracking Number",
               interventionHelper.pharmacyClaimTrackingNumber(intervention))
           }
+          <ModelConfigs helper={interventionHelper} modelConfigurable={intervention} />
         </CardBody>
       </Card>
     </Col>
