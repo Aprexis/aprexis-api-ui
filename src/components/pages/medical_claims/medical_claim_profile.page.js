@@ -46,7 +46,7 @@ const MedicalClaimReferences = ({ pathEntries, medicalClaim }) => {
   )
 }
 
-const MedicalClaimProfile = ({ medicalClaim }) => {
+const MedicalClaimProfile = ({ medicalClaim, pathEntries }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex-fill">
@@ -56,11 +56,16 @@ const MedicalClaimProfile = ({ medicalClaim }) => {
 
         <CardBody>
           {
-            displayHelper.display(
-              "Identifier",
-              medicalClaimHelper.healthPlanPatientMedicalClaimIdentifier(medicalClaim)
-            )
+            !valueHelper.isValue(pathEntries['health_plans']) &&
+            displayHelper.display("Health PLan", medicalClaimHelper.healthPlanName(medicalClaim))
           }
+          {
+            !valueHelper.isValue(pathEntries['patients']) &&
+            displayHelper.display("Patient", medicalClaimHelper.patientName(medicalClaim))
+          }
+          {displayHelper.display("Member Number", medicalClaimHelper.memberNumber(medicalClaim))}
+          {displayHelper.display("Person Number", medicalClaimHelper.personNumber(medicalClaim))}
+          {displayHelper.display("Identifier", medicalClaimHelper.healthPlanPatientMedicalClaimIdentifier(medicalClaim))}
           {displayHelper.display("Service Date", medicalClaimHelper.serviceDate(medicalClaim))}
           {displayHelper.display("Processed Date", medicalClaimHelper.processedDate(medicalClaim))}
           {displayHelper.display("Provider NPI", medicalClaimHelper.providerNpi(medicalClaim))}
