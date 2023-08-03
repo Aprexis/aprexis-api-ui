@@ -39,7 +39,10 @@ const PatientSearchAlgorithmProfile = ({ patientSearchAlgorithm, pathEntries }) 
 }
 
 const PatientSearchAlgorithmBatches = ({ gotoPatientSearchAlgorithmBatchProfile, patientSearchAlgorithm, pathEntries }) => {
-  const batches = healthPlanPatientSearchAlgorithmHelper.batches(patientSearchAlgorithm)
+  let batches = healthPlanPatientSearchAlgorithmHelper.batches(patientSearchAlgorithm)
+  if (!valueHelper.isValue(batches)) {
+    batches = []
+  }
 
   return (
     <Col className="col-sm d-flex">

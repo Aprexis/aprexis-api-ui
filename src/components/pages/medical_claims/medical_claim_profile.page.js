@@ -1,9 +1,22 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from '../../shared'
+import { AprexisList, Spinner } from '../../shared'
 import { MedicalClaimProfilePageViewModel } from "../../view_models/pages/medical_claims"
-import { medicalClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper, pathHelper } from "../../../helpers"
+import { medicalClaimDiagnosisCodeHelper, medicalClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { displayHelper, listHelper, pathHelper } from "../../../helpers"
+
+const headings = [
+  {
+    name: 'Number',
+    field: 'code_number',
+    method: 'codeNumber'
+  },
+  {
+    name: 'Diagnosis Code',
+    field: 'diagnosis_code',
+    method: 'diagnosisCode'
+  }
+]
 
 const MedicalClaimReferences = ({ pathEntries, medicalClaim }) => {
   return (
@@ -16,7 +29,7 @@ const MedicalClaimReferences = ({ pathEntries, medicalClaim }) => {
         <CardBody>
           {
             !pathHelper.isSingular(pathEntries, "health-plans") &&
-            displayHelper.displayField("Health Plan", medicalClaimHelper.healthPlanName(medicalClaim))
+            displayHelper.display("Health Plan", medicalClaimHelper.healthPlanName(medicalClaim))
           }
           {
             !pathHelper.isSingular(pathEntries, "patients") &&
@@ -57,6 +70,56 @@ const MedicalClaimProfile = ({ medicalClaim }) => {
   )
 }
 
+const MedicalClaimDiagnosisCodes = ({ gotoDiagnosisCode, medicalClaim, pathEntries }) => {
+  let medicalClaimDiagnosisCodes = medicalClaimHelper.medicalClaimDiagnosisCodes(medicalClaim)
+  if (!valueHelper.isValue(medicalClaimDiagnosisCodes)) {
+    medicalClaimDiagnosisCodes = []
+  }
+
+  return (
+    <Col className="col-sm d-flex">
+      <Card className="card-flex-fill">
+        <CardTitle>
+          <h3>Diagnosis Codes</h3>
+        </CardTitle>
+
+        <CardBody>
+          <AprexisList
+            generateTableHeadings={generateTableHeadings}
+            generateTableRow={generateTableRow}
+            list={medicalClaimDiagnosisCodes}
+            listLabel={'Diagnosis Code'}
+            listPluralLabel={'Diagnosis Codes'}
+          />
+        </CardBody>
+      </Card>
+    </Col>
+  )
+
+  function generateTableHeadings() {
+    return listHelper.listHeader(
+      {
+        headings,
+        listName: "medical-claim-diagnnosis-codes",
+        pathEntries
+      }
+    )
+  }
+
+  function generateTableRow(medicalClaimDiagnosisCode) {
+    return listHelper.listRow(
+      {
+        gotoTableItemProfile: gotoDiagnosisCode,
+        headings,
+        helper: medicalClaimDiagnosisCodeHelper,
+        modelName: 'medicalClaimDiagnosisCode',
+        pathEntries,
+        tableItem: medicalClaimDiagnosisCode
+      }
+    )
+  }
+}
+
 const MedicalClaimDisplay = ({ pathEntries, medicalClaim }) => {
   if (!valueHelper.isValue(medicalClaim)) {
     return (<Spinner showAtStart={true} />)
@@ -67,6 +130,10 @@ const MedicalClaimDisplay = ({ pathEntries, medicalClaim }) => {
       <Row>
         <MedicalClaimProfile pathEntries={pathEntries} medicalClaim={medicalClaim} />
         <MedicalClaimReferences pathEntries={pathEntries} medicalClaim={medicalClaim} />
+      </Row>
+
+      <Row>
+        <MedicalClaimDiagnosisCodes pathEntries={pathEntries} medicalClaim={medicalClaim} />
       </Row>
     </React.Fragment>
   )
