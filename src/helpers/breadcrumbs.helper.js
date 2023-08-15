@@ -6,6 +6,7 @@ import {
   patientHelper,
   pharmacyChainHelper,
   pharmacyStoreHelper,
+  potentiallyInappropriateMedicationHelper,
   programHelper,
   userHelper,
   valueHelper
@@ -23,6 +24,7 @@ const pathKeyToBreadcrumb = {
   'patients': patientToBreadcrumb,
   'pharmacy-chains': pharmacyChainToBreadcrumb,
   'pharmacy-stores': pharmacyStoreToBreadcrumb,
+  'potentially-inappropriate-medications': potentialllyInappropriateMedicationToBreadcrumb,
   'programs': programToBreadcrumb,
   'users': userToBreadcrumb
 }
@@ -103,6 +105,10 @@ function pharmacyStoreToBreadcrumb(pharmacyStore) {
   }
 
   return pharmacyStoreId
+}
+
+function potentialllyInappropriateMedicationToBreadcrumb(potentiallyInappropriateMedication) {
+  return potentiallyInappropriateMedicationHelper.specificProductId(potentiallyInappropriateMedication)
 }
 
 function programToBreadcrumb(program) {

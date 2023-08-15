@@ -9,6 +9,7 @@ import { LoadProvidersRouting } from "./load_providers"
 import { MedicationsRouting } from "./medications"
 import { NoMatch } from "../"
 import { PhysiciansRouting } from "./physicians"
+import { PotentiallyInappropriateMedicationsRouting } from "./potentially_inappropriate_medications"
 import { SystemSettingsRouting } from "./system_settings"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { pathHelper } from "../../../helpers"
@@ -57,6 +58,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/physicians`}
           render={(props) => (<PhysiciansRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/potentially-inappropriate-medications`}
+          render={(props) => (<PotentiallyInappropriateMedicationsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${adminPrefix}/system-settings`}

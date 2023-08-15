@@ -31,6 +31,7 @@ import {
   labTestApi,
   medicationApi,
   physicianApi,
+  potentiallyInappropriateMedicationApi,
   billingClaimHistoryCollectionApi,
   billingClaimApi,
   billingContractApi,
@@ -56,6 +57,7 @@ import {
   pharmacyChainHelper,
   pharmacyStoreHelper,
   physicianHelper,
+  potentiallyInappropriateMedicationHelper,
   userHelper,
   loadProviderHelper,
   medicationHelper,
@@ -272,6 +274,11 @@ export const pathKeys = {
     api: physicianApi,
     helper: physicianHelper,
     modelName: "Physician"
+  },
+  "potentially-inappropriate-medications": {
+    api: potentiallyInappropriateMedicationApi,
+    helper: potentiallyInappropriateMedicationHelper,
+    modelName: "PotentiallyInappropriateMedication"
   },
   "programs": {
     api: programApi,

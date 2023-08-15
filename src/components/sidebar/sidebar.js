@@ -240,6 +240,11 @@ const sidebarDescriptions = {
     entryLabel: "HCPs",
     entryName: "physicians"
   },
+  "potentially-inappropriate-medications": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Potentially Inappropriate Medications",
+    entryName: "potentially-inappropriate-medications"
+  },
   "programs": {
     entryButtons: [
       { buttonType: "Profile" },
