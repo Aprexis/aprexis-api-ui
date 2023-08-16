@@ -248,7 +248,8 @@ const sidebarDescriptions = {
   "programs": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Dry Runs", buttonType: "List", listName: "dry-run-program-patient-assignments" }
+      { buttonLabel: "Dry Runs", buttonType: "List", listName: "dry-run-program-patient-assignments" },
+      { buttonLabel: "Patient Assignment Algorithm", buttonType: "page", pageName: 'patient-assignment-algorithm' }
     ],
     entryLabel: "Program",
     entryName: "programs"

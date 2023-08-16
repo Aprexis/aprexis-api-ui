@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../"
 import { DryRunProgramPatientAssignmentsRouting } from "../dry_run_program_patient_assignments"
 import { InterventionsRouting } from "../interventions"
-import { ProgramProfilePage } from "../../pages/programs"
+import { ProgramProfilePage, PatientAssignmentAlgorithmPage } from "../../pages/programs"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { pathHelper } from "../../../helpers"
 
@@ -27,6 +27,11 @@ class ProgramRouting extends Component {
         <Route
           path={`${programPrefix}/interventions`}
           render={(props) => (<InterventionsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          exact
+          path={`${programPrefix}/patient-assignment-algorithm`}
+          render={(props) => (<PatientAssignmentAlgorithmPage {...props} {...contextProps} />)}
         />
         <Route
           exact

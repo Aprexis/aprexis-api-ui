@@ -22,6 +22,7 @@ export * from "./download_button"
 export * from "./edit_button"
 export * from './model_configs'
 export * from "./number_field_editor"
+export * from "./patient_assignment_algorithm_profile"
 export * from "./sanitize"
 export * from "./search_for_item"
 export * from "./select_allergy"

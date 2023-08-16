@@ -90,6 +90,7 @@ class PatientRouting extends Component {
           render={(props) => (<RemindersRouting {...props} {...contextProps} />)}
         />
         <Route
+          exact
           path={`${patientPrefix}/user`}
           render={(props) => (<UserPage {...props} {...contextProps} />)}
         />
