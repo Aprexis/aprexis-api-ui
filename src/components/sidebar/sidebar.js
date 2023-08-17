@@ -98,6 +98,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" },
       { buttonLabel: "Programs", buttonType: "List", listName: "programs" },
       { buttonLabel: "Program Limits", buttonType: "list", listName: "health-plan-program-limits" },
+      { buttonLabel: "Program Reports", buttonType: "list", listName: "health-plan-program-reports" },
       { buttonLabel: "Users", buttonType: "List", listName: "users" }
     ],
     entryLabel: "Health Plan",
@@ -107,6 +108,11 @@ const sidebarDescriptions = {
     entryButtons: [],
     entryLabel: "Program Limit",
     entryName: "health-plan-program-limits"
+  },
+  "health-plan-program-reports": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Program Report",
+    entryName: "health-plan-program-reports"
   },
   "intervention-documents": {
     entryButtons: [{ buttonType: "Profile" }],

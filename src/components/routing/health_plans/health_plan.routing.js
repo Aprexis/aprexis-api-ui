@@ -5,6 +5,7 @@ import { DocumentsRouting } from "../documents"
 import { PatientsRouting } from "../patients"
 import { HealthPlanProfilePage } from "../../pages/health_plans"
 import { HealthPlanProgramLimitsRouting } from "../health_plan_program_limits"
+import { HealthPlanProgramReportsRouting } from "../health_plan_program_reports"
 import { HealthPlanPatientSearchAlgorithmsRouting } from "../health_plan_patient_search_algorithms"
 import { ProgramsRouting } from "../programs"
 import { BillingClaimsRouting } from "../billing/claims"
@@ -53,6 +54,10 @@ class HealthPlanRouting extends Component {
         <Route
           path={`${healthPlanPrefix}/health-plan-program-limits`}
           render={(props) => (<HealthPlanProgramLimitsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${healthPlanPrefix}/health-plan-program-reports`}
+          render={(props) => (<HealthPlanProgramReportsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact

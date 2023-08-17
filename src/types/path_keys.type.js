@@ -4,6 +4,7 @@ import {
   caregiverApi,
   healthPlanApi,
   healthPlanProgramLimitApi,
+  healthPlanProgramReportApi,
   interventionApi,
   interventionDocumentApi,
   labTestValueApi,
@@ -49,6 +50,7 @@ import {
   programHelper,
   healthPlanHelper,
   healthPlanProgramLimitHelper,
+  healthPlanProgramReportHelper,
   dryRunProgramPatientAssignmentApi,
   dryRunProgramPatientAssignmentHelper,
   healthPlanPatientSearchAlgorithmHelper,
@@ -156,6 +158,11 @@ export const pathKeys = {
     api: healthPlanProgramLimitApi,
     helper: healthPlanProgramLimitHelper,
     modelName: "healthPlanProgramLimit"
+  },
+  "health-plan-program-reports": {
+    api: healthPlanProgramReportApi,
+    helper: healthPlanProgramReportHelper,
+    modelName: "healthPlanProgramReport"
   },
   "intervention-documents": {
     api: interventionDocumentApi,
