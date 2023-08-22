@@ -22,6 +22,7 @@ import {
   pharmacyChainApi,
   pharmacyClaimApi,
   pharmacyStoreApi,
+  pharmacyStoreProgramReportApi,
   reminderApi,
   userApi,
   faxApi,
@@ -58,6 +59,7 @@ import {
   interventionDocumentHelper,
   pharmacyChainHelper,
   pharmacyStoreHelper,
+  pharmacyStoreProgramReportHelper,
   physicianHelper,
   potentiallyInappropriateMedicationHelper,
   userHelper,
@@ -197,7 +199,6 @@ export const pathKeys = {
   },
   "medical-claims": {
     api: medicalClaimApi,
-    breadcrumb: "Medical Claims",
     helper: medicalClaimHelper,
     modelName: "MedicalClaim"
   },
@@ -267,15 +268,19 @@ export const pathKeys = {
   },
   "pharmacy-claims": {
     api: pharmacyClaimApi,
-    breadcrumb: "Pharmacy Claims",
     helper: pharmacyClaimHelper,
     modelName: "PharmacyClaim"
   },
   "pharmacy-stores": {
     api: pharmacyStoreApi,
-    breadcrumbs: "Stores",
+    breadcrumb: "Stores",
     helper: pharmacyStoreHelper,
     modelName: "PharmacyStore"
+  },
+  "pharmacy-store-program-reports": {
+    api: pharmacyStoreProgramReportApi,
+    helper: pharmacyStoreProgramReportHelper,
+    modelName: "PharmacyStoreProgramReport"
   },
   "physicians": {
     api: physicianApi,

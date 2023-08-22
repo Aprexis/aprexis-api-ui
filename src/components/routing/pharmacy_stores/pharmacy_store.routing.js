@@ -6,6 +6,7 @@ import { DryRunProgramPatientAssignmentsRouting } from "../dry_run_program_patie
 import { InterventionsRouting } from "../interventions"
 import { PatientsRouting } from "../patients"
 import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores"
+import { PharmacyStoreProgramReportsRouting } from "../pharmacy_store_program_reports"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { pathHelper } from "../../../helpers"
 
@@ -42,6 +43,10 @@ class PharmacyStoreRouting extends Component {
           exact
           path={`${pharmacyStorePrefix}/profile`}
           render={(props) => (<PharmacyStoreProfilePage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${pharmacyStorePrefix}/pharmacy-store-program-reports`}
+          render={(props) => (<PharmacyStoreProgramReportsRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

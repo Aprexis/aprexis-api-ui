@@ -235,11 +235,17 @@ const sidebarDescriptions = {
       { buttonType: "Profile" },
       { buttonLabel: "Claims", buttonType: "List", listName: "billing-claims" },
       { buttonLabel: "Dry Runs", buttonType: "List", listName: "dry-run-program-patient-assignments" },
+      { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
-      { buttonLabel: "Interventions", buttonType: "List", listName: "interventions" }
+      { buttonLabel: "Program Reports", buttonType: "List", listName: "pharmacy-store-program-reports" }
     ],
     entryLabel: "Pharmacy Store",
     entryName: "pharmacy-stores"
+  },
+  "pharmacy-store-program-reports": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Pharmacy Store Program Report",
+    entryName: "pharmacy-store-program-reports"
   },
   "physicians": {
     entryButtons: [{ buttonType: "Profile" }],
@@ -255,7 +261,8 @@ const sidebarDescriptions = {
     entryButtons: [
       { buttonType: "Profile" },
       { buttonLabel: "Dry Runs", buttonType: "List", listName: "dry-run-program-patient-assignments" },
-      { buttonLabel: "Patient Assignment Algorithm", buttonType: "page", pageName: 'patient-assignment-algorithm' }
+      { buttonLabel: "Patient Assignment Algorithm", buttonType: "page", pageName: 'patient-assignment-algorithm' },
+      { buttonLabel: "Pharmacy Store Reports", buttonType: "list", listName: 'pharmacy-store-program-reports' }
     ],
     entryLabel: "Program",
     entryName: "programs"
