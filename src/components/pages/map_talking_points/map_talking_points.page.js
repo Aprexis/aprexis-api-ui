@@ -6,15 +6,15 @@ import { listHelper } from "../../../helpers"
 
 const headings = [
   {
-    name: "Intervention",
-    field: "intervention.program.name,intervention.date_of_service",
-    method: "interventionIdentification",
-    unless: "interventions"
-  },
-  {
     name: "Subject",
     field: "subject",
     method: "subject"
+  },
+  {
+    name: "Intervention",
+    field: "intervention.program.name,intervention.date_of_service",
+    method: "interventionIdentification",
+    unless: 'interventions'
   }
 ]
 
