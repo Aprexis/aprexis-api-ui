@@ -1,5 +1,6 @@
 import { AbstractListPageViewModel } from ".."
 import { mapTalkingPointApi, mapTalkingPointHelper, pageHelper } from "@aprexis/aprexis-api-utility"
+import { pathHelper } from "../../../../helpers"
 
 const mapTalkingPointListMethods = [
   { pathKey: "interventions", method: mapTalkingPointApi.listForIntervention }
@@ -14,7 +15,7 @@ class MapTalkingPointsPageViewModel extends AbstractListPageViewModel {
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    //this.gotoMapTalkingPointProfile = this.gotoMapTalkingPointProfile.bind(this)
+    this.gotoMapTalkingPointProfile = this.gotoMapTalkingPointProfile.bind(this)
     this.helper = this.helper.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
@@ -43,13 +44,11 @@ class MapTalkingPointsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  /*
   gotoMapTalkingPointProfile(mapTalkingPoint) {
     const pathArray = pathHelper.buildPathArray(window.location, mapTalkingPoint, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
-  */
 
   helper() {
     return mapTalkingPointHelper
