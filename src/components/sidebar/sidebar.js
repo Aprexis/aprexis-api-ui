@@ -153,7 +153,7 @@ const sidebarDescriptions = {
     entryName: "load-providers"
   },
   "map-talking-points": {
-    entryButtons: { buttonType: "Profile" },
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Map Talking Point",
     entryName: "map-talking-points"
   },

@@ -7,7 +7,7 @@ import { listHelper } from "../../../helpers"
 const headings = [
   {
     name: "Intervention",
-    field: "intervention.program.name,intervention.program.type",
+    field: "intervention.program.name,intervention.date_of_service",
     method: "interventionIdentification",
     unless: "interventions"
   },
@@ -47,7 +47,7 @@ class MapTalkingPointsPage extends Component {
       {
         filters,
         headings,
-        listName: "intervention-medications",
+        listName: "map-talking-points",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -93,8 +93,8 @@ class MapTalkingPointsPage extends Component {
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
         list={this.state.mapTalkingPoints}
-        listLabel="Medication"
-        listPluralLabel="Medications"
+        listLabel="Map Talking Point"
+        listPluralLabel="Map Talking Points"
         modal={this.state.modal}
         nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
@@ -105,7 +105,7 @@ class MapTalkingPointsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Medications"
+        title="Map Talking Points"
       />
     )
   }

@@ -17,11 +17,8 @@ class SearchForItem extends Component {
         <FormGroup row className={rowClassName} style={{ width: "100%" }}>
           <Col xs={2}><label>{this.props.fieldLabel}<ShowRequired required={required} /></label></Col>
           <Col xs={9}>
-            <label>{label}</label>
-          </Col>
-          {
-            !valueHelper.isSet(readOnly) &&
-            <Col xs={1}>
+            {
+              !valueHelper.isSet(readOnly) &&
               <button
                 className="mt-0 mb-0 pt-0 pb-0 mr-auto btn btn-mobile"
                 disabled={readOnly}
@@ -30,8 +27,9 @@ class SearchForItem extends Component {
                 type="button">
                 <FontAwesomeIcon icon={faSearch} />
               </button>
-            </Col>
-          }
+            }
+            <label>{label}</label>
+          </Col>
         </FormGroup>
         {
           valueHelper.isSet(enableSearch) && !valueHelper.isSet(readOnly) &&
