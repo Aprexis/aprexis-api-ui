@@ -131,6 +131,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Documents", buttonType: "List", listName: "intervention-documents" },
       { buttonLabel: "Faxes", buttonType: "List", listName: "faxes" },
       { buttonLabel: "Lab Test Values", buttonType: "List", listName: "lab-test-values" },
+      { buttonLabel: "Map Talking Points", buttonType: "List", listName: "map-talking-points" },
       { buttonLabel: "Medications", buttonType: "List", listName: "intervention-medications" }
     ],
     entryLabel: "Intervention",
@@ -150,6 +151,11 @@ const sidebarDescriptions = {
     entryButtons: [],
     entryLabel: "Load Provider",
     entryName: "load-providers"
+  },
+  "map-talking-points": {
+    entryButtons: { buttonType: "Profile" },
+    entryLabel: "Map Talking Point",
+    entryName: "map-talking-points"
   },
   "medical-claims": {
     entryButtons: [{ buttonType: "Profile" }],

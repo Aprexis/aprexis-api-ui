@@ -9,6 +9,7 @@ import {
   interventionDocumentApi,
   labTestValueApi,
   loadProviderApi,
+  mapTalkingPointApi,
   medicalClaimApi,
   patientApi,
   patientAllergyApi,
@@ -71,6 +72,7 @@ import {
   answerHelper,
   appointmentHelper,
   labTestValueHelper,
+  mapTalkingPointHelper,
   medicalClaimHelper,
   pharmacyClaimHelper,
   patientAllergyHelper,
@@ -196,6 +198,11 @@ export const pathKeys = {
     api: loadProviderApi,
     helper: loadProviderHelper,
     modelName: "LoadProvider"
+  },
+  "map-talking-points": {
+    api: mapTalkingPointApi,
+    helper: mapTalkingPointHelper,
+    modelName: "MapTalkingPoint"
   },
   "medical-claims": {
     api: medicalClaimApi,

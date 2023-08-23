@@ -5,6 +5,7 @@ import { NoMatch } from "../"
 import { FaxesRouting } from "../faxes"
 import { InterventionDocumentsRouting } from "../intervention_documents"
 import { LabTestValuesRouting } from "../lab_test_values"
+import { MapTalkingPointsRouting } from "../map_talking_points"
 import { InterventionProfilePage, InterventionVerifyPage } from "../../pages/interventions"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { pathHelper } from "../../../helpers"
@@ -47,6 +48,10 @@ class InterventionRouting extends Component {
         <Route
           path={`${interventionPrefix}/intervention-medications`}
           render={(props) => (<InterventionMedicationsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${interventionPrefix}/map-talking-points`}
+          render={(props) => (<MapTalkingPointsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact
