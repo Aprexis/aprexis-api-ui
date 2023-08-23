@@ -32,7 +32,7 @@ class MapTalkingPointsPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "intervention.program.name,intervention.program.name,subject" }
+    const sorting = { sort: "intervention.program.name,intervention.date_of_service,subject" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
