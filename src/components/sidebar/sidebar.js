@@ -50,6 +50,11 @@ const sidebarDescriptions = {
     entryLabel: "Contract",
     entryName: "billing-contracts"
   },
+  "billing-invoices": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Invoice",
+    entryName: "billing-invoices"
+  },
   "caregivers": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Caregriver",
@@ -94,6 +99,7 @@ const sidebarDescriptions = {
       { buttonLabel: "Claims", buttonType: "List", listName: "billing-claims" },
       { buttonLabel: "Contracts", buttonType: "List", listName: "billing-contracts" },
       { buttonLabel: "Documents", buttonType: "List", listName: "documents" },
+      { buttonLabel: "Invoices", buttonType: "List", listName: "billing-invoices" },
       { buttonLabel: "Patients", buttonType: "List", listName: "patients" },
       { buttonLabel: "Patient Search Algorithms", buttonType: "List", listName: "patient-search-algorithms" },
       { buttonLabel: "Programs", buttonType: "List", listName: "programs" },

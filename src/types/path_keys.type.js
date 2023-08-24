@@ -40,12 +40,14 @@ import {
   billingContractApi,
   billingContractPharmacyChainApi,
   billingContractPharmacyStoreApi,
+  billingInvoiceApi,
   labTestHelper,
   billingClaimHistoryCollectionHelper,
   billingClaimHelper,
   billingContractHelper,
   billingContractPharmacyChainHelper,
   billingContractPharmacyStoreHelper,
+  billingInvoiceHelper,
   diagnosisCodeHelper,
   diseaseHelper,
   programApi,
@@ -127,6 +129,11 @@ export const pathKeys = {
     api: billingContractPharmacyStoreApi,
     helper: billingContractPharmacyStoreHelper,
     modelName: "BillingContractPharmacyStore"
+  },
+  "billing-invoices": {
+    api: billingInvoiceApi,
+    helper: billingInvoiceHelper,
+    modelName: "BillingInvoice"
   },
   "caregivers": {
     api: caregiverApi,

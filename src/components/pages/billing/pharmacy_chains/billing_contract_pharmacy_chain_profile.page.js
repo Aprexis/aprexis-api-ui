@@ -16,7 +16,7 @@ const BillingContractPharmacyChainProfile = ({ currentUser, onEditProfile, billi
             Profile
             {
               billingContractPharmacyChainHelper.canEdit(currentUser, billingContractPharmacy) &&
-              <EditButton onEdit={(event) => { onEditProfile(billingContractPharmacy) }} />
+              <EditButton onEdit={(_event) => { onEditProfile(billingContractPharmacy) }} />
             }
           </h3>
         </CardTitle>
@@ -111,7 +111,7 @@ class BillingContractPharmacyChainProfilePage extends Component {
     )
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }
