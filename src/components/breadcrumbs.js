@@ -4,7 +4,8 @@ import { pathKeys } from "../types"
 import { BreadcrumbsViewModel } from "./view_models"
 
 const cannotGotoKeys = [
-  "admin"
+  "admin",
+  "billing"
 ]
 
 const PluralBreadcrumb = ({ gotoPage, orderedPathEntries, pathEntryIdx, pathKey }) => {

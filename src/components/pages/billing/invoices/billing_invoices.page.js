@@ -19,7 +19,7 @@ const headings = [
   {
     name: "Due",
     field: "due_at",
-    method: (billingInvoice) => { dateHelper.displayDateTime(billingInvoiceHelper.dueAt(billingInvoice)) }
+    method: (billingInvoice) => { return dateHelper.displayDateTime(billingInvoiceHelper.dueAt(billingInvoice)) }
   },
   {
     name: "Amount",
@@ -103,8 +103,8 @@ class BillingInvoicesPage extends Component {
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
         list={this.state.billingInvoices}
-        listLabel="Billing Invoice"
-        listPluralLabel="Billing Invoices"
+        listLabel="Invoice"
+        listPluralLabel="Invoices"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -114,7 +114,7 @@ class BillingInvoicesPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Billing Invoices"
+        title="Invoices"
       />
     )
   }

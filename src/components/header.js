@@ -6,6 +6,7 @@ import { pathHelper } from "../helpers"
 import {
   AdminHeaders,
   AprexisAdminHeaders,
+  BillingHeaders,
   HealthPlanHeaders,
   PharmacyChainHeaders,
   PharmacyStoreHeaders,
@@ -61,9 +62,13 @@ class Header extends Component {
                     reconnectAndRetry={reconnectAndRetry}
                   />
                   <UserHeaders currentUser={currentUser} gotoUsersPage={this.props.gotoUsersPage} reconnectAndRetry={reconnectAndRetry} />
-                  <AdminHeaders
+                  <BillingHeaders
                     currentUser={currentUser}
                     gotoBillingClaimHistoryCollectionsPage={this.props.gotoBillingClaimHistoryCollectionsPage}
+                    gotoBillingInvoicesPage={this.props.gotoBillingInvoicesPage}
+                  />
+                  <AdminHeaders
+                    currentUser={currentUser}
                     gotoConditionMedicationsPage={this.props.gotoConditionMedicationsPage}
                     gotoDiagnosisCodesPage={this.props.gotoDiagnosisCodesPage}
                     gotoDiseasesPage={this.props.gotoDiseasesPage}

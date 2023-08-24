@@ -15,9 +15,6 @@ class AdminHeaders extends Component {
           Admin
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem onClick={(_event) => { this.props.gotoBillingClaimHistoryCollectionsPage() }}>
-            Billing Claim History Collections
-          </DropdownItem>
           <DropdownItem onClick={(_event) => { this.props.gotoConditionMedicationsPage() }}>
             Condition Medications
           </DropdownItem>

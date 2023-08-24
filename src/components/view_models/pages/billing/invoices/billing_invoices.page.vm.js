@@ -3,6 +3,7 @@ import { billingInvoiceApi, billingInvoiceHelper, pageHelper } from "@aprexis/ap
 import { filtersHelper, pathHelper } from "../../../../../helpers"
 
 const billingInvoiceListMethods = [
+  { method: billingInvoiceApi.list },
   { pathKey: "health-plans", method: billingInvoiceApi.listForHealthPlan }
 ]
 
