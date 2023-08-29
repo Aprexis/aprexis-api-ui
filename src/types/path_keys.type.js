@@ -22,6 +22,7 @@ import {
   patientSupplementApi,
   pharmacyChainApi,
   pharmacyClaimApi,
+  pharmacyReportApi,
   pharmacyStoreApi,
   pharmacyStoreProgramReportApi,
   reminderApi,
@@ -63,6 +64,7 @@ import {
   pharmacyChainHelper,
   pharmacyStoreHelper,
   pharmacyStoreProgramReportHelper,
+  pharmacyReportHelper,
   physicianHelper,
   potentiallyInappropriateMedicationHelper,
   userHelper,
@@ -284,6 +286,12 @@ export const pathKeys = {
     api: pharmacyClaimApi,
     helper: pharmacyClaimHelper,
     modelName: "PharmacyClaim"
+  },
+  "pharmacy-reports": {
+    api: pharmacyReportApi,
+    breadcrumb: "Pharmacy Reports",
+    helper: pharmacyReportHelper,
+    modelName: "PharmacyReport"
   },
   "pharmacy-stores": {
     api: pharmacyStoreApi,

@@ -232,6 +232,7 @@ const sidebarDescriptions = {
   "pharmacy-chains": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Pharmacy Reports", buttonType: "List", listName: "pharmacy-reports" },
       { buttonLabel: "Pharmacy Stores", buttonType: "List", listName: "pharmacy-stores" }
     ],
     entryLabel: "Pharmacy Chain",
@@ -241,6 +242,11 @@ const sidebarDescriptions = {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Pharmacy Claim",
     entryName: "pharmacy-claims"
+  },
+  "pharmacy-reports": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Pharmacy Report",
+    entryName: "pharmacy-reports"
   },
   "pharmacy-stores": {
     entryButtons: [

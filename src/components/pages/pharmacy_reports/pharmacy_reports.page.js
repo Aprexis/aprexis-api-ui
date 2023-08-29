@@ -1,51 +1,43 @@
 import React, { Component } from "react"
-import { InterventionMedicationsPageViewModel } from "../../view_models/pages/intervention_medications"
+import { PharmacyReportsPageViewModel } from "../../view_models/pages/pharmacy_reports"
 import { ListView } from "../../../containers"
-import { interventionMedicationHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { dateHelper, pharmacyReportHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../helpers"
 
 const headings = [
   {
-    name: "Type",
-    field: "type",
-    method: "displayType"
+    name: "End Date",
+    field: "end_date",
+    method: (pharmacyReport) => {
+      return dateHelper.displayDateTime(pharmacyReportHelper.endDate(pharmacyReport))
+    }
   },
   {
-    name: "Patient",
-    field: "intervention.patient.last_name,intervention.patient.first_name,intervention.patient.middle_name",
-    method: "patientName",
-    unless: "patients"
+    name: "Pharmacy Chain",
+    field: "pharmacy.name",
+    method: "pharmacyChainName",
+    unless: "pharmacy-chains"
   },
   {
     name: "Pharmacy Store",
-    field: "intervention.pharmacy_store.pharmacy.name,intervention.pharmacy_store.name,intervention.pharmacy_store.store_number",
-    method: "pharmacyStoreId",
+    field: "pharmacy_store.name,pharmacy_store.store_number",
+    method: "pharmacyStoreIdentification",
     unless: "pharmacy-stores"
   },
   {
-    name: "Intervention",
-    field: "intervention.date_of_service,intervention.program.name",
-    method: "interventionIdentification",
-    unless: "interventions"
-  },
-  {
-    name: "Medication",
-    field: "medication.label",
-    method: "medicationLabel"
-  },
-  {
-    name: "Text",
-    field: "medication_text",
-    method: "medicationText"
+    name: "Health Plan",
+    field: "program.health_plan.name",
+    method: "healthPlanName",
+    unless: "health-plans"
   }
 ]
 
-class InterventionMedicationsPage extends Component {
+class PharmacyReportsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new InterventionMedicationsPageViewModel(
+    this.vm = new PharmacyReportsPageViewModel(
       {
         ...props,
         view: this
@@ -54,7 +46,6 @@ class InterventionMedicationsPage extends Component {
 
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
-    this.nav = this.nav.bind(this)
   }
 
   componentDidMount() {
@@ -69,7 +60,7 @@ class InterventionMedicationsPage extends Component {
       {
         filters,
         headings,
-        listName: "intervention-medications",
+        listName: "pharmacy-reports",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -78,7 +69,7 @@ class InterventionMedicationsPage extends Component {
     )
   }
 
-  generateTableRow(interventionMedication) {
+  generateTableRow(pharmacyReport) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -86,15 +77,16 @@ class InterventionMedicationsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoInterventionMedicationProfile,
+        gotoTableItemProfile: this.vm.gotoPharmacyReportProfile,
         headings,
-        helper: interventionMedicationHelper,
+        helper: this.vm.helper(),
         launchModal: this.props.launchModal,
-        modelName: 'interventionMedication',
+        modelName: 'pharmacyReport',
         onDeleteTableItem: this.vm.destroy,
+        onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: interventionMedication
+        tableItem: pharmacyReport
       }
     )
   }
@@ -114,11 +106,10 @@ class InterventionMedicationsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.interventionMedications}
-        listLabel="Medication"
-        listPluralLabel="Medications"
+        list={this.state.pharmacyReports}
+        listLabel="Pharmacy Report"
+        listPluralLabel="Pharmacy Reports"
         modal={this.state.modal}
-        nav={this.nav}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
         onChangePerPage={this.vm.onChangePerPage}
@@ -127,13 +118,9 @@ class InterventionMedicationsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Medications"
+        title="Pharmacy Reports"
       />
     )
-  }
-
-  nav(_list) {
-    return
   }
 
   shouldComponentUpdate(nextProps, _nextState) {
@@ -142,4 +129,4 @@ class InterventionMedicationsPage extends Component {
   }
 }
 
-export { InterventionMedicationsPage }
+export { PharmacyReportsPage }

@@ -20,10 +20,8 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aprexis/aprexis-api-utility@^2.18.0":
+"@aprexis/aprexis-api-utility@file:../aprexis-api-utility":
   version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@aprexis/aprexis-api-utility/-/aprexis-api-utility-2.18.0.tgz#9dcd93db8f6d0319178b91c884f3d6f1a347d66f"
-  integrity sha512-eSeoQbxdYdjBuL3YKK6IX/h1pZNJEP/YlTkH0+LKVEK+qpixs+Y/s+nC3G9pAW2fjEgX0zRilRPgF9SfwqcJhQ==
   dependencies:
     date-fns "^2.29.3"
     date-fns-tz "^2.0.0"
@@ -6355,9 +6353,9 @@ immer@8.0.1:
   integrity sha512-aqXhGP7//Gui2+UrEtvxZxSquQVXTpZ7KDxfCcKAF3Vysvw0CViVaW9RZ1j1xlIYqaaaipBoqdqeibkc18PNvA==
 
 immutable@^4.0.0:
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.3.tgz#8934ff6826d996a7642c8dc4b46e694dd19561e3"
-  integrity sha512-808ZFYMsIRAjLAu5xkKo0TsbY9LBy9H5MazTKIEHerNkg0ymgilGfBPMR/3G7d/ihGmuK2Hw8S1izY2d3kd3wA==
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.4.tgz#2e07b33837b4bb7662f288c244d1ced1ef65a78f"
+  integrity sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==
 
 import-cwd@^2.0.0:
   version "2.1.0"
