@@ -13,10 +13,10 @@
   },
   "//": {
     "comment": "If you want to use a local copy of a module, copy it into this hash and specify the local folder in the dependencies",
-    "@aprexis/aprexis-api-utility": "^2.21.0"
+    "@aprexis/aprexis-api-utility": "^2.22.0"
   },
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "^2.21.0",
+    "@aprexis/aprexis-api-utility": "^2.22.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
