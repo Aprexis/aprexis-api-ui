@@ -75,6 +75,7 @@ class Header extends Component {
                     gotoLabTestsPage={this.props.gotoLabTestsPage}
                     gotoLoadProvidersPage={this.props.gotoLoadProvidersPage}
                     gotoMedicationsPage={this.props.gotoMedicationsPage}
+                    gotoNadacPricesPage={this.props.gotoNadacPricesPage}
                     gotoPhysiciansPage={this.props.gotoPhysiciansPage}
                     gotoPotentiallyInappropriateMedicationsPage={this.props.gotoPotentiallyInappropriateMedicationsPage}
                     gotoSystemSettingsPage={this.props.gotoSystemSettingsPage}

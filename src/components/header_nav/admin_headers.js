@@ -36,6 +36,9 @@ class AdminHeaders extends Component {
           <DropdownItem onClick={(_event) => { this.props.gotoMedicationsPage() }}>
             Medications
           </DropdownItem>
+          <DropdownItem onClick={(_event) => { this.props.gotoNadacPricesPage() }}>
+            NADAC Prices
+          </DropdownItem>
           <DropdownItem onClick={(_event) => { this.props.gotoPotentiallyInappropriateMedicationsPage() }}>
             Potentially Inappropriate Medications
           </DropdownItem>

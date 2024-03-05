@@ -173,6 +173,11 @@ const sidebarDescriptions = {
     entryLabel: "Medication",
     entryName: "medications"
   },
+  "nadac-prices": {
+    entryButtons: [],
+    entryLabel: 'NADAC Price',
+    entryName: "nadac-prices"
+  },
   "patients": {
     entryButtons: [
       { buttonType: "Profile" },
