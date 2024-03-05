@@ -7,6 +7,7 @@ import { DiseasesRouting } from "./diseases"
 import { LabTestsRouting } from "./lab_tests"
 import { LoadProvidersRouting } from "./load_providers"
 import { MedicationsRouting } from "./medications"
+import { NadacPricesRouting } from "./nadac_prices"
 import { NoMatch } from "../"
 import { PhysiciansRouting } from "./physicians"
 import { PotentiallyInappropriateMedicationsRouting } from "./potentially_inappropriate_medications"
@@ -54,6 +55,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/medications`}
           render={(props) => (<MedicationsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/nadac-prices`}
+          render={(props) => (<NadacPricesRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${adminPrefix}/physicians`}
