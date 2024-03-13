@@ -17,7 +17,9 @@ const headings = [
   {
     name: 'Unit Price',
     field: 'unit_price',
-    method: 'unitPrice'
+    method: (nadacPrice) => {
+      return (Math.round(nadacHelper.unitPrice(nadacPrice) * 100) / 100).toFixed(2)
+    }
   },
   {
     name: 'Package Size',
