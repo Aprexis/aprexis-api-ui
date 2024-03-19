@@ -11,6 +11,11 @@ const headings = [
     method: "name"
   },
   {
+    name: 'Date of Birth',
+    field: "date_of_birth",
+    method: 'dateOfBirth'
+  },
+  {
     name: "Health Plan",
     field: "health_plan.name",
     method: "healthPlanName",
