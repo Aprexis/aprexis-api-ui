@@ -39,7 +39,7 @@ class Header extends Component {
             />
           </NavbarBrand>
 
-          <div className="container-fluid pr-3">
+          <div className="container pr-3">
             <div className="col-12 px-0 text-right">
               <button
                 className="navbar-toggler mr-auto btn btn-mobile"

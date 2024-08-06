@@ -57,7 +57,14 @@ class InterventionsPageViewModel extends AbstractListPageViewModel {
   }
 
   defaultParameters() {
-    const filters = { for_state: "active" }
+    const pathEntries = this.pathEntries()
+    var filters;
+    const patientId = pathHelper.id(pathEntries, "patients")
+    if (valueHelper.isNumberValue(patientId)) {
+      filters = {}
+    } else {
+      filters = { for_state: 'active' }
+    }
     const sorting = { sort: "patients.last_name,patients.first_name,patients.middle_name" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
