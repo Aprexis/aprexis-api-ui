@@ -2,6 +2,7 @@ import {
   answerApi,
   appointmentApi,
   caregiverApi,
+  goldStandardTherapeuticConceptApi,
   healthPlanApi,
   healthPlanProgramLimitApi,
   healthPlanProgramReportApi,
@@ -51,6 +52,7 @@ import {
   billingInvoiceHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardTherapeuticConceptHelper,
   programApi,
   programHelper,
   healthPlanHelper,
@@ -323,6 +325,11 @@ export const pathKeys = {
     api: reminderApi,
     helper: reminderHelper,
     modelName: "Reminder"
+  },
+  "therapeutic-concepts": {
+    api: goldStandardTherapeuticConceptApi,
+    helper: goldStandardTherapeuticConceptHelper,
+    modelName: "TherapeuticConcept"
   },
   "users": {
     api: userApi,

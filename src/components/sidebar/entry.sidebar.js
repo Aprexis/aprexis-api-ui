@@ -26,76 +26,10 @@ const RenderSidebarButton = ({ buttonLabel, gotoMethod }) => {
   )
 }
 
-const RenderParameterizedSidebarListButton = ({ buttonLabel, gotoList, listName, pathPrefixArray, params }) => {
-  const parameterizeParams = (pathPrefixArray, params) => {
-    const parameterizeParam = (parameterizedPathPrefixArray, parameters, removed, key, value) => {
-      let result = {
-        parameterizedPathPrefixArray: parameterizedPathPrefixArray,
-        parameters: parameters,
-        removed: removed
-      }
-      if (valueHelper.isStringValue(value.use_singular)) {
-        if (removed) {
-          throw new Error(`Already removed singular from ${pathPrefixArray} prior to ${key} ${value}`)
-        }
-
-        const idx = result.parameterizedPathPrefixArray.indexOf(value.use_singular)
-        const singular = result.parameterizedPathPrefixArray[idx + 1]
-        result = {
-          ...result,
-          parameterizedPathPrefixArray: result.parameterizedPathPrefixArray.slice(0, idx),
-          parameters: {
-            ...result.parameters,
-            [key]: singular
-          },
-          removed: true
-        }
-      }
-      return result
-    }
-
-    let parameterizedPathPrefixArray = pathPrefixArray
-    let parameters = {}
-    let removed = false
-
-    Object.keys(params).forEach(
-      (key) => {
-        const value = params[key]
-        const results = parameterizeParam(parameterizedPathPrefixArray, parameters, removed, key, value)
-        parameterizedPathPrefixArray = results.parameterizedPathPrefixArray
-        parameters = results.parameters
-        removed = results.removed
-      }
-    )
-
-    return { parameterizedPathPrefixArray, parameters }
-  }
-
-  const { parameterizedPathPrefixArray, parameters } = parameterizeParams(pathPrefixArray, params)
-  return (
-    <RenderSidebarButton
-      buttonLabel={buttonLabel}
-      gotoMethod={() => { gotoList(parameterizedPathPrefixArray, listName, parameters) }}
-    />
-  )
-}
-
 const RenderSidebarListButton = ({ buttonDescription, canCreate, gotoList, pathPrefixArray }) => {
-  const { buttonIf, buttonLabel, listName, params } = buttonDescription
+  const { buttonIf, buttonLabel, listName } = buttonDescription
   if (!renderButtonIf(buttonIf, canCreate)) {
     return (<React.Fragment />)
-  }
-
-  if (valueHelper.isValue(params)) {
-    return (
-      <RenderParameterizedSidebarListButton
-        buttonLabel={buttonLabel}
-        gotoList={gotoList}
-        listName={listName}
-        pathPrefixArray={pathPrefixArray}
-        params={params}
-      />
-    )
   }
 
   return (

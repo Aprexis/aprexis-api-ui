@@ -301,18 +301,12 @@ const sidebarDescriptions = {
       {
         buttonLabel: "Parent Concepts",
         buttonType: "List",
-        listName: "therapeutic-concepts",
-        params: {
-          child_concept_id: { use_singular: 'therapeutic-concepts' }
-        }
+        listName: "parent-concepts"
       },
       {
         buttonLabel: "Child Concepts",
         buttonType: "List",
-        listName: "therapeutic-concepts",
-        params: {
-          parent_concept_id: { use_singular: 'therapeutic-concepts' }
-        }
+        listName: "child-concepts"
       }
     ],
     entryLabel: "Therapeutic Concept",
