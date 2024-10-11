@@ -15,6 +15,9 @@
     "comment": "If you want to use a local copy of a module, copy it into this hash and specify the local folder in the dependencies",
     "@aprexis/aprexis-api-utility": "^2.25.1"
   },
+  "resolutions": {
+    "caniuse-lite": "1.0.30001632"
+  },
   "dependencies": {
     "@aprexis/aprexis-api-utility": "^2.25.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
