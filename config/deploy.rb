@@ -13,7 +13,7 @@ set :log_level, :debug
 set :keep_releases, 10
 set :deploy_via, :remote_cache
 set :ssh_option, { forward_agent: true }
-append :linked_dirs, 'log'
+append :linked_dirs, 'log', 'node_modules'
 append :linked_files, '.env.local'
 
 set :default_shell, 'bash -l'
