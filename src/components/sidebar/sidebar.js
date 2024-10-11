@@ -295,6 +295,23 @@ const sidebarDescriptions = {
     entryLabel: "Reminder",
     entryName: "reminders"
   },
+  "therapeutic-concepts": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      {
+        buttonLabel: "Parent Concepts",
+        buttonType: "List",
+        listName: "parent-concepts"
+      },
+      {
+        buttonLabel: "Child Concepts",
+        buttonType: "List",
+        listName: "child-concepts"
+      }
+    ],
+    entryLabel: "Therapeutic Concept",
+    entryName: "therapeutic-concepts"
+  },
   "users": {
     entryButtons: [
       { buttonType: "Profile" },
@@ -333,6 +350,7 @@ class Sidebar extends Component {
     if (!valueHelper.isValue(entryDescription)) {
       throw new Error(`Cannot find sidebar component for ${pathEntry.key}`)
     }
+    const key = `sidebar-entry-${pathEntry.key}`
 
     return (
       <EntrySidebar
@@ -343,7 +361,7 @@ class Sidebar extends Component {
         gotoList={this.vm.gotoList}
         gotoPage={this.vm.gotoPage}
         gotoProfile={this.vm.gotoProfile}
-        key={`sidebar-entry-${pathEntry.key}`}
+        key={key}
         pathEntry={pathEntry}
         pathPrefixArray={pathPrefixArray}
         sidebarOpen={sidebarIndex === selectedIndex}
@@ -361,6 +379,7 @@ class Sidebar extends Component {
 
     for (let pathEntryIdx = 0; pathEntryIdx < orderedPathEntries.length; ++pathEntryIdx) {
       const pathEntry = orderedPathEntries[pathEntryIdx]
+
       pathPrefixArray.push(pathEntry.key)
 
       if (!valueHelper.isValue(pathEntry.value) || isNaN(pathEntry.value)) {

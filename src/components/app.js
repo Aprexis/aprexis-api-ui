@@ -62,6 +62,7 @@ class App extends Component {
           gotoConditionMedicationsPage={this.vm.gotoConditionMedicationsPage}
           gotoDiagnosisCodesPage={this.vm.gotoDiagnosisCodesPage}
           gotoDiseasesPage={this.vm.gotoDiseasesPage}
+          gotoGoldStandardPage={this.vm.gotoGoldStandardPage}
           gotoHealthPlansPage={this.vm.gotoHealthPlansPage}
           gotoLabTestsPage={this.vm.gotoLabTestsPage}
           gotoLoadProvidersPage={this.vm.gotoLoadProvidersPage}
