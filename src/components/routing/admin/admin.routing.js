@@ -4,6 +4,7 @@ import { BillingClaimHistoryCollectionsRouting } from "../billing/claim_history_
 import { ConditionMedicationsRouting } from "./condition_medications"
 import { DiagnosisCodesRouting } from "./diagnosis_codes"
 import { DiseasesRouting } from "./diseases"
+import { GoldStandardRouting } from "./gold_standard"
 import { LabTestsRouting } from "./lab_tests"
 import { LoadProvidersRouting } from "./load_providers"
 import { MedicationsRouting } from "./medications"
@@ -43,6 +44,10 @@ class AdminRouting extends Component {
         <Route
           path={`${adminPrefix}/diseases`}
           render={(props) => (<DiseasesRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${adminPrefix}/gold-standard`}
+          render={(props) => (<GoldStandardRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${adminPrefix}/lab-tests`}

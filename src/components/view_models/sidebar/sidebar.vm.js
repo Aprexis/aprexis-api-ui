@@ -16,18 +16,18 @@ class SidebarViewModel extends AbstractViewModel {
     return true
   }
 
-  gotoList(pathPrefixArray, listName) {
-    this.gotoPage(pathPrefixArray, listName)
+  gotoList(pathPrefixArray, listName, ...params) {
+    this.gotoPage(pathPrefixArray, listName, ...params)
   }
 
-  gotoPage(pathPrefixArray, pageName) {
+  gotoPage(pathPrefixArray, pageName, ...params) {
     const pathArray = pathPrefixArray.concat([pageName])
 
-    pathHelper.gotoPage(pathArray)
+    pathHelper.gotoPage(pathArray, ...params)
   }
 
-  gotoProfile(pathPrefixArray) {
-    this.gotoPage(pathPrefixArray, "profile")
+  gotoProfile(pathPrefixArray, ...params) {
+    this.gotoPage(pathPrefixArray, "profile", ...params)
   }
 }
 

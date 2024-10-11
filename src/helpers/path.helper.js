@@ -35,6 +35,10 @@ function buildPathArray(location, ...pathParts) {
       let value
       switch (typeof part) {
         case 'object':
+          if (('model' in part) && ('idField' in part)) {
+            value = part.model[part.idField]
+            break
+          }
           value = part.id
           break
 
@@ -57,7 +61,7 @@ function convertNameToFieldId(name) {
   return `${name.substring(0, name.length - 1).replaceAll("-", "_")}_id`
 }
 
-function gotoPage(pathArray) {
+function gotoPage(pathArray, ...params) {
   let path = ""
   pathArray.forEach(
     (pathEntry) => {
@@ -75,7 +79,7 @@ function gotoPage(pathArray) {
     path = `${pathHelper.root()}${path}`
   }
 
-  history.push(path)
+  history.push(path, ...params)
 }
 
 function haveProfile(orderedPathEntries) {

@@ -2,6 +2,7 @@ import {
   billingContractHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardTherapeuticConceptHelper,
   healthPlanHelper,
   patientHelper,
   pharmacyChainHelper,
@@ -26,6 +27,7 @@ const pathKeyToBreadcrumb = {
   'pharmacy-stores': pharmacyStoreToBreadcrumb,
   'potentially-inappropriate-medications': potentialllyInappropriateMedicationToBreadcrumb,
   'programs': programToBreadcrumb,
+  'therapeutic-concepts': therapeuticConceptToBreadcrumb,
   'users': userToBreadcrumb
 }
 
@@ -115,6 +117,9 @@ function programToBreadcrumb(program) {
   return programHelper.display(program)
 }
 
+function therapeuticConceptToBreadcrumb(therapeuticConcept) {
+  return goldStandardTherapeuticConceptHelper.therapeuticConceptId(therapeuticConcept)
+}
 
 function userToBreadcrumb(user) {
   if (!valueHelper.isValue(user)) {
