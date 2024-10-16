@@ -36,6 +36,15 @@ class GoldStandardPage extends Component {
                 Therapeutic Concepts
               </button>
             </Col>
+
+            <Col className="col-sm d-flex">
+              <button
+                className="btn btn-link ml-0 mr-0 pl-0 pr-0"
+                onClick={(_event) => { this.vm.gotoSpecificProductsPage() }}
+                type="button">
+                Specific Products
+              </button>
+            </Col>
           </Row>
         </Col>
       </Container>

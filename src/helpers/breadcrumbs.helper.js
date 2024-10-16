@@ -2,6 +2,10 @@ import {
   billingContractHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardGenericProductClinicalHelper,
+  goldStandardGenericProductHelper,
+  goldStandardSpecificDrugProductHelper,
+  goldStandardSpecificProductHelper,
   goldStandardTherapeuticConceptHelper,
   healthPlanHelper,
   patientHelper,
@@ -21,12 +25,16 @@ const pathKeyToBreadcrumb = {
   'billing-contracts': billingContractToBreadcrumb,
   'diagnosis-codes': diagnosisCodeToBreadcrumb,
   'diseases': diseaseToBreadcrumb,
+  'generic-product-clinicals': genericProductClinicalToBreadcrumb,
+  'generic-products': genericProductToBreadcrumb,
   'health-plans': healthPlanToBreadcrumb,
   'patients': patientToBreadcrumb,
   'pharmacy-chains': pharmacyChainToBreadcrumb,
   'pharmacy-stores': pharmacyStoreToBreadcrumb,
   'potentially-inappropriate-medications': potentialllyInappropriateMedicationToBreadcrumb,
   'programs': programToBreadcrumb,
+  'specific-drug-products': specificDrugProductToBreadcrumb,
+  'specific-products': specificProductToBreadcrumb,
   'therapeutic-concepts': therapeuticConceptToBreadcrumb,
   'users': userToBreadcrumb
 }
@@ -68,6 +76,13 @@ function diseaseToBreadcrumb(disease) {
   return diseaseHelper.questionKey(disease)
 }
 
+function genericProductClinicalToBreadcrumb(genericProductClinical) {
+  return goldStandardGenericProductClinicalHelper.name(genericProductClinical)
+}
+
+function genericProductToBreadcrumb(genericProduct) {
+  return goldStandardGenericProductHelper.name(genericProduct)
+}
 
 function healthPlanToBreadcrumb(healthPlan) {
   if (!valueHelper.isValue(healthPlan)) {
@@ -117,8 +132,16 @@ function programToBreadcrumb(program) {
   return programHelper.display(program)
 }
 
+function specificDrugProductToBreadcrumb(specificDrugProduct) {
+  return goldStandardSpecificDrugProductHelper.name(specificDrugProduct)
+}
+
+function specificProductToBreadcrumb(specificProduct) {
+  return goldStandardSpecificProductHelper.name(specificProduct)
+}
+
 function therapeuticConceptToBreadcrumb(therapeuticConcept) {
-  return goldStandardTherapeuticConceptHelper.therapeuticConceptId(therapeuticConcept)
+  return goldStandardTherapeuticConceptHelper.name(therapeuticConcept)
 }
 
 function userToBreadcrumb(user) {

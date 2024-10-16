@@ -2,6 +2,10 @@ import {
   answerApi,
   appointmentApi,
   caregiverApi,
+  goldStandardGenericProductClinicalApi,
+  goldStandardGenericProductApi,
+  goldStandardSpecificDrugProductApi,
+  goldStandardSpecificProductApi,
   goldStandardTherapeuticConceptApi,
   healthPlanApi,
   healthPlanProgramLimitApi,
@@ -52,6 +56,10 @@ import {
   billingInvoiceHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardGenericProductClinicalHelper,
+  goldStandardGenericProductHelper,
+  goldStandardSpecificDrugProductHelper,
+  goldStandardSpecificProductHelper,
   goldStandardTherapeuticConceptHelper,
   programApi,
   programHelper,
@@ -163,6 +171,16 @@ export const pathKeys = {
     api: faxApi,
     helper: faxHelper,
     modelName: "Fax"
+  },
+  "generic-product-clinicals": {
+    api: goldStandardGenericProductClinicalApi,
+    helper: goldStandardGenericProductClinicalHelper,
+    modelName: "genericProductClinical"
+  },
+  "generic-products": {
+    api: goldStandardGenericProductApi,
+    helper: goldStandardGenericProductHelper,
+    modelName: "genericProduct"
   },
   "health-plans": {
     api: healthPlanApi,
@@ -325,6 +343,16 @@ export const pathKeys = {
     api: reminderApi,
     helper: reminderHelper,
     modelName: "Reminder"
+  },
+  "specific-drug-products": {
+    api: goldStandardSpecificDrugProductApi,
+    helper: goldStandardSpecificDrugProductHelper,
+    modelName: "SpecificDrugProduct"
+  },
+  "specific-products": {
+    api: goldStandardSpecificProductApi,
+    helper: goldStandardSpecificProductHelper,
+    modelName: "SpecificProduct"
   },
   "therapeutic-concepts": {
     api: goldStandardTherapeuticConceptApi,

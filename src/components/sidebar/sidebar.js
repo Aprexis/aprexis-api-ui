@@ -93,6 +93,16 @@ const sidebarDescriptions = {
     entryLabel: "Fax",
     entryName: "fax"
   },
+  "generic-products": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Generic Product",
+    entryName: "generic-products"
+  },
+  "generic-product-clinicals": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Generic Product Clinical",
+    entryName: "generic-product-clinicals"
+  },
   "health-plans": {
     entryButtons: [
       { buttonType: "Profile" },
@@ -295,6 +305,16 @@ const sidebarDescriptions = {
     entryLabel: "Reminder",
     entryName: "reminders"
   },
+  "specific-drug-products": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Specific Product",
+    entryName: "specific-drug_products"
+  },
+  "specific-products": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Specific Product",
+    entryName: "specific-products"
+  },
   "therapeutic-concepts": {
     entryButtons: [
       { buttonType: "Profile" },
@@ -307,6 +327,11 @@ const sidebarDescriptions = {
         buttonLabel: "Child Concepts",
         buttonType: "List",
         listName: "child-concepts"
+      },
+      {
+        buttonLabel: "Specific Products",
+        buttonType: "List",
+        listName: "specific-products"
       }
     ],
     entryLabel: "Therapeutic Concept",

@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { GoldStandardPage } from "../../../pages/admin/gold_standard"
 import { NoMatch } from "../../"
+import { SpecificDrugProductsRouting } from "./specific_drug_products"
+import { SpecificProductsRouting } from "./specific_products"
 import { TherapeuticConceptsRouting } from "./therapeutic_concepts"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { pathHelper } from "../../../../helpers"
@@ -23,6 +25,14 @@ class GoldStandardRouting extends Component {
           exact
           path={goldStandardPrefix}
           render={(props) => (<GoldStandardPage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/specific-drug-products`}
+          render={(props) => (<SpecificDrugProductsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/specific-products`}
+          render={(props) => (<SpecificProductsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${goldStandardPrefix}/therapeutic-concepts`}
