@@ -92,7 +92,6 @@ function healthPlanToBreadcrumb(healthPlan) {
   return healthPlanHelper.name(healthPlan)
 }
 
-
 function patientToBreadcrumb(patient) {
   if (!valueHelper.isValue(patient)) {
     return "(no patient)"

@@ -99,7 +99,10 @@ const sidebarDescriptions = {
     entryName: "generic-products"
   },
   "generic-product-clinicals": {
-    entryButtons: [{ buttonType: "Profile" }],
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Generic Products", buttonType: "List", listName: "generic-products" }
+    ],
     entryLabel: "Generic Product Clinical",
     entryName: "generic-product-clinicals"
   },
