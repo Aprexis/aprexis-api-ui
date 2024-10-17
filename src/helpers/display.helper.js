@@ -33,8 +33,8 @@ export const displayHelper = {
   titleDisplay
 }
 
-function booleanDisplay(name, value, description, required = false) {
-  return displayHelper.display(name, valueHelper.yesNo(value), description, "?", required)
+function booleanDisplay(name, value, description, required = false, onClick = undefined) {
+  return displayHelper.display(name, valueHelper.yesNo(value), description, "?", required, onClick)
 }
 
 function changeField(modelName, model, changedModel, event) {
@@ -43,16 +43,15 @@ function changeField(modelName, model, changedModel, event) {
   return fieldHelper.changeValue(modelName, model, changedModel, name, value)
 }
 
-
-function dateDisplay(name, value, description) {
-  return displayHelper.display(name, dateHelper.displayDate(value), description)
+function dateDisplay(name, value, description, suffix = ":", required = false, onClick = undefined) {
+  return displayHelper.display(name, dateHelper.displayDate(value), description, suffix, required, onClick)
 }
 
-function dateTimeDisplay(name, value, description) {
-  return displayHelper.display(name, dateHelper.displayDateTime(value), description)
+function dateTimeDisplay(name, value, description, suffix = ":", required = false, onClick = undefined) {
+  return displayHelper.display(name, dateHelper.displayDateTime(value), description, suffix, required, onClick)
 }
 
-function display(name, value, description, suffix = ":", required = false) {
+function display(name, value, description, suffix = ":", required = false, onClick = undefined) {
   if (!required) {
     if (!valueHelper.isValue(value)) {
       return (<React.Fragment />)
@@ -70,13 +69,13 @@ function display(name, value, description, suffix = ":", required = false) {
   if (!valueHelper.isValue(description) ||
     (typeof description === "string" && !valueHelper.isStringValue(description))) {
     return (
-      <React.Fragment><strong className="text-muted">{name}{suffix}</strong> {value}<br /></React.Fragment>
+      <span onClick={onClick}><strong className="text-muted">{name}{suffix}</strong> {value}<br /></span>
     )
   }
 
   const targetId = `description-${name.toLowerCase().replaceAll(" ", "-")}`
   return (
-    <span>
+    <span onClick={onClick}>
       <strong className="text-muted">{name}{suffix}</strong> {workingValue}&nbsp;
       <FontAwesomeIcon className="ml-1" icon={faInfoCircle} id={targetId} />
       <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>
@@ -195,7 +194,7 @@ function displayListField(model, helper, heading) {
   }
 }
 
-function displayWithUnits(name, value, units, description, suffix = ":", required = false) {
+function displayWithUnits(name, value, units, description, suffix = ":", required = false, onClick = undefined) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
@@ -203,10 +202,10 @@ function displayWithUnits(name, value, units, description, suffix = ":", require
     return (<React.Fragment />)
   }
 
-  return displayHelper.display(name, `${value} ${units}`, description, suffix, required)
+  return displayHelper.display(name, `${value} ${units}`, description, suffix, required, onClick)
 }
 
-function dollarDisplay(name, value, description, suffix = ":", required = false) {
+function dollarDisplay(name, value, description, suffix = ":", required = false, onClick = undefined) {
   if (!valueHelper.isValue(value)) {
     return (<React.Fragment />)
   }
@@ -214,16 +213,16 @@ function dollarDisplay(name, value, description, suffix = ":", required = false)
     return (<React.Fragment />)
   }
 
-  return displayHelper.display(name, `$${value}`, description, suffix, required)
+  return displayHelper.display(name, `$${value}`, description, suffix, required, onClick)
 }
 
-function phoneDisplay(name, value, description, extension, suffix = ":", required = false) {
+function phoneDisplay(name, value, description, extension, suffix = ":", required = false, onClick = undefined) {
   const phoneNumber = displayHelper.phoneNumberForDisplay(value, extension)
   if (!valueHelper.isStringValue(phoneNumber)) {
     return (<React.Fragment />)
   }
 
-  return displayHelper.display(name, phoneNumber, description, suffix, required)
+  return displayHelper.display(name, phoneNumber, description, suffix, required, onClick)
 }
 
 function phoneNumberForDisplay(number, extension) {
@@ -279,12 +278,12 @@ function fieldXs(props) {
   return fieldXsTotal - displayHelper.labelXs(props)
 }
 
-function imageDisplay(name, value, description) {
+function imageDisplay(name, value, description, suffix = ":", required = false, onClick = undefined) {
   if (valueHelper.isStringValue(value)) {
-    return displayHelper.display(name, <img src={`data: image / jpeg; base64, ${value} `} alt="logo" />, description)
+    return displayHelper.display(name, <img src={`data: image / jpeg; base64, ${value} `} alt="logo" />, description, suffix, required, onClick)
   }
 
-  return displayHelper.display(name, "")
+  return displayHelper.display(name, "", undefined, suffix, required, onClick)
 }
 
 function includeField(pathEntries, filters, fieldHeader) {
@@ -410,16 +409,16 @@ function listField(value) {
   }
 }
 
-function notInContextDisplay(pathKey, name, value, description) {
+function notInContextDisplay(pathKey, name, value, description, suffix = ":", required = false, onClick = undefined) {
   if (contextHelper.inContext(pathKey)) {
     return (<React.Fragment />)
   }
 
-  return displayHelper.display(name, value, description)
+  return displayHelper.display(name, value, description, suffix, required, onClick)
 }
 
-function optionDisplay(name, options, value, description, suffix = ":", required = false) {
-  return displayHelper.display(name, options[valueHelper.makeString(value)], description, suffix, required)
+function optionDisplay(name, options, value, description, suffix = ":", required = false, onClick = undefined) {
+  return displayHelper.display(name, options[valueHelper.makeString(value)], description, suffix, required, onClick)
 }
 
 function options(props) {
@@ -532,6 +531,6 @@ function renderAccess(user) {
   }
 }
 
-function titleDisplay(name, value, description, suffix = ":", required = false) {
-  return displayHelper.display(name, valueHelper.titleize(value), description, suffix, required)
+function titleDisplay(name, value, description, suffix = ":", required = false, onClick = undefined) {
+  return displayHelper.display(name, valueHelper.titleize(value), description, suffix, required, onClick)
 }
