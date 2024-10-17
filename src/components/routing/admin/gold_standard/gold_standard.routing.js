@@ -4,6 +4,9 @@ import { GoldStandardPage } from "../../../pages/admin/gold_standard"
 import { NoMatch } from "../../"
 import { GenericProductClinicalsRouting } from "./generic_product_clinicals"
 import { GenericProductsRouting } from "./generic_products"
+import { MarketedProductsRouting } from "./marketed_products"
+import { PackagesRouting } from "./packages"
+import { ProductsRouting } from "./products"
 import { SpecificDrugProductsRouting } from "./specific_drug_products"
 import { SpecificProductsRouting } from "./specific_products"
 import { TherapeuticConceptsRouting } from "./therapeutic_concepts"
@@ -35,6 +38,18 @@ class GoldStandardRouting extends Component {
         <Route
           path={`${goldStandardPrefix}/generic-products`}
           render={(props) => (<GenericProductsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/marketed-products`}
+          render={(props) => (<MarketedProductsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/packages`}
+          render={(props) => (<PackagesRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/products`}
+          render={(props) => (<ProductsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${goldStandardPrefix}/specific-drug-products`}

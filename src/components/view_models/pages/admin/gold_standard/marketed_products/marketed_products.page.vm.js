@@ -1,15 +1,15 @@
 import { AbstractListPageViewModel } from "../../.."
-import { goldStandardSpecificProductApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { goldStandardMarketedProductApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
 
-class SpecificProductsPageViewModel extends AbstractListPageViewModel {
+class MarketedProductsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoSpecificProductProfile = this.gotoSpecificProductProfile.bind(this)
+    this.gotoMarketedProductProfile = this.gotoMarketedProductProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -23,7 +23,7 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name or Synonym", "for_specific_product")
+      filtersHelper.stringFilter("Name", "for_marketed_product")
     ]
   }
 
@@ -31,8 +31,8 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoSpecificProductProfile(specificProduct) {
-    const pathArray = pathHelper.buildPathArray(window.location, { model: specificProduct, idField: 'specific_product_id' }, "profile")
+  gotoMarketedProductProfile(marketedProduct) {
+    const pathArray = pathHelper.buildPathArray(window.location, { model: marketedProduct, idField: 'marketed_product_id' }, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -45,21 +45,21 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
-    this.removeField("specificProductHeaders")
+    this.removeField("marketedProductHeaders")
     const pathEntries = this.pathEntries()
-    const specific_drug_product_id = pathEntries["specific-drug-products"].value
+    const specific_product_id = pathEntries["specific-products"].value
     const { filters, sorting, page } = this.data
 
-    if (valueHelper.isNumberValue(specific_drug_product_id)) {
-      goldStandardSpecificProductApi.listForSpecificDrugProduct(
+    if (valueHelper.isNumberValue(specific_product_id)) {
+      goldStandardMarketedProductApi.listForSpecificProduct(
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
-        specific_drug_product_id,
+        specific_product_id,
         { ...filters, ...sorting, page },
-        (specificProducts, specificProductHeaders) => {
+        (marketedProducts, marketedProductHeaders) => {
           this.addData(
             {
-              specificProducts,
-              page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+              marketedProducts,
+              page: pageHelper.updatePageFromLastPage(marketedProductHeaders)
             },
             this.redrawView
           )
@@ -69,14 +69,14 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
       return
     }
 
-    goldStandardSpecificProductApi.list(
+    goldStandardMarketedProductApi.list(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
-      (specificProducts, specificProductHeaders) => {
+      (marketedProducts, marketedProductHeaders) => {
         this.addData(
           {
-            specificProducts,
-            page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+            marketedProducts,
+            page: pageHelper.updatePageFromLastPage(marketedProductHeaders)
           },
           this.redrawView
         )
@@ -86,8 +86,8 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
   }
 
   title() {
-    return "Specific Products"
+    return "Marketed Products"
   }
 }
 
-export { SpecificProductsPageViewModel }
+export { MarketedProductsPageViewModel }

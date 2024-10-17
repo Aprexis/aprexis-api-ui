@@ -4,6 +4,10 @@ import {
   diseaseHelper,
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
+  goldStandardMarketedProductHelper,
+  goldStandardPackageHelper,
+  goldStandardPackageVersionHelper,
+  goldStandardProductHelper,
   goldStandardSpecificDrugProductHelper,
   goldStandardSpecificProductHelper,
   goldStandardTherapeuticConceptHelper,
@@ -28,6 +32,10 @@ const pathKeyToBreadcrumb = {
   'generic-product-clinicals': genericProductClinicalToBreadcrumb,
   'generic-products': genericProductToBreadcrumb,
   'health-plans': healthPlanToBreadcrumb,
+  'marketed-products': marketedProductToBreadcrumb,
+  'packages': packageToBreadcrumb,
+  'package-versions': packageVersionToBreadcrumb,
+  'products': productToBreadcrumb,
   'patients': patientToBreadcrumb,
   'pharmacy-chains': pharmacyChainToBreadcrumb,
   'pharmacy-stores': pharmacyStoreToBreadcrumb,
@@ -92,6 +100,18 @@ function healthPlanToBreadcrumb(healthPlan) {
   return healthPlanHelper.name(healthPlan)
 }
 
+function marketedProductToBreadcrumb(marketedProduct) {
+  return goldStandardMarketedProductHelper.name(marketedProduct)
+}
+
+function packageToBreadcrumb(gsPackage) {
+  return goldStandardPackageHelper.packageVersion(gsPackage)
+}
+
+function packageVersionToBreadcrumb(gsPackageVersion) {
+  return goldStandardPackageVersionHelper.packageVersion(gsPackageVersion)
+}
+
 function patientToBreadcrumb(patient) {
   if (!valueHelper.isValue(patient)) {
     return "(no patient)"
@@ -125,6 +145,10 @@ function pharmacyStoreToBreadcrumb(pharmacyStore) {
 
 function potentialllyInappropriateMedicationToBreadcrumb(potentiallyInappropriateMedication) {
   return potentiallyInappropriateMedicationHelper.specificProductId(potentiallyInappropriateMedication)
+}
+
+function productToBreadcrumb(product) {
+  return goldStandardProductHelper.name(product)
 }
 
 function programToBreadcrumb(program) {

@@ -1,5 +1,5 @@
 import { AbstractListPageViewModel } from "../../.."
-import { goldStandardSpecificDrugProductApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { goldStandardSpecificDrugProductApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
 
 class SpecificDrugProductsPageViewModel extends AbstractListPageViewModel {
@@ -46,7 +46,27 @@ class SpecificDrugProductsPageViewModel extends AbstractListPageViewModel {
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("specificDrugProductHeaders")
+    const pathEntries = this.pathEntries()
+    const generic_product_id = pathEntries["generic-products"].value
     const { filters, sorting, page } = this.data
+
+    if (valueHelper.isNumberValue(generic_product_id)) {
+      goldStandardSpecificDrugProductApi.listForGenericProduct(
+        apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
+        generic_product_id,
+        { ...filters, ...sorting, page },
+        (specificDrugProducts, specificDrugProductHeaders) => {
+          this.addData(
+            {
+              specificDrugProducts,
+              page: pageHelper.updatePageFromLastPage(specificDrugProductHeaders)
+            },
+            this.redrawView
+          )
+        },
+        this.onError
+      )
+    }
 
     goldStandardSpecificDrugProductApi.list(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

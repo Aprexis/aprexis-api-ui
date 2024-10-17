@@ -81,6 +81,36 @@ class GoldStandardPage extends Component {
                           </button>
                         </td>
                       </tr>
+                      <tr>
+                        <td>
+                          <button
+                            className="btn btn-link ml-0 mr-0 pl-0 pr-0"
+                            onClick={(_event) => { this.vm.gotoMarketedProductsPage() }}
+                            type="button">
+                            Markteted Products
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <button
+                            className="btn btn-link ml-0 mr-0 pl-0 pr-0"
+                            onClick={(_event) => { this.vm.gotoProductsPage() }}
+                            type="button">
+                            Products
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <button
+                            className="btn btn-link ml-0 mr-0 pl-0 pr-0"
+                            onClick={(_event) => { this.vm.gotoPackagesPage() }}
+                            type="button">
+                            Packages
+                          </button>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </td>

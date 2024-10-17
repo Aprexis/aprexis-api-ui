@@ -1,15 +1,15 @@
 import { AbstractListPageViewModel } from "../../.."
-import { goldStandardSpecificProductApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { goldStandardPackageVersionApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
 
-class SpecificProductsPageViewModel extends AbstractListPageViewModel {
+class PackageVersionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoSpecificProductProfile = this.gotoSpecificProductProfile.bind(this)
+    this.gotoPackageVersionProfile = this.gotoPackageVersionProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -23,7 +23,7 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name or Synonym", "for_specific_product")
+      filtersHelper.stringFilter("version", "for_package_version")
     ]
   }
 
@@ -31,8 +31,8 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoSpecificProductProfile(specificProduct) {
-    const pathArray = pathHelper.buildPathArray(window.location, { model: specificProduct, idField: 'specific_product_id' }, "profile")
+  gotoPackageVersionProfile(PackageVersion) {
+    const pathArray = pathHelper.buildPathArray(window.location, { model: PackageVersion, idField: 'version' }, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -45,21 +45,21 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
-    this.removeField("specificProductHeaders")
+    this.removeField("packageVersionHeaders")
     const pathEntries = this.pathEntries()
-    const specific_drug_product_id = pathEntries["specific-drug-products"].value
+    const package_id = pathEntries["packages"].value
     const { filters, sorting, page } = this.data
 
-    if (valueHelper.isNumberValue(specific_drug_product_id)) {
-      goldStandardSpecificProductApi.listForSpecificDrugProduct(
+    if (valueHelper.isNumberValue(package_id)) {
+      goldStandardPackageVersionApi.listForPackage(
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
-        specific_drug_product_id,
+        package_id,
         { ...filters, ...sorting, page },
-        (specificProducts, specificProductHeaders) => {
+        (packageVersions, packageVersionHeaders) => {
           this.addData(
             {
-              specificProducts,
-              page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+              packageVersions,
+              page: pageHelper.updatePageFromLastPage(packageVersionHeaders)
             },
             this.redrawView
           )
@@ -69,14 +69,14 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
       return
     }
 
-    goldStandardSpecificProductApi.list(
+    goldStandardPackageVersionApi.list(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
-      (specificProducts, specificProductHeaders) => {
+      (packageVersions, packageVersionHeaders) => {
         this.addData(
           {
-            specificProducts,
-            page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+            packageVersions,
+            page: pageHelper.updatePageFromLastPage(packageVersionHeaders)
           },
           this.redrawView
         )
@@ -86,8 +86,8 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
   }
 
   title() {
-    return "Specific Products"
+    return "Package Versions"
   }
 }
 
-export { SpecificProductsPageViewModel }
+export { PackageVersionsPageViewModel }

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { SpecificDrugProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_drug_products"
+import { MarketedProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/marketed_products"
 import { ListView } from "../../../../../containers"
-import { valueHelper, goldStandardSpecificDrugProductHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper, goldStandardMarketedProductHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../../../helpers"
 
 const headings = [
@@ -11,23 +11,18 @@ const headings = [
     method: "name"
   },
   {
-    name: "Synonym",
-    field: "synonym",
-    method: "synonym"
-  },
-  {
-    name: "Generic Product",
-    field: "generic_product.name",
-    method: "goldStandardGenericProductName"
+    name: "Specific Product",
+    field: "specific_product.name",
+    method: "goldStandardSpecificProductName"
   }
 ]
 
-class SpecificDrugProductsPage extends Component {
+class MarketedProductsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new SpecificDrugProductsPageViewModel(
+    this.vm = new MarketedProductsPageViewModel(
       {
         ...props,
         view: this
@@ -50,7 +45,7 @@ class SpecificDrugProductsPage extends Component {
       {
         filters,
         headings,
-        listName: "specific-drug-products",
+        listName: "marketed-products",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -59,7 +54,7 @@ class SpecificDrugProductsPage extends Component {
     )
   }
 
-  generateTableRow(specificProduct) {
+  generateTableRow(marketedProduct) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -67,16 +62,16 @@ class SpecificDrugProductsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoSpecificDrugProductProfile,
+        gotoTableItemProfile: this.vm.gotoMarketedProductProfile,
         headings,
-        helper: goldStandardSpecificDrugProductHelper,
+        helper: goldStandardMarketedProductHelper,
         launchModal: this.props.launchModal,
-        modelName: 'specificDrugProduct',
+        modelName: 'marketedProduct',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: specificProduct
+        tableItem: marketedProduct
       }
     )
   }
@@ -96,9 +91,9 @@ class SpecificDrugProductsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.specificDrugProducts}
-        listLabel="Specific Drug Product"
-        listPluralLabel="Specific Drug Products"
+        list={this.state.marketedProducts}
+        listLabel="Marketed Product"
+        listPluralLabel="Marketed Products"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -108,7 +103,7 @@ class SpecificDrugProductsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Specific Drug Products"
+        title="Marketed Products"
       />
     )
   }
@@ -119,4 +114,4 @@ class SpecificDrugProductsPage extends Component {
   }
 }
 
-export { SpecificDrugProductsPage }
+export { MarketedProductsPage }

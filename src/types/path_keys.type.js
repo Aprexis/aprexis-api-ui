@@ -4,6 +4,10 @@ import {
   caregiverApi,
   goldStandardGenericProductClinicalApi,
   goldStandardGenericProductApi,
+  goldStandardMarketedProductApi,
+  goldStandardPackageApi,
+  goldStandardPackageVersionApi,
+  goldStandardProductApi,
   goldStandardSpecificDrugProductApi,
   goldStandardSpecificProductApi,
   goldStandardTherapeuticConceptApi,
@@ -59,6 +63,10 @@ import {
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
   goldStandardSpecificDrugProductHelper,
+  goldStandardMarketedProductHelper,
+  goldStandardPackageHelper,
+  goldStandardPackageVersionHelper,
+  goldStandardProductHelper,
   goldStandardSpecificProductHelper,
   goldStandardTherapeuticConceptHelper,
   programApi,
@@ -175,12 +183,12 @@ export const pathKeys = {
   "generic-product-clinicals": {
     api: goldStandardGenericProductClinicalApi,
     helper: goldStandardGenericProductClinicalHelper,
-    modelName: "genericProductClinical"
+    modelName: "GenericProductClinical"
   },
   "generic-products": {
     api: goldStandardGenericProductApi,
     helper: goldStandardGenericProductHelper,
-    modelName: "genericProduct"
+    modelName: "GenericProduct"
   },
   "health-plans": {
     api: healthPlanApi,
@@ -190,12 +198,12 @@ export const pathKeys = {
   "health-plan-program-limits": {
     api: healthPlanProgramLimitApi,
     helper: healthPlanProgramLimitHelper,
-    modelName: "healthPlanProgramLimit"
+    modelName: "HealthPlanProgramLimit"
   },
   "health-plan-program-reports": {
     api: healthPlanProgramReportApi,
     helper: healthPlanProgramReportHelper,
-    modelName: "healthPlanProgramReport"
+    modelName: "HealthPlanProgramReport"
   },
   "intervention-documents": {
     api: interventionDocumentApi,
@@ -233,6 +241,11 @@ export const pathKeys = {
     helper: mapTalkingPointHelper,
     modelName: "MapTalkingPoint"
   },
+  "marketed-products": {
+    api: goldStandardMarketedProductApi,
+    helper: goldStandardMarketedProductHelper,
+    modelName: "MarketedProduct"
+  },
   "medical-claims": {
     api: medicalClaimApi,
     helper: medicalClaimHelper,
@@ -243,6 +256,16 @@ export const pathKeys = {
     breadcrumb: "Medications",
     helper: medicationHelper,
     modelName: "Medications"
+  },
+  "packages": {
+    api: goldStandardPackageApi,
+    helper: goldStandardPackageHelper,
+    modelName: "Package"
+  },
+  "package-versions": {
+    api: goldStandardPackageVersionApi,
+    helper: goldStandardPackageVersionHelper,
+    modelName: "PackageVersion"
   },
   "patient-allergies": {
     api: patientAllergyApi,
@@ -333,6 +356,11 @@ export const pathKeys = {
     api: potentiallyInappropriateMedicationApi,
     helper: potentiallyInappropriateMedicationHelper,
     modelName: "PotentiallyInappropriateMedication"
+  },
+  "products": {
+    api: goldStandardProductApi,
+    helper: goldStandardProductHelper,
+    modelName: "Product"
   },
   "programs": {
     api: programApi,

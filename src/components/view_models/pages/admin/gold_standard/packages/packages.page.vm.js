@@ -1,15 +1,15 @@
 import { AbstractListPageViewModel } from "../../.."
-import { goldStandardSpecificProductApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { goldStandardPackageApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
 
-class SpecificProductsPageViewModel extends AbstractListPageViewModel {
+class PackagesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoSpecificProductProfile = this.gotoSpecificProductProfile.bind(this)
+    this.gotoPackageProfile = this.gotoPackageProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -23,7 +23,7 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name or Synonym", "for_specific_product")
+      filtersHelper.stringFilter("Name", "for_package")
     ]
   }
 
@@ -31,8 +31,8 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoSpecificProductProfile(specificProduct) {
-    const pathArray = pathHelper.buildPathArray(window.location, { model: specificProduct, idField: 'specific_product_id' }, "profile")
+  gotoPackageProfile(Package) {
+    const pathArray = pathHelper.buildPathArray(window.location, { model: Package, idField: 'package_id' }, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -45,21 +45,21 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
-    this.removeField("specificProductHeaders")
+    this.removeField("packageHeaders")
     const pathEntries = this.pathEntries()
-    const specific_drug_product_id = pathEntries["specific-drug-products"].value
+    const product_id = pathEntries["products"].value
     const { filters, sorting, page } = this.data
 
-    if (valueHelper.isNumberValue(specific_drug_product_id)) {
-      goldStandardSpecificProductApi.listForSpecificDrugProduct(
+    if (valueHelper.isNumberValue(product_id)) {
+      goldStandardPackageApi.listForProduct(
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
-        specific_drug_product_id,
+        product_id,
         { ...filters, ...sorting, page },
-        (specificProducts, specificProductHeaders) => {
+        (Packages, PackageHeaders) => {
           this.addData(
             {
-              specificProducts,
-              page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+              Packages,
+              page: pageHelper.updatePageFromLastPage(PackageHeaders)
             },
             this.redrawView
           )
@@ -69,14 +69,14 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
       return
     }
 
-    goldStandardSpecificProductApi.list(
+    goldStandardPackageApi.list(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
-      (specificProducts, specificProductHeaders) => {
+      (Packages, PackageHeaders) => {
         this.addData(
           {
-            specificProducts,
-            page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+            Packages,
+            page: pageHelper.updatePageFromLastPage(PackageHeaders)
           },
           this.redrawView
         )
@@ -86,8 +86,8 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
   }
 
   title() {
-    return "Specific Products"
+    return "Packages"
   }
 }
 
-export { SpecificProductsPageViewModel }
+export { PackagesPageViewModel }

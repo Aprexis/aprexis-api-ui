@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
+import { SpecificDrugProductsRouting } from "../specific_drug_products"
 import { NoMatch } from "../../.."
 import { GenericProductProfilePage } from "../../../../pages/admin/gold_standard/generic_products"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
@@ -18,6 +19,10 @@ class GenericProductRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          path={`${genericProductPrefix}/specific-drug-products`}
+          render={(props) => (<SpecificDrugProductsRouting {...props} {...contextProps} />)}
+        />
         <Route
           exact
           path={`${genericProductPrefix}/profile`}

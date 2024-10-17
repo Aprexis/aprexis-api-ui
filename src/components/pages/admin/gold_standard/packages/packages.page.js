@@ -1,33 +1,43 @@
 import React, { Component } from "react"
-import { SpecificDrugProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_drug_products"
+import { PackagesPageViewModel } from "../../../../view_models/pages/admin/gold_standard/packages"
 import { ListView } from "../../../../../containers"
-import { valueHelper, goldStandardSpecificDrugProductHelper } from "@aprexis/aprexis-api-utility"
+import { valueHelper, goldStandardPackageHelper } from "@aprexis/aprexis-api-utility"
 import { listHelper } from "../../../../../helpers"
 
 const headings = [
   {
-    name: "Name",
-    field: "name",
-    method: "name"
+    name: "Description",
+    field: "package_description",
+    method: "packageDescription"
   },
   {
-    name: "Synonym",
-    field: "synonym",
-    method: "synonym"
+    name: "Descriptor",
+    field: "package_descriptor_text",
+    method: "packageDescriptorText"
   },
   {
-    name: "Generic Product",
-    field: "generic_product.name",
-    method: "goldStandardGenericProductName"
-  }
+    name: "NDC-10",
+    field: "ndc10",
+    method: "ndc10"
+  },
+  {
+    name: "NDC-11",
+    field: "ndc11",
+    method: "ndc11"
+  },
+  {
+    name: "Product Name",
+    field: "product.product_name_long",
+    method: "goldStandardProductNameLong"
+  },
 ]
 
-class SpecificDrugProductsPage extends Component {
+class PackagesPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new SpecificDrugProductsPageViewModel(
+    this.vm = new PackagesPageViewModel(
       {
         ...props,
         view: this
@@ -50,7 +60,7 @@ class SpecificDrugProductsPage extends Component {
       {
         filters,
         headings,
-        listName: "specific-drug-products",
+        listName: "packages",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -59,7 +69,7 @@ class SpecificDrugProductsPage extends Component {
     )
   }
 
-  generateTableRow(specificProduct) {
+  generateTableRow(gsPackage) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -67,16 +77,16 @@ class SpecificDrugProductsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoSpecificDrugProductProfile,
+        gotoTableItemProfile: this.vm.gotoPackageProfile,
         headings,
-        helper: goldStandardSpecificDrugProductHelper,
+        helper: goldStandardPackageHelper,
         launchModal: this.props.launchModal,
-        modelName: 'specificDrugProduct',
+        modelName: 'Package',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: specificProduct
+        tableItem: gsPackage
       }
     )
   }
@@ -96,9 +106,9 @@ class SpecificDrugProductsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.specificDrugProducts}
-        listLabel="Specific Drug Product"
-        listPluralLabel="Specific Drug Products"
+        list={this.state.Packages}
+        listLabel="Package"
+        listPluralLabel="Packages"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -108,7 +118,7 @@ class SpecificDrugProductsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Specific Drug Products"
+        title="Packages"
       />
     )
   }
@@ -119,4 +129,4 @@ class SpecificDrugProductsPage extends Component {
   }
 }
 
-export { SpecificDrugProductsPage }
+export { PackagesPage }
