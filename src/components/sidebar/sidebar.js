@@ -93,6 +93,22 @@ const sidebarDescriptions = {
     entryLabel: "Fax",
     entryName: "fax"
   },
+  "generic-products": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Specific Drug Products", buttonType: "List", listName: "specific-drug-products" }
+    ],
+    entryLabel: "Generic Product",
+    entryName: "generic-products"
+  },
+  "generic-product-clinicals": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Generic Products", buttonType: "List", listName: "generic-products" }
+    ],
+    entryLabel: "Generic Product Clinical",
+    entryName: "generic-product-clinicals"
+  },
   "health-plans": {
     entryButtons: [
       { buttonType: "Profile" },
@@ -163,6 +179,14 @@ const sidebarDescriptions = {
     entryLabel: "Map Talking Point",
     entryName: "map-talking-points"
   },
+  "marketed-products": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Products", buttonType: "List", listName: "products" }
+    ],
+    entryLabel: "Marketed Products",
+    entryName: "marketed-products"
+  },
   "medical-claims": {
     entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Medical Claim",
@@ -177,6 +201,19 @@ const sidebarDescriptions = {
     entryButtons: [],
     entryLabel: 'NADAC Price',
     entryName: "nadac-prices"
+  },
+  "packages": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Package Versions", buttonType: "List", listName: "package-versions" }
+    ],
+    entryLabel: "Package",
+    entryName: "packages"
+  },
+  "package-versions": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Package Version",
+    entryName: "package-versions"
   },
   "patients": {
     entryButtons: [
@@ -280,6 +317,14 @@ const sidebarDescriptions = {
     entryLabel: "Potentially Inappropriate Medications",
     entryName: "potentially-inappropriate-medications"
   },
+  "products": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Packages", buttonType: "List", listName: "packages" }
+    ],
+    entryLabel: "Product",
+    entryName: "products"
+  },
   "programs": {
     entryButtons: [
       { buttonType: "Profile" },
@@ -295,6 +340,22 @@ const sidebarDescriptions = {
     entryLabel: "Reminder",
     entryName: "reminders"
   },
+  "specific-drug-products": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Specific Products", buttonType: "List", listName: "specific-products" }
+    ],
+    entryLabel: "Specific Drug Product",
+    entryName: "specific-drug-products"
+  },
+  "specific-products": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Marketed Products", buttonType: "List", listName: "marketed-products" }
+    ],
+    entryLabel: "Specific Product",
+    entryName: "specific-products"
+  },
   "therapeutic-concepts": {
     entryButtons: [
       { buttonType: "Profile" },
@@ -307,7 +368,12 @@ const sidebarDescriptions = {
         buttonLabel: "Child Concepts",
         buttonType: "List",
         listName: "child-concepts"
-      }
+      }/*,
+      {
+        buttonLabel: "Specific Products",
+        buttonType: "List",
+        listName: "specific-products"
+      }*/
     ],
     entryLabel: "Therapeutic Concept",
     entryName: "therapeutic-concepts"

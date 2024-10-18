@@ -179,9 +179,10 @@ function parsePathEntries(location) {
 
 function pluralPrefix(location, pluralName) {
   const { pathname } = location
-  const ppIdx = pathname.indexOf(pluralName)
+  const pathnameParts = pathname.split('/')
+  const pluralNameIdx = pathnameParts.indexOf(pluralName)
 
-  return `${pathname.substring(0, ppIdx)}${pluralName}`
+  return pathnameParts.slice(0, pluralNameIdx + 1).join('/')
 }
 
 function root() {

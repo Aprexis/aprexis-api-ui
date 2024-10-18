@@ -2,6 +2,14 @@ import {
   billingContractHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardGenericProductClinicalHelper,
+  goldStandardGenericProductHelper,
+  goldStandardMarketedProductHelper,
+  goldStandardPackageHelper,
+  goldStandardPackageVersionHelper,
+  goldStandardProductHelper,
+  goldStandardSpecificDrugProductHelper,
+  goldStandardSpecificProductHelper,
   goldStandardTherapeuticConceptHelper,
   healthPlanHelper,
   patientHelper,
@@ -21,12 +29,20 @@ const pathKeyToBreadcrumb = {
   'billing-contracts': billingContractToBreadcrumb,
   'diagnosis-codes': diagnosisCodeToBreadcrumb,
   'diseases': diseaseToBreadcrumb,
+  'generic-product-clinicals': genericProductClinicalToBreadcrumb,
+  'generic-products': genericProductToBreadcrumb,
   'health-plans': healthPlanToBreadcrumb,
+  'marketed-products': marketedProductToBreadcrumb,
+  'packages': packageToBreadcrumb,
+  'package-versions': packageVersionToBreadcrumb,
+  'products': productToBreadcrumb,
   'patients': patientToBreadcrumb,
   'pharmacy-chains': pharmacyChainToBreadcrumb,
   'pharmacy-stores': pharmacyStoreToBreadcrumb,
   'potentially-inappropriate-medications': potentialllyInappropriateMedicationToBreadcrumb,
   'programs': programToBreadcrumb,
+  'specific-drug-products': specificDrugProductToBreadcrumb,
+  'specific-products': specificProductToBreadcrumb,
   'therapeutic-concepts': therapeuticConceptToBreadcrumb,
   'users': userToBreadcrumb
 }
@@ -68,6 +84,13 @@ function diseaseToBreadcrumb(disease) {
   return diseaseHelper.questionKey(disease)
 }
 
+function genericProductClinicalToBreadcrumb(genericProductClinical) {
+  return goldStandardGenericProductClinicalHelper.name(genericProductClinical)
+}
+
+function genericProductToBreadcrumb(genericProduct) {
+  return goldStandardGenericProductHelper.name(genericProduct)
+}
 
 function healthPlanToBreadcrumb(healthPlan) {
   if (!valueHelper.isValue(healthPlan)) {
@@ -77,6 +100,17 @@ function healthPlanToBreadcrumb(healthPlan) {
   return healthPlanHelper.name(healthPlan)
 }
 
+function marketedProductToBreadcrumb(marketedProduct) {
+  return goldStandardMarketedProductHelper.name(marketedProduct)
+}
+
+function packageToBreadcrumb(gsPackage) {
+  return goldStandardPackageHelper.packageDescription(gsPackage)
+}
+
+function packageVersionToBreadcrumb(gsPackageVersion) {
+  return goldStandardPackageVersionHelper.packageVersion(gsPackageVersion)
+}
 
 function patientToBreadcrumb(patient) {
   if (!valueHelper.isValue(patient)) {
@@ -113,12 +147,24 @@ function potentialllyInappropriateMedicationToBreadcrumb(potentiallyInappropriat
   return potentiallyInappropriateMedicationHelper.specificProductId(potentiallyInappropriateMedication)
 }
 
+function productToBreadcrumb(product) {
+  return goldStandardProductHelper.productNameLong(product)
+}
+
 function programToBreadcrumb(program) {
   return programHelper.display(program)
 }
 
+function specificDrugProductToBreadcrumb(specificDrugProduct) {
+  return goldStandardSpecificDrugProductHelper.name(specificDrugProduct)
+}
+
+function specificProductToBreadcrumb(specificProduct) {
+  return goldStandardSpecificProductHelper.name(specificProduct)
+}
+
 function therapeuticConceptToBreadcrumb(therapeuticConcept) {
-  return goldStandardTherapeuticConceptHelper.therapeuticConceptId(therapeuticConcept)
+  return goldStandardTherapeuticConceptHelper.conceptName(therapeuticConcept)
 }
 
 function userToBreadcrumb(user) {
