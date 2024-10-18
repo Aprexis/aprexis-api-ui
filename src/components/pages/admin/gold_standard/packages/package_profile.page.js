@@ -51,7 +51,7 @@ const PackageMarketing = ({ gsPackage }) => {
           {displayHelper.booleanDisplay("Preservative Free", goldStandardPackageHelper.preservativeFree(gsPackage))}
           {displayHelper.dateDisplay("Lot Expiry", goldStandardPackageHelper.lotExpiry(gsPackage))}
           {displayHelper.dateDisplay("Replaced", goldStandardPackageHelper.replacedDate(gsPackage))}
-          {displayHelper.display("Replaced By", goldStandardPackageHelper.replacedByPackageDescription(gsPackage))}
+          {displayHelper.display("Replaced By", goldStandardPackageHelper.goldStandardReplacedByPackageDescription(gsPackage))}
           {displayHelper.dateDisplay("Off Market", goldStandardPackageHelper.offMarket(gsPackage))}
         </CardBody>
       </Card>
@@ -74,11 +74,11 @@ const PackageDispensing = ({ gsPackage }) => {
           {displayHelper.display("Inner Package Count", goldStandardPackageHelper.innerPackageCount(gsPackage))}
           {displayHelper.booleanDisplay("Not Splittable", goldStandardPackageHelper.notSplittable(gsPackage))}
           {displayHelper.booleanDisplay("Short Cycle Dispensing", goldStandardPackageHelper.shortCycleDispensing(gsPackage))}
-          {displayHelper.booleanDisplay("Short Cycle Dispensing Is Manual", goldStandardPackageHelper.shortCycyleDispensingIsManual(gsPackage))}
+          {displayHelper.booleanDisplay("Short Cycle Dispensing Is Manual", goldStandardPackageHelper.shortCycleDispensingIsManual(gsPackage))}
           {displayHelper.display("Minimum Dispense Quantity", goldStandardPackageHelper.minimumDispenseQuantity(gsPackage))}
           {displayHelper.booleanDisplay("Minimum Dispense Quantity Is Manual", goldStandardPackageHelper.minimumDispenseQuantityIsManual(gsPackage))}
           {displayHelper.display("Unit Dose Type ID", goldStandardPackageHelper.goldStandardUnitDoseTypeId(gsPackage))}
-          {displayHelper.display("NCPDP Billing Unit ID", goldStandardPackageHelper.godlStandardNcpdpBillingUnitId(gsPackage))}
+          {displayHelper.display("NCPDP Billing Unit ID", goldStandardPackageHelper.goldStandardNcpdpBillingUnitId(gsPackage))}
           {displayHelper.display("NCPDP Exceptional Count", goldStandardPackageHelper.ncpdpExceptionalCount(gsPackage))}
           {displayHelper.display("NCPDP Script Form Code", goldStandardPackageHelper.ncpdpScriptFormCode(gsPackage))}
         </CardBody>

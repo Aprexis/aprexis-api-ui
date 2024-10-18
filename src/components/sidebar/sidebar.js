@@ -368,12 +368,12 @@ const sidebarDescriptions = {
         buttonLabel: "Child Concepts",
         buttonType: "List",
         listName: "child-concepts"
-      },
+      }/*,
       {
         buttonLabel: "Specific Products",
         buttonType: "List",
         listName: "specific-products"
-      }
+      }*/
     ],
     entryLabel: "Therapeutic Concept",
     entryName: "therapeutic-concepts"

@@ -6,14 +6,19 @@ import { listHelper } from "../../../../../helpers"
 
 const headings = [
   {
+    name: "Name (Long)",
+    field: "product_name_long",
+    method: "productNameLong"
+  },
+  {
     name: "Name (Short)",
     field: "product_name_short",
     method: "productNameShort"
   },
   {
-    name: "Name (Long)",
-    field: "product_name_long",
-    method: "productNameLong"
+    name: "NDC-9",
+    field: "ndc9",
+    method: "ndc9"
   },
   {
     name: "Marketed Product",

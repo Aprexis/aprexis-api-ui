@@ -105,7 +105,7 @@ function marketedProductToBreadcrumb(marketedProduct) {
 }
 
 function packageToBreadcrumb(gsPackage) {
-  return goldStandardPackageHelper.packageVersion(gsPackage)
+  return goldStandardPackageHelper.packageDescription(gsPackage)
 }
 
 function packageVersionToBreadcrumb(gsPackageVersion) {
@@ -148,7 +148,7 @@ function potentialllyInappropriateMedicationToBreadcrumb(potentiallyInappropriat
 }
 
 function productToBreadcrumb(product) {
-  return goldStandardProductHelper.name(product)
+  return goldStandardProductHelper.productNameLong(product)
 }
 
 function programToBreadcrumb(program) {
@@ -164,7 +164,7 @@ function specificProductToBreadcrumb(specificProduct) {
 }
 
 function therapeuticConceptToBreadcrumb(therapeuticConcept) {
-  return goldStandardTherapeuticConceptHelper.name(therapeuticConcept)
+  return goldStandardTherapeuticConceptHelper.conceptName(therapeuticConcept)
 }
 
 function userToBreadcrumb(user) {

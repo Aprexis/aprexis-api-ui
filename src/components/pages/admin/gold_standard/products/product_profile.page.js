@@ -26,6 +26,8 @@ const ProductProfile = ({ product, onMarketedProduct }) => {
             )
           }
           {displayHelper.display("NDC-9", goldStandardProductHelper.ndc9(product))}
+          {displayHelper.display("Brand Generic Status", goldStandardProductHelper.goldStandardBrandGenericStatusName(product))}
+          {displayHelper.display("Legend Status", goldStandardProductHelper.goldStandardLegendStatusName(product))}
           {displayHelper.display("CP-Num", goldStandardProductHelper.cpNum(product))}
           {displayHelper.display("E-Prescribing Name", goldStandardProductHelper.ePrescribingName(product))}
           {displayHelper.booleanDisplay("Bulk Chemical", goldStandardProductHelper.bulkChemical(product))}
@@ -44,11 +46,11 @@ const ProductMarketing = ({ product }) => {
         </CardTitle>
 
         <CardBody>
-          {displayHelper.displayDate("On Market", goldStandardProductHelper.productOnMarketDate(product))}
+          {displayHelper.dateDisplay("On Market", goldStandardProductHelper.productOnMarketDate(product))}
           {displayHelper.booleanDisplay("Innovator", goldStandardProductHelper.innovator(product))}
           {displayHelper.booleanDisplay("Private Label", goldStandardProductHelper.privateLabel(product))}
-          {displayHelper.booleanDisplay("Repackaged", goldStandardProductHelper.repackage(product))}
-          {displayHelper.displayDate("Off Market", goldStandardProductHelper.offMarketDate(product))}
+          {displayHelper.booleanDisplay("Repackaged", goldStandardProductHelper.repackaged(product))}
+          {displayHelper.dateDisplay("Off Market", goldStandardProductHelper.offMarketDate(product))}
           {displayHelper.display("Replaced By", goldStandardProductHelper.goldStandardReplacedByProductNameLong(product))}
         </CardBody>
       </Card>

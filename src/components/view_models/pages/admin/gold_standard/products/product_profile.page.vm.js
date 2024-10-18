@@ -26,7 +26,7 @@ class ProductProfilePageViewModel extends AbstractPageViewModel {
     goldStandardProductApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       product_id,
-      (Product) => { this.addField("Product", Product, this.redrawView) },
+      (product) => { this.addField("product", product, this.redrawView) },
       this.onError
     )
   }
