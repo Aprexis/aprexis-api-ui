@@ -23,7 +23,8 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name", "for_package")
+      filtersHelper.stringFilter("Name", "for_package"),
+      filtersHelper.stringFilter("NDC", "for_ndc")
     ]
   }
 
@@ -47,7 +48,7 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("packageHeaders")
     const pathEntries = this.pathEntries()
-    const product_id = pathEntries["products"].value
+    const product_id = valueHelper.isValue(pathEntries["products"]) ? pathEntries["products"].value : undefined
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(product_id)) {

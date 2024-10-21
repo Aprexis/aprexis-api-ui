@@ -17,6 +17,7 @@ export const pathHelper = {
   orderedPathEntries,
   pageName,
   parsePathEntries,
+  pathEntryValue,
   pluralPrefix,
   root,
   singularPrefix
@@ -175,6 +176,17 @@ function parsePathEntries(location) {
   }
 
   return pathEntries
+}
+
+function pathEntryValue(pathEntries, pluralName) {
+  if (!valueHelper.isValue(pathEntries)) {
+    return
+  }
+  if (!valueHelper.isValue(pathEntries[pluralName])) {
+    return
+  }
+
+  return pathEntries[pluralName].value
 }
 
 function pluralPrefix(location, pluralName) {

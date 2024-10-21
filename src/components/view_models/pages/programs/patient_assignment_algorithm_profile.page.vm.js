@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
 import { patientAssignmentAlgorithmApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class PatientAssignmentAlgorithmPageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -13,7 +13,7 @@ class PatientAssignmentAlgorithmPageViewModel extends AbstractPageViewModel {
   fetchPatientAssignmentAlgorithm() {
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const program_id = pathEntries['programs'].value
+    const program_id = pathHelper.pathEntryValue(pathEntries, 'programs')
 
     patientAssignmentAlgorithmApi.patientAssignmentAlgorithmForProgram(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

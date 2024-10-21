@@ -58,7 +58,7 @@ class ParentConceptsPageViewModel extends AbstractListPageViewModel {
     this.removeField("parentConceptHeaders")
     const { filters, sorting, page } = this.data
     const pathEntries = this.pathEntries()
-    const therapeutic_concept_id = pathEntries["therapeutic-concepts"].value
+    const therapeutic_concept_id = pathHelper.pathEntryValue(pathEntries, "therapeutic-concepts")
 
     goldStandardTherapeuticConceptApi.parentsOf(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

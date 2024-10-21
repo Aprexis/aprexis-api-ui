@@ -21,7 +21,7 @@ class ProductProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const product_id = pathEntries["products"].value
+    const product_id = pathHelper.pathEntryValue(pathEntries, "products")
 
     goldStandardProductApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

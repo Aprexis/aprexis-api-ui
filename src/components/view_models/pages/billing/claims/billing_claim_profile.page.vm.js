@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../.."
 import { billingClaimApi, billingClaimHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -32,7 +32,7 @@ class BillingClaimProfilePageViewModel extends AbstractPageViewModel {
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const billing_Claim_id = pathEntries['billing-claims'].value
+    const billing_Claim_id = pathHelper.pathEntryValue(pathEntries, 'billing-claims')
     billingClaimApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       billing_Claim_id,

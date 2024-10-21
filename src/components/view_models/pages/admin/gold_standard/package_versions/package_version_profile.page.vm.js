@@ -26,8 +26,8 @@ class PackageVersionProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const package_id = pathEntries["packages"].value
-    const version = pathEntries["package-versions"].value
+    const package_id = pathHelper.pathEntryValue(pathEntries, "packages")
+    const version = pathHelper.pathEntryValue(pathEntries, "package-versions")
 
     goldStandardPackageVersionApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
 import { labTestValueApi, labTestValueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -43,7 +43,7 @@ class LabTestValueProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const lab_test_value_id = pathEntries['lab-test-values'].value
+    const lab_test_value_id = pathHelper.pathEntryValue(pathEntries, 'lab-test-values')
     this.api().profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       lab_test_value_id,

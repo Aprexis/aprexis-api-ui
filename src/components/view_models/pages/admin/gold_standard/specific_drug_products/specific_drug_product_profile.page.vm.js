@@ -21,7 +21,7 @@ class SpecificDrugProductProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const specific_drug_product_id = pathEntries["specific-drug-products"].value
+    const specific_drug_product_id = pathHelper.pathEntryValue(pathEntries, "specific-drug-products")
 
     goldStandardSpecificDrugProductApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
