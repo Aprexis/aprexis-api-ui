@@ -1,33 +1,23 @@
 import React, { Component } from "react"
-import { SpecificProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_products"
+import { MappedConceptsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/therapeutic_concepts"
 import { ListView } from "../../../../../containers"
-import { valueHelper, goldStandardSpecificProductHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper, pathHelper } from "../../../../../helpers"
+import { valueHelper, goldStandardTherapeuticConceptHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../../../helpers"
 
 const headings = [
   {
-    name: "Name",
-    field: "name",
-    method: "name"
-  },
-  {
-    name: "Synonym",
-    field: "synonym",
-    method: "synonym"
-  },
-  {
-    name: "Specific Drug Product",
-    field: "specific_drug_product.name",
-    method: "goldStandardSpecificDrugProductName"
+    name: "Concept Name",
+    field: "concept_name",
+    method: "conceptName"
   }
 ]
 
-class SpecificProductsPage extends Component {
+class MappedConceptsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new SpecificProductsPageViewModel(
+    this.vm = new MappedConceptsPageViewModel(
       {
         ...props,
         view: this
@@ -50,7 +40,7 @@ class SpecificProductsPage extends Component {
       {
         filters,
         headings,
-        listName: "specific-products",
+        listName: "mapped-concepts",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -59,7 +49,7 @@ class SpecificProductsPage extends Component {
     )
   }
 
-  generateTableRow(specificProduct) {
+  generateTableRow(childConcept) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -67,16 +57,16 @@ class SpecificProductsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoSpecificProductProfile,
+        gotoTableItemProfile: this.vm.gotoMappedConceptProfile,
         headings,
-        helper: goldStandardSpecificProductHelper,
+        helper: goldStandardTherapeuticConceptHelper,
         launchModal: this.props.launchModal,
-        modelName: 'specificProduct',
+        modelName: 'mappedConcept',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: specificProduct
+        tableItem: childConcept
       }
     )
   }
@@ -85,9 +75,6 @@ class SpecificProductsPage extends Component {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
-    const pathEntries = this.vm.pathEntries()
-    const therapeutic_concept_id = pathHelper.pathEntryValue(pathEntries, "therapeutic-concepts")
-    const title = valueHelper.isNumberValue(therapeutic_concept_id) ? `All Specific Products for Concept` : 'Specific Products'
 
     return (
       <ListView
@@ -99,9 +86,9 @@ class SpecificProductsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.specificProducts}
-        listLabel="Specific Product"
-        listPluralLabel="Specific Products"
+        list={this.state.childConcepts}
+        listLabel="Mapped Concept"
+        listPluralLabel="Mapped Concepts"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -111,7 +98,7 @@ class SpecificProductsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title={title}
+        title="Mapped Concepts for Specific Product"
       />
     )
   }
@@ -122,4 +109,4 @@ class SpecificProductsPage extends Component {
   }
 }
 
-export { SpecificProductsPage }
+export { MappedConceptsPage }

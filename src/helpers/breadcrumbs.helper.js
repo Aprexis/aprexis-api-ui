@@ -109,7 +109,7 @@ function packageToBreadcrumb(gsPackage) {
 }
 
 function packageVersionToBreadcrumb(gsPackageVersion) {
-  return goldStandardPackageVersionHelper.packageVersion(gsPackageVersion)
+  return goldStandardPackageVersionHelper.packageVersionDescription(gsPackageVersion)
 }
 
 function patientToBreadcrumb(patient) {

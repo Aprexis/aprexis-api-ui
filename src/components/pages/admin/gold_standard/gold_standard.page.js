@@ -111,6 +111,16 @@ class GoldStandardPage extends Component {
                           </button>
                         </td>
                       </tr>
+                      <tr>
+                        <td>
+                          <button
+                            className="btn btn-link ml-0 mr-0 pl-0 pr-0"
+                            onClick={(_event) => { this.vm.gotoPackageVersionsPage() }}
+                            type="button">
+                            Package Versions
+                          </button>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </td>

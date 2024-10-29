@@ -351,7 +351,8 @@ const sidebarDescriptions = {
   "specific-products": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Marketed Products", buttonType: "List", listName: "marketed-products" }
+      { buttonLabel: "Marketed Products", buttonType: "List", listName: "marketed-products" },
+      { buttonLabel: "Therapeutic Concepts", buttonType: "List", listName: "mapped-concepts" }
     ],
     entryLabel: "Specific Product",
     entryName: "specific-products"
@@ -368,12 +369,12 @@ const sidebarDescriptions = {
         buttonLabel: "Child Concepts",
         buttonType: "List",
         listName: "child-concepts"
-      }/*,
+      },
       {
         buttonLabel: "Specific Products",
         buttonType: "List",
         listName: "specific-products"
-      }*/
+      }
     ],
     entryLabel: "Therapeutic Concept",
     entryName: "therapeutic-concepts"

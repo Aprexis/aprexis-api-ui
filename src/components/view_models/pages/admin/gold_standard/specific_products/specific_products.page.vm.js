@@ -48,12 +48,31 @@ class SpecificProductsPageViewModel extends AbstractListPageViewModel {
     this.removeField("specificProductHeaders")
     const pathEntries = this.pathEntries()
     const specific_drug_product_id = pathHelper.pathEntryValue(pathEntries, "specific-drug-products")
+    const therapeutic_concept_id = pathHelper.pathEntryValue(pathEntries, "therapeutic-concepts")
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(specific_drug_product_id)) {
       goldStandardSpecificProductApi.listForSpecificDrugProduct(
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
         specific_drug_product_id,
+        { ...filters, ...sorting, page },
+        (specificProducts, specificProductHeaders) => {
+          this.addData(
+            {
+              specificProducts,
+              page: pageHelper.updatePageFromLastPage(specificProductHeaders)
+            },
+            this.redrawView
+          )
+        },
+        this.onError
+      )
+      return
+    }
+    if (valueHelper.isNumberValue(therapeutic_concept_id)) {
+      goldStandardSpecificProductApi.listForTherapeuticConcept(
+        apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
+        therapeutic_concept_id,
         { ...filters, ...sorting, page },
         (specificProducts, specificProductHeaders) => {
           this.addData(

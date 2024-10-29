@@ -56,11 +56,11 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
         product_id,
         { ...filters, ...sorting, page },
-        (Packages, PackageHeaders) => {
+        (packages, packageHeaders) => {
           this.addData(
             {
-              Packages,
-              page: pageHelper.updatePageFromLastPage(PackageHeaders)
+              packages,
+              page: pageHelper.updatePageFromLastPage(packageHeaders)
             },
             this.redrawView
           )
@@ -73,11 +73,11 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
     goldStandardPackageApi.list(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
-      (Packages, PackageHeaders) => {
+      (packages, packageHeaders) => {
         this.addData(
           {
-            Packages,
-            page: pageHelper.updatePageFromLastPage(PackageHeaders)
+            packages,
+            page: pageHelper.updatePageFromLastPage(packageHeaders)
           },
           this.redrawView
         )

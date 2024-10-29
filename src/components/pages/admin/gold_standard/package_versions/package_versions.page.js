@@ -1,33 +1,48 @@
 import React, { Component } from "react"
-import { SpecificProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_products"
+import { PackageVersionsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/package_versions"
 import { ListView } from "../../../../../containers"
-import { valueHelper, goldStandardSpecificProductHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper, pathHelper } from "../../../../../helpers"
+import { valueHelper, goldStandardPackageVersionHelper } from "@aprexis/aprexis-api-utility"
+import { listHelper } from "../../../../../helpers"
 
 const headings = [
   {
-    name: "Name",
-    field: "name",
-    method: "name"
+    name: "Description",
+    field: "package_version_description",
+    method: "packageVersionDescription"
   },
   {
-    name: "Synonym",
-    field: "synonym",
-    method: "synonym"
+    name: "NDC-10",
+    field: "package.ndc10",
+    method: "ndc10"
   },
   {
-    name: "Specific Drug Product",
-    field: "specific_drug_product.name",
-    method: "goldStandardSpecificDrugProductName"
+    name: "NDC-11",
+    field: "ndc11",
+    method: "ndc11"
+  },
+  {
+    name: "Product",
+    field: "product.product_name_long",
+    method: "goldStandardProductNameLong"
+  },
+  {
+    name: "Package",
+    field: "package.packageDescription",
+    method: "goldStandardPackageDescription"
+  },
+  {
+    name: "Version",
+    field: "version",
+    method: "version"
   }
 ]
 
-class SpecificProductsPage extends Component {
+class PackageVersionsPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-    this.vm = new SpecificProductsPageViewModel(
+    this.vm = new PackageVersionsPageViewModel(
       {
         ...props,
         view: this
@@ -50,7 +65,7 @@ class SpecificProductsPage extends Component {
       {
         filters,
         headings,
-        listName: "specific-products",
+        listName: "packages",
         pathEntries,
         sorting,
         onRefresh: this.vm.refreshData,
@@ -59,7 +74,7 @@ class SpecificProductsPage extends Component {
     )
   }
 
-  generateTableRow(specificProduct) {
+  generateTableRow(packageVersion) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
 
@@ -67,16 +82,16 @@ class SpecificProductsPage extends Component {
       {
         currentUser: this.props.currentUser,
         filters,
-        gotoTableItemProfile: this.vm.gotoSpecificProductProfile,
+        gotoTableItemProfile: this.vm.gotoPackageVersionProfile,
         headings,
-        helper: goldStandardSpecificProductHelper,
+        helper: goldStandardPackageVersionHelper,
         launchModal: this.props.launchModal,
-        modelName: 'specificProduct',
+        modelName: 'packageVersion',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
         pathEntries,
-        tableItem: specificProduct
+        tableItem: packageVersion
       }
     )
   }
@@ -85,9 +100,6 @@ class SpecificProductsPage extends Component {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
-    const pathEntries = this.vm.pathEntries()
-    const therapeutic_concept_id = pathHelper.pathEntryValue(pathEntries, "therapeutic-concepts")
-    const title = valueHelper.isNumberValue(therapeutic_concept_id) ? `All Specific Products for Concept` : 'Specific Products'
 
     return (
       <ListView
@@ -99,9 +111,9 @@ class SpecificProductsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.specificProducts}
-        listLabel="Specific Product"
-        listPluralLabel="Specific Products"
+        list={this.state.packageVersions}
+        listLabel="Package Version"
+        listPluralLabel="Package Versions"
         modal={this.state.modal}
         onChangeFilter={this.vm.changeFilter}
         onChangePage={this.vm.changePage}
@@ -111,7 +123,7 @@ class SpecificProductsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title={title}
+        title="Package Versions"
       />
     )
   }
@@ -122,4 +134,4 @@ class SpecificProductsPage extends Component {
   }
 }
 
-export { SpecificProductsPage }
+export { PackageVersionsPage }

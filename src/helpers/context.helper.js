@@ -139,6 +139,28 @@ function updateContext(reconnectAndRetry, nextOperation) {
     const pathKey = contextKeys[contextKeyIdx]
     const pathEntry = pathEntries[pathKey]
     const { value } = pathEntry
+
+    /* TODO: figure out a more general-purpose way to do this. */
+    if (pathKey == 'package-versions') {
+      const packagePathEntry = pathEntries['packages']
+      pathKeys[pathKey].showForPackage(
+        apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
+        packagePathEntry.value,
+        value,
+        (model) => {
+          workingContext[pathKey] = model
+          loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
+        },
+        (message) => {
+          alertHelper.error(message)
+          if (valueHelper.isValue(nextOperation)) {
+            nextOperation()
+          }
+        }
+      )
+      return
+    }
+
     pathKeys[pathKey].api.show(
       apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
       value,
