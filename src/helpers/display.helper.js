@@ -69,13 +69,16 @@ function display(name, value, description, suffix = ":", required = false, onCli
   if (!valueHelper.isValue(description) ||
     (typeof description === "string" && !valueHelper.isStringValue(description))) {
     return (
-      <span onClick={onClick}><strong className="text-muted">{name}{suffix}</strong> {value}<br /></span>
+      <span className={valueHelper.isValue(onClick) ? 'btn-link' : ''} onClick={onClick}>
+        <strong className="text-muted">{name}{suffix}</strong> {value}
+        <br />
+      </span>
     )
   }
 
   const targetId = `description-${name.toLowerCase().replaceAll(" ", "-")}`
   return (
-    <span onClick={onClick}>
+    <span className={valueHelper.isValue(onClick) ? 'btn-link' : ''} onClick={onClick}>
       <strong className="text-muted">{name}{suffix}</strong> {workingValue}&nbsp;
       <FontAwesomeIcon className="ml-1" icon={faInfoCircle} id={targetId} />
       <UncontrolledTooltip placement="top" boundariesElement="window" target={targetId}>

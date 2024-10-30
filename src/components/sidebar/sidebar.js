@@ -83,9 +83,22 @@ const sidebarDescriptions = {
     entryLabel: "Document",
     entryName: "documents"
   },
+  "drug-item-active-ingredients": {
+    entryButtons: [{ buttonType: "Profile " }],
+    entryLabel: "Active Ingredient",
+    entryName: "drug-item-active-ingredients"
+  },
+  "drug-items": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Active Ingredients", buttonType: "List", listName: "drug-item-active-ingredients" }
+    ],
+    entryLabel: "Drug Item",
+    entryName: "drug-items"
+  },
   "dry-run-program-patient-assignments": {
     entryButtons: [{ buttonType: "Profile" }],
-    entryLabel: 'Dry Run',
+    entryLabel: "Dry Run",
     entryName: "dry-run-program-patient-assignments"
   },
   "faxes": {
@@ -320,6 +333,7 @@ const sidebarDescriptions = {
   "products": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Drug Items", buttonType: "List", listName: "drug-items" },
       { buttonLabel: "Packages", buttonType: "List", listName: "packages" }
     ],
     entryLabel: "Product",

@@ -2,6 +2,8 @@ import {
   billingContractHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardDrugItemHelper,
+  goldStandardDrugItemActiveIngredientHelper,
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
   goldStandardMarketedProductHelper,
@@ -29,6 +31,8 @@ const pathKeyToBreadcrumb = {
   'billing-contracts': billingContractToBreadcrumb,
   'diagnosis-codes': diagnosisCodeToBreadcrumb,
   'diseases': diseaseToBreadcrumb,
+  'drug-items': drugItemToBreadcrumb,
+  'drug-item-active-ingredients': drugItemActiveIngredientToBreadcrumb,
   'generic-product-clinicals': genericProductClinicalToBreadcrumb,
   'generic-products': genericProductToBreadcrumb,
   'health-plans': healthPlanToBreadcrumb,
@@ -82,6 +86,22 @@ function diseaseToBreadcrumb(disease) {
   }
 
   return diseaseHelper.questionKey(disease)
+}
+
+function drugItemToBreadcrumb(drugItem) {
+  if (!valueHelper.isValue(drugItem)) {
+    return "(no drug item)"
+  }
+
+  return goldStandardDrugItemHelper.itemNameLong(drugItem)
+}
+
+function drugItemActiveIngredientToBreadcrumb(drugItemActiveIngredient) {
+  if (!valueHelper.isValue(drugItemActiveIngredient)) {
+    return "(no active ingredient)"
+  }
+
+  return goldStandardDrugItemActiveIngredientHelper.label(drugItemActiveIngredient)
 }
 
 function genericProductClinicalToBreadcrumb(genericProductClinical) {

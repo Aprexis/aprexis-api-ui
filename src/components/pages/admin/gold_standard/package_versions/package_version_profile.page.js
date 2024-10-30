@@ -47,7 +47,7 @@ const PackageVersionProfile = ({ packageVersion, onProduct, onPackage }) => {
   )
 }
 
-const PackageVersionMarketing = ({ packageVersion }) => {
+const PackageVersionMarketing = ({ packageVersion, onReplacedByPackage }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex fill">
@@ -59,7 +59,14 @@ const PackageVersionMarketing = ({ packageVersion }) => {
           {displayHelper.dateDisplay("On Market", goldStandardPackageVersionHelper.packageVersionOnMarketDate(packageVersion))}
           {displayHelper.booleanDisplay("Preservative Free", goldStandardPackageVersionHelper.preservativeFree(packageVersion))}
           {displayHelper.dateDisplay("Replaced", goldStandardPackageVersionHelper.replacedDate(packageVersion))}
-          {displayHelper.display("Replaced By", goldStandardPackageVersionHelper.goldStandardReplacedByPackageDescription(packageVersion))}
+          {displayHelper.display(
+            "Replaced By",
+            goldStandardPackageVersionHelper.goldStandardReplacedByPackageDescription(packageVersion),
+            '',
+            ':',
+            false,
+            onReplacedByPackage
+          )}
           {displayHelper.dateDisplay("Off Market", goldStandardPackageVersionHelper.packageVersionOffMarketDate(packageVersion))}
         </CardBody>
       </Card>
@@ -89,7 +96,7 @@ const PackageVersionDispensing = ({ packageVersion }) => {
   )
 }
 
-const PackageVersionDisplay = ({ packageVersion, onProduct, onPackage }) => {
+const PackageVersionDisplay = ({ packageVersion, onProduct, onPackage, onReplacedByPackage }) => {
   if (!valueHelper.isValue(packageVersion)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -98,7 +105,7 @@ const PackageVersionDisplay = ({ packageVersion, onProduct, onPackage }) => {
     <React.Fragment>
       <Row>
         <PackageVersionProfile packageVersion={packageVersion} onProduct={onProduct} onPackage={onPackage} />
-        <PackageVersionMarketing packageVersion={packageVersion} />
+        <PackageVersionMarketing packageVersion={packageVersion} onReplacedByPackage={onReplacedByPackage} />
       </Row>
 
       <Row>
@@ -141,6 +148,7 @@ class PackageVersionProfilePage extends Component {
             packageVersion={packageVersion}
             onProduct={() => { this.vm.gotoProduct(packageVersion) }}
             onPackage={() => { this.vm.gotoPackage(packageVersion) }}
+            onReplacedByPackage={() => { this.vm.gotoReplacedByPackage(packageVersion) }}
           />
         </Col>
       </Container>

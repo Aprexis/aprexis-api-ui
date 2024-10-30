@@ -38,7 +38,7 @@ const PackageProfile = ({ gsPackage, onProduct }) => {
   )
 }
 
-const PackageMarketing = ({ gsPackage }) => {
+const PackageMarketing = ({ gsPackage, onReplacedByPackage }) => {
   return (
     <Col className="col-sm d-flex">
       <Card className="card flex fill">
@@ -51,7 +51,14 @@ const PackageMarketing = ({ gsPackage }) => {
           {displayHelper.booleanDisplay("Preservative Free", goldStandardPackageHelper.preservativeFree(gsPackage))}
           {displayHelper.dateDisplay("Lot Expiry", goldStandardPackageHelper.lotExpiry(gsPackage))}
           {displayHelper.dateDisplay("Replaced", goldStandardPackageHelper.replacedDate(gsPackage))}
-          {displayHelper.display("Replaced By", goldStandardPackageHelper.goldStandardReplacedByPackageDescription(gsPackage))}
+          {displayHelper.display(
+            "Replaced By",
+            goldStandardPackageHelper.goldStandardReplacedByPackageDescription(gsPackage),
+            '',
+            ':',
+            false,
+            onReplacedByPackage
+          )}
           {displayHelper.dateDisplay("Off Market", goldStandardPackageHelper.offMarket(gsPackage))}
         </CardBody>
       </Card>
@@ -87,7 +94,7 @@ const PackageDispensing = ({ gsPackage }) => {
   )
 }
 
-const PackageDisplay = ({ gsPackage, onProduct }) => {
+const PackageDisplay = ({ gsPackage, onProduct, onReplacedByPackage }) => {
   if (!valueHelper.isValue(gsPackage)) {
     return (<Spinner showAtStart={true} />)
   }
@@ -96,7 +103,7 @@ const PackageDisplay = ({ gsPackage, onProduct }) => {
     <React.Fragment>
       <Row>
         <PackageProfile gsPackage={gsPackage} onProduct={onProduct} />
-        <PackageMarketing gsPackage={gsPackage} />
+        <PackageMarketing gsPackage={gsPackage} onReplacedByPackage={onReplacedByPackage} />
       </Row>
 
       <Row>
@@ -137,6 +144,7 @@ class PackageProfilePage extends Component {
             currentUser={this.props.currentUser}
             gsPackage={gsPackage}
             onProduct={() => { this.vm.gotoProduct(gsPackage) }}
+            onReplacedByPackage={() => { this.vm.gotoReplacedByPackage(gsPackage) }}
           />
         </Col>
       </Container>

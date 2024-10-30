@@ -1,15 +1,15 @@
 import { AbstractListPageViewModel } from "../../.."
-import { goldStandardPackageApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+import { goldStandardDrugItemApi, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
 
-class PackagesPageViewModel extends AbstractListPageViewModel {
+class DrugItemsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoPackageProfile = this.gotoPackageProfile.bind(this)
+    this.gotoDrugItemProfile = this.gotoDrugItemProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -17,14 +17,13 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "name" }
+    const sorting = { sort: "item_name_long" }
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
 
   filterDescriptions(_filters, _filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name", "for_package"),
-      filtersHelper.stringFilter("NDC", "for_ndc")
+      filtersHelper.stringFilter("Name", "for_drug_item")
     ]
   }
 
@@ -32,8 +31,8 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoPackageProfile(Package) {
-    const pathArray = pathHelper.buildPathArray(window.location, { model: Package, idField: 'package_id' }, "profile")
+  gotoDrugItemProfile(drugItem) {
+    const pathArray = pathHelper.buildPathArray(window.location, { model: drugItem, idField: 'drug_item_id' }, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -46,21 +45,21 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
-    this.removeField("packageHeaders")
+    this.removeField("drugItemHeaders")
     const pathEntries = this.pathEntries()
     const product_id = pathHelper.pathEntryValue(pathEntries, "products")
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(product_id)) {
-      goldStandardPackageApi.listForProduct(
+      goldStandardDrugItemApi.listForProduct(
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
         product_id,
         { ...filters, ...sorting, page },
-        (packages, packageHeaders) => {
+        (drugItems, drugItemHeaders) => {
           this.addData(
             {
-              packages,
-              page: pageHelper.updatePageFromLastPage(packageHeaders)
+              drugItems,
+              page: pageHelper.updatePageFromLastPage(drugItemHeaders)
             },
             this.redrawView
           )
@@ -70,14 +69,14 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
       return
     }
 
-    goldStandardPackageApi.list(
+    goldStandardDrugItemApi.index(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
-      (packages, packageHeaders) => {
+      (drugItems, drugItemHeaders) => {
         this.addData(
           {
-            packages,
-            page: pageHelper.updatePageFromLastPage(packageHeaders)
+            drugItems,
+            page: pageHelper.updatePageFromLastPage(drugItemHeaders)
           },
           this.redrawView
         )
@@ -87,8 +86,8 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
   }
 
   title() {
-    return "Packages"
+    return "Drug Items"
   }
 }
 
-export { PackagesPageViewModel }
+export { DrugItemsPageViewModel }

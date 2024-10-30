@@ -8,6 +8,7 @@ class PackageVersionProfilePageViewModel extends AbstractPageViewModel {
 
     this.gotoPackage = this.gotoPackage.bind(this)
     this.gotoProduct = this.gotoProduct.bind(this)
+    this.gotoReplacedByPackage = this.gotoReplacedByPackage.bind(this)
     this.loadData = this.loadData.bind(this)
   }
 
@@ -29,6 +30,17 @@ class PackageVersionProfilePageViewModel extends AbstractPageViewModel {
         "gold-standard",
         "products",
         goldStandardPackageVersionHelper.goldStandardProductId(goldStandardPackageVersion),
+        "profile"]
+    )
+  }
+
+  gotoReplacedByPackage(goldStandardPackageVersion) {
+    pathHelper.gotoPage(
+      [
+        "admin",
+        "gold-standard",
+        "plackages",
+        goldStandardPackageVersionHelper.goldStandardReplacedByPackageId(goldStandardPackageVersion),
         "profile"]
     )
   }

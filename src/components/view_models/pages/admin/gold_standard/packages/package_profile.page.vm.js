@@ -7,12 +7,19 @@ class PackageProfilePageViewModel extends AbstractPageViewModel {
     super(props)
 
     this.gotoProduct = this.gotoProduct.bind(this)
+    this.gotoReplacedByPackage = this.gotoReplacedByPackage.bind(this)
     this.loadData = this.loadData.bind(this)
   }
 
   gotoProduct(goldStandardPackage) {
     pathHelper.gotoPage(
       ["admin", "gold-standard", "products", goldStandardPackageHelper.goldStandardProductId(goldStandardPackage), "profile"]
+    )
+  }
+
+  gotoReplacedByPackage(goldStandardPackage) {
+    pathHelper.gotoPage(
+      ["admin", "gold-standard", "packages", goldStandardPackageHelper.goldStandardReplacedByPackageId(goldStandardPackage), "profile"]
     )
   }
 

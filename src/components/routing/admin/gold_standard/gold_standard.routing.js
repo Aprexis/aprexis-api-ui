@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { GoldStandardPage } from "../../../pages/admin/gold_standard"
 import { NoMatch } from "../../"
+import { DrugItemsRouting } from "./drug_items"
 import { GenericProductClinicalsRouting } from "./generic_product_clinicals"
 import { GenericProductsRouting } from "./generic_products"
 import { MarketedProductsRouting } from "./marketed_products"
@@ -31,6 +32,10 @@ class GoldStandardRouting extends Component {
           exact
           path={goldStandardPrefix}
           render={(props) => (<GoldStandardPage {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/drug-items`}
+          render={(props) => (<DrugItemsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${goldStandardPrefix}/generic-product-clinicaLs`}

@@ -6,13 +6,13 @@ class ProductProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
-    this.gotoProduct = this.gotoProduct.bind(this)
+    this.gotoMarketedProduct = this.gotoMarketedProduct.bind(this)
     this.loadData = this.loadData.bind(this)
   }
 
-  gotoProduct(goldStandardProduct) {
+  gotoMarketedProduct(goldStandardProduct) {
     pathHelper.gotoPage(
-      ["admin", "gold-standard", "products", goldStandardProductHelper.goldStandardProductId(goldStandardProduct), "profile"]
+      ["admin", "gold-standard", "marketed-products", goldStandardProductHelper.goldStandardMarketedProductId(goldStandardProduct), "profile"]
     )
   }
 
