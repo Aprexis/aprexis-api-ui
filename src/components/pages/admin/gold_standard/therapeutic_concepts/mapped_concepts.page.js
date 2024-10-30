@@ -86,7 +86,7 @@ class MappedConceptsPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.childConcepts}
+        list={this.state.mappedConcepts}
         listLabel="Mapped Concept"
         listPluralLabel="Mapped Concepts"
         modal={this.state.modal}
