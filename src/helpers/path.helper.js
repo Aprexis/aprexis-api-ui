@@ -169,14 +169,17 @@ function parsePathEntries(location) {
     }
 
     pathEntries[part] = { index }
+    ++index
+
+    if ((part == 'admin') || (part == 'billing') || (part == 'gold-standard') || (part == 'profile')) {
+      continue
+    }
 
     const valueIdx = idx + 1
     if (valueIdx < parts.length && (parts[valueIdx] == "new" || !isNaN(parts[valueIdx]) || dateHelper.isDateValue(parts[valueIdx]))) {
       pathEntries[part].value = parts[valueIdx]
       idx = valueIdx
     }
-
-    ++index
   }
 
   return pathEntries
