@@ -139,20 +139,63 @@ function updateContext(reconnectAndRetry, nextOperation) {
     const pathKey = contextKeys[contextKeyIdx]
     const pathEntry = pathEntries[pathKey]
     const { value } = pathEntry
-    pathKeys[pathKey].api.show(
-      apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
-      value,
-      (model) => {
-        workingContext[pathKey] = model
-        loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
-      },
-      (message) => {
-        alertHelper.error(message)
-        if (valueHelper.isValue(nextOperation)) {
-          nextOperation()
-        }
-      }
-    )
+    const drug_item_id = pathHelper.pathEntryValue(pathEntries, 'drug-items')
+    const package_id = pathHelper.pathEntryValue(pathEntries, 'packages')
+
+    switch (pathKey) {
+      case 'drug-item-active-ingredients':
+      case 'drug-item-inactive-ingredients':
+        pathKeys[pathKey].api.showForDrugItem(
+          apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
+          drug_item_id,
+          value,
+          (model) => {
+            workingContext[pathKey] = model
+            loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
+          },
+          (message) => {
+            alertHelper.error(message)
+            if (valueHelper.isValue(nextOperation)) {
+              nextOperation()
+            }
+          }
+        )
+        break;
+
+      case 'package-versions':
+        pathKeys[pathKey].api.showForPackage(
+          apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
+          package_id,
+          value,
+          (model) => {
+            workingContext[pathKey] = model
+            loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
+          },
+          (message) => {
+            alertHelper.error(message)
+            if (valueHelper.isValue(nextOperation)) {
+              nextOperation()
+            }
+          }
+        )
+        break;
+
+      default:
+        pathKeys[pathKey].api.show(
+          apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
+          value,
+          (model) => {
+            workingContext[pathKey] = model
+            loadModelIntoContext(userCredentials, reconnectAndRetry, contextKeys, contextKeyIdx + 1, pathEntries, workingContext, nextOperation)
+          },
+          (message) => {
+            alertHelper.error(message)
+            if (valueHelper.isValue(nextOperation)) {
+              nextOperation()
+            }
+          }
+        )
+    }
 
     return
 

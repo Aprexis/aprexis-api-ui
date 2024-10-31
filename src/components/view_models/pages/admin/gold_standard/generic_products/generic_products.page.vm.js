@@ -47,7 +47,7 @@ class GenericProductsPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("genericProductHeaders")
     const pathEntries = this.pathEntries()
-    const generic_product_clinical_id = pathEntries["generic-product-clinicals"].value
+    const generic_product_clinical_id = pathHelper.pathEntryValue(pathEntries, "generic-product-clinicals")
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(generic_product_clinical_id)) {

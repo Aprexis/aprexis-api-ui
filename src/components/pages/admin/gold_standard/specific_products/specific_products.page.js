@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { SpecificProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_products"
 import { ListView } from "../../../../../containers"
 import { valueHelper, goldStandardSpecificProductHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../../helpers"
+import { listHelper, pathHelper } from "../../../../../helpers"
 
 const headings = [
   {
@@ -85,6 +85,9 @@ class SpecificProductsPage extends Component {
     const { filters } = this.state
     const filtersOptions = this.vm.filtersOptions()
     const filterDescriptions = this.vm.filterDescriptions(filters, filtersOptions)
+    const pathEntries = this.vm.pathEntries()
+    const therapeutic_concept_id = pathHelper.pathEntryValue(pathEntries, "therapeutic-concepts")
+    const title = valueHelper.isNumberValue(therapeutic_concept_id) ? `All Specific Products for Concept` : 'Specific Products'
 
     return (
       <ListView
@@ -108,7 +111,7 @@ class SpecificProductsPage extends Component {
         onSelectFilters={this.vm.selectFilters}
         onUpdateFilters={this.vm.updateFilters}
         page={this.state.page}
-        title="Specific Products"
+        title={title}
       />
     )
   }

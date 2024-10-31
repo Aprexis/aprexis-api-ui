@@ -5,15 +5,21 @@ class GoldStandardPageViewModel extends AbstractPageViewModel {
   constructor(props) {
     super(props)
 
+    this.gotoDrugItemsPage = this.gotoDrugItemsPage.bind(this)
     this.gotoGenericProductClinicalsPage = this.gotoGenericProductClinicalsPage.bind(this)
     this.gotoGenericProductsPage = this.gotoGenericProductsPage.bind(this)
     this.gotoSpecificDrugProductsPage = this.gotoSpecificDrugProductsPage.bind(this)
     this.gotoMarketedProductsPage = this.gotoMarketedProductsPage.bind(this)
+    this.gotoPackageVersionsPage = this.gotoPackageVersionsPage.bind(this)
     this.gotoPackagesPage = this.gotoPackagesPage.bind(this)
     this.gotoProductsPage = this.gotoProductsPage.bind(this)
     this.gotoSpecificProductsPage = this.gotoSpecificProductsPage.bind(this)
     this.gotoTherapeuticConceptsPage = this.gotoTherapeuticConceptsPage.bind(this)
     this.loadData = this.loadData.bind(this)
+  }
+
+  gotoDrugItemsPage() {
+    pathHelper.gotoPage(["admin", "gold-standard", "drug-items"])
   }
 
   gotoGenericProductClinicalsPage() {
@@ -26,6 +32,10 @@ class GoldStandardPageViewModel extends AbstractPageViewModel {
 
   gotoMarketedProductsPage() {
     pathHelper.gotoPage(["admin", "gold-standard", "marketed-products"])
+  }
+
+  gotoPackageVersionsPage() {
+    pathHelper.gotoPage(["admin", "gold-standard", "package-versions"])
   }
 
   gotoPackagesPage() {

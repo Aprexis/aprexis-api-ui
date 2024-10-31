@@ -23,7 +23,7 @@ class HealthPlanPatientSearchAlgorithmProfilePageViewModel extends AbstractPageV
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const patient_search_algorithm_id = pathEntries['patient-search-algorithms'].value
+    const patient_search_algorithm_id = pathHelper.pathEntryValue(pathEntries, 'patient-search-algorithms')
     patientSearchAlgorithmApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_search_algorithm_id,

@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../.."
 import { conditionMedicationApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class ConditionMedicationProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -13,7 +13,7 @@ class ConditionMedicationProfilePageViewModel extends AbstractPageViewModel {
     this.clearData(false)
 
     const pathEntries = this.pathEntries()
-    const condition_medication_id = pathEntries["condition-medications"].value
+    const condition_medication_id = pathHelper.pathEntryValue(pathEntries, "condition-medications")
 
     conditionMedicationApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),

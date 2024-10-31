@@ -47,7 +47,7 @@ class PackageVersionsPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("packageVersionHeaders")
     const pathEntries = this.pathEntries()
-    const package_id = pathEntries["packages"].value
+    const package_id = pathHelper.pathEntryValue(pathEntries, "packages")
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(package_id)) {

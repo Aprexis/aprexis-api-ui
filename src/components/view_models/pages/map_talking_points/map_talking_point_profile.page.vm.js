@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
 import { mapTalkingPointApi, mapTalkingPointHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class MapTalkingPointProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -43,7 +43,7 @@ class MapTalkingPointProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const map_talking_point_id = pathEntries['map-talking-points'].value
+    const map_talking_point_id = pathHelper.pathEntryValue(pathEntries, 'map-talking-points')
     this.api().profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       map_talking_point_id,

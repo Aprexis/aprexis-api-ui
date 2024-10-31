@@ -7,6 +7,8 @@ class PackageVersionProfilePageViewModel extends AbstractPageViewModel {
     super(props)
 
     this.gotoPackage = this.gotoPackage.bind(this)
+    this.gotoProduct = this.gotoProduct.bind(this)
+    this.gotoReplacedByPackage = this.gotoReplacedByPackage.bind(this)
     this.loadData = this.loadData.bind(this)
   }
 
@@ -21,19 +23,41 @@ class PackageVersionProfilePageViewModel extends AbstractPageViewModel {
     )
   }
 
+  gotoProduct(goldStandardPackageVersion) {
+    pathHelper.gotoPage(
+      [
+        "admin",
+        "gold-standard",
+        "products",
+        goldStandardPackageVersionHelper.goldStandardProductId(goldStandardPackageVersion),
+        "profile"]
+    )
+  }
+
+  gotoReplacedByPackage(goldStandardPackageVersion) {
+    pathHelper.gotoPage(
+      [
+        "admin",
+        "gold-standard",
+        "plackages",
+        goldStandardPackageVersionHelper.goldStandardReplacedByPackageId(goldStandardPackageVersion),
+        "profile"]
+    )
+  }
+
   loadData() {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const package_id = pathEntries["packages"].value
-    const version = pathEntries["package-versions"].value
+    const package_id = pathHelper.pathEntryValue(pathEntries, "packages")
+    const version = pathHelper.pathEntryValue(pathEntries, "package-versions")
 
-    goldStandardPackageVersionApi.profile(
+    goldStandardPackageVersionApi.profileForPackage(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       package_id,
       version,
-      (PackageVersion) => { this.addField("PackageVersion", PackageVersion, this.redrawView) },
+      (packageVersion) => { this.addField("packageVersion", packageVersion, this.redrawView) },
       this.onError
     )
   }

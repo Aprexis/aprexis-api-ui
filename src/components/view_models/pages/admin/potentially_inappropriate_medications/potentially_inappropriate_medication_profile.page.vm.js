@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../.."
 import { potentiallyInappropriateMedicationApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class PotentiallyInappropriateMedicationProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -14,7 +14,7 @@ class PotentiallyInappropriateMedicationProfilePageViewModel extends AbstractPag
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const potentially_inappropriate_medication_id = pathEntries["potentially-inappropriate-medications"].value
+    const potentially_inappropriate_medication_id = pathHelper.pathEntryValue(pathEntries, "potentially-inappropriate-medications")
 
     potentiallyInappropriateMedicationApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

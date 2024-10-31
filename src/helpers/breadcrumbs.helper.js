@@ -2,6 +2,9 @@ import {
   billingContractHelper,
   diagnosisCodeHelper,
   diseaseHelper,
+  goldStandardDrugItemHelper,
+  goldStandardDrugItemActiveIngredientHelper,
+  goldStandardDrugItemInactiveIngredientHelper,
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
   goldStandardMarketedProductHelper,
@@ -29,6 +32,9 @@ const pathKeyToBreadcrumb = {
   'billing-contracts': billingContractToBreadcrumb,
   'diagnosis-codes': diagnosisCodeToBreadcrumb,
   'diseases': diseaseToBreadcrumb,
+  'drug-items': drugItemToBreadcrumb,
+  'drug-item-active-ingredients': drugItemActiveIngredientToBreadcrumb,
+  'drug-item-inactive-ingredients': drugItemInactiveIngredientToBreadcrumb,
   'generic-product-clinicals': genericProductClinicalToBreadcrumb,
   'generic-products': genericProductToBreadcrumb,
   'health-plans': healthPlanToBreadcrumb,
@@ -84,6 +90,31 @@ function diseaseToBreadcrumb(disease) {
   return diseaseHelper.questionKey(disease)
 }
 
+function drugItemToBreadcrumb(drugItem) {
+  if (!valueHelper.isValue(drugItem)) {
+    return "(no drug item)"
+  }
+
+  return goldStandardDrugItemHelper.itemNameLong(drugItem)
+}
+
+function drugItemActiveIngredientToBreadcrumb(drugItemActiveIngredient) {
+  if (!valueHelper.isValue(drugItemActiveIngredient)) {
+    return "(no active ingredient)"
+  }
+
+  return goldStandardDrugItemActiveIngredientHelper.label(drugItemActiveIngredient)
+}
+
+
+function drugItemInactiveIngredientToBreadcrumb(drugItemInactiveIngredient) {
+  if (!valueHelper.isValue(drugItemInactiveIngredient)) {
+    return "(no active ingredient)"
+  }
+
+  return goldStandardDrugItemInactiveIngredientHelper.label(drugItemInactiveIngredient)
+}
+
 function genericProductClinicalToBreadcrumb(genericProductClinical) {
   return goldStandardGenericProductClinicalHelper.name(genericProductClinical)
 }
@@ -109,7 +140,7 @@ function packageToBreadcrumb(gsPackage) {
 }
 
 function packageVersionToBreadcrumb(gsPackageVersion) {
-  return goldStandardPackageVersionHelper.packageVersion(gsPackageVersion)
+  return goldStandardPackageVersionHelper.packageVersionDescription(gsPackageVersion)
 }
 
 function patientToBreadcrumb(patient) {

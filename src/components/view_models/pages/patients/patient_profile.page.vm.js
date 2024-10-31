@@ -31,7 +31,7 @@ class PatientProfilePageViewModel extends AbstractPageViewModel {
   fetchPatient(nextOperation) {
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const patient_id = pathEntries['patients'].value
+    const patient_id = pathHelper.pathEntryValue(pathEntries, 'patients')
     patientApi.show(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_id,

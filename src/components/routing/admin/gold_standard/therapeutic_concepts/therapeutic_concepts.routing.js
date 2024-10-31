@@ -17,6 +17,8 @@ class TherapeuticConceptsRouting extends Component {
     }
     const therapeuticConceptsPrefix = pathHelper.pluralPrefix(window.location, "therapeutic-concepts")
 
+    console.log(``)
+
     return (
       <Switch>
         <Route

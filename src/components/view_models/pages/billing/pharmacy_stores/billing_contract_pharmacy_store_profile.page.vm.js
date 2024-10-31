@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../../"
 import { billingContractPharmacyStoreApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
 
 class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -32,7 +32,7 @@ class BillingContractPharmacyStoreProfilePageViewModel extends AbstractPageViewM
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const billing_contract_pharmacy_store_id = pathEntries['billing-contract-pharmacy-stores'].value
+    const billing_contract_pharmacy_store_id = pathHelper.pathEntryValue(pathEntries, 'billing-contract-pharmacy-stores')
     billingContractPharmacyStoreApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       billing_contract_pharmacy_store_id,
