@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../../.."
 import { DrugItemActiveIngredientsRouting } from "./active_ingredients"
+import { DrugItemInactiveIngredientsRouting } from "./inactive_ingredients"
 import { DrugItemProfilePage } from "../../../../pages/admin/gold_standard/drug_items"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { pathHelper } from "../../../../../helpers"
@@ -22,6 +23,10 @@ class DrugItemRouting extends Component {
         <Route
           path={`${drugItemPrefix}/drug-item-active-ingredients`}
           render={(props) => (<DrugItemActiveIngredientsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${drugItemPrefix}/drug-item-inactive-ingredients`}
+          render={(props) => (<DrugItemInactiveIngredientsRouting {...props} {...contextProps} />)}
         />
         <Route
           exact

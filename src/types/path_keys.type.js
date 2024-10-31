@@ -4,6 +4,7 @@ import {
   caregiverApi,
   goldStandardDrugItemApi,
   goldStandardDrugItemActiveIngredientApi,
+  goldStandardDrugItemInactiveIngredientApi,
   goldStandardGenericProductClinicalApi,
   goldStandardGenericProductApi,
   goldStandardMarketedProductApi,
@@ -64,6 +65,7 @@ import {
   diseaseHelper,
   goldStandardDrugItemHelper,
   goldStandardDrugItemActiveIngredientHelper,
+  goldStandardDrugItemInactiveIngredientHelper,
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
   goldStandardSpecificDrugProductHelper,
@@ -184,6 +186,11 @@ export const pathKeys = {
     api: goldStandardDrugItemActiveIngredientApi,
     helper: goldStandardDrugItemActiveIngredientHelper,
     modelName: "DrugItemActiveIngredient"
+  },
+  "drug-item-inactive-ingredients": {
+    api: goldStandardDrugItemInactiveIngredientApi,
+    helper: goldStandardDrugItemInactiveIngredientHelper,
+    modelName: "DrugItemInactiveIngredient"
   },
   "dry-run-program-patient-assignments": {
     api: dryRunProgramPatientAssignmentApi,

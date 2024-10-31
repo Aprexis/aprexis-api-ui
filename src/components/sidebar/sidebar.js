@@ -84,14 +84,20 @@ const sidebarDescriptions = {
     entryName: "documents"
   },
   "drug-item-active-ingredients": {
-    entryButtons: [{ buttonType: "Profile " }],
+    entryButtons: [{ buttonType: "Profile" }],
     entryLabel: "Active Ingredient",
     entryName: "drug-item-active-ingredients"
+  },
+  "drug-item-inactive-ingredients": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Inactive Ingredient",
+    entryName: "drug-item-inactive-ingredients"
   },
   "drug-items": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Active Ingredients", buttonType: "List", listName: "drug-item-active-ingredients" }
+      { buttonLabel: "Active Ingredients", buttonType: "List", listName: "drug-item-active-ingredients" },
+      { buttonLabel: "Inactive Ingredients", buttonType: "List", listName: "drug-item-inactive-ingredients" }
     ],
     entryLabel: "Drug Item",
     entryName: "drug-items"

@@ -1,15 +1,15 @@
-import { AbstractListPageViewModel } from "../../../../"
-import { goldStandardDrugItemActiveIngredientApi, pageHelper } from "@aprexis/aprexis-api-utility"
+import { AbstractListPageViewModel } from "../../../.."
+import { goldStandardDrugItemInactiveIngredientApi, pageHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../../../helpers"
 
-class DrugItemActiveIngredientsPageViewModel extends AbstractListPageViewModel {
+class DrugItemInactiveIngredientsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
-    this.gotoDrugItemActiveIngredientProfile = this.gotoDrugItemActiveIngredientProfile.bind(this)
+    this.gotoDrugItemInactiveIngredientProfile = this.gotoDrugItemInactiveIngredientProfile.bind(this)
     this.loadData = this.loadData.bind(this)
     this.refreshData = this.refreshData.bind(this)
     this.title = this.title.bind(this)
@@ -29,8 +29,8 @@ class DrugItemActiveIngredientsPageViewModel extends AbstractListPageViewModel {
     return {}
   }
 
-  gotoDrugItemActiveIngredientProfile(drugItemActiveIngredient) {
-    const pathArray = pathHelper.buildPathArray(window.location, { model: drugItemActiveIngredient, association: 'ingredient', idField: 'ingredient_id' }, "profile")
+  gotoDrugItemInactiveIngredientProfile(drugItemInactiveIngredient) {
+    const pathArray = pathHelper.buildPathArray(window.location, { model: drugItemInactiveIngredient, association: 'ingredient', idField: 'ingredient_id' }, "profile")
 
     pathHelper.gotoPage(pathArray)
   }
@@ -43,20 +43,20 @@ class DrugItemActiveIngredientsPageViewModel extends AbstractListPageViewModel {
 
   refreshData() {
     const userCredentials = userCredentialsHelper.get()
-    this.removeField("drugItemActiveIngredientHeaders")
+    this.removeField("drugItemInactiveIngredientHeaders")
     const pathEntries = this.pathEntries()
     const drug_item_id = pathHelper.pathEntryValue(pathEntries, "drug-items")
     const { filters, sorting, page } = this.data
 
-    goldStandardDrugItemActiveIngredientApi.listForDrugItem(
+    goldStandardDrugItemInactiveIngredientApi.listForDrugItem(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       drug_item_id,
       { ...filters, ...sorting, page },
-      (drugItemActiveIngredients, drugItemActiveIngredientHeaders) => {
+      (drugItemInactiveIngredients, drugItemInactiveIngredientHeaders) => {
         this.addData(
           {
-            drugItemActiveIngredients,
-            page: pageHelper.updatePageFromLastPage(drugItemActiveIngredientHeaders)
+            drugItemInactiveIngredients,
+            page: pageHelper.updatePageFromLastPage(drugItemInactiveIngredientHeaders)
           },
           this.redrawView
         )
@@ -67,8 +67,8 @@ class DrugItemActiveIngredientsPageViewModel extends AbstractListPageViewModel {
 
 
   title() {
-    return "Drug Item Active Ingredients"
+    return "Drug Item Inactive Ingredients"
   }
 }
 
-export { DrugItemActiveIngredientsPageViewModel }
+export { DrugItemInactiveIngredientsPageViewModel }

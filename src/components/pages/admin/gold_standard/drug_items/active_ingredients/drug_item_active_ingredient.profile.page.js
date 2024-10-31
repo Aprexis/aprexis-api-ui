@@ -17,7 +17,7 @@ const DrugItemActiveIngredientProfile = ({ drugItemActiveIngredient, onDrugItem,
           {
             displayHelper.display(
               "Drug Item",
-              goldStandardDrugItemActiveIngredientHelper.goldStandardDrugItemName(drugItemActiveIngredient),
+              goldStandardDrugItemActiveIngredientHelper.goldStandardDrugItemNameLong(drugItemActiveIngredient),
               '',
               ':',
               false,

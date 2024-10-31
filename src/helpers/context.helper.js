@@ -144,6 +144,7 @@ function updateContext(reconnectAndRetry, nextOperation) {
 
     switch (pathKey) {
       case 'drug-item-active-ingredients':
+      case 'drug-item-inactive-ingredients':
         pathKeys[pathKey].api.showForDrugItem(
           apiEnvironmentHelper.apiEnvironment(userCredentials, reconnectAndRetry),
           drug_item_id,

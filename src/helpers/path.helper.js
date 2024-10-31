@@ -37,7 +37,11 @@ function buildPathArray(location, ...pathParts) {
       switch (typeof part) {
         case 'object':
           if (('model' in part) && ('idField' in part)) {
-            value = part.model[part.idField]
+            if ('association' in part) {
+              value = part.model[part.association][part.idField]
+            } else {
+              value = part.model[part.idField]
+            }
             break
           }
           value = part.id
