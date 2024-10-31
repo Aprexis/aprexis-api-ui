@@ -44,7 +44,7 @@ class HealthPlanPatientSearchAlgorithmBatchPageViewModel extends AbstractPageVie
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const patient_search_algorithm_id = pathEntries['patient-search-algorithms'].value
+    const patient_search_algorithm_id = pathHelper.pathEntryValue(pathEntries, 'patient-search-algorithms')
     const batch = pathEntries['batches'].value
     patientSearchAlgorithmBatchApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

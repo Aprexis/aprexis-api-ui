@@ -2,9 +2,11 @@ import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { GoldStandardPage } from "../../../pages/admin/gold_standard"
 import { NoMatch } from "../../"
+import { DrugItemsRouting } from "./drug_items"
 import { GenericProductClinicalsRouting } from "./generic_product_clinicals"
 import { GenericProductsRouting } from "./generic_products"
 import { MarketedProductsRouting } from "./marketed_products"
+import { PackageVersionsRouting } from "./package_versions"
 import { PackagesRouting } from "./packages"
 import { ProductsRouting } from "./products"
 import { SpecificDrugProductsRouting } from "./specific_drug_products"
@@ -32,6 +34,10 @@ class GoldStandardRouting extends Component {
           render={(props) => (<GoldStandardPage {...props} {...contextProps} />)}
         />
         <Route
+          path={`${goldStandardPrefix}/drug-items`}
+          render={(props) => (<DrugItemsRouting {...props} {...contextProps} />)}
+        />
+        <Route
           path={`${goldStandardPrefix}/generic-product-clinicaLs`}
           render={(props) => (<GenericProductClinicalsRouting {...props} {...contextProps} />)}
         />
@@ -42,6 +48,10 @@ class GoldStandardRouting extends Component {
         <Route
           path={`${goldStandardPrefix}/marketed-products`}
           render={(props) => (<MarketedProductsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/package-versions`}
+          render={(props) => (<PackageVersionsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${goldStandardPrefix}/packages`}

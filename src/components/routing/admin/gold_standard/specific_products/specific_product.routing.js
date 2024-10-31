@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { NoMatch } from "../../.."
+import { MappedConceptsPage } from "../../../../pages/admin/gold_standard/therapeutic_concepts"
 import { MarketedProductsRouting } from "../marketed_products"
 import { SpecificProductProfilePage } from "../../../../pages/admin/gold_standard/specific_products"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
@@ -19,6 +20,11 @@ class SpecificProductRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          exact
+          path={`${specificProductPrefix}/mapped-concepts`}
+          render={(props) => (<MappedConceptsPage {...props} {...contextProps} />)}
+        />
         <Route
           path={`${specificProductPrefix}/marketed-products`}
           render={(props) => (<MarketedProductsRouting {...props} {...contextProps} />)}

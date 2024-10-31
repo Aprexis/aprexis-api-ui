@@ -83,9 +83,28 @@ const sidebarDescriptions = {
     entryLabel: "Document",
     entryName: "documents"
   },
+  "drug-item-active-ingredients": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Active Ingredient",
+    entryName: "drug-item-active-ingredients"
+  },
+  "drug-item-inactive-ingredients": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Inactive Ingredient",
+    entryName: "drug-item-inactive-ingredients"
+  },
+  "drug-items": {
+    entryButtons: [
+      { buttonType: "Profile" },
+      { buttonLabel: "Active Ingredients", buttonType: "List", listName: "drug-item-active-ingredients" },
+      { buttonLabel: "Inactive Ingredients", buttonType: "List", listName: "drug-item-inactive-ingredients" }
+    ],
+    entryLabel: "Drug Item",
+    entryName: "drug-items"
+  },
   "dry-run-program-patient-assignments": {
     entryButtons: [{ buttonType: "Profile" }],
-    entryLabel: 'Dry Run',
+    entryLabel: "Dry Run",
     entryName: "dry-run-program-patient-assignments"
   },
   "faxes": {
@@ -320,6 +339,7 @@ const sidebarDescriptions = {
   "products": {
     entryButtons: [
       { buttonType: "Profile" },
+      { buttonLabel: "Drug Items", buttonType: "List", listName: "drug-items" },
       { buttonLabel: "Packages", buttonType: "List", listName: "packages" }
     ],
     entryLabel: "Product",
@@ -351,7 +371,8 @@ const sidebarDescriptions = {
   "specific-products": {
     entryButtons: [
       { buttonType: "Profile" },
-      { buttonLabel: "Marketed Products", buttonType: "List", listName: "marketed-products" }
+      { buttonLabel: "Marketed Products", buttonType: "List", listName: "marketed-products" },
+      { buttonLabel: "Therapeutic Concepts", buttonType: "List", listName: "mapped-concepts" }
     ],
     entryLabel: "Specific Product",
     entryName: "specific-products"
@@ -368,12 +389,12 @@ const sidebarDescriptions = {
         buttonLabel: "Child Concepts",
         buttonType: "List",
         listName: "child-concepts"
-      }/*,
+      },
       {
         buttonLabel: "Specific Products",
         buttonType: "List",
         listName: "specific-products"
-      }*/
+      }
     ],
     entryLabel: "Therapeutic Concept",
     entryName: "therapeutic-concepts"

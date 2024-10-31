@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
+import { DrugItemsRouting } from "../drug_items"
 import { PackagesRouting } from "../packages"
 import { NoMatch } from "../../.."
 import { ProductProfilePage } from "../../../../pages/admin/gold_standard/products"
@@ -19,6 +20,10 @@ class ProductRouting extends Component {
 
     return (
       <Switch>
+        <Route
+          path={`${productPrefix}/drug-items`}
+          render={(props) => (<DrugItemsRouting {...props} {...contextProps} />)}
+        />
         <Route
           path={`${productPrefix}/packages`}
           render={(props) => (<PackagesRouting {...props} {...contextProps} />)}

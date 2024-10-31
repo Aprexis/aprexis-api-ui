@@ -7,6 +7,7 @@ class PackageProfilePageViewModel extends AbstractPageViewModel {
     super(props)
 
     this.gotoProduct = this.gotoProduct.bind(this)
+    this.gotoReplacedByPackage = this.gotoReplacedByPackage.bind(this)
     this.loadData = this.loadData.bind(this)
   }
 
@@ -16,12 +17,18 @@ class PackageProfilePageViewModel extends AbstractPageViewModel {
     )
   }
 
+  gotoReplacedByPackage(goldStandardPackage) {
+    pathHelper.gotoPage(
+      ["admin", "gold-standard", "packages", goldStandardPackageHelper.goldStandardReplacedByPackageId(goldStandardPackage), "profile"]
+    )
+  }
+
   loadData() {
     this.clearData(false)
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const package_id = pathEntries["packages"].value
+    const package_id = pathHelper.pathEntryValue(pathEntries, "packages")
 
     goldStandardPackageApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

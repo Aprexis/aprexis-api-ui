@@ -17,6 +17,7 @@ export const pathHelper = {
   orderedPathEntries,
   pageName,
   parsePathEntries,
+  pathEntryValue,
   pluralPrefix,
   root,
   singularPrefix
@@ -36,7 +37,11 @@ function buildPathArray(location, ...pathParts) {
       switch (typeof part) {
         case 'object':
           if (('model' in part) && ('idField' in part)) {
-            value = part.model[part.idField]
+            if ('association' in part) {
+              value = part.model[part.association][part.idField]
+            } else {
+              value = part.model[part.idField]
+            }
             break
           }
           value = part.id
@@ -175,6 +180,17 @@ function parsePathEntries(location) {
   }
 
   return pathEntries
+}
+
+function pathEntryValue(pathEntries, pluralName) {
+  if (!valueHelper.isValue(pathEntries)) {
+    return
+  }
+  if (!valueHelper.isValue(pathEntries[pluralName])) {
+    return
+  }
+
+  return pathEntries[pluralName].value
 }
 
 function pluralPrefix(location, pluralName) {

@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
 import { documentApi, documentHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class DocumentProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -50,7 +50,7 @@ class DocumentProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const document_id = pathEntries['documents'].value
+    const document_id = pathHelper.pathEntryValue(pathEntries, 'documents')
     this.api().profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       document_id,

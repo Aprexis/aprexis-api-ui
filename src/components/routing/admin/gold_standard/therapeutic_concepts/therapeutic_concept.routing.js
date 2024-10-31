@@ -6,7 +6,7 @@ import {
   ParentConceptsPage,
   TherapeuticConceptProfilePage
 } from "../../../../pages/admin/gold_standard/therapeutic_concepts"
-import { SpecificProductsPage } from "../../../../pages/admin/gold_standard/specific_products"
+import { SpecificProductsRouting } from "../specific_products"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { pathHelper } from "../../../../../helpers"
 
@@ -39,9 +39,8 @@ class TherapeuticConceptRouting extends Component {
           render={(props) => (<ParentConceptsPage {...props} {...contextProps} />)}
         />
         <Route
-          exact
           path={`${therapeuticConceptPrefix}/specific-products`}
-          render={(props) => (<SpecificProductsPage {...props} {...contextProps} />)}
+          render={(props) => (<SpecificProductsRouting {...props} {...contextProps} />)}
         />
         <Route component={NoMatch} />
       </Switch>

@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../../../"
 import { goldStandardTherapeuticConceptApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
 
 class TherapeuticConceptProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -14,7 +14,7 @@ class TherapeuticConceptProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const therapeutic_concept_id = pathEntries["therapeutic-concepts"].value
+    const therapeutic_concept_id = pathHelper.pathEntryValue(pathEntries, "therapeutic-concepts")
 
     goldStandardTherapeuticConceptApi.show(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),

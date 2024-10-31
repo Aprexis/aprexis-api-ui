@@ -47,7 +47,7 @@ class MarketedProductsPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("marketedProductHeaders")
     const pathEntries = this.pathEntries()
-    const specific_product_id = pathEntries["specific-products"].value
+    const specific_product_id = pathHelper.pathEntryValue(pathEntries, "specific-products")
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(specific_product_id)) {

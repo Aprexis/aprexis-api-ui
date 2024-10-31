@@ -23,7 +23,8 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     return [
-      filtersHelper.stringFilter("Name", "for_package")
+      filtersHelper.stringFilter("Name", "for_package"),
+      filtersHelper.stringFilter("NDC", "for_ndc")
     ]
   }
 
@@ -47,7 +48,7 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
     const userCredentials = userCredentialsHelper.get()
     this.removeField("packageHeaders")
     const pathEntries = this.pathEntries()
-    const product_id = pathEntries["products"].value
+    const product_id = pathHelper.pathEntryValue(pathEntries, "products")
     const { filters, sorting, page } = this.data
 
     if (valueHelper.isNumberValue(product_id)) {
@@ -55,11 +56,11 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
         apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
         product_id,
         { ...filters, ...sorting, page },
-        (Packages, PackageHeaders) => {
+        (packages, packageHeaders) => {
           this.addData(
             {
-              Packages,
-              page: pageHelper.updatePageFromLastPage(PackageHeaders)
+              packages,
+              page: pageHelper.updatePageFromLastPage(packageHeaders)
             },
             this.redrawView
           )
@@ -72,11 +73,11 @@ class PackagesPageViewModel extends AbstractListPageViewModel {
     goldStandardPackageApi.list(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       { ...filters, ...sorting, page },
-      (Packages, PackageHeaders) => {
+      (packages, packageHeaders) => {
         this.addData(
           {
-            Packages,
-            page: pageHelper.updatePageFromLastPage(PackageHeaders)
+            packages,
+            page: pageHelper.updatePageFromLastPage(packageHeaders)
           },
           this.redrawView
         )

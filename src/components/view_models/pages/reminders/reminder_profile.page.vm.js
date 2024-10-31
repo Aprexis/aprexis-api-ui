@@ -1,6 +1,6 @@
 import { AbstractPageViewModel } from "../"
 import { reminderApi, reminderHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 class ReminderProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {
@@ -33,7 +33,7 @@ class ReminderProfilePageViewModel extends AbstractPageViewModel {
 
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
-    const reminder_id = pathEntries['reminders'].value
+    const reminder_id = pathHelper.pathEntryValue(pathEntries, 'reminders')
     reminderApi.profile(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       reminder_id,

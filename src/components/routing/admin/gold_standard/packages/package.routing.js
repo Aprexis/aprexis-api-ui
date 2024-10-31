@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-//import { PackageVersionsRouting } from "./package_versions"
+import { PackageVersionsRouting } from "../package_versions"
 import { NoMatch } from "../../.."
 import { PackageProfilePage } from "../../../../pages/admin/gold_standard/packages"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
@@ -19,12 +19,12 @@ class PackageRouting extends Component {
 
     return (
       <Switch>
-        {/*
-        <Route
-          path={`${packagePrefix}/package-versions`}
-          render={(props) => (<PackageVersionsRouting {...props} {...contextProps} />)}
-        />
-        */}
+        {
+          <Route
+            path={`${packagePrefix}/package-versions`}
+            render={(props) => (<PackageVersionsRouting {...props} {...contextProps} />)}
+          />
+        }
         <Route
           exact
           path={`${packagePrefix}/profile`}

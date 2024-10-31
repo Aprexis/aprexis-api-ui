@@ -26,7 +26,7 @@ const headings = [
     method: "ndc11"
   },
   {
-    name: "Product Name",
+    name: "Product",
     field: "product.product_name_long",
     method: "goldStandardProductNameLong"
   },
@@ -81,7 +81,7 @@ class PackagesPage extends Component {
         headings,
         helper: goldStandardPackageHelper,
         launchModal: this.props.launchModal,
-        modelName: 'Package',
+        modelName: 'package',
         onDeleteTableItem: this.vm.destroy,
         onEditTableItem: this.vm.editModal,
         onRefresh: this.vm.refreshData,
@@ -106,7 +106,7 @@ class PackagesPage extends Component {
         filters={filters}
         generateTableHeadings={this.generateTableHeadings}
         generateTableRow={this.generateTableRow}
-        list={this.state.Packages}
+        list={this.state.packages}
         listLabel="Package"
         listPluralLabel="Packages"
         modal={this.state.modal}
