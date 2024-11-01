@@ -178,17 +178,18 @@ export const pathKeys = {
   },
   "drug-items": {
     api: goldStandardDrugItemApi,
-    breadcrumb: "Active Ingredients",
     helper: goldStandardDrugItemHelper,
     modelName: "DrugItem"
   },
   "drug-item-active-ingredients": {
     api: goldStandardDrugItemActiveIngredientApi,
+    breadcrumb: 'Active Ingredients',
     helper: goldStandardDrugItemActiveIngredientHelper,
     modelName: "DrugItemActiveIngredient"
   },
   "drug-item-inactive-ingredients": {
     api: goldStandardDrugItemInactiveIngredientApi,
+    breadcrumb: 'Inactive Ingredients',
     helper: goldStandardDrugItemInactiveIngredientHelper,
     modelName: "DrugItemInactiveIngredient"
   },
