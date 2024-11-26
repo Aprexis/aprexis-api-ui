@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-set :domain, 'staging.aprexis.com'
+set :domain, '10.138.0.200'
 set :deploy_to, "/home/webapp/staging/#{fetch(:application)}"
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 server fetch(:domain).to_s, user: 'webapp', roles: %w[web app db], primary: true
