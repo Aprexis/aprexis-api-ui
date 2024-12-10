@@ -3,7 +3,6 @@
 set :domain, 'demo.aprexis.com'
 set :deploy_to, "/home/webapp/demo/#{fetch(:application)}"
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :nvm_node, 'v16.20.1'
 server fetch(:domain).to_s, user: 'webapp', roles: %w[web app db], primary: true
 
 namespace :deploy do

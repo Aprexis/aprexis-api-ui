@@ -19,6 +19,7 @@ append :linked_files, '.env.local'
 set :default_shell, 'bash -l'
 set :pty, true
 set :use_sudo, false
+set :nvm_node, 'v16.20.1'
 set :nvm_type, :user
 set :nvm_map_bins, %w[node npm yarn]
 
