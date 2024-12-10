@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { withLastLocation } from 'react-router-last-location'
 import IdleTimer from 'react-idle-timer'
 import { Footer, Header, Main } from './'
@@ -7,6 +7,22 @@ import { AppViewModel } from './view_models'
 import { history } from '../helpers'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import 'bootstrap/dist/css/bootstrap.css'
+
+const Timer = ({ vm }) => {
+  useEffect(
+    () => {
+      const interval = setInterval(vm.timer, 1000)
+
+      return () => clearInterval(interval)
+    },
+    []
+  )
+
+  return (
+    <div className="timer">
+    </div>
+  )
+}
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +48,7 @@ class App extends Component {
       return
     }
 
-    this.vm.loadData()
+    this.vm.mounted()
   }
 
   componentWillUnmount() {
@@ -44,12 +60,15 @@ class App extends Component {
 
     return (
       <div>
+        <Timer vm={this.vm} />
         <IdleTimer
+          crossTab={{ emitOnAllTabs: true }}
           debounce={250}
           element={document}
+          onActive={this.vm.active}
           onIdle={this.vm.idle}
           ref={ref => { this.idleTimer = ref }}
-          timeout={30 * 60 * 1000}
+          timeout={1000}
         />
 
         <Header

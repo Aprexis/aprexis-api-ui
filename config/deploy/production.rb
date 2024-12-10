@@ -3,6 +3,7 @@
 set :domain, '10.138.2.3'
 set :deploy_to, "/home/webapp/production/#{fetch(:application)}"
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :nvm_node, 'v23.2.0'
 server fetch(:domain).to_s, user: 'webapp', roles: %w[web app db], primary: true
 
 namespace :deploy do

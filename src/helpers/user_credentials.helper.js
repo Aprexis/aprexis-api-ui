@@ -4,6 +4,7 @@ import { apiEnvironmentHelper } from "./api_environment.helper"
 
 export const userCredentialsHelper = {
   actAs,
+  forceRefresh,
   get,
   getAdmin,
   getStatus,
@@ -14,38 +15,74 @@ export const userCredentialsHelper = {
   set,
   setAdmin,
   setStatus,
-  setUsernamePassword
+  setUsernamePassword,
+  timeoutDelay
 }
 
 const mySecretKey = process.env.REACT_APP_APREXIS_KEY
 
-function refreshCredentials(agingUsername, agingToken, userType, getFunction, setFunction) {
-  const workingCredentials = getFunction()
-  if (!valueHelper.isValue(workingCredentials) || workingCredentials.username != agingUsername || workingCredentials.token != agingToken) {
-    return
-  }
-  if (userType == 'user') {
-    const userCredentials = userCredentialsHelper.getAdmin()
-    if (userCredentials.username == agingUsername) {
-      return
-    }
-  }
-
+function forceRefresh(workingCredentials, setFunction) {
   userApi.refreshToken(
     apiEnvironmentHelper.apiEnvironment(workingCredentials),
     (newUserCredentials) => { setFunction(newUserCredentials) }
   )
 }
 
-function requestRefreshCredentials(userCredentials, userType, getFunction, setFunction) {
-  const { username, token, expires } = userCredentials
-  const expireTime = dateHelper.makeDate(expires)
-  const now = Date.now()
-  const difference = expireTime.getTime() - now
-  const tenMinutes = 10 * 60 * 1000
-  const delay = Math.max(60 * 1000, difference - tenMinutes)
+function refreshCredentials(agingUsername, agingToken, userType, getFunction, setFunction, logoutOrRefresh) {
+  const workingCredentials = getFunction()
+  if (!valueHelper.isValue(workingCredentials) || workingCredentials.username != agingUsername || workingCredentials.token != agingToken) {
+    return
+  }
 
-  setTimeout(refreshCredentials, delay, username, token, userType, getFunction, setFunction)
+  let userCredentials
+  let adminCredentials
+  switch (userType) {
+    case 'user':
+      userCredentials = workingCredentials
+      adminCredentials = getAdmin()
+      break;
+
+    case 'admin':
+      userCredentials = get()
+      adminCredentials = workingCredentials
+      break;
+
+    default:
+      console.log(`Unrecognized user type ${userType} for refresh`)
+      return
+  }
+
+  if (valueHelper.isValue(adminCredentials) && (userCredentials.username != adminCredentials.username)) {
+    if (userType == 'user') {
+      userCredentialsHelper.forceRefresh(workingCredentials, setFunction)
+      return
+    }
+  }
+
+  performRefresh(userType, workingCredentials, userCredentials, setFunction, logoutOrRefresh)
+
+  function performRefresh(userType, workingCredentials, userCredentials, setFunction, logoutOrRefresh) {
+    let setMethod = setFunction
+    if ((userType == 'admin') && (userCredentials.username == workingCredentials.username)) {
+      setMethod = (newUserCredentials) => {
+        sessionStorage.setItem("aprexis-user-credentials", encode(newUserCredentials))
+        setFunction(newUserCredentials)
+      }
+    }
+
+    if (valueHelper.isFunction(logoutOrRefresh)) {
+      logoutOrRefresh(workingCredentials, (credentials) => { userCredentialsHelper.forceRefresh(credentials, setMethod) })
+      return
+    }
+
+    userCredentialsHelper.forceRefresh(workingCredentials, setMethod)
+  }
+}
+
+function requestRefreshCredentials(userCredentials, userType, getFunction, setFunction, logoutOrRefresh) {
+  const { username, token } = userCredentials
+  const delay = userCredentialsHelper.timeoutDelay(userCredentials)
+  setTimeout(refreshCredentials, delay, username, token, userType, getFunction, setFunction, logoutOrRefresh)
 }
 
 function decode(cipherText) {
@@ -131,9 +168,9 @@ function removeUsernamePassword() {
   sessionStorage.removeItem("aprexis-username-password")
 }
 
-function set(userCredentials) {
+function set(userCredentials, logoutOrRefresh) {
   sessionStorage.setItem("aprexis-user-credentials", encode(userCredentials))
-  requestRefreshCredentials(userCredentials, 'user', userCredentialsHelper.get, userCredentialsHelper.set)
+  requestRefreshCredentials(userCredentials, 'user', userCredentialsHelper.get, userCredentialsHelper.set, logoutOrRefresh)
 }
 
 function setAdmin(adminCredentials) {
@@ -149,4 +186,19 @@ function setStatus(status) {
 
 function setUsernamePassword(username, password) {
   sessionStorage.setItem("aprexis-username-password", encode({ username, password }))
+}
+
+function timeoutDelay(userCredentials) {
+  const { expires } = userCredentials
+  const expireTime = dateHelper.makeDate(expires)
+  const now = Date.now()
+  const difference = expireTime.getTime() - now
+  const fiveMinutes = 5 * 60 * 1000
+  const tenMinutes = 10 * 60 * 1000
+
+  if (difference < tenMinutes) {
+    return difference / 2
+  }
+
+  return fiveMinutes
 }
