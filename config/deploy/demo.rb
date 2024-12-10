@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-set :domain, 'staging.aprexis.com'
-set :deploy_to, "/home/webapp/staging/#{fetch(:application)}"
+set :domain, 'demo.aprexis.com'
+set :deploy_to, "/home/webapp/demo/#{fetch(:application)}"
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :nvm_node, 'v23.2.0'
+set :nvm_node, 'v16.20.1'
 server fetch(:domain).to_s, user: 'webapp', roles: %w[web app db], primary: true
 
 namespace :deploy do
   task :yarn_deploy do
     on roles fetch(:yarn_roles) do
       within fetch(:yarn_target_path, release_path) do
-        execute fetch(:yarn_bin), 'build:staging'
+        execute fetch(:yarn_bin), 'build:demo'
       end
     end
   end

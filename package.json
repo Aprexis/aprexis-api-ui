@@ -12,14 +12,14 @@
     "@aprexis/aprexis-api-utility": "file:../aprexis-api-utility"
   },
   "//": {
-    "comment": "If you want to use a local copy of a module, copy it into this hash and specify the local folder in the dependencies",
-    "@aprexis/aprexis-api-utility": "2.27.0"
+    "comment": "If you want to use a local copy of a module, copy the current  into this hash and specify the local folder in the dependencies",
+    "@aprexis/aprexis-api-utility": "2.28.0"
   },
   "resolutions": {
     "caniuse-lite": "1.0.30001632"
   },
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "2.27.0",
+    "@aprexis/aprexis-api-utility": "2.28.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -63,8 +63,9 @@
     "fix-dist": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/index.html",
     "dist-ui": "yarn cp-ui-dist && yarn fix-dist && yarn fix-ui",
     "build-ui": "react-scripts build && rm -rf dist && mkdir dist && mv build dist/ui && yarn dist-ui",
-    "build:staging": "REACT_APP_APREXIS_API=https://staging.aprexis.com/api yarn build-ui",
-    "build:production": "REACT_APP_APREXIS_API=https://portal.aprexis.com/api yarn build-ui",
+    "build:demo": "REACT_APP_APREXIS_API=https://demo.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=demo yarn build-ui",
+    "build:staging": "REACT_APP_APREXIS_API=https://staging.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=staging yarn build-ui",
+    "build:production": "REACT_APP_APREXIS_API=https://portal.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

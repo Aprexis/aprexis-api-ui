@@ -10,6 +10,7 @@ import { BillingContractTermProfileModal } from "./billing/terms"
 import { CaregiverModal } from "./caregivers"
 import { ExternalInterventionProfileModal } from "./interventions/external_intervention_profile.modal"
 import { LabTestValueModal } from "./lab_test_values"
+import { LogoutOrRefreshModal } from "./logout_or_refresh.modal"
 import { PatientAllergyModal } from "./patient_allergies"
 import { PatientConfigurationModal } from "./patients"
 import { PatientMedicationModal } from "./patient_medications"
@@ -33,6 +34,7 @@ const modalList = {
   ExternalInterventionProfile: ExternalInterventionProfileModal,
   Filters: FiltersModal,
   LabTestValue: LabTestValueModal,
+  LogoutOrRefresh: LogoutOrRefreshModal,
   PatientAllergy: PatientAllergyModal,
   PatientMedication: PatientMedicationModal,
   PatientNote: PatientNoteModal,

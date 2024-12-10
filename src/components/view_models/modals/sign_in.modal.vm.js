@@ -31,7 +31,7 @@ class SignInModalViewModel extends AbstractModalViewModel {
       password,
       uuid,
       (userCredentials) => {
-        userCredentialsHelper.set(userCredentials)
+        userCredentialsHelper.set(userCredentials, this.props.logoutOrRefresh)
         if (valueHelper.isFunction(nextOperation)) {
           nextOperation()
         }
