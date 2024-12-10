@@ -505,8 +505,6 @@ class AppViewModel extends AbstractViewModel {
       idleTimeout = sessionTimeout / 2
     }
 
-    console.log(`Idling: ${lastActiveAt} ${now} - ${lastIdleAt} = ${now - lastIdleAt}? ${(lastIdleAt > lastActiveAt) && (now - lastIdleAt >= idleTimeout)}`)
-
     if ((lastIdleAt > lastActiveAt) && (now - lastIdleAt >= idleTimeout)) {
       this.addField("waitLogoutOrRefresh", true)
       this.launchModal(
