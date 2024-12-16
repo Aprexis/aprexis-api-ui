@@ -95,7 +95,8 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
 
   filterDescriptions(_filters, _filtersOptions) {
     const filterDescriptions = [
-      filtersHelper.stringFilter("Name", "for_name")
+      filtersHelper.stringFilter("Name", "for_name"),
+      filtersHelper.stringFilter("Phone Number", "for_phone_number")
     ]
     const pathEntries = this.pathEntries()
     const healthPlan = pathEntries["health-plans"]
