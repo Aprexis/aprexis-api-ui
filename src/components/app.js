@@ -15,7 +15,7 @@ const Timer = ({ vm }) => {
 
       return () => clearInterval(interval)
     },
-    []
+    [vm]
   )
 
   return (

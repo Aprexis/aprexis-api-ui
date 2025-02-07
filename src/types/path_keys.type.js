@@ -8,6 +8,7 @@ import {
   goldStandardGenericProductClinicalApi,
   goldStandardGenericProductApi,
   goldStandardMarketedProductApi,
+  goldStandardMaintenanceMedicationApi,
   goldStandardPackageApi,
   goldStandardPackageVersionApi,
   goldStandardProductApi,
@@ -69,6 +70,7 @@ import {
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
   goldStandardSpecificDrugProductHelper,
+  goldStandardMaintenanceMedicationHelper,
   goldStandardMarketedProductHelper,
   goldStandardPackageHelper,
   goldStandardPackageVersionHelper,
@@ -258,6 +260,11 @@ export const pathKeys = {
     api: loadProviderApi,
     helper: loadProviderHelper,
     modelName: "LoadProvider"
+  },
+  "maintenance-medications": {
+    api: goldStandardMaintenanceMedicationApi,
+    helper: goldStandardMaintenanceMedicationHelper,
+    modelName: "MaintenanceMedication"
   },
   "map-talking-points": {
     api: mapTalkingPointApi,
