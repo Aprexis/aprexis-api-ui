@@ -198,6 +198,11 @@ const sidebarDescriptions = {
     entryLabel: "Map Talking Point",
     entryName: "map-talking-points"
   },
+  "maintenance-medications": {
+    entryButtons: [{ buttonType: "Profile" }],
+    entryLabel: "Maintenance Medications",
+    entryName: "maintenance-medications"
+  },
   "marketed-products": {
     entryButtons: [
       { buttonType: "Profile" },

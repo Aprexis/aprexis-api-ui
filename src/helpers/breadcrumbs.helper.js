@@ -7,6 +7,7 @@ import {
   goldStandardDrugItemInactiveIngredientHelper,
   goldStandardGenericProductClinicalHelper,
   goldStandardGenericProductHelper,
+  goldStandardMaintenanceMedicationHelper,
   goldStandardMarketedProductHelper,
   goldStandardPackageHelper,
   goldStandardPackageVersionHelper,
@@ -38,6 +39,7 @@ const pathKeyToBreadcrumb = {
   'generic-product-clinicals': genericProductClinicalToBreadcrumb,
   'generic-products': genericProductToBreadcrumb,
   'health-plans': healthPlanToBreadcrumb,
+  'maintenance-medications': maintenanceMedicationToBreadcrumb,
   'marketed-products': marketedProductToBreadcrumb,
   'packages': packageToBreadcrumb,
   'package-versions': packageVersionToBreadcrumb,
@@ -129,6 +131,10 @@ function healthPlanToBreadcrumb(healthPlan) {
   }
 
   return healthPlanHelper.name(healthPlan)
+}
+
+function maintenanceMedicationToBreadcrumb(maintenanceMedication) {
+  return goldStandardMaintenanceMedicationHelper.ndc11(maintenanceMedication)
 }
 
 function marketedProductToBreadcrumb(marketedProduct) {

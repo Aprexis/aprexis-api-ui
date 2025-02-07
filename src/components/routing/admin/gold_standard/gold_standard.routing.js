@@ -5,6 +5,7 @@ import { NoMatch } from "../../"
 import { DrugItemsRouting } from "./drug_items"
 import { GenericProductClinicalsRouting } from "./generic_product_clinicals"
 import { GenericProductsRouting } from "./generic_products"
+import { MaintenanceMedicationsRouting } from "./maintenance_medications"
 import { MarketedProductsRouting } from "./marketed_products"
 import { PackageVersionsRouting } from "./package_versions"
 import { PackagesRouting } from "./packages"
@@ -44,6 +45,10 @@ class GoldStandardRouting extends Component {
         <Route
           path={`${goldStandardPrefix}/generic-products`}
           render={(props) => (<GenericProductsRouting {...props} {...contextProps} />)}
+        />
+        <Route
+          path={`${goldStandardPrefix}/maintenance-medications`}
+          render={(props) => (<MaintenanceMedicationsRouting {...props} {...contextProps} />)}
         />
         <Route
           path={`${goldStandardPrefix}/marketed-products`}
