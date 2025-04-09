@@ -47,6 +47,7 @@ const PharmacyClaimReferences = ({ pathEntries, pharmacyClaim }) => {
           {displayHelper.display("Physician", pharmacyClaimHelper.physicianName(pharmacyClaim))}
           {displayHelper.display("Physician NPI", pharmacyClaimHelper.physicianNpi(pharmacyClaim))}
           {displayHelper.booleanDisplay("Uploaded", pharmacyClaimHelper.wasUploaded(pharmacyClaim))}
+          {displayHelper.display("NADAC Unit Price", pharmacyClaimHelper.nadacUnitPrice(pharmacyClaim))}
         </CardBody>
       </Card>
     </Col>

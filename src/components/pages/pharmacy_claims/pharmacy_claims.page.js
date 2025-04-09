@@ -58,6 +58,11 @@ const headings = [
     name: "Days Supply",
     field: "days_supply",
     method: "daysSupply"
+  },
+  {
+    name: "NADAC Unit Price",
+    field: "nadac.unit_price",
+    method: "nadacUnitPrice"
   }
 ]
 
