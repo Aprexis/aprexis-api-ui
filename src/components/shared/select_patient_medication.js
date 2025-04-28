@@ -40,7 +40,6 @@ class SelectPatientMedication extends Component {
         required={required}
         searchText={searchText}
         searchResults={searchResults}
-        sorting={{ sort: "medication.label,filled_at" }}
         tableDisplayProps={["label"]}
         vm={this.vm}
       />
