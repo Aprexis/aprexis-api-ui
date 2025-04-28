@@ -66,6 +66,7 @@
     "build:demo": "REACT_APP_APREXIS_API=https://demo.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=demo yarn build-ui",
     "build:staging": "REACT_APP_APREXIS_API=https://staging.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=staging yarn build-ui",
     "build:production": "REACT_APP_APREXIS_API=https://portal.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
+    "build:production_mso": "REACT_APP_APREXIS_API=https://mso.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
