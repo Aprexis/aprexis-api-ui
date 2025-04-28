@@ -26,11 +26,6 @@ const headings = [
     method: "daysSupply"
   },
   {
-    name: "Filled At",
-    field: "filled_at",
-    method: "filledAt"
-  },
-  {
     name: "Patient",
     field: "patient.last_name,patient.first_name,patient.middle_name",
     method: "patientName",
