@@ -100,8 +100,8 @@ class PatientMedicationModal extends Component {
                   <DayFieldEditor
                     allowBlank={true}
                     changeField={this.vm.changeDate}
-                    fieldLabel="Filled"
-                    fieldName="filled_at"
+                    fieldLabel="Last Filled At"
+                    fieldName="last_filled_at"
                     helper={patientMedicationHelper}
                     latestDate={new Date()}
                     model={patientMedication}
@@ -172,6 +172,18 @@ class PatientMedicationModal extends Component {
                     changeField={this.vm.changeField}
                     fieldName="additional_information"
                     helper={patientMedicationHelper}
+                    model={patientMedication}
+                  />
+                </FormGroup>
+
+                <FormGroup row>
+                  <DayFieldEditor
+                    allowBlank={true}
+                    changeField={this.vm.changeDate}
+                    fieldLabel="Removed At"
+                    fieldName="removed_at"
+                    helper={patientMedicationHelper}
+                    latestDate={new Date()}
                     model={patientMedication}
                   />
                 </FormGroup>

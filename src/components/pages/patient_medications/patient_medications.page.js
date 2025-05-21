@@ -21,14 +21,14 @@ const headings = [
     method: "displayStrength"
   },
   {
+    name: "Last Filled At",
+    field: "last_filled_at",
+    method: "lastFilledAt"
+  },
+  {
     name: "Days Supply",
     field: "days_supply",
     method: "daysSupply"
-  },
-  {
-    name: "Filled At",
-    field: "filled_at",
-    method: "filledAt"
   },
   {
     name: "Patient",
@@ -46,6 +46,11 @@ const headings = [
     field: "pharmacy_store.name",
     method: "pharmacyStoreName",
     unless: "pharmacy-stores"
+  },
+  {
+    name: "Removed At",
+    field: "removed_at",
+    method: "removedAt"
   }
 ]
 

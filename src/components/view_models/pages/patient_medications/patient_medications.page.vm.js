@@ -58,7 +58,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
 
   defaultParameters() {
     const filters = {}
-    const sorting = { sort: "filled_at-,medication.label" }
+    const sorting = { sort: "medication.label" }
 
     this.addData({ filters, sorting, page: this.defaultPage() })
   }
@@ -112,8 +112,7 @@ class PatientMedicationsPageViewModel extends AbstractListPageViewModel {
           searchParam: "for_physician",
           sorting: { sort: "last_name,first_name,middle_name,npi,city,state" }
         }
-      ),
-      filtersHelper.dateRangeFilter("Filled At", "for_filled_at_between", { to: new Date() }),
+      )
     ]
 
     if (!valueHelper.isValue(patient)) {
