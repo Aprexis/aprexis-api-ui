@@ -3,7 +3,8 @@ import { patientApi, patientMedicationApi, pharmacyStoreApi, medicationApi, phys
 import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
 
 const patientMedicationDateAndTimeFields = {
-  filled_at: { label: "Filled At", required: false, type: "date/time" },
+  last_filled_at: { label: "Last Filled At", required: false, type: "date" },
+  removed_at: { label: "Removed At", required: false, type: "date" },
   start_date: { label: "Start Date", required: false, type: "date" }
 }
 
