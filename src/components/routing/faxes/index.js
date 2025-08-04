@@ -1,2 +1,2 @@
-export * from "./fax.routing"
-export * from "./faxes.routing"
+export * from "./fax.routing.js"
+export * from "./faxes.routing.js"

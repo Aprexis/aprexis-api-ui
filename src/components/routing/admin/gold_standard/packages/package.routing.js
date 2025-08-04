@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { PackageVersionsRouting } from "../package_versions"
-import { NoMatch } from "../../.."
-import { PackageProfilePage } from "../../../../pages/admin/gold_standard/packages"
+import { PackageVersionsRouting } from "../package_versions/index.js"
+import { NoMatch } from "../../../index.js"
+import { PackageProfilePage } from "../../../../pages/admin/gold_standard/packages/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../../helpers"
+import { pathHelper } from "../../../../../helpers/index.js"
 
 class PackageRouting extends Component {
   render() {

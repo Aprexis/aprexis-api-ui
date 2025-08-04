@@ -1,11 +1,11 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../../.."
-import { MappedConceptsPage } from "../../../../pages/admin/gold_standard/therapeutic_concepts"
-import { MarketedProductsRouting } from "../marketed_products"
-import { SpecificProductProfilePage } from "../../../../pages/admin/gold_standard/specific_products"
+import { NoMatch } from "../../../index.js"
+import { MappedConceptsPage } from "../../../../pages/admin/gold_standard/therapeutic_concepts/index.js"
+import { MarketedProductsRouting } from "../marketed_products/index.js"
+import { SpecificProductProfilePage } from "../../../../pages/admin/gold_standard/specific_products/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../../helpers"
+import { pathHelper } from "../../../../../helpers/index.js"
 
 class SpecificProductRouting extends Component {
   render() {

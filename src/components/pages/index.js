@@ -1,2 +1,2 @@
-export * from './dashboard.page'
-export * from './home.page'
+export * from './dashboard.page.js'
+export * from './home.page.js'

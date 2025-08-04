@@ -1,9 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../../"
-import { BillingContractPharmacyStoreProfilePage } from "../../../pages/billing/pharmacy_stores"
+import { NoMatch } from "../../index.js"
+import { BillingContractPharmacyStoreProfilePage } from "../../../pages/billing/pharmacy_stores/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
+
 class BillingContractPharmacyStoreRouting extends Component {
   render() {
     const { context, currentAdminUser, currentUser } = this.props

@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { DrugItemInactiveIngredientRouting } from "./drug_item_inactive_ingredient.routing"
-import { NoMatch } from "../../../.."
-import { DrugItemInactiveIngredientsPage } from "../../../../../pages/admin/gold_standard/drug_items/inactive_ingredients"
+import { DrugItemInactiveIngredientRouting } from "./drug_item_inactive_ingredient.routing.js"
+import { NoMatch } from "../../../../index.js"
+import { DrugItemInactiveIngredientsPage } from "../../../../../pages/admin/gold_standard/drug_items/inactive_ingredients/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../../../helpers"
+import { pathHelper } from "../../../../../../helpers/index.js"
 
 class DrugItemInactiveIngredientsRouting extends Component {
   render() {

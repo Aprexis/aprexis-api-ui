@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../shared'
-import { PharmacyStoreProgramReportProfilePageViewModel } from '../../view_models/pages/pharmacy_store_program_reports'
+import { Spinner } from '../../shared/index.js'
+import { PharmacyStoreProgramReportProfilePageViewModel } from '../../view_models/pages/pharmacy_store_program_reports/index.js'
 import { pharmacyStoreProgramReportHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../helpers'
+import { displayHelper } from '../../../helpers/index.js'
 
 const PharmacyStoreProgramReportConfiguration = ({ pharmacyStoreProgramReport }) => {
   return (

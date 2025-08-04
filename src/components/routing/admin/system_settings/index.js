@@ -1,2 +1,2 @@
-export * from "./system_setting.routing"
-export * from "./system_settings.routing"
+export * from "./system_setting.routing.js"
+export * from "./system_settings.routing.js"

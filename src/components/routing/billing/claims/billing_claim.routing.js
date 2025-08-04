@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../../"
-import { BillingClaimProfilePage } from "../../../pages/billing/claims"
+import { NoMatch } from "../../index.js"
+import { BillingClaimProfilePage } from "../../../pages/billing/claims/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class BillingClaimRouting extends Component {
   render() {

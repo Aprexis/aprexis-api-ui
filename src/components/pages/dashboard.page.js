@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { DashboardPageViewModel } from '../view_models/pages'
+import { Component } from 'react'
+import { DashboardPageViewModel } from '../view_models/pages/index.js'
 import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
 
 class DashboardPage extends Component {

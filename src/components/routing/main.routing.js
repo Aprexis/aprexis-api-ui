@@ -1,15 +1,15 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "./"
-import { AdminRouting } from "./admin"
-import { BillingRouting } from "./billing"
-import { HealthPlansRouting } from "./health_plans"
-import { PharmacyChainsRouting } from "./pharmacy_chains"
-import { PharmacyStoresRouting } from "./pharmacy_stores"
-import { UsersRouting } from "./users"
-import { DashboardPage, HomePage } from "../pages"
+import { NoMatch } from "./no_match.js"
+import { AdminRouting } from "./admin/index.js"
+import { BillingRouting } from "./billing/index.js"
+import { HealthPlansRouting } from "./health_plans/index.js"
+import { PharmacyChainsRouting } from "./pharmacy_chains/index.js"
+import { PharmacyStoresRouting } from "./pharmacy_stores/index.js"
+import { UsersRouting } from "./users/index.js"
+import { DashboardPage, HomePage } from "../pages/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../helpers"
+import { pathHelper } from "../../helpers/index.js"
 
 class MainRouting extends Component {
   render() {

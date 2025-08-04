@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../.."
-import { ConditionMedicationProfilePage } from "../../../pages/admin/condition_medications"
+import { NoMatch } from "../../index.js"
+import { ConditionMedicationProfilePage } from "../../../pages/admin/condition_medications/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class ConditionMedicationRouting extends Component {
   render() {

@@ -1,2 +1,2 @@
-export * from "./reminder.routing"
-export * from "./reminders.routing"
+export * from "./reminder.routing.js"
+export * from "./reminders.routing.js"

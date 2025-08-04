@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from ".."
-//import { FaxProfilePage } from "../../pages/faxes"
+import { NoMatch } from "../index.js"
+//import { FaxProfilePage } from "../../pages/faxes/index.js"
 //import { valueHelper } from '@aprexis/aprexis-api-utility'
-//import { pathHelper } from "../../../helpers"
+//import { pathHelper } from "../../../helpers/index.js"
 
 class FaxRouting extends Component {
   render() {

@@ -1,1 +1,1 @@
-export * from "./patient_health_plan_insurance_details.routing"
+export * from "./patient_health_plan_insurance_details.routing.js"

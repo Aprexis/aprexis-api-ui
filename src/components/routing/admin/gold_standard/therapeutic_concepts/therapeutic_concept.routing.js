@@ -1,14 +1,14 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../../.."
+import { NoMatch } from "../../../index.js"
 import {
   ChildConceptsPage,
   ParentConceptsPage,
   TherapeuticConceptProfilePage
-} from "../../../../pages/admin/gold_standard/therapeutic_concepts"
-import { SpecificProductsRouting } from "../specific_products"
+} from "../../../../pages/admin/gold_standard/therapeutic_concepts/index.js"
+import { SpecificProductsRouting } from "../specific_products/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../../helpers"
+import { pathHelper } from "../../../../../helpers/index.js"
 
 class TherapeuticConceptRouting extends Component {
   render() {

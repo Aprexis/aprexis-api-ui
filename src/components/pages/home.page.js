@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { HomePageViewModel } from '../view_models/pages'
+import { Component } from 'react'
+import { HomePageViewModel } from '../view_models/pages/index.js'
 
 class HomePage extends Component {
   constructor(props) {

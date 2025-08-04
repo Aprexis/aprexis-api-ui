@@ -1,2 +1,2 @@
-export * from './health_plan.routing'
-export * from './health_plans.routing'
+export * from './health_plan.routing.js'
+export * from './health_plans.routing.js'

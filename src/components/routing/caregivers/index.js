@@ -1,2 +1,2 @@
-export * from "./caregiver.routing"
-export * from "./caregivers.routing"
+export * from "./caregiver.routing.js"
+export * from "./caregivers.routing.js"

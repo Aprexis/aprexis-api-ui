@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../../../.."
-import { DrugItemActiveIngredientProfilePage } from "../../../../../pages/admin/gold_standard/drug_items/active_ingredients"
+import { NoMatch } from "../../../../index.js"
+import { DrugItemActiveIngredientProfilePage } from "../../../../../pages/admin/gold_standard/drug_items/active_ingredients/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../../../helpers"
+import { pathHelper } from "../../../../../../helpers/index.js"
 
 class DrugItemActiveIngredientRouting extends Component {
   render() {

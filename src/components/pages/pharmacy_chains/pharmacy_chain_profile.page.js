@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Address, Contact, Spinner } from '../../shared'
-import { PharmacyChainProfilePageViewModel } from "../../view_models/pages/pharmacy_chains"
+import { Address, Contact, Spinner } from '../../shared/index.js'
+import { PharmacyChainProfilePageViewModel } from "../../view_models/pages/pharmacy_chains/index.js"
 import { pharmacyChainHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
-import { ModelConfigs } from "../../shared"
+import { displayHelper } from "../../../helpers/index.js"
+import { ModelConfigs } from "../../shared/index.js"
 
 const PharmacyChainConfiguration = ({ pharmacyChain }) => {
   return (

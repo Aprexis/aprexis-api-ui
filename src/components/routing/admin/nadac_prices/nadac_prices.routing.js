@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../../"
-import { NadacPricesPage } from "../../../pages/admin/nadac_prices"
+import { NoMatch } from "../../index.js"
+import { NadacPricesPage } from "../../../pages/admin/nadac_prices/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class NadacPricesRouting extends Component {
   render() {

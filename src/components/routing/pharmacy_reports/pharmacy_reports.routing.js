@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { PharmacyReportRouting } from "./"
-import { NoMatch } from "../"
-import { PharmacyReportsPage } from "../../pages/pharmacy_reports"
+import { PharmacyReportRouting } from "./pharmacy_report.routing.js"
+import { NoMatch } from "../index.js"
+import { PharmacyReportsPage } from "../../pages/pharmacy_reports/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class PharmacyReportsRouting extends Component {
   render() {

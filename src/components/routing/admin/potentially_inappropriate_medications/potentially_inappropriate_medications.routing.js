@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { PotentiallyInappropriateMedicationRouting } from "./"
-import { NoMatch } from "../.."
-import { PotentiallyInappropriateMedicationsPage } from "../../../pages/admin/potentially_inappropriate_medications"
+import { PotentiallyInappropriateMedicationRouting } from "./potentially_inappropriate_medication.routing.js"
+import { NoMatch } from "../../index.js"
+import { PotentiallyInappropriateMedicationsPage } from "../../../pages/admin/potentially_inappropriate_medications/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class PotentiallyInappropriateMedicationsRouting extends Component {
   render() {

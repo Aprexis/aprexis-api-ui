@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-//import { LoadProviderRouting } from "."
-import { NoMatch } from "../.."
-import { LoadProvidersPage } from "../../../pages/admin/load_providers"
+//import { LoadProviderRouting } from "./load_provider.routing.js"
+import { NoMatch } from "../../index.js"
+import { LoadProvidersPage } from "../../../pages/admin/load_providers/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class LoadProvidersRouting extends Component {
   render() {

@@ -1,2 +1,2 @@
-export * from "./reminder_profile.page"
-export * from "./reminders.page"
+export * from "./reminder_profile.page.js"
+export * from "./reminders.page.js"

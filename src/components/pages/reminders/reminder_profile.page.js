@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { EditButton, Spinner } from '../../shared'
-import { ReminderProfilePageViewModel } from "../../view_models/pages/reminders"
+import { EditButton, Spinner } from '../../shared/index.js'
+import { ReminderProfilePageViewModel } from "../../view_models/pages/reminders/index.js"
 import { medicationHelper, patientSupplementHelper, reminderHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const Medication = ({ medication }) => {
   return (<React.Fragment>{medicationHelper.name(medication)}<br /></React.Fragment>)

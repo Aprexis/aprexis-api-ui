@@ -1,2 +1,2 @@
-export * from './billing_invoice.routing'
-export * from './billing_invoices.routing'
+export * from './billing_invoice.routing.js'
+export * from './billing_invoices.routing.js'

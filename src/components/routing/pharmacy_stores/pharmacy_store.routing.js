@@ -1,14 +1,14 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../"
-import { BillingClaimsRouting } from "../billing/claims"
-import { DryRunProgramPatientAssignmentsRouting } from "../dry_run_program_patient_assignments"
-import { InterventionsRouting } from "../interventions"
-import { PatientsRouting } from "../patients"
-import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores"
-import { PharmacyStoreProgramReportsRouting } from "../pharmacy_store_program_reports"
+import { NoMatch } from "../index.js"
+import { BillingClaimsRouting } from "../billing/claims/index.js"
+import { DryRunProgramPatientAssignmentsRouting } from "../dry_run_program_patient_assignments/index.js"
+import { InterventionsRouting } from "../interventions/index.js"
+import { PatientsRouting } from "../patients/index.js"
+import { PharmacyStoreProfilePage } from "../../pages/pharmacy_stores/index.js"
+import { PharmacyStoreProgramReportsRouting } from "../pharmacy_store_program_reports/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class PharmacyStoreRouting extends Component {
   render() {

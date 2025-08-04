@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { GenericProductClinicalRouting } from "./generic_product_clinical.routing"
-import { NoMatch } from "../../.."
-import { GenericProductClinicalsPage } from "../../../../pages/admin/gold_standard/generic_product_clinicals"
+import { GenericProductClinicalRouting } from "./generic_product_clinical.routing.js"
+import { NoMatch } from "../../../index.js"
+import { GenericProductClinicalsPage } from "../../../../pages/admin/gold_standard/generic_product_clinicals/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../../helpers"
+import { pathHelper } from "../../../../../helpers/index.js"
 
 class GenericProductClinicalsRouting extends Component {
   render() {

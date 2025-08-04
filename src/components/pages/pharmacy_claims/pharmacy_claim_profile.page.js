@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from '../../shared'
-import { PharmacyClaimProfilePageViewModel } from "../../view_models/pages/pharmacy_claims"
+import { Spinner } from '../../shared/index.js'
+import { PharmacyClaimProfilePageViewModel } from "../../view_models/pages/pharmacy_claims/index.js"
 import { fieldHelper, pharmacyClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper, pathHelper } from "../../../helpers"
+import { displayHelper, pathHelper } from "../../../helpers/index.js"
 
 const PharmacyClaimReferences = ({ pathEntries, pharmacyClaim }) => {
   return (

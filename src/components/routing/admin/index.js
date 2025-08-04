@@ -1,1 +1,1 @@
-export * from "./admin.routing"
+export * from "./admin.routing.js"

@@ -1,16 +1,16 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { AnswersRouting } from "../answers"
-import { NoMatch } from "../"
-import { FaxesRouting } from "../faxes"
-import { InterventionDocumentsRouting } from "../intervention_documents"
-import { LabTestValuesRouting } from "../lab_test_values"
-import { MapTalkingPointsRouting } from "../map_talking_points"
-import { InterventionProfilePage, InterventionVerifyPage } from "../../pages/interventions"
+import { AnswersRouting } from "../answers/index.js"
+import { NoMatch } from "../index.js"
+import { FaxesRouting } from "../faxes/index.js"
+import { InterventionDocumentsRouting } from "../intervention_documents/index.js"
+import { LabTestValuesRouting } from "../lab_test_values/index.js"
+import { MapTalkingPointsRouting } from "../map_talking_points/index.js"
+import { InterventionProfilePage, InterventionVerifyPage } from "../../pages/interventions/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
-import { InterventionMedicationsRouting } from "../intervention_medications"
-import { BillingClaimsRouting } from "../billing/claims"
+import { pathHelper } from "../../../helpers/index.js"
+import { InterventionMedicationsRouting } from "../intervention_medications/index.js"
+import { BillingClaimsRouting } from "../billing/claims/index.js"
 
 class InterventionRouting extends Component {
   render() {

@@ -1,12 +1,12 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../"
-import { DryRunProgramPatientAssignmentsRouting } from "../dry_run_program_patient_assignments"
-import { InterventionsRouting } from "../interventions"
-import { PharmacyStoreProgramReportsRouting } from "../pharmacy_store_program_reports"
-import { ProgramProfilePage, PatientAssignmentAlgorithmPage } from "../../pages/programs"
+import { NoMatch } from "../index.js"
+import { DryRunProgramPatientAssignmentsRouting } from "../dry_run_program_patient_assignments/index.js"
+import { InterventionsRouting } from "../interventions/index.js"
+import { PharmacyStoreProgramReportsRouting } from "../pharmacy_store_program_reports/index.js"
+import { ProgramProfilePage, PatientAssignmentAlgorithmPage } from "../../pages/programs/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class ProgramRouting extends Component {
   render() {

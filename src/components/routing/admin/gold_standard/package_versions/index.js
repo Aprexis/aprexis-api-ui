@@ -1,2 +1,2 @@
-export * from './package_version.routing'
-export * from './package_versions.routing'
+export * from './package_version.routing.js'
+export * from './package_versions.routing.js'

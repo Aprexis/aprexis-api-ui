@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { PharmacyStoreProgramReportsPageViewModel } from "../../view_models/pages/pharmacy_store_program_reports"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { PharmacyStoreProgramReportsPageViewModel } from "../../view_models/pages/pharmacy_store_program_reports/index.js"
+import { ListView } from "../../../containers/index.js"
 import { dateHelper, pharmacyStoreProgramReportHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

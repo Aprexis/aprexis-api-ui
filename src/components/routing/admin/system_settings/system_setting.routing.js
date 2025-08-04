@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../.."
-//import { SystemSettingProfilePage } from "../../../pages/admin/system_settings"
+import { NoMatch } from "../../index.js"
+//import { SystemSettingProfilePage } from "../../../pages/admin/system_settings/index.js"
 //import { valueHelper } from '@aprexis/@aprexis-api-utility'
-//import { pathHelper } from "../../../../helpers"
+//import { pathHelper } from "../../../../helpers/index.js"
 
 class SystemSettingRouting extends Component {
   render() {

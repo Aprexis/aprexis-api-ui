@@ -1,2 +1,2 @@
-export * from "./program.routing"
-export * from "./programs.routing"
+export * from "./program.routing.js"
+export * from "./programs.routing.js"

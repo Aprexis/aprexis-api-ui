@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { ReminderRouting } from "./"
-import { NoMatch } from ".."
-import { RemindersPage } from "../../pages/reminders"
+import { ReminderRouting } from "./reminder.routing.js"
+import { NoMatch } from "../index.js"
+import { RemindersPage } from "../../pages/reminders/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class RemindersRouting extends Component {
   render() {

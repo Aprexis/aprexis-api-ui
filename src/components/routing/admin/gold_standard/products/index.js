@@ -1,2 +1,2 @@
-export * from './product.routing'
-export * from './products.routing'
+export * from './product.routing.js'
+export * from './products.routing.js'

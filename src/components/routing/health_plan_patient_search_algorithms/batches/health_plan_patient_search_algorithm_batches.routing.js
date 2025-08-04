@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { HealthPlanPatientSearchAlgorithmBatchRouting } from "./health_plan_patient_search_algorithm_batch.routing"
-import { NoMatch } from "../.."
-import { pathHelper } from "../../../../helpers"
+import { HealthPlanPatientSearchAlgorithmBatchRouting } from "./health_plan_patient_search_algorithm_batch.routing.js"
+import { NoMatch } from "../../index.js"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class HealthPlanPatientSearchAlgorithmBatchesRouting extends Component {
   render() {

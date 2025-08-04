@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../shared'
-import { ProgramProfilePageViewModel } from '../../view_models/pages/programs'
+import { Spinner } from '../../shared/index.js'
+import { ProgramProfilePageViewModel } from '../../view_models/pages/programs/index.js'
 import { programHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../helpers'
+import { displayHelper } from '../../../helpers/index.js'
 
 
 const ProgramConfiguration = ({ program }) => {

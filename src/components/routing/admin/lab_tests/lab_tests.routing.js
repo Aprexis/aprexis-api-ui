@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { LabTestRouting } from "."
-import { NoMatch } from "../.."
-import { LabTestsPage } from "../../../pages/admin/lab_tests"
+import { LabTestRouting } from "./lab_test.routing,js"
+import { NoMatch } from "../../index.js"
+import { LabTestsPage } from "../../../pages/admin/lab_tests/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class LabTestsRouting extends Component {
   render() {

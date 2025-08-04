@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Address, Contact, Spinner } from '../../shared'
-import { PharmacyStoreProfilePageViewModel } from "../../view_models/pages/pharmacy_stores"
+import { Address, Contact, Spinner } from '../../shared/index.js'
+import { PharmacyStoreProfilePageViewModel } from "../../view_models/pages/pharmacy_stores/index.js"
 import { pharmacyStoreHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from "../../../helpers"
-import { ModelConfigs } from "../../shared"
+import { displayHelper } from "../../../helpers/index.js"
+import { ModelConfigs } from "../../shared/index.js"
 
 const PharmacyStoreConfiguration = ({ pharmacyStore }) => {
   return (

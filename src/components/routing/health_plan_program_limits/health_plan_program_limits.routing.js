@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { HealthPlanProgramLimitRouting } from "./"
-import { NoMatch } from ".."
-import { HealthPlanProgramLimitsPage } from "../../pages/health_plan_program_limits"
+import { HealthPlanProgramLimitRouting } from "./health_plan_program_limit.routing.js"
+import { NoMatch } from "../index.js"
+import { HealthPlanProgramLimitsPage } from "../../pages/health_plan_program_limits/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class HealthPlanProgramLimitsRouting extends Component {
   render() {

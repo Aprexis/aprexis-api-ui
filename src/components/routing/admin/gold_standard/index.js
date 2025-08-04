@@ -1,1 +1,1 @@
-export * from "./gold_standard.routing"
+export * from "./gold_standard.routing.js"

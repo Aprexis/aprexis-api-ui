@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Address, Contact, EditButton, Spinner } from '../../shared'
-import { PatientProfilePageViewModel } from "../../view_models/pages/patients"
+import { Address, Contact, EditButton, Spinner } from '../../shared/index.js'
+import { PatientProfilePageViewModel } from "../../view_models/pages/patients/index.js"
 import { patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const PatientConfiguration = ({ currentUser, onEditConfiguration, patient }) => {
   return (

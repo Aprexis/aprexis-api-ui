@@ -1,1 +1,1 @@
-export * from './load_providers.routing'
+export * from './load_providers.routing.js'

@@ -1,1 +1,1 @@
-export * from "./appointments.routing"
+export * from "./appointments.routing.js"

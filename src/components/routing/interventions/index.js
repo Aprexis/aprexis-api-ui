@@ -1,2 +1,2 @@
-export * from "./intervention.routing"
-export * from "./interventions.routing"
+export * from "./intervention.routing.js"
+export * from "./interventions.routing.js"

@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { ProgramsPageViewModel } from "../../view_models/pages/programs"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { ProgramsPageViewModel } from "../../view_models/pages/programs/index.js"
+import { ListView } from "../../../containers/index.js"
 import { programHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

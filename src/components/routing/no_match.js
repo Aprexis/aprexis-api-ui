@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Spinner } from '../shared'
+import { Component } from 'react'
+import { Spinner } from '../shared/index.js'
 
 class NoMatch extends Component {
   render() {

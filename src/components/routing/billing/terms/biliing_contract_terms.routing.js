@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { BillingContractTermRouting } from "./"
-import { NoMatch } from "../../"
-import { BillingContractTermsPage } from "../../../pages/billing/terms"
+import { BillingContractTermRouting } from "./billing_contract_term.routing.js"
+import { NoMatch } from "../../index.js"
+import { BillingContractTermsPage } from "../../../pages/billing/terms/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class BillingContractTermsRouting extends Component {
   render() {

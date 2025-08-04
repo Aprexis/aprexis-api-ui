@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Container, Col } from 'reactstrap'
 import { patientAssignmentAlgorithmHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { Spinner, PatientAssignmentAlgorithmProfile } from '../../shared'
-import { PatientAssignmentAlgorithmPageViewModel } from '../../view_models/pages/programs'
+import { Spinner, PatientAssignmentAlgorithmProfile } from '../../shared/index.js'
+import { PatientAssignmentAlgorithmPageViewModel } from '../../view_models/pages/programs/index.js'
 
 class PatientAssignmentAlgorithmPage extends Component {
   constructor(props) {

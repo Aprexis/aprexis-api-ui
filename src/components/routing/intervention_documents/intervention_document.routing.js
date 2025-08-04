@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { NoMatch } from "../"
-import { InterventionDocumentProfilePage } from "../../pages/intervention_documents"
+import { NoMatch } from "../index.js"
+import { InterventionDocumentProfilePage } from "../../pages/intervention_documents/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class InterventionDocumentRouting extends Component {
   render() {

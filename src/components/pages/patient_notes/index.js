@@ -1,1 +1,1 @@
-export * from "./patient_notes.page"
+export * from "./patient_notes.page.js"
