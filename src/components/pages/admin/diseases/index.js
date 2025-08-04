@@ -1,2 +1,2 @@
-export * from "./disease_profile.page"
-export * from "./diseases.page"
+export * from "./disease_profile.page.js"
+export * from "./diseases.page.js"

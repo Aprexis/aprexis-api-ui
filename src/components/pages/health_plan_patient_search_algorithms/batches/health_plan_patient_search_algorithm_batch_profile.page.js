@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { healthPlanPatientSearchStageHelper, healthPlanPatientSearchAlgorithmBatchHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { AprexisList, Spinner } from '../../../shared'
-import { listHelper } from '../../../../helpers'
-import { HealthPlanPatientSearchAlgorithmBatchPageViewModel } from '../../../view_models/pages/health_plan_patient_search_algorithms/batches'
+import { AprexisList, Spinner } from '../../../shared/index.js'
+import { listHelper } from '../../../../helpers/index.js'
+import { HealthPlanPatientSearchAlgorithmBatchPageViewModel } from '../../../view_models/pages/health_plan_patient_search_algorithms/batches/index.js'
 
 const headings = [
   {

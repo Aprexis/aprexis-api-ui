@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { DownloadButton, EditButton, Spinner } from '../../shared'
-import { DocumentProfilePageViewModel } from "../../view_models/pages/documents"
+import { DownloadButton, EditButton, Spinner } from '../../shared/index.js'
+import { DocumentProfilePageViewModel } from "../../view_models/pages/documents/index.js"
 import { documentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const DocumentProfile = ({ currentUser, onDownload, onEditProfile, document }) => {
   return (

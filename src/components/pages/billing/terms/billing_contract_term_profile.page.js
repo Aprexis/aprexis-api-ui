@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { EditButton, Spinner } from "../../../shared"
-import { BillingContractTermProfilePageViewModel } from "../../../view_models/pages/billing/terms"
+import { EditButton, Spinner } from "../../../shared/index.js"
+import { BillingContractTermProfilePageViewModel } from "../../../view_models/pages/billing/terms/index.js"
 import { valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../../helpers"
+import { displayHelper } from "../../../../helpers/index.js"
 
 const PatientSection = ({ billingContractTerm, patientType, section }) => {
   const patientSection = valueHelper.camelCase(`${patientType}_${section}`)

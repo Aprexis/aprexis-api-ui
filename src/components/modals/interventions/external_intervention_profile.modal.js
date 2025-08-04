@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
 import {
   DayFieldEditor,
@@ -7,11 +7,11 @@ import {
   SelectDiagnosisCode,
   SelectFieldEditor,
   SelectUser
-} from "../../shared"
-import { ExternalInterventionProfileModalViewModel } from "../../view_models/modals/interventions"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { ExternalInterventionProfileModalViewModel } from "../../view_models/modals/interventions/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const consentObtainedFrom = [
   { label: '', value: undefined },

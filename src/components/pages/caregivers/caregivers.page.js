@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { CaregiversPageViewModel } from "../../view_models/pages/caregivers"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { CaregiversPageViewModel } from "../../view_models/pages/caregivers/index.js"
+import { ListView } from "../../../containers/index.js"
 import { caregiverHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

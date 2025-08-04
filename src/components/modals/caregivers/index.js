@@ -1,1 +1,1 @@
-export * from "./caregiver.modal"
+export * from "./caregiver.modal.js"

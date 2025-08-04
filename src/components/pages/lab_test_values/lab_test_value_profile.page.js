@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { EditButton, Spinner } from '../../shared'
-import { LabTestValueProfilePageViewModel } from "../../view_models/pages/lab_test_values"
+import { EditButton, Spinner } from '../../shared/index.js'
+import { LabTestValueProfilePageViewModel } from "../../view_models/pages/lab_test_values/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const LabTestValueProfile = ({ currentUser, onEditProfile, labTestValue, vm }) => {
   return (

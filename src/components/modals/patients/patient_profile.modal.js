@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   AddressEditor,
@@ -6,9 +6,9 @@ import {
   DayFieldEditor,
   SelectFieldEditor,
   TextFieldEditor
-} from "../../shared"
-import { PatientProfileModalViewModel } from "../../view_models/modals/patients"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { PatientProfileModalViewModel } from "../../view_models/modals/patients/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, valueHelper, contactMethods } from "@aprexis/aprexis-api-utility"
 
 class PatientProfileModal extends Component {

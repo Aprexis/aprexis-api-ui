@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { GenericProductClinicalsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/generic_product_clinicals"
-import { ListView } from "../../../../../containers"
+import { Component } from "react"
+import { GenericProductClinicalsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/generic_product_clinicals/index.js"
+import { ListView } from "../../../../../containers/index.js"
 import { valueHelper, goldStandardGenericProductClinicalHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../../helpers"
+import { listHelper } from "../../../../../helpers/index.js"
 
 const headings = [
   {

@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { EditButton, Spinner } from '../../shared'
-import { MapTalkingPointProfilePageViewModel } from "../../view_models/pages/map_talking_points"
+import { EditButton, Spinner } from '../../shared/index.js'
+import { MapTalkingPointProfilePageViewModel } from "../../view_models/pages/map_talking_points/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const MapTalkingPointProfile = ({ currentUser, onEditProfile, mapTalkingPoint, vm }) => {
   return (

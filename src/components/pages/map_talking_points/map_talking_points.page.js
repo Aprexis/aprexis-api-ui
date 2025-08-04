@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { MapTalkingPointsPageViewModel } from "../../view_models/pages/map_talking_points"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { MapTalkingPointsPageViewModel } from "../../view_models/pages/map_talking_points/index.js"
+import { ListView } from "../../../containers/index.js"
 import { mapTalkingPointHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

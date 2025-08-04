@@ -1,1 +1,1 @@
-export * from "./health_plan_program_limits.page"
+export * from "./health_plan_program_limits.page.js"

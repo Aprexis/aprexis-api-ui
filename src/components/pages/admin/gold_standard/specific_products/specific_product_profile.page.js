@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../../../shared'
-import { SpecificProductProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/specific_products'
+import { Spinner } from '../../../../shared/index.js'
+import { SpecificProductProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/specific_products/index.js'
 import { goldStandardSpecificProductHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../../../helpers'
+import { displayHelper } from '../../../../../helpers/index.js'
 
 const SpecificProductProfile = ({ specificProduct, onSpecificDrugProduct }) => {
   return (

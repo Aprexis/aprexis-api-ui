@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { EditButton, Spinner } from "../../../shared"
+import { EditButton, Spinner } from "../../../shared/index.js"
 import {
   BillingContractPharmacyChainProfilePageViewModel
-} from "../../../view_models/pages/billing/pharmacy_chains"
+} from "../../../view_models/pages/billing/pharmacy_chains/index.js"
 import { valueHelper, billingContractPharmacyChainHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../../../helpers'
+import { displayHelper } from '../../../../helpers/index.js'
 
 const BillingContractPharmacyChainProfile = ({ currentUser, onEditProfile, billingContractPharmacy }) => {
   return (

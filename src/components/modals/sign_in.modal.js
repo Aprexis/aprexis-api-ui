@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Col, Container, Form, Row } from 'reactstrap'
-import { SignInModalViewModel } from '../view_models/modals'
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
-import { UsernamePassword } from './shared'
+import { SignInModalViewModel } from '../view_models/modals/index.js'
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals/index.js'
+import { UsernamePassword } from './shared/index.js'
 
 class SignInModal extends Component {
   constructor(props) {

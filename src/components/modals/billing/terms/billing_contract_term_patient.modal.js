@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
-import { NumberFieldEditor, TextFieldEditor } from "../../../shared"
-import { BillingContractTermPatientModalViewModel } from "../../../view_models/modals/billing/terms"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
+import { NumberFieldEditor, TextFieldEditor } from "../../../shared/index.js"
+import { BillingContractTermPatientModalViewModel } from "../../../view_models/modals/billing/terms/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals/index.js"
 import { valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
 
 const PatientSection = ({ billingContractTerm, changeField, changeNumericField, patientType, section }) => {

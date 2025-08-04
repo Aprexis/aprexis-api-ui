@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container } from "reactstrap"
-import { GoldStandardPageViewModel } from "../../../view_models/pages/admin/gold_standard"
+import { GoldStandardPageViewModel } from "../../../view_models/pages/admin/gold_standard/index.js"
 
 class GoldStandardPage extends Component {
   constructor(props) {

@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { SpecificProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_products"
-import { ListView } from "../../../../../containers"
+import { Component } from "react"
+import { SpecificProductsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/specific_products/index.js"
+import { ListView } from "../../../../../containers/index.js"
 import { valueHelper, goldStandardSpecificProductHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper, pathHelper } from "../../../../../helpers"
+import { listHelper, pathHelper } from "../../../../../helpers/index.js"
 
 const headings = [
   {

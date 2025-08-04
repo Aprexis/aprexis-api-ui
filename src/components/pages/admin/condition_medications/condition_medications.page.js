@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { ConditionMedicationsPageViewModel } from "../../../view_models/pages/admin/condition_medications"
-import { ListView } from "../../../../containers"
+import { ConditionMedicationsPageViewModel } from "../../../view_models/pages/admin/condition_medications/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { valueHelper, conditionMedicationHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers/list.helper"
+import { listHelper } from "../../../../helpers/index.js"
 
 const headings = [
   {

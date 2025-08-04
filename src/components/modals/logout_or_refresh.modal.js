@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import moment from 'moment'
 import { Col, Container, Form, Row } from 'reactstrap'
-import { LogoutOrRefreshModalViewModel } from '../view_models/modals'
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
+import { LogoutOrRefreshModalViewModel } from '../view_models/modals/index.js'
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals/index.js'
 
 const Timer = ({ vm }) => {
   useEffect(() => {

@@ -1,1 +1,1 @@
-export * from './username_password'
+export * from './username_password.js'

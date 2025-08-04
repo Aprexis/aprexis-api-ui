@@ -1,1 +1,1 @@
-export * from './gold_standard.page'
+export * from './gold_standard.page.js'

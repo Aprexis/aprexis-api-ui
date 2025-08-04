@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../../../../shared'
-import { DrugItemInactiveIngredientProfilePageViewModel } from '../../../../../view_models/pages/admin/gold_standard/drug_items/inactive_ingredients'
+import { Spinner } from '../../../../../shared/index.js'
+import { DrugItemInactiveIngredientProfilePageViewModel } from '../../../../../view_models/pages/admin/gold_standard/drug_items/inactive_ingredients/index.js'
 import { goldStandardDrugItemInactiveIngredientHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../../../../helpers'
+import { displayHelper } from '../../../../../../helpers/index.js'
 
 const DrugItemInactiveIngredientProfile = ({ drugItemInactiveIngredient, onDrugItem, onIngredient }) => {
   return (

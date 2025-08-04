@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { valueHelper, userHelper, appointmentHelper } from "@aprexis/aprexis-api-utility"
-import { Spinner } from "../../shared"
-import { EventCalendar } from "../../shared/event_calendar"
-import { AppointmentsPageViewModel } from "../../view_models/pages/appointments"
-import { RefreshView } from "../../../containers"
+import { Spinner } from "../../shared/index.js"
+import { EventCalendar } from "../../shared/event_calendar/index.js"
+import { AppointmentsPageViewModel } from "../../view_models/pages/appointments/index.js"
+import { RefreshView } from "../../../containers/index.js"
 
 class AppointmentsPage extends Component {
   constructor(props) {

@@ -1,1 +1,1 @@
-export * from "./appointments.page"
+export * from "./appointments.page.js"

@@ -6,11 +6,11 @@ import {
   SelectLabTest,
   SelectPharmacyStore,
   TextFieldEditor
-} from "../../shared"
-import { LabTestValueModalViewModel } from "../../view_models/modals/lab_test_values"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { LabTestValueModalViewModel } from "../../view_models/modals/lab_test_values/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, labTestValueHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 const LabTestValueLabTest = ({ isRequired, labTestValue, onChange, props }) => {
   return (

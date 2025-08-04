@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   AddressEditor,
@@ -6,9 +6,9 @@ import {
   ContactEditor,
   SelectFieldEditor,
   TextFieldEditor
-} from "../../shared"
-import { CaregiverModalViewModel } from "../../view_models/modals/caregivers"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { CaregiverModalViewModel } from "../../view_models/modals/caregivers/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { caregiverHelper, valueHelper, relationships } from "@aprexis/aprexis-api-utility"
 
 class CaregiverModal extends Component {

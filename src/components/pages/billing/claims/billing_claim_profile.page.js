@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { EditButton, Spinner } from "../../../shared"
-import { BillingClaimProfilePageViewModel } from "../../../view_models/pages/billing/claims"
+import { EditButton, Spinner } from "../../../shared/index.js"
+import { BillingClaimProfilePageViewModel } from "../../../view_models/pages/billing/claims/index.js"
 import { dateHelper, valueHelper, billingClaimHelper, billingClaimServiceHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../../../helpers'
+import { displayHelper } from '../../../../helpers/index.js'
 
 const BillingClaimCharges = ({ currentUser, billingClaim }) => {
   return (

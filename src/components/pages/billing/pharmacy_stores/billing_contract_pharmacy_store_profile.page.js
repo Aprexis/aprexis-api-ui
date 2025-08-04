@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { EditButton, Spinner } from "../../../shared"
-import { BillingContractPharmacyStoreProfilePageViewModel } from "../../../view_models/pages/billing/pharmacy_stores"
+import { EditButton, Spinner } from "../../../shared/index.js"
+import { BillingContractPharmacyStoreProfilePageViewModel } from "../../../view_models/pages/billing/pharmacy_stores/index.js"
 import { valueHelper, billingContractPharmacyStoreHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../../../helpers'
+import { displayHelper } from '../../../../helpers/index.js'
 
 const BillingContractPharmacyStoreProfile = (
   {

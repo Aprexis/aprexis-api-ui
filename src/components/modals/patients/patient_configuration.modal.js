@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   BooleanFieldEditor,
@@ -6,9 +6,9 @@ import {
   SelectFieldEditor,
   SelectTimeZone,
   TextFieldEditor
-} from "../../shared"
-import { PatientConfigurationModalViewModel } from "../../view_models/modals/patients"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { PatientConfigurationModalViewModel } from "../../view_models/modals/patients/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 const cognitiveImpairmentReasons = [

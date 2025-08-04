@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
-import { SelectPhysician } from "../../shared"
-import { PatientPhysicianModalViewModel } from "../../view_models/modals/patient_physicians"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+import { SelectPhysician } from "../../shared/index.js"
+import { PatientPhysicianModalViewModel } from "../../view_models/modals/patient_physicians/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, patientPhysicianHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class PatientPhysicianModal extends Component {

@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { MaintenanceMedicationsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/maintenance_medications"
-import { ListView } from "../../../../../containers"
+import { Component } from "react"
+import { MaintenanceMedicationsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/maintenance_medications/index.js"
+import { ListView } from "../../../../../containers/index.js"
 import { valueHelper, goldStandardMaintenanceMedicationHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../../helpers"
+import { listHelper } from "../../../../../helpers/index.js"
 
 const headings = [
   {

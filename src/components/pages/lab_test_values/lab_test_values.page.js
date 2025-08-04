@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { LabTestValuesPageViewModel } from "../../view_models/pages/lab_test_values"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { LabTestValuesPageViewModel } from "../../view_models/pages/lab_test_values/index.js"
+import { ListView } from "../../../containers/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

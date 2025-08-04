@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../shared'
-import { HealthPlanProgramReportProfilePageViewModel } from '../../view_models/pages/health_plan_program_reports'
+import { Spinner } from '../../shared/index.js'
+import { HealthPlanProgramReportProfilePageViewModel } from '../../view_models/pages/health_plan_program_reports/index.js'
 import { healthPlanProgramReportHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../helpers'
+import { displayHelper } from '../../../helpers/index.js'
 
 const HealthPlanProgramReportConfiguration = ({ healthPlanProgramReport }) => {
   return (

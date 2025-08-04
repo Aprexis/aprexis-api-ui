@@ -1,1 +1,1 @@
-export * from "./reminder.modal"
+export * from "./reminder.modal.js"

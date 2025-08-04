@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { HealthPlanProgramReportsPageViewModel } from "../../view_models/pages/health_plan_program_reports"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { HealthPlanProgramReportsPageViewModel } from "../../view_models/pages/health_plan_program_reports/index.js"
+import { ListView } from "../../../containers/index.js"
 import { dateHelper, healthPlanProgramReportHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

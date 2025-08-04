@@ -1,2 +1,2 @@
-export * from "./document_profile.page"
-export * from "./documents.page"
+export * from "./document_profile.page.js"
+export * from "./documents.page.js"

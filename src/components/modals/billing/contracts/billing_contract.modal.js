@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
-import { DayFieldEditor, TextFieldEditor } from "../../../shared"
-import { BillingContractModalViewModel } from "../../../view_models/modals/billing/contracts"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
+import { DayFieldEditor, TextFieldEditor } from "../../../shared/index.js"
+import { BillingContractModalViewModel } from "../../../view_models/modals/billing/contracts/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals/index.js"
 import { valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
 
 class BillingContractModal extends Component {

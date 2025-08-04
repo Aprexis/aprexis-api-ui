@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Label } from "reactstrap"
-import { DayPicker } from "../shared"
+import { DayPicker } from "../shared/index.js"
 import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { filtersHelper } from "../../helpers"
+import { filtersHelper } from "../../helpers/inex.js"
 
 /* TODO: needs to be checked against DayPicker. */
 

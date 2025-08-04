@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plan_patient_search_algorithms"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { HealthPlanPatientSearchAlgorithmsPageViewModel } from "../../view_models/pages/health_plan_patient_search_algorithms/index.js"
+import { ListView } from "../../../containers/index.js"
 import { healthPlanPatientSearchAlgorithmHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

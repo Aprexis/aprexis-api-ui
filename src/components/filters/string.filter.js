@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Col, Input, Label } from 'reactstrap'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { filtersHelper } from '../../helpers'
+import { filtersHelper } from '../../helpers/index.js'
 
 class StringFilter extends Component {
   render() {

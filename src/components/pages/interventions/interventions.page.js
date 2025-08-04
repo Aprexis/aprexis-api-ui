@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { InterventionsPageViewModel } from "../../view_models/pages/interventions"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { InterventionsPageViewModel } from "../../view_models/pages/interventions/index.js"
+import { ListView } from "../../../containers/index.js"
 import { interventionHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 function titleizeState(intervention) {
   return valueHelper.titleize(interventionHelper.state(intervention))

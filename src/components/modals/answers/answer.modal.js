@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { AnswerModalViewModel } from '../../view_models/modals/answers'
+import { Component } from 'react'
+import { AnswerModalViewModel } from '../../view_models/modals/answers/index.js'
 import { valueHelper, questionHelper } from '@aprexis/aprexis-api-utility'
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { Col, Container, Form, Row } from "reactstrap"
-import { Spinner } from "../../shared"
-import { QuestionField, QuestionLabel } from '../../shared/questions'
+import { Spinner } from "../../shared/index.js"
+import { QuestionField, QuestionLabel } from '../../shared/questions/index.js'
 
 class AnswerModal extends Component {
   constructor(props) {

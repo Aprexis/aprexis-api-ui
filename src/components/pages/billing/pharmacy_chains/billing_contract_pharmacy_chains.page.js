@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { BillingContractPharmacyChainsPageViewModel } from "../../../view_models/pages/billing/pharmacy_chains"
-import { ListView } from "../../../../containers"
+import { Component } from "react"
+import { BillingContractPharmacyChainsPageViewModel } from "../../../view_models/pages/billing/pharmacy_chains/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { valueHelper, billingContractPharmacyChainHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { listHelper } from "../../../../helpers/index.js"
 
 const headings = [
   {

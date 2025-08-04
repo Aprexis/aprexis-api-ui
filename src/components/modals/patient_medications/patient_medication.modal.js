@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   DayFieldEditor,
@@ -8,11 +8,11 @@ import {
   SelectPharmacyStore,
   SelectPhysician,
   TextFieldEditor
-} from "../../shared"
-import { PatientMedicationModalViewModel } from "../../view_models/modals/patient_medications"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { PatientMedicationModalViewModel } from "../../view_models/modals/patient_medications/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, patientMedicationHelper, valueHelper, patientMedications } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 class PatientMedicationModal extends Component {
   constructor(props) {

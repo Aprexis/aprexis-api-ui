@@ -1,1 +1,1 @@
-export * from "./answers.page"
+export * from "./answers.page.js"

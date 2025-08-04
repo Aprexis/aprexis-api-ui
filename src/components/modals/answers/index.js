@@ -1,1 +1,1 @@
-export * from './answer.modal'
+export * from './answer.modal.js'

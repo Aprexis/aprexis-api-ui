@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container } from "reactstrap"
-import { TherapeuticConceptProfilePageViewModel } from "../../../../view_models/pages/admin/gold_standard/therapeutic_concepts"
+import { TherapeuticConceptProfilePageViewModel } from "../../../../view_models/pages/admin/gold_standard/therapeutic_concepts/index.js"
 import { goldStandardTherapeuticConceptHelper } from "@aprexis/aprexis-api-utility"
 
 class TherapeuticConceptProfilePage extends Component {

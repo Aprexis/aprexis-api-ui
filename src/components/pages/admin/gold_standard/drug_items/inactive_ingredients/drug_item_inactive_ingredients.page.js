@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { DrugItemInactiveIngredientsPageViewModel } from "../../../../../view_models/pages/admin/gold_standard/drug_items/inactive_ingredients"
-import { ListView } from "../../../../../../containers"
+import { Component } from "react"
+import { DrugItemInactiveIngredientsPageViewModel } from "../../../../../view_models/pages/admin/gold_standard/drug_items/inactive_ingredients/index.js"
+import { ListView } from "../../../../../../containers/index.js"
 import { valueHelper, goldStandardDrugItemInactiveIngredientHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../../../helpers"
+import { listHelper } from "../../../../../../helpers/index.js"
 
 const headings = [
   {

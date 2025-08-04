@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { DryRunProgramPatientAssignmentsPageViewModel } from "../../view_models/pages/dry_run_program_patient_assignments"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { DryRunProgramPatientAssignmentsPageViewModel } from "../../view_models/pages/dry_run_program_patient_assignments/index.js"
+import { ListView } from "../../../containers/index.js"
 import { dryRunProgramPatientAssignmentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

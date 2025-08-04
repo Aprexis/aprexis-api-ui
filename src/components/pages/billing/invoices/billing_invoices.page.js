@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { BillingInvoicesPageViewModel } from "../../../view_models/pages/billing/invoices"
-import { ListView } from "../../../../containers"
+import { Component } from "react"
+import { BillingInvoicesPageViewModel } from "../../../view_models/pages/billing/invoices/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { dateHelper, valueHelper, billingInvoiceHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { listHelper } from "../../../../helpers/index.js"
 
 const headings = [
   {

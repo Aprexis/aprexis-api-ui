@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Address, Contact, EditButton, Spinner } from '../../shared'
-import { CaregiverProfilePageViewModel } from "../../view_models/pages/caregivers"
+import { Address, Contact, EditButton, Spinner } from '../../shared/index.js'
+import { CaregiverProfilePageViewModel } from "../../view_models/pages/caregivers/index.js"
 import { caregiverHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const CaregiverProfile = ({ currentUser, onEditProfile, caregiver }) => {
   return (

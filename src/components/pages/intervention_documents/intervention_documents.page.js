@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { InterventionDocumentsPageViewModel } from "../../view_models/pages/intervention_documents"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { InterventionDocumentsPageViewModel } from "../../view_models/pages/intervention_documents/index.js"
+import { ListView } from "../../../containers/index.js"
 import { interventionDocumentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

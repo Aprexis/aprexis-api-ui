@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
-import { NumberFieldEditor, SelectAllergy, SelectFieldEditor, TextFieldEditor } from "../../shared"
-import { PatientAllergyModalViewModel } from "../../view_models/modals/patient_allergies"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+import { NumberFieldEditor, SelectAllergy, SelectFieldEditor, TextFieldEditor } from "../../shared/index.js"
+import { PatientAllergyModalViewModel } from "../../view_models/modals/patient_allergies/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, patientAllergyHelper, valueHelper, allergyCategories } from "@aprexis/aprexis-api-utility"
 
 class PatientAllergyModal extends Component {

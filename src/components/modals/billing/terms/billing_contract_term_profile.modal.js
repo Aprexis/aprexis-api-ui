@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
-import { BooleanFieldEditor, NumberFieldEditor, SelectBillingContract, TextFieldEditor } from "../../../shared"
-import { BillingContractTermProfileModalViewModel } from "../../../view_models/modals/billing/terms"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
+import { BooleanFieldEditor, NumberFieldEditor, SelectBillingContract, TextFieldEditor } from "../../../shared/index.js"
+import { BillingContractTermProfileModalViewModel } from "../../../view_models/modals/billing/terms/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals/index.js"
 import { valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class BillingContractTermProfileModal extends Component {
   constructor(props) {

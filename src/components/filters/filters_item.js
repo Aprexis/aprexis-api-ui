@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Button, Col, Row } from "reactstrap"
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { FiltersItemViewModel } from "../view_models/filters"
+import { FiltersItemViewModel } from "../view_models/filters/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class FiltersItem extends Component {

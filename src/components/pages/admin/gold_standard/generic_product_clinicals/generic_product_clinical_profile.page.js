@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../../../shared'
-import { GenericProductClinicalProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/generic_product_clinicals'
+import { Spinner } from '../../../../shared/index.js'
+import { GenericProductClinicalProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/generic_product_clinicals/index.js'
 import { goldStandardGenericProductClinicalHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../../../helpers'
+import { displayHelper } from '../../../../../helpers/index.js'
 
 const GenericProductClinicalProfile = ({ genericProductClinical }) => {
   return (

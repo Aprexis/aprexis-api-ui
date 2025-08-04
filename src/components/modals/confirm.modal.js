@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { ConfirmModalViewModal } from "../view_models/modals"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../containers/modals"
+import { ConfirmModalViewModal } from "../view_models/modals/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../containers/modals/index.js"
 
 class ConfirmModal extends Component {
   constructor(props) {

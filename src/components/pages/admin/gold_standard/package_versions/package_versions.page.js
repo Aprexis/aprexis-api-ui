@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { PackageVersionsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/package_versions"
-import { ListView } from "../../../../../containers"
+import { Component } from "react"
+import { PackageVersionsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/package_versions/index.js"
+import { ListView } from "../../../../../containers/index.js"
 import { valueHelper, goldStandardPackageVersionHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../../helpers"
+import { listHelper } from "../../../../../helpers/index.js"
 
 const headings = [
   {

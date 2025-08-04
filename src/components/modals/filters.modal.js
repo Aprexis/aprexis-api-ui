@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Form } from 'reactstrap'
-import { Filter } from '../filters/filter'
-import { FiltersModalViewModel } from '../view_models/modals'
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals'
+import { Filter } from '../filters/filter/index.js'
+import { FiltersModalViewModel } from '../view_models/modals/index.js'
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals/index.js'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class FiltersModal extends Component {

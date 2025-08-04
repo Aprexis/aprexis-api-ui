@@ -1,1 +1,1 @@
-export * from "./patient_note.modal"
+export * from "./patient_note.modal.js"

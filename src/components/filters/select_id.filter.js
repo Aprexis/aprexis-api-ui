@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Col, Input, Label } from 'reactstrap'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { jsEventHelper, filtersHelper } from '../../helpers'
+import { jsEventHelper, filtersHelper } from '../../helpers/index.js'
 
 class SelectIdFilter extends Component {
   constructor(props) {

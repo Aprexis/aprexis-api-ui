@@ -1,1 +1,1 @@
-export * from './dry_run_program_patient_assignments.page'
+export * from './dry_run_program_patient_assignments.page.js'

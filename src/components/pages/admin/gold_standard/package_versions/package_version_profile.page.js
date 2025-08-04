@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../../../shared'
-import { PackageVersionProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/package_versions'
+import { Spinner } from '../../../../shared/index.js'
+import { PackageVersionProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/package_versions/index.js'
 import { goldStandardPackageVersionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../../../helpers'
+import { displayHelper } from '../../../../../helpers/index.js'
 
 const PackageVersionProfile = ({ packageVersion, onProduct, onPackage }) => {
   return (

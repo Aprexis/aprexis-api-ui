@@ -1,2 +1,2 @@
-export * from './billing_invoice_profile.page'
-export * from './billing_invoices.page'
+export * from './billing_invoice_profile.page.js'
+export * from './billing_invoices.page.js'

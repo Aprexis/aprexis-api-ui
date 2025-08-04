@@ -12,9 +12,9 @@ import {
   SelectPatientSupplement,
   TextFieldEditor,
   TimeFieldEditor
-} from "../../shared"
-import { ReminderModalViewModel } from "../../view_models/modals/reminders"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { ReminderModalViewModel } from "../../view_models/modals/reminders/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { patientHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper, reminderActions, reminderTypes } from "@aprexis/aprexis-api-utility"
 
 const medicationHeadings = ["Label", ""]

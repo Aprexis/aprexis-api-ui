@@ -1,3 +1,3 @@
-export * from "./patient_configuration.modal"
-export * from "./patient_profile.modal"
-export * from "./patient_subscriber.modal"
+export * from "./patient_configuration.modal.js"
+export * from "./patient_profile.modal.js"
+export * from "./patient_subscriber.modal.js"

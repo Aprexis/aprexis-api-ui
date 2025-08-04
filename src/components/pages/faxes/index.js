@@ -1,1 +1,1 @@
-export * from "./faxes.page"
+export * from "./faxes.page.js"

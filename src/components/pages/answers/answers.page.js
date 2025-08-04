@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { AnswersPageViewModel } from "../../view_models/pages/answers"
-import { ListView } from "../../../containers"
+import { Component } from "react"
+import { AnswersPageViewModel } from "../../view_models/pages/answers/index.js"
+import { ListView } from "../../../containers/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../helpers"
+import { listHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

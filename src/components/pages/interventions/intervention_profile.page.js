@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
 import { faClipboardCheck, faFileInvoice } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { EditButton, ModelConfigs, Spinner } from '../../shared'
-import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions'
+import { EditButton, ModelConfigs, Spinner } from '../../shared/index.js'
+import { InterventionProfilePageViewModel } from '../../view_models/pages/interventions/index.js'
 import { interventionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../helpers'
+import { displayHelper } from '../../../helpers/index.js'
 
 const InterventionConfiguration = ({ intervention }) => {
   return (

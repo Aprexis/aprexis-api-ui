@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from "../../../shared"
-import { ConditionMedicationProfilePageViewModel } from "../../../view_models/pages/admin/condition_medications"
+import { Spinner } from "../../../shared/index.js"
+import { ConditionMedicationProfilePageViewModel } from "../../../view_models/pages/admin/condition_medications/index.js"
 import { valueHelper, conditionMedicationHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../../../helpers'
+import { displayHelper } from '../../../../helpers/index.js'
 
 const ConditionMedicationProfile = ({ conditionMedication }) => {
   return (

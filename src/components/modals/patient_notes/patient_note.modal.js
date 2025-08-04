@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col, Container, Form, FormGroup, Label, Row } from "reactstrap"
-import { BooleanFieldEditor, TextFieldEditor } from "../../shared"
-import { PatientNoteModalViewModel } from "../../view_models/modals/patient_notes"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+import { BooleanFieldEditor, TextFieldEditor } from "../../shared/index.js"
+import { PatientNoteModalViewModel } from "../../view_models/modals/patient_notes/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { dateHelper, patientHelper, patientNoteHelper, pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class PatientNoteModal extends Component {

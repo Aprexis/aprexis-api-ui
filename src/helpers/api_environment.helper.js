@@ -27,7 +27,6 @@ function determineApiPath() {
   return process.env.REACT_APP_APREXIS_API
 }
 
-
 function aprexisEnvironment() {
   if (valueHelper.isStringValue(process.env.REACT_APP_APREXIS_ENVIRONEMNT)) {
     return process.env.REACT_APP_APREXIS_ENVIRONEMNT

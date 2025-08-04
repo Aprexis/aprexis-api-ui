@@ -1,2 +1,2 @@
-export * from "./caregiver_profile.page"
-export * from "./caregivers.page"
+export * from "./caregiver_profile.page.js"
+export * from "./caregivers.page.js"

@@ -1,3 +1,3 @@
-export * from "./intervention_profile.page"
-export * from "./intervention_verify.page"
-export * from "./interventions.page"
+export * from "./intervention_profile.page.js"
+export * from "./intervention_verify.page.js"
+export * from "./interventions.page.js"

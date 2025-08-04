@@ -1,2 +1,2 @@
-export * from './package_profile.page'
-export * from './packages.page'
+export * from './package_profile.page.js'
+export * from './packages.page.js'

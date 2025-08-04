@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from "../../../shared"
-import { DiagnosisCodeProfilePageViewModel } from "../../../view_models/pages/admin/diagnosis_codes"
+import { Spinner } from "../../../shared/index.js"
+import { DiagnosisCodeProfilePageViewModel } from "../../../view_models/pages/admin/diagnosis_codes/index.js"
 import { valueHelper, diagnosisCodeHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../../../helpers'
+import { displayHelper } from '../../../../helpers/index.js'
 
 const DiagnosisCodeProfile = ({ diagnosisCode }) => {
   return (

@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Row } from "reactstrap"
-import { Autocomplete } from "../shared"
+import { Autocomplete } from "../shared/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { NameIdFilterViewModel } from "../view_models/filters"
+import { NameIdFilterViewModel } from "../view_models/filters/index.js"
 
 class NameIdFilter extends Component {
   constructor(props) {

@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
 import {
   DayFieldEditor,
@@ -7,11 +7,11 @@ import {
   SelectPharmacyStore,
   Spinner,
   TextFieldEditor
-} from "../../shared"
-import { AppointmentModalViewModel } from "../../view_models/modals/appointments"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals"
+} from "../../shared/index.js"
+import { AppointmentModalViewModel } from "../../view_models/modals/appointments/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../containers/modals/index.js"
 import { appointmentDurations, appointmentHelper, userHelper, valueHelper, venues } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../helpers"
+import { pathHelper } from "../../../helpers/index.js"
 
 const AllDayAppointment = ({ appointment, onChangeDate }) => {
   return (

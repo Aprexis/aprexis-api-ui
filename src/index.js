@@ -2,14 +2,13 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import 'react-app-polyfill/ie11'
 import 'react-app-polyfill/stable'
-import React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
 import { Router } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
-import App from './components/app'
-import { history } from './helpers'
-import reportWebVitals from './reportWebVitals';
+import App from './components/app.js'
+import { history } from './helpers/index.js'
+import reportWebVitals from './reportWebVitals.js';
 import './styles/styles.scss'
 
 import 'core-js/es/map'

@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { EditButton, Spinner } from '../../shared'
-import { PatientAllergyProfilePageViewModel } from "../../view_models/pages/patient_allergies"
+import { EditButton, Spinner } from '../../shared/index.js'
+import { PatientAllergyProfilePageViewModel } from "../../view_models/pages/patient_allergies/index.js"
 import { patientAllergyHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const PatientAllergyProfile = ({ currentUser, onEditProfile, patientAllergy }) => {
   return (

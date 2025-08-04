@@ -1,10 +1,10 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Container, Form, FormGroup, Row } from "reactstrap"
-import { BooleanFieldEditor, SelectBillingContract, SelectPharmacyChain } from "../../../shared"
-import { BillingContractPharmacyChainModalViewModel } from "../../../view_models/modals/billing/pharmacy_chains"
-import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals"
+import { BooleanFieldEditor, SelectBillingContract, SelectPharmacyChain } from "../../../shared/index.js"
+import { BillingContractPharmacyChainModalViewModel } from "../../../view_models/modals/billing/pharmacy_chains/index.js"
+import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from "../../../../containers/modals/index.js"
 import { valueHelper, billingContractPharmacyChainHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 class BillingContractPharmacyChainModal extends Component {
   constructor(props) {

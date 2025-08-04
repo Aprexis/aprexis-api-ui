@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../../../shared'
-import { MaintenanceMedicationProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/maintenance_medications'
+import { Spinner } from '../../../../shared/index.js'
+import { MaintenanceMedicationProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/maintenance_medications/index.js'
 import { goldStandardMaintenanceMedicationHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../../../helpers'
+import { displayHelper } from '../../../../../helpers/index.js'
 
 const MaintenanceMedicationProfile = ({ maintenanceMedication, onMarketedProduct, onProduct, onPackage, onSpecificProduct }) => {
   return (

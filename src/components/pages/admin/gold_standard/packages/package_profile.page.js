@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { Spinner } from '../../../../shared'
-import { PackageProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/packages'
+import { Spinner } from '../../../../shared/index.js'
+import { PackageProfilePageViewModel } from '../../../../view_models/pages/admin/gold_standard/packages/index.js'
 import { goldStandardPackageHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../../../helpers'
+import { displayHelper } from '../../../../../helpers/index.js'
 
 const PackageProfile = ({ gsPackage, onProduct }) => {
   return (

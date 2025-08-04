@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { AprexisList, Spinner } from '../../shared'
-import { MedicalClaimProfilePageViewModel } from "../../view_models/pages/medical_claims"
+import { AprexisList, Spinner } from '../../shared/index.js'
+import { MedicalClaimProfilePageViewModel } from "../../view_models/pages/medical_claims/index.js"
 import { medicalClaimDiagnosisCodeHelper, medicalClaimHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper, listHelper, pathHelper } from "../../../helpers"
+import { displayHelper, listHelper, pathHelper } from "../../../helpers/index.js"
 
 const headings = [
   {

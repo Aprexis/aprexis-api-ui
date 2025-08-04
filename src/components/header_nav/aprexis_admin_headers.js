@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { userHelper } from '@aprexis/aprexis-api-utility'
-import { SelectUser } from '../shared'
-import { jsEventHelper } from '../../helpers'
+import { SelectUser } from '../shared/index.js'
+import { jsEventHelper } from '../../helpers/index.js'
 
 class AprexisAdminHeaders extends Component {
   render() {

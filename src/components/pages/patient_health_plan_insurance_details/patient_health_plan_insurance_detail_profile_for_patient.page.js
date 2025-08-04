@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { EditButton, Spinner } from '../../shared'
-import { PatientHealthPlanInsuranceDetailProfileForPatientPageViewModel } from "../../view_models/pages/patient_health_plan_insurance_details"
+import { EditButton, Spinner } from '../../shared/index.js'
+import { PatientHealthPlanInsuranceDetailProfileForPatientPageViewModel } from "../../view_models/pages/patient_health_plan_insurance_details/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../helpers"
+import { displayHelper } from "../../../helpers/index.js"
 
 const PatientHealthPlanInsuranceDetailProfile = ({ currentUser, helper, onEditProfile, patientHealthPlanInsuranceDetail }) => {
   return (

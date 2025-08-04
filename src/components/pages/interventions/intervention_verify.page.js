@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap'
-import { InterventionVerifyPageViewModel } from '../../view_models/pages/interventions'
+import { InterventionVerifyPageViewModel } from '../../view_models/pages/interventions/index.js'
 import { interventionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../../helpers'
+import { displayHelper } from '../../../helpers/index.js'
 
 function InterventionProfile({ intervention }) {
   return (
