@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { DeleteButton, EditButton } from "./"
+import { DeleteButton } from './delete_button.js'
+import { EditButton } from "./edit_button.js"
 
 class CalendarEvent extends Component {
   constructor(props) {

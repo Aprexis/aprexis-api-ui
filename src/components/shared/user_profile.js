@@ -10,8 +10,8 @@ import {
   pharmacyStoreHelper,
   userHelper
 } from "@aprexis/aprexis-api-utility"
-import { AprexisTable } from "./aprexis_table"
-import { ModelConfigs } from "./model_configs"
+import { AprexisTable } from "./aprexis_table.js"
+import { ModelConfigs } from "./model_configs.js"
 
 class UserNpi extends Component {
   render() {

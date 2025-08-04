@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { FormGroup, Col, Input, Row, Table } from "reactstrap"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { Spinner } from "./"
-import { AutocompleteViewModel } from "../view_models/shared"
+import { Spinner } from "./spinner.js"
+import { AutocompleteViewModel } from "../view_models/shared/index.js"
 
 function extractPropertyValue(model, property, helper) {
   if (!valueHelper.isValue(model)) {

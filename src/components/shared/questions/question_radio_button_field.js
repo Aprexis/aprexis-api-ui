@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Alert, Button, ButtonGroup, FormGroup, Col } from 'reactstrap'
 import { answerHelper, questionHelper, questionOptionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { Sanitize } from '../sanitize'
+import { Sanitize } from '../index.js'
 
 const defaultQuestionOptions = [
   {

@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { FormGroup, Col, Input } from 'reactstrap'
 import { answerHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { jsEventHelper } from '../../../helpers'
-import { QuestionPopup } from './question_popup'
+import { jsEventHelper } from '../../../helpers/index.js'
+import { QuestionPopup } from './question_popup.js'
 
 
 class QuestionCheckBoxField extends Component {

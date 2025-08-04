@@ -1,8 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { valueHelper, dateHelper } from "@aprexis/aprexis-api-utility"
-import { periods } from "../../types"
-import { DayPicker, Spinner } from "./"
-import { EventCalendarViewModel } from "../view_models/shared/event_calendar.vm"
+import { periods } from "../../types/index.js"
+import { DayPicker } from "./day_picker.js"
+import { Spinner } from "./spinner.js"
+import { EventCalendarViewModel } from "../view_models/shared/event_calendar.vm.js"
 
 const CalendarNav = ({ date, dayChange, period }) => {
   const disableDay = period == periods.day

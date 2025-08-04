@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Alert, Col } from 'reactstrap'
 import { questionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { Sanitize } from '../'
+import { Sanitize } from '../index.js'
 
 class QuestionPopup extends Component {
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Alert, Col, Container, Row } from "reactstrap"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { alertHelper } from "../../helpers"
+import { alertHelper } from "../../helpers/index.js"
 
 class DisplayAlert extends Component {
   render() {

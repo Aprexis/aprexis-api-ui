@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { timeZoneHelper } from '@aprexis/aprexis-api-utility'
-import { SelectFieldEditor } from './select_field_editor'
-import { SelectTimeZoneViewModel } from '../view_models/shared'
+import { SelectFieldEditor } from './select_field_editor.js'
+import { SelectTimeZoneViewModel } from '../view_models/shared/index.js'
 
 class SelectTimeZone extends Component {
   constructor(props) {

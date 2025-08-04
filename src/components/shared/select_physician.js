@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import { SearchForItem } from "./search_for_item"
-import { SelectPhysicianViewModel } from "../view_models/shared"
+import { Component } from "react"
+import { SearchForItem } from "./search_for_item.js"
+import { SelectPhysicianViewModel } from "../view_models/shared/index.js"
 
 class SelectPhysician extends Component {
   constructor(props) {

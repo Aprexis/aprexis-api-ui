@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper, fieldHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../helpers"
-import { DayTimePicker } from "./"
+import { displayHelper } from "../../helpers/index.js"
+import { DayTimePicker } from "./day_time_picker.js"
 
 class DayTimeFieldEditor extends Component {
   render() {

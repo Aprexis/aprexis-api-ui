@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { modelConfigFields, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../helpers'
+import { displayHelper } from '../../helpers/index.js'
 
 function ModelConfigCheckbox({ label, value }) {
   return displayHelper.booleanDisplay(label, value)

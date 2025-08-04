@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Tooltip } from 'reactstrap'
 import { questionHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { QuestionHtml } from './question_html'
+import { QuestionHtml } from './question_html.js'
 
 function LabelWithTooltip({ label, labelTooltip, questionKey, toggle, tooltipOpen }) {
   return (

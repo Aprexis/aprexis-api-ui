@@ -1,8 +1,9 @@
-import React, { Component } from "react"
-import { SearchForItem } from "./search_for_item"
-import { SelectItemFromList } from "./select_item_from_list"
-import { SelectPharmacyChainViewModel } from "../view_models/shared"
+import { Component } from "react"
+import { SearchForItem } from "./search_for_item.js"
+import { SelectItemFromList } from "./select_item_from_list.js"
+import { SelectPharmacyChainViewModel } from "../view_models/shared/index.js"
 import { pharmacyChainHelper, valueHelper } from "@aprexis/aprexis-api-utility"
+
 class SelectPharmacyChain extends Component {
   constructor(props) {
     super(props)

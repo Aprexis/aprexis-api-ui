@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { contactHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../helpers'
+import { displayHelper } from '../../helpers/index.js'
 
 class Contact extends Component {
   render() {

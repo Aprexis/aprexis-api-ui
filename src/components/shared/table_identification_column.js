@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../helpers"
-import { DeleteButton, EditButton } from "./"
+import { displayHelper } from "../../helpers/index.js"
+import { DeleteButton } from "./delete_button.js"
+import { EditButton } from "./edit_button.js"
 
 class TableIdentificationColumn extends Component {
   render() {

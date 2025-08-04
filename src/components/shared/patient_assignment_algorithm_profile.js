@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, CardBody, CardTitle, Col, Row } from "reactstrap"
 import { patientAssignmentAlgorithmHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { displayHelper } from '../../helpers'
+import { displayHelper } from '../../helpers/index.js'
 
 const PatientAssignmentAlgorithm = ({ patientAssignmentAlgorithm }) => {
   return (

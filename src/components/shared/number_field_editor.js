@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import InputNumber from 'rc-input-number'
 import { Col } from "reactstrap"
 import { valueHelper, fieldHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from '../../helpers'
+import { displayHelper } from '../../helpers/index.js'
 
 class NumberFieldEditor extends Component {
   render() {

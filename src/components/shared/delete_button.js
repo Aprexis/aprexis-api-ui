@@ -1,7 +1,7 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { faCalendarMinus, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { ConfirmableButton } from "./"
+import { ConfirmableButton } from "./confirmable_button.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class DeleteButton extends Component {

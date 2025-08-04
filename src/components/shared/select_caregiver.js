@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, FormGroup } from 'reactstrap'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { SearchForItem } from "./search_for_item"
-import { ShowRequired } from "./show_required"
-import { SelectCaregiverViewModel } from "../view_models/shared"
+import { SearchForItem } from "./search_for_item.js"
+import { ShowRequired } from "./show_required.js"
+import { SelectCaregiverViewModel } from "../view_models/shared/index.js"
 
 class SelectCaregiver extends Component {
   constructor(props) {

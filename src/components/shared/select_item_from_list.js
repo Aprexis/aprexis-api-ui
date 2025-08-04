@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 

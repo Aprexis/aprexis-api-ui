@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { answerHelper, questionHelper } from '@aprexis/aprexis-api-utility'
-import { QuestionCheckBoxField } from './question_check_box_field'
-import { QuestionRadioButtonField } from './question_radio_button_field'
-import { QuestionSelectField } from './question_select_field'
-import { QuestionTextAreaField } from './question_text_area_field'
-import { QuestionTextField } from './question_text_field'
-import { questionHtmlOptionsParser } from '../../../helpers'
+import { QuestionCheckBoxField } from './question_check_box_field.js'
+import { QuestionRadioButtonField } from './question_radio_button_field.js'
+import { QuestionSelectField } from './question_select_field.js'
+import { QuestionTextAreaField } from './question_text_area_field.js'
+import { QuestionTextField } from './question_text_field.js'
+import { questionHtmlOptionsParser } from '../../../helpers/index.js'
 
 function QuestionFieldValue({ question, ...remainder }) {
   const { className, multiple, placeholder, style } = questionHtmlOptionsParser.parseHtmlOptions(question)

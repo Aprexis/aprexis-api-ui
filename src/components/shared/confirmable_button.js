@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { ConfirmableButtonViewModal } from "../view_models/shared"
+import { Component } from "react"
+import { ConfirmableButtonViewModal } from "../view_models/shared/index.js"
 
 class ConfirmableButton extends Component {
   constructor(props) {

@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { Col, FormGroup } from "reactstrap"
-import { Autocomplete } from "./autocomplete"
-import { ShowRequired } from "./show_required"
+import { Autocomplete } from "./autocomplete.js"
+import { ShowRequired } from "./show_required.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 
 class SearchForItem extends Component {

@@ -1,8 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Row } from "reactstrap"
 import { dateHelper } from "@aprexis/aprexis-api-utility"
-import { DayPicker, TimePicker } from "./"
-import { DayTimePickerViewModel } from "../view_models/shared"
+import { DayPicker } from "./day_picker.js"
+import { TimePicker } from "./time_picker.js"
+import { DayTimePickerViewModel } from "../view_models/shared/index.js"
 
 class DayTimePicker extends Component {
   constructor(props) {

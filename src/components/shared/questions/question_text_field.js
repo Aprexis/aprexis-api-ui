@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { FormGroup, Col } from 'reactstrap'
 import InputNumber from 'rc-input-number'
 import { answerHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { DayTimePicker } from '..'
+import { DayTimePicker } from '../index.js'
 
 function DateTimeEntry({ className, onChange, style, value }) {
   return (

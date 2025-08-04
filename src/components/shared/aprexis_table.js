@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { AprexisTableCell } from "./"
+import { AprexisTableCell } from "./aprexis_table_cell.js"
 
 class DataRow extends Component {
   render() {

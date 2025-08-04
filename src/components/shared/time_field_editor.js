@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper, fieldHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../helpers"
-import { TimePicker } from "./time_picker"
+import { displayHelper } from "../../helpers/index.js"
+import { TimePicker } from "./time_picker.js"
 
 class TimeFieldEditor extends Component {
   render() {

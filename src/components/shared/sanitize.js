@@ -1,4 +1,3 @@
-import React from 'react'
 import sanitizeHtml from 'sanitize-html'
 
 function Sanitize({ html }) {

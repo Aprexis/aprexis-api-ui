@@ -3,8 +3,9 @@ import { Col, FormGroup, Input } from "reactstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
-import { Autocomplete, ShowRequired } from "./"
-import { SelectBillingContractViewModel } from "../view_models/shared"
+import { Autocomplete } from './autocomplete.js'
+import { ShowRequired } from "./show_required.js"
+import { SelectBillingContractViewModel } from "../view_models/shared/index.js"
 
 const SearchForBillingContract = ({ props, state, vm }) => {
   const { readOnly, required } = props

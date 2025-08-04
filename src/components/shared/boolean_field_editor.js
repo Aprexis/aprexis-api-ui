@@ -1,7 +1,7 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Label, Input } from "reactstrap"
 import { valueHelper, fieldHelper, } from "@aprexis/aprexis-api-utility"
-import { displayHelper, jsEventHelper } from "../../helpers"
+import { displayHelper, jsEventHelper } from "../../helpers/index.js"
 
 class BooleanFieldEditor extends Component {
   render() {

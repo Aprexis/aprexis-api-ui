@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper, fieldHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../helpers"
-import { DayPicker } from "./"
+import { displayHelper } from "../../helpers/index.js"
+import { DayPicker } from "./day_picker.js"
 
 class DayFieldEditor extends Component {
   render() {

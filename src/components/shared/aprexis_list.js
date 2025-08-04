@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { faFastBackward, faFastForward, faStepBackward, faStepForward } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { valueHelper, pageHelper } from "@aprexis/aprexis-api-utility"
-import { Spinner, AprexisTable } from "./"
+import { AprexisTable } from "./aprexis_table.js"
+import { Spinner } from "./spinner.js"
 
 class Page extends Component {
   constructor(props) {

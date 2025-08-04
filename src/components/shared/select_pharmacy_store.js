@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { SearchForItem } from "./search_for_item"
-import { SelectItemFromList } from "./select_item_from_list"
-import { SelectPharmacyStoreViewModel } from "../view_models/shared"
+import { SearchForItem } from "./search_for_item.js"
+import { SelectItemFromList } from "./select_item_from_list.js"
+import { SelectPharmacyStoreViewModel } from "../view_models/shared/index.js"
 
 class SelectPharmacyStore extends Component {
   constructor(props) {

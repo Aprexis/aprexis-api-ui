@@ -1,7 +1,7 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, FormGroup, Input } from "reactstrap"
 import { answerHelper, questionHelper, questionChoiceHelper, questionChoiceOptionsHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { jsEventHelper } from '../../../helpers'
+import { jsEventHelper } from '../../../helpers/index.js'
 
 function Options({ question }) {
   const questionOptions = renderQuestionOptions()

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
-import { Sanitize } from '../'
+import { Sanitize } from '../index.js'
 import $ from 'jquery'
 
 function extractAttribute(attributes, attributeName) {

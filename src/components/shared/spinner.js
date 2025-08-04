@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { ScaleLoader } from "react-spinners"
-import { SetTimeoutMixin } from "./"
+import { SetTimeoutMixin } from "./set_timeout.mixin.js"
 
 class Spinner extends Component {
   constructor(props) {
