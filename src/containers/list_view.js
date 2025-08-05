@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { RefreshView } from './'
-import { FiltersItem } from '../components/filters/filters_item'
-import { AprexisList } from '../components/shared'
+import { Component } from 'react'
+import { RefreshView } from './refresh_view.js'
+import { FiltersItem } from '../components/filters/filters_item.js'
+import { AprexisList } from '../components/shared/index.js'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 
 class ListHeader extends Component {

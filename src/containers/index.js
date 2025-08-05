@@ -1,2 +1,2 @@
-export * from './list_view'
-export * from './refresh_view'
+export * from './list_view.js'
+export * from './refresh_view.js'

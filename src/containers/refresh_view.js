@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import IdleTimer from 'react-idle-timer'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 

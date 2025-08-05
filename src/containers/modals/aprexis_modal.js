@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
-import { DisplayAlert } from "../../components/shared"
+import { DisplayAlert } from "../../components/shared/index.js"
 import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class AprexisModal extends Component {

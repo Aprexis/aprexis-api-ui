@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Sanitize } from '../../components/shared'
+import { Component } from 'react'
+import { Sanitize } from '../../components/shared/index.js'
 
 function Title({ title }) {
   if (typeof title === 'object') {
