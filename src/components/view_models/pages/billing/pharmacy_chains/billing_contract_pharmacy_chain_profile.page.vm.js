@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from "../../"
+import { AbstractPageViewModel } from "../../abstract.page.vm.js"
 import { billingContractPharmacyChainApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers/index.js"
 
 class BillingContractPharmacyChainProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {

@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from "../"
+import { AbstractPageViewModel } from "../abstract.page.vm.js"
 import { mapTalkingPointApi, mapTalkingPointHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 class MapTalkingPointProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {

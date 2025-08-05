@@ -1,1 +1,1 @@
-export * from './gold_standard.page.vm'
+export * from './gold_standard.page.vm.js'

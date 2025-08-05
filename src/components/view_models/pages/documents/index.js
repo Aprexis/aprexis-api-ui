@@ -1,2 +1,2 @@
-export * from "./document_profile.page.vm"
-export * from "./documents.page.vm"
+export * from "./document_profile.page.vm.js"
+export * from "./documents.page.vm.js"

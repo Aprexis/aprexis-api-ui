@@ -1,4 +1,4 @@
-import { AbstractModalViewModel } from ".."
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { caregiverApi, valueHelper, caregiverHelper, relationships } from "@aprexis/aprexis-api-utility"
 
 const caregiverRequiredFields = {

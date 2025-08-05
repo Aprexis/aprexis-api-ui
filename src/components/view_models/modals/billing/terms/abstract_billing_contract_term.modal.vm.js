@@ -1,4 +1,4 @@
-import { AbstractModalViewModel } from "../../"
+import { AbstractModalViewModel } from "../../abstract.modal.vm.js"
 import { billingContractTermApi, valueHelper, billingContractTermHelper } from "@aprexis/aprexis-api-utility"
 
 const billingContractTermRequiredFields = {

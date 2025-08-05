@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Row } from "reactstrap"
-import { Breadcrumbs } from "./"
-import { MainRouting } from "./routing"
-import { Sidebar } from "./sidebar"
-import { DisplayAlert } from "./shared"
+import { Breadcrumbs } from "./breadcrumbs.js"
+import { MainRouting } from "./routing/index.js"
+import { Sidebar } from "./sidebar/index.js"
+import { DisplayAlert } from "./shared/index.js"
 
 class Main extends Component {
   render() {

@@ -1,4 +1,4 @@
-import { AbstractViewModel } from "../"
+import { AbstractViewModel } from "../abstract.vm.js"
 import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 class DayTimePickerViewModel extends AbstractViewModel {

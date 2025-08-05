@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { EntrySidebar } from "./"
-import { SidebarViewModel } from "../view_models/sidebar"
+import { EntrySidebar } from "./entry.sidebar.js"
+import { SidebarViewModel } from "../view_models/sidebar.js"
 
 const sidebarDescriptions = {
   "answers": {

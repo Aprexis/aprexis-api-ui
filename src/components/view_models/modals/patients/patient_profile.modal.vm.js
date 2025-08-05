@@ -1,6 +1,6 @@
-import { AbstractPatientModalViewModel } from "./"
+import { AbstractPatientModalViewModel } from "./abstract_patient.modal.vm.js"
 import { healthPlanHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { contextHelper, pathHelper } from "../../../../helpers"
+import { contextHelper, pathHelper } from "../../../../helpers/index.js"
 class PatientProfileModalViewModel extends AbstractPatientModalViewModel {
   constructor(props) {
     super(props)

@@ -1,3 +1,3 @@
-export * from "./abstract.vm"
-export * from "./app.vm"
-export * from "./breadcrumbs.vm"
+export * from "./abstract.vm.js"
+export * from "./app.vm.js"
+export * from "./breadcrumbs.vm.js"

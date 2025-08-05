@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../"
+import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { caregiverApi, caregiverHelper, pageHelper, patientHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const caregiverListMethods = [
   { pathKey: "patients", method: caregiverApi.listForPatient }

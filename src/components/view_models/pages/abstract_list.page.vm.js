@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from "./"
+import { AbstractPageViewModel } from "./abstract.page.vm.js"
 import { MAXIMUM_PER_PAGE, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, alertHelper, userCredentialsHelper } from "../../../helpers"
+import { apiEnvironmentHelper, alertHelper, userCredentialsHelper } from "../../../helpers/index.js"
 
 class AbstractListPageViewModel extends AbstractPageViewModel {
   constructor(props) {

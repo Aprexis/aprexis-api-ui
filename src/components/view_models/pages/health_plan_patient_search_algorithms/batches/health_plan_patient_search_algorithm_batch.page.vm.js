@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from '../..'
+import { AbstractPageViewModel } from '../../abstract.page.vm.js'
 import { healthPlanPatientSearchAlgorithmHelper, healthPlanPatientSearchStageHelper, patientSearchAlgorithmBatchApi, valueHelper } from '@aprexis/aprexis-api-utility'
-import { apiEnvironmentHelper, listHelper, pathHelper, userCredentialsHelper } from '../../../../../helpers'
+import { apiEnvironmentHelper, listHelper, pathHelper, userCredentialsHelper } from '../../../../../helpers/index.js'
 
 class HealthPlanPatientSearchAlgorithmBatchPageViewModel extends AbstractPageViewModel {
   constructor(props) {

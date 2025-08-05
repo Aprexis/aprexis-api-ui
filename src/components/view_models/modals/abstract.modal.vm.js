@@ -1,7 +1,7 @@
 import React from "react"
-import { AbstractViewModel } from "../"
+import { AbstractViewModel } from "../abstract.vm.js"
 import { dateHelper, fieldHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { alertHelper, displayHelper } from '../../../helpers'
+import { alertHelper, displayHelper } from '../../../helpers/index.js'
 
 function initializeDateAndTimeValidity(dateAndTimeField, value) {
   const validDate = dateHelper.isValidDate(value)

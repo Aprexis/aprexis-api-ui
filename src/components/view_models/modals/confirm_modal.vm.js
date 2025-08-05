@@ -1,4 +1,4 @@
-import { AbstractModalViewModel } from "./"
+import { AbstractModalViewModel } from "./abstract.modal.vm.js"
 
 class ConfirmModalViewModal extends AbstractModalViewModel {
   constructor(props) {

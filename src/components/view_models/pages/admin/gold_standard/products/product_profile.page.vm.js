@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from "../../.."
+import { AbstractPageViewModel } from "../../../abstract.page.vm.js"
 import { goldStandardProductApi, goldStandardProductHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../../helpers/index.js"
 
 class ProductProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {

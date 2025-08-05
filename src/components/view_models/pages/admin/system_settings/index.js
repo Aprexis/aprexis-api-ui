@@ -1,1 +1,1 @@
-export * from "./system_settings.page.vm"
+export * from "./system_settings.page.vm.js"

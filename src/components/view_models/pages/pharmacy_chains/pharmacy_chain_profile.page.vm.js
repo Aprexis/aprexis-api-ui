@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from "../"
+import { AbstractPageViewModel } from "../abstract.page.vm.js"
 import { pharmacyChainApi } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 class PharmacyChainProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {

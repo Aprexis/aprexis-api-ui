@@ -1,5 +1,5 @@
-import { pathHelper } from '../../../helpers'
-import { AbstractViewModel } from '../'
+import { pathHelper } from '../../../helpers/index.js'
+import { AbstractViewModel } from '../abstract.vm.js'
 
 class SidebarViewModel extends AbstractViewModel {
   constructor(props) {

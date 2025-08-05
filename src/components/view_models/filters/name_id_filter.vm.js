@@ -1,6 +1,6 @@
-import { AbstractViewModel } from ".."
+import { AbstractViewModel } from "../abstract.vm.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { alertHelper, filtersHelper, userCredentialsHelper } from "../../../helpers"
+import { alertHelper, filtersHelper, userCredentialsHelper } from "../../../helpers/index.js"
 
 class NameIdFilterViewModel extends AbstractViewModel {
   constructor(props) {

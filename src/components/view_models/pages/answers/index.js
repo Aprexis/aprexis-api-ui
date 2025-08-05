@@ -1,1 +1,1 @@
-export * from "./answers.page.vm"
+export * from "./answers.page.vm.js"

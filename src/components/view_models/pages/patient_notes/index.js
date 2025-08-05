@@ -1,1 +1,1 @@
-export * from "./patient_notes_page.vm"
+export * from "./patient_notes_page.vm.js"

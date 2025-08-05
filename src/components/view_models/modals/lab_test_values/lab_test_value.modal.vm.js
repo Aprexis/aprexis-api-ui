@@ -1,6 +1,6 @@
-import { AbstractModalViewModel } from ".."
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { interventionApi, labTestValueApi, patientApi, pharmacyStoreApi, userApi, labTestApi, labTestValueHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const labTestValueDateAndTimeFields = {
   value_taken_at: { label: "Value Taken At", required: false, type: "date/time" }

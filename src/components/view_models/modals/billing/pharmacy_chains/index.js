@@ -1,1 +1,1 @@
-export * from "./billing_contract_pharmacy_chain.modal.vm"
+export * from "./billing_contract_pharmacy_chain.modal.vm.js"

@@ -1,6 +1,6 @@
 import { authenticationApi, valueHelper } from '@aprexis/aprexis-api-utility'
-import { alertHelper, apiEnvironmentHelper, authenticationHelper, userCredentialsHelper } from '../../../helpers'
-import { AbstractModalViewModel } from './'
+import { alertHelper, apiEnvironmentHelper, authenticationHelper, userCredentialsHelper } from '../../../helpers/index.js'
+import { AbstractModalViewModel } from './abstract.modal.vm.js'
 
 class SignInModalViewModel extends AbstractModalViewModel {
   constructor(props) {

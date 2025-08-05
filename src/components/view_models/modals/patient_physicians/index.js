@@ -1,1 +1,1 @@
-export * from "./patient_physician.modal.vm"
+export * from "./patient_physician.modal.vm.js"

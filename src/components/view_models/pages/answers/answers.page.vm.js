@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from ".."
+import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { answerApi, answerHelper, pageHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, filtersHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, filtersHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const answerListMethods = [
   { pathKey: "interventions", method: answerApi.listForIntervention }

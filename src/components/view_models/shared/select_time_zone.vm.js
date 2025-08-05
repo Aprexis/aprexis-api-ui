@@ -1,6 +1,6 @@
-import { AbstractViewModel } from "../"
+import { AbstractViewModel } from "../abstract.vm.js"
 import { timeZones, valueHelper } from "@aprexis/aprexis-api-utility"
-import { jsEventHelper } from "../../../helpers"
+import { jsEventHelper } from "../../../helpers/index.js"
 
 class SelectTimeZoneViewModel extends AbstractViewModel {
   constructor(props) {

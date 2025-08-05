@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../../../../"
+import { AbstractListPageViewModel } from "../../../../abstract_list.page.vm.js"
 import { goldStandardDrugItemActiveIngredientApi, pageHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../../../../helpers/index.js"
 
 class DrugItemActiveIngredientsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {

@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { AbstractViewModel } from "./"
+import { AbstractViewModel } from "./abstract.vm.js"
 import { authenticationApi, userApi, valueHelper } from '@aprexis/aprexis-api-utility'
 import {
   alertHelper,
@@ -8,7 +8,7 @@ import {
   contextHelper,
   pathHelper,
   userCredentialsHelper
-} from "../../helpers"
+} from "../../helpers/index.js"
 
 class AppViewModel extends AbstractViewModel {
   constructor(props) {

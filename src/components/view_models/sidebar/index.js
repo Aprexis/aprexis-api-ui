@@ -1,1 +1,1 @@
-export * from './sidebar.vm'
+export * from './sidebar.vm.js'

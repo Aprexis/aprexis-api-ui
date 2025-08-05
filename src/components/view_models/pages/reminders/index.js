@@ -1,2 +1,2 @@
-export * from "./reminder_profile.page.vm"
-export * from "./reminders.page.vm"
+export * from "./reminder_profile.page.vm.js"
+export * from "./reminders.page.vm.js"

@@ -1,4 +1,4 @@
-import { AbstractListPageViewModel } from "../"
+import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { healthPlanProgramLimitApi, healthPlanProgramLimitHelper, pageHelper } from "@aprexis/aprexis-api-utility"
 
 const healthPlanProgramLimitListMethods = [

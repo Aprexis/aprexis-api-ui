@@ -1,4 +1,4 @@
-import { AbstractViewModel } from "../"
+import { AbstractViewModel } from "../abstract.vm.js"
 
 class AbstractPageViewModel extends AbstractViewModel {
   constructor(props) {

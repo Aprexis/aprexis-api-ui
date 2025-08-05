@@ -1,6 +1,6 @@
-import { AbstractModalViewModel } from "../"
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { appointmentApi, pharmacyStoreApi, userApi, appointmentHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const appointmentDateFields = {
   scheduled_at: { label: "Begin Date", required: true, type: "date" },

@@ -1,8 +1,8 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Collapse, Nav, Navbar, NavbarBrand } from "reactstrap"
-import { pathHelper } from "../helpers"
+import { pathHelper } from "../helpers/index.js"
 import {
   AdminHeaders,
   AprexisAdminHeaders,
@@ -12,7 +12,7 @@ import {
   PharmacyStoreHeaders,
   UserDropdown,
   UserHeaders
-} from "./header_nav"
+} from "./header_nav/index.js"
 
 class Header extends Component {
   constructor(props) {

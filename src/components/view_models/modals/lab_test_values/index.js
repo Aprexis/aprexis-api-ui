@@ -1,1 +1,1 @@
-export * from "./lab_test_value.modal.vm"
+export * from "./lab_test_value.modal.vm.js"

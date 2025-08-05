@@ -1,1 +1,1 @@
-export * from "./intervention_medications.page.vm"
+export * from "./intervention_medications.page.vm.js"

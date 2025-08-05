@@ -1,7 +1,7 @@
-import { AbstractViewModel } from "../"
-import { filterClasses } from "../../filters/filter_classes"
+import { AbstractViewModel } from "../abstract.vm.js"
+import { filterClasses } from "../../filters/filter_classes.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { filtersHelper } from "../../../helpers"
+import { filtersHelper } from "../../../helpers/index.js"
 
 class FiltersItemViewModel extends AbstractViewModel {
   constructor(props) {

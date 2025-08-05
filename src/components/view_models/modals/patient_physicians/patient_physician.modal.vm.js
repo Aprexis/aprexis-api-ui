@@ -1,6 +1,6 @@
-import { AbstractModalViewModel } from "../"
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { patientApi, patientPhysicianApi, physicianApi, patientPhysicianHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const patientPhysicianDateAndTimeFields = {
 }

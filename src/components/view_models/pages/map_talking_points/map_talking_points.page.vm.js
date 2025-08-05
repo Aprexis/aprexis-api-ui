@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from ".."
+import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { mapTalkingPointApi, mapTalkingPointHelper, pageHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 const mapTalkingPointListMethods = [
   { pathKey: "interventions", method: mapTalkingPointApi.listForIntervention }

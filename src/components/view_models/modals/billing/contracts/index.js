@@ -1,1 +1,1 @@
-export * from "./billing_contract.modal.vm"
+export * from "./billing_contract.modal.vm.js"

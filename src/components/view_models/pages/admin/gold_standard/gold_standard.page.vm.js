@@ -1,5 +1,5 @@
-import { AbstractPageViewModel } from "../../"
-import { pathHelper } from "../../../../../helpers"
+import { AbstractPageViewModel } from "../../abstract.page.vm.js"
+import { pathHelper } from "../../../../../helpers/index.js"
 
 class GoldStandardPageViewModel extends AbstractPageViewModel {
   constructor(props) {

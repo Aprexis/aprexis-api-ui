@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from '..'
+import { AbstractListPageViewModel } from '../abstract_list.page.vm.js'
 import { dryRunProgramPatientAssignmentApi, pageHelper, pharmacyStoreApi, programApi, valueHelper } from '@aprexis/aprexis-api-utility'
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from '../../../../helpers'
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from '../../../../helpers/index.js'
 
 const parentMethods = {
   pharmacyStore: {

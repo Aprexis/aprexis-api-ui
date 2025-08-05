@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../../"
+import { AbstractListPageViewModel } from "../../abstract_list.page.vm.js"
 import { billingInvoiceApi, billingInvoiceHelper, pageHelper } from "@aprexis/aprexis-api-utility"
-import { filtersHelper, pathHelper } from "../../../../../helpers"
+import { filtersHelper, pathHelper } from "../../../../../helpers/index.js"
 
 const billingInvoiceListMethods = [
   { method: billingInvoiceApi.list },

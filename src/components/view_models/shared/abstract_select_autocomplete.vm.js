@@ -1,6 +1,6 @@
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { jsEventHelper, userCredentialsHelper } from "../../../helpers"
-import { AbstractViewModel } from "../abstract.vm"
+import { jsEventHelper, userCredentialsHelper } from "../../../helpers/index.js"
+import { AbstractViewModel } from "../abstract.vm.js"
 class AbstractSelectAutocompleteViewModel extends AbstractViewModel {
   constructor(props) {
     if (new.target === AbstractSelectAutocompleteViewModel) {

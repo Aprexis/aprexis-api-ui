@@ -1,6 +1,6 @@
-import { AbstractModalViewModel } from "../../"
+import { AbstractModalViewModel } from "../../abstract.modal.vm.js"
 import { pharmacyStoreApi, billingContractPharmacyStoreApi, valueHelper, billingContractPharmacyStoreHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper, jsEventHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, userCredentialsHelper, jsEventHelper } from "../../../../../helpers/index.js"
 
 const billingContractPharmacyStoreRequiredFields = {
   contract_id: { label: "Contract", testMethod: valueHelper.isNumberValue },

@@ -1,4 +1,4 @@
-import { AbstractListPageViewModel } from "../../"
+import { AbstractListPageViewModel } from "../../abstract_list.page.vm.js"
 import { billingClaimHistoryCollectionApi, pageHelper, billingClaimHistoryCollectionHelper } from "@aprexis/aprexis-api-utility"
 
 class BillingClaimHistoryCollectionsPageViewModel extends AbstractListPageViewModel {

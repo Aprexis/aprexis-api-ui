@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../"
+import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { labTestValueApi, labTestValueHelper, pageHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, alertHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, alertHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 class LabTestValuesPageViewModel extends AbstractListPageViewModel {
   constructor(props) {

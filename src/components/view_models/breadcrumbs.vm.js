@@ -1,5 +1,5 @@
-import { AbstractViewModel } from "./"
-import { breadcrumbsHelper, contextHelper, pathHelper } from "../../helpers"
+import { AbstractViewModel } from "./abstract.vm.js"
+import { breadcrumbsHelper, contextHelper, pathHelper } from "../../helpers/index.js"
 
 class BreadcrumbsViewModel extends AbstractViewModel {
   constructor(props) {

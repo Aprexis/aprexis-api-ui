@@ -1,6 +1,6 @@
-import { AbstractModalViewModel } from "../"
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { patientApi, reminderApi, dateHelper, reminderHelper, reminderMedicationHelper, reminderSupplementHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const reminderDateAndTimeFields = {
   recur_from: { label: "Recur From", required: true, type: "date" },

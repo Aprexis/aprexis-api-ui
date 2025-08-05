@@ -1,4 +1,4 @@
-import { AbstractModalViewModel } from "../"
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { patientApi, patientHelper } from "@aprexis/aprexis-api-utility"
 
 class AbstractPatientModalViewModel extends AbstractModalViewModel {

@@ -1,2 +1,2 @@
-export * from './product_profile.page.vm'
-export * from './products.page.vm'
+export * from './product_profile.page.vm.js'
+export * from './products.page.vm.js'

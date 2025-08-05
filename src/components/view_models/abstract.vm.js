@@ -1,5 +1,5 @@
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, jsEventHelper, userCredentialsHelper, pathHelper } from "../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, userCredentialsHelper, pathHelper } from "../../helpers/index.js"
 
 class AbstractViewModel {
   constructor(props) {

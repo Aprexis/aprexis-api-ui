@@ -1,6 +1,6 @@
-import { AbstractSelectAutocompleteViewModel } from "./"
+import { AbstractSelectAutocompleteViewModel } from "./abstract_select_autocomplete.vm.js"
 import { pharmacyStoreApi, pharmacyStoreHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper } from "../../../helpers"
+import { apiEnvironmentHelper, pathHelper } from "../../../helpers/index.js"
 
 class SelectPharmacyStoreViewModel extends AbstractSelectAutocompleteViewModel {
   constructor(props) {

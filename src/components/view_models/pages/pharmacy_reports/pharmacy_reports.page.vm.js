@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../"
+import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { pharmacyReportApi, pharmacyReportHelper, pageHelper } from "@aprexis/aprexis-api-utility"
-import { pathHelper } from "../../../../helpers"
+import { pathHelper } from "../../../../helpers/index.js"
 
 const pharmacyReportListMethods = [
   { pathKey: "pharmacy-chains", method: pharmacyReportApi.listForPharmacyChain }

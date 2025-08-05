@@ -1,5 +1,5 @@
-import { AbstractViewModel } from "../"
-import { jsEventHelper } from "../../../helpers"
+import { AbstractViewModel } from "../abstract.vm.js"
+import { jsEventHelper } from "../../../helpers/index.js"
 
 class AutocompleteViewModel extends AbstractViewModel {
   constructor(props) {

@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../../"
+import { AbstractListPageViewModel } from "../../abstract_list.page.vm.js"
 import { billingClaimApi, pageHelper } from "@aprexis/aprexis-api-utility"
-import { filtersHelper, pathHelper } from "../../../../../helpers"
+import { filtersHelper, pathHelper } from "../../../../../helpers/index.js"
 
 const billingClaimListMethods = [
   { pathKey: "health-plans", method: billingClaimApi.listForHealthPlan },

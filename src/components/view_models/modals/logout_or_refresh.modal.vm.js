@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { valueHelper, } from '@aprexis/aprexis-api-utility'
-import { AbstractModalViewModel } from './'
+import { AbstractModalViewModel } from './abstract.modal.vm.js'
 
 class LogoutOrRefreshModalViewModel extends AbstractModalViewModel {
   constructor(props) {

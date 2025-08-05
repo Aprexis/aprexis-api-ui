@@ -1,7 +1,7 @@
-import { AbstractModalViewModel } from "./"
-import { Filter } from "../../filters/filter"
+import { AbstractModalViewModel } from "./abstract.modal.vm"
+import { Filter } from "../../filters/filter.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { alertHelper, jsEventHelper } from "../../../helpers"
+import { alertHelper, jsEventHelper } from "../../../helpers/index.js"
 
 class FiltersModalViewModel extends AbstractModalViewModel {
   constructor(props) {

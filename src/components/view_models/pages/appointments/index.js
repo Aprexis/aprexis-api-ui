@@ -1,1 +1,1 @@
-export * from "./appointments.page.vm"
+export * from "./appointments.page.vm.js"

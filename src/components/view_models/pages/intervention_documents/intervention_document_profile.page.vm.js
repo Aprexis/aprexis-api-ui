@@ -1,6 +1,6 @@
-import { AbstractPageViewModel } from ".."
+import { AbstractPageViewModel } from "../abstract.page.vm.js"
 import { interventionDocumentApi, interventionDocumentHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 class InterventionDocumentProfilePageViewModel extends AbstractPageViewModel {
   constructor(props) {

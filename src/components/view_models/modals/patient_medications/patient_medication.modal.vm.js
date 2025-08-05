@@ -1,6 +1,6 @@
-import { AbstractModalViewModel } from "../"
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { patientApi, patientMedicationApi, pharmacyStoreApi, medicationApi, physicianApi, patientMedicationHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
 
 const patientMedicationDateAndTimeFields = {
   last_filled_at: { label: "Last Filled At", required: false, type: "date" },

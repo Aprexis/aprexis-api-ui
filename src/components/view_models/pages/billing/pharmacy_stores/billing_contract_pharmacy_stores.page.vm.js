@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../.."
+import { AbstractListPageViewModel } from "../../abstract_list.page.vm.js"
 import { billingContractApi, billingContractPharmacyStoreApi, pageHelper, valueHelper, billingContractHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, authorizationHelper, filtersHelper, pathHelper, userCredentialsHelper } from "../../../../../helpers/index.js"
 
 const billingContractPharmacyStoreListMethods = [
   { pathKey: "billing-contracts", method: billingContractPharmacyStoreApi.listForBillingContract }

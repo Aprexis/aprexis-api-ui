@@ -1,6 +1,6 @@
-import { AbstractListPageViewModel } from "../.."
+import { AbstractListPageViewModel } from "../../abstract_list.page.vm.js"
 import { systemSettingApi, pageHelper, systemSettingHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers"
+import { apiEnvironmentHelper, userCredentialsHelper } from "../../../../../helpers/index.js"
 
 class SystemSettingsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {

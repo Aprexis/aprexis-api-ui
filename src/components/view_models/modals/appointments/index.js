@@ -1,1 +1,1 @@
-export * from "./appointment.modal.vm"
+export * from "./appointment.modal.vm.js"

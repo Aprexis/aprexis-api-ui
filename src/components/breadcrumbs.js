@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { pathKeys } from "../types"
-import { BreadcrumbsViewModel } from "./view_models"
+import { pathKeys } from "../types/index.js"
+import { BreadcrumbsViewModel } from "./view_models/index.js"
 
 const cannotGotoKeys = [
   "admin",

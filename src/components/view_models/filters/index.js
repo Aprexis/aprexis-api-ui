@@ -1,2 +1,2 @@
-export * from "./filters_item.vm"
-export * from "./name_id_filter.vm"
+export * from "./filters_item.vm.js"
+export * from "./name_id_filter.vm.js"

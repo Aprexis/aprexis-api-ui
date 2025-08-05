@@ -1,1 +1,1 @@
-export * from './external_intervention_profile.modal.vm'
+export * from './external_intervention_profile.modal.vm.js'

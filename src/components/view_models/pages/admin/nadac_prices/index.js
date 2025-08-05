@@ -1,1 +1,1 @@
-export * from './nadac_prices.page.vm'
+export * from './nadac_prices.page.vm.js'

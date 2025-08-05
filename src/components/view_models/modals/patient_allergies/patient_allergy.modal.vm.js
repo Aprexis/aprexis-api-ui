@@ -1,6 +1,7 @@
-import { AbstractModalViewModel } from "../"
+import { AbstractModalViewModel } from "../abstract.modal.vm.js"
 import { patientApi, patientAllergyApi, goldStandardAllergyApi, fieldHelper, patientAllergyHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers"
+import { apiEnvironmentHelper, jsEventHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
+
 const patientAllergyRequiredFields = {
   patient_id: { label: "Patient", testMethod: valueHelper.isNumberValue }
 }
