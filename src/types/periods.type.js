@@ -1,4 +1,4 @@
-import { DayCalendar } from "../components/shared"
+import { DayCalendar } from "../components/shared/index.js"
 
 export const periods = {
   day: {

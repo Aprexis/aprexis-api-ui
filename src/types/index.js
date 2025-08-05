@@ -1,3 +1,3 @@
-export * from './filters.type'
-export * from './path_keys.type'
-export * from './periods.type'
+export * from './filters.type.js'
+export * from './path_keys.type.js'
+export * from './periods.type.js'
