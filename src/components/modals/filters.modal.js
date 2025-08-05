@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Form } from 'reactstrap'
-import { Filter } from '../filters/filter/index.js'
+import { Filter } from '../filters/filter.js'
 import { FiltersModalViewModel } from '../view_models/modals/index.js'
 import { AprexisModal, AprexisModalHeader, aprexisWrapperModal } from '../../containers/modals/index.js'
 import { valueHelper } from '@aprexis/aprexis-api-utility'

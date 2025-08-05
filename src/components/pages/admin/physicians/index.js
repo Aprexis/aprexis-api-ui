@@ -1,2 +1,2 @@
-export * from "./physician_profile.page"
-export * from "./physicians.page"
+export * from "./physician_profile.page.js"
+export * from "./physicians.page.js"

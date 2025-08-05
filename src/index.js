@@ -1,9 +1,9 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/stable'
+import 'react-app-polyfill/ie11.js'
+import 'react-app-polyfill/stable.js'
 import { CookiesProvider } from 'react-cookie'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Router } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
 import App from './components/app.js'
@@ -14,9 +14,10 @@ import './styles/styles.scss'
 import 'core-js/es/map'
 import 'core-js/es/set'
 
-require('bootstrap')
+import 'bootstrap'
 
-ReactDOM.render((
+const root = createRoot(document.getElementById('root'))
+root.render((
   <Router history={history}>
     <LastLocationProvider>
       <CookiesProvider>
@@ -24,8 +25,7 @@ ReactDOM.render((
       </CookiesProvider>
     </LastLocationProvider>
   </Router>
-),
-  document.getElementById('root'))
+))
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

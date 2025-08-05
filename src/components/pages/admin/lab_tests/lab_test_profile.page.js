@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from "../../../shared"
-import { LabTestProfilePageViewModel } from "../../../view_models/pages/admin/lab_tests"
+import { Spinner } from "../../../shared/index.js"
+import { LabTestProfilePageViewModel } from "../../../view_models/pages/admin/lab_tests/index.js"
 import { valueHelper, labTestHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../../helpers"
+import { displayHelper } from "../../../../helpers/index.js"
 
 const LabTestProfile = ({ labTest }) => {
   return (

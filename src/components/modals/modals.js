@@ -56,6 +56,8 @@ class Modals extends Component {
       return (<React.Fragment />)
     }
 
+    console.log(`Rendering modal: ${modalName} ${JSON.stringify(modalProps)}`)
+
     const modalNameParts = modalName.split("-")
     const modal = modalNameParts.map((modalNamePart) => { return valueHelper.capitalizeWords(modalNamePart) }).join("")
     const Modal = modalList[modal]

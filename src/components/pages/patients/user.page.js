@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Container, Col } from 'reactstrap'
 import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { Spinner, UserProfile } from '../../shared'
-import { UserPageViewModel } from '../../view_models/pages/patients'
-import { displayHelper } from '../../../helpers'
+import { Spinner, UserProfile } from '../../shared/index.js'
+import { UserPageViewModel } from '../../view_models/pages/patients/index.js'
+import { displayHelper } from '../../../helpers/index.js'
 
 class UserPage extends Component {
   constructor(props) {

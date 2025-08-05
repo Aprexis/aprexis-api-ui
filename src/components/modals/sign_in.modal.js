@@ -41,6 +41,8 @@ class SignInModal extends Component {
   render() {
     const { password, username } = this.state
 
+    console.log(`Rendering signin for ${username}`)
+
     return (
       <AprexisModal
         {...this.props}

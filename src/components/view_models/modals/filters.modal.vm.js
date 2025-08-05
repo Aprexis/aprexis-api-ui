@@ -1,4 +1,4 @@
-import { AbstractModalViewModel } from "./abstract.modal.vm"
+import { AbstractModalViewModel } from "./abstract.modal.vm.js"
 import { Filter } from "../../filters/filter.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { alertHelper, jsEventHelper } from "../../../helpers/index.js"

@@ -2,7 +2,7 @@ import { Component } from "react"
 import { Col } from "reactstrap"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { EntrySidebar } from "./entry.sidebar.js"
-import { SidebarViewModel } from "../view_models/sidebar.js"
+import { SidebarViewModel } from "../view_models/sidebar/index.js"
 
 const sidebarDescriptions = {
   "answers": {

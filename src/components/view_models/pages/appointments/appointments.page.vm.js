@@ -1,7 +1,7 @@
 import { AbstractListPageViewModel } from "../abstract_list.page.vm.js"
 import { appointmentApi, pharmacyStoreApi, appointmentHelper, pageHelper, pharmacyStoreHelper, userHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 import { apiEnvironmentHelper, authorizationHelper, pathHelper, userCredentialsHelper } from "../../../../helpers/index.js"
-import { periods } from "../../../../types"
+import { periods } from "../../../../types/index.js"
 
 const appointmentsListMethods = [
   { pathKey: "users", method: appointmentApi.listForUser }

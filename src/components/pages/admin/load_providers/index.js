@@ -1,1 +1,1 @@
-export * from './load_providers.page'
+export * from './load_providers.page.js'

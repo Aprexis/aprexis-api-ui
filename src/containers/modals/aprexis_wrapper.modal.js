@@ -13,10 +13,12 @@ export function aprexisWrapperModal(WrappedModal) {
     }
 
     componentDidMount() {
+      console.log(`Wrapped modal mounted`)
       this._isMounted = true
     }
 
     componentWillUnmount() {
+      console.log(`Wrapped modal unmounted`)
       this._isMounted = false
     }
 
@@ -30,6 +32,8 @@ export function aprexisWrapperModal(WrappedModal) {
         ...this.state,
         toggleModal: this.toggleModal
       }
+
+      console.log(`Wrapping modal`)
 
       return (
         <WrappedModal {...wrappedProps} />

@@ -18,6 +18,8 @@ class AprexisModal extends Component {
     } = this.props
     const openModal = valueHelper.isSet(modalVisible) || (dateHelper.isDateValue(modalDate) && +modalDate != +date)
 
+    console.log(`Rendering AprexisModal for ${modalClassName}`)
+
     return (
       <Modal
         className={`${modalClassName} modal-dialog modal-dialog-centered`}

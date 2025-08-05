@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { SystemSettingsPageViewModel } from "../../../view_models/pages/admin/system_settings"
-import { ListView } from "../../../../containers"
+import { SystemSettingsPageViewModel } from "../../../view_models/pages/admin/system_settings/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { listHelper } from "../../../../helpers/index.js"
 
 const headings = [
   {

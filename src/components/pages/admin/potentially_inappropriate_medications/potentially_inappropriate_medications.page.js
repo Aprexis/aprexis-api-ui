@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import { PotentiallyInappropriateMedicationsPageViewModel } from "../../../view_models/pages/admin/potentially_inappropriate_medications"
-import { ListView } from "../../../../containers"
+import { PotentiallyInappropriateMedicationsPageViewModel } from "../../../view_models/pages/admin/potentially_inappropriate_medications/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { valueHelper, potentiallyInappropriateMedicationHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { listHelper } from "../../../../helpers/index.js"
 
 const headings = [
   {

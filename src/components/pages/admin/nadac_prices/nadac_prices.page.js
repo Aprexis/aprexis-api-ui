@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { NadacPricesPageViewModel } from "../../../view_models/pages/admin/nadac_prices"
-import { ListView } from "../../../../containers"
+import { Component } from "react"
+import { NadacPricesPageViewModel } from "../../../view_models/pages/admin/nadac_prices/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { valueHelper, nadacHelper } from "@aprexis/aprexis-api-utility"
-import { listHelper } from "../../../../helpers"
+import { listHelper } from "../../../../helpers/index.js"
 
 const headings = [
   {

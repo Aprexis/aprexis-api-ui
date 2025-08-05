@@ -1,2 +1,2 @@
-export * from './potentially_inappropriate_medication_profile.page'
-export * from './potentially_inappropriate_medications.page'
+export * from './potentially_inappropriate_medication_profile.page.js'
+export * from './potentially_inappropriate_medications.page.js'

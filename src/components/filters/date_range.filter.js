@@ -2,7 +2,7 @@ import { Component } from "react"
 import { Col, Label } from "reactstrap"
 import { DayPicker } from "../shared/index.js"
 import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
-import { filtersHelper } from "../../helpers/inex.js"
+import { filtersHelper } from "../../helpers/index.js"
 
 /* TODO: needs to be checked against DayPicker. */
 

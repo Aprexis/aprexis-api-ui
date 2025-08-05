@@ -1,6 +1,6 @@
 import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
-import { LabTestRouting } from "./lab_test.routing,js"
+import { LabTestRouting } from "./lab_test.routing.js"
 import { NoMatch } from "../../index.js"
 import { LabTestsPage } from "../../../pages/admin/lab_tests/index.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"

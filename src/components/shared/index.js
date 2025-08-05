@@ -19,7 +19,7 @@ export * from "./day_time_picker.js"
 export * from "./delete_button.js"
 export * from "./display_alert.js"
 export * from "./download_button.js"
-export * from "./edit_button/js"
+export * from "./edit_button.js"
 export * from './model_configs.js'
 export * from "./number_field_editor.js"
 export * from "./patient_assignment_algorithm_profile.js"

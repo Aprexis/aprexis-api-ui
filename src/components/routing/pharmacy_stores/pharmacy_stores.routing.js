@@ -1,7 +1,7 @@
 import { Component } from "react"
 import { Route, Switch } from "react-router-dom"
 import { PharmacyStoreRouting } from "./pharmacy_store.routing.js"
-import { NoMatch } from "..@aprexis/aprexis-api-utility"
+import { NoMatch } from "../index.js"
 import { PharmacyStoresPage } from "../../pages/pharmacy_stores/index.js"
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { pathHelper } from "../../../helpers/index.js"

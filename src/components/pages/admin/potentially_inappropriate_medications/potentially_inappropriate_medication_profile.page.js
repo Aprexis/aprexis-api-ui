@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap"
-import { Spinner } from "../../../shared"
-import { PotentiallyInappropriateMedicationProfilePageViewModel } from "../../../view_models/pages/admin/potentially_inappropriate_medications"
+import { Spinner } from "../../../shared/index.js"
+import { PotentiallyInappropriateMedicationProfilePageViewModel } from "../../../view_models/pages/admin/potentially_inappropriate_medications/index.js"
 import { valueHelper, potentiallyInappropriateMedicationHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "../../../../helpers"
+import { displayHelper } from "../../../../helpers/index.js"
 
 const PotentiallyInappropriateMedicationProfile = ({ potentiallyInappropriateMedication }) => {
   return (

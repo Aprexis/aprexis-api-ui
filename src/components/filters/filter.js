@@ -1,7 +1,8 @@
 import { Component } from "react"
-import { filterClasses } from "./filter_classes/index.js"
+import { filterClasses } from "./filter_classes.js"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { filtersHelper } from "../../helpers/index.js"
+
 class Filter extends Component {
   static initializeValidations(filterDescriptions, filters) {
     const filterValidations = {}

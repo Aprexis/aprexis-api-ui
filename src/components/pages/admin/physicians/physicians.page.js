@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { PhysiciansPageViewModel } from "../../../view_models/pages/admin/physicians"
-import { ListView } from "../../../../containers"
+import { Component } from "react"
+import { PhysiciansPageViewModel } from "../../../view_models/pages/admin/physicians/index.js"
+import { ListView } from "../../../../containers/index.js"
 import { valueHelper, physicianHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper, listHelper } from "../../../../helpers"
+import { displayHelper, listHelper } from "../../../../helpers/index.js"
 
 function displayBusinessPhone(physician) {
   const businessPhone = physicianHelper.businessPhone(physician)

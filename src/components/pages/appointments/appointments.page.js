@@ -1,7 +1,7 @@
 import { Component } from "react"
 import { valueHelper, userHelper, appointmentHelper } from "@aprexis/aprexis-api-utility"
 import { Spinner } from "../../shared/index.js"
-import { EventCalendar } from "../../shared/event_calendar/index.js"
+import { EventCalendar } from "../../shared/event_calendar.js"
 import { AppointmentsPageViewModel } from "../../view_models/pages/appointments/index.js"
 import { RefreshView } from "../../../containers/index.js"
 
