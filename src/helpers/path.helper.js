@@ -1,4 +1,4 @@
-import { history } from "./history"
+import { history } from "./history.js"
 import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
 
 let reactUrlRoot = ""

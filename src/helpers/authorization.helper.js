@@ -1,5 +1,5 @@
 import { userHelper, valueHelper } from '@aprexis/aprexis-api-utility'
-import { pathHelper } from './path.helper'
+import { pathHelper } from './path.helper.js'
 
 export const authorizationHelper = {
   canCreateAppointment,

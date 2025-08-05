@@ -1,6 +1,6 @@
 import { format } from "date-fns"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { filterTypes } from "../types"
+import { filterTypes } from "../types/index.js"
 
 export const filtersHelper = {
   booleanFilter,

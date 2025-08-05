@@ -1,7 +1,6 @@
-import React from "react"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { displayHelper } from "./display.helper"
-import { TableColumnHeader, TableIdentificationColumn } from "../components/shared"
+import { displayHelper } from "./display.helper.js"
+import { TableColumnHeader, TableIdentificationColumn } from "../components/shared/index.js"
 
 export const listHelper = {
   listButton,

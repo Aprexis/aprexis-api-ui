@@ -4,8 +4,8 @@ import { faCalendarMinus, faLock, faUserSlash } from "@fortawesome/free-solid-sv
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import { valueHelper, dateHelper, fieldHelper, userHelper, billingClaimHelper } from "@aprexis/aprexis-api-utility"
-import { contextHelper } from "./context.helper"
-import { jsEventHelper } from "./js_event.helper"
+import { contextHelper } from "./context.helper.js"
+import { jsEventHelper } from "./js_event.helper.js"
 
 export const displayHelper = {
   booleanDisplay,

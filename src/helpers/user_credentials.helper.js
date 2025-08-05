@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js"
 import { dateHelper, userApi, valueHelper } from "@aprexis/aprexis-api-utility"
-import { apiEnvironmentHelper } from "./api_environment.helper"
+import { apiEnvironmentHelper } from "./api_environment.helper.js"
 
 export const userCredentialsHelper = {
   actAs,
