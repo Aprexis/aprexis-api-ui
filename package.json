@@ -16,10 +16,11 @@
     "@aprexis/aprexis-api-utility": "2.34.1"
   },
   "resolutions": {
-    "caniuse-lite": "1.0.30001632"
+    "caniuse-lite": "1.0.30001632",
+    "minimatch": "^9.0.5"
   },
   "dependencies": {
-    "@aprexis/aprexis-api-utility": "2.34.1",
+    "@aprexis/aprexis-api-utility": "file:../aprexis-api-utility",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -42,8 +43,8 @@
     "react-idle-timer": "^4.6.4",
     "react-router-dom": "^5.3.4",
     "react-router-last-location": "^2.0.1",
-    "react-scripts": "4.0.3",
-    "react-select": "4.3.0",
+    "react-scripts": "^4.0.3",
+    "react-select": "^4.3.0",
     "react-spinners": "^0.10.6",
     "react-tooltip": "^4.5.1",
     "reactstrap": "^8.10.1",
@@ -54,8 +55,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "PORT=3500 REACT_APP_APREXIS_API=http://localhost:3250 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
-    "start-docker": "PORT=3500 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=3500 REACT_APP_APREXIS_API=http://localhost:3250 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
+    "start-docker": "NODE_OPTIONS=--openssl-legacy-provider PORT=3500 REACT_APP_APREXIS_KEY=aprexis-storage-secret-key react-scripts start",
     "cp-ui-dist": "cp dist/ui/aprexis-logo.png dist/ui/favicon.ico dist/ui/index.html dist/ui/manifest.json dist/ui/robots.txt dist",
     "fix-ui-href": "sed -i 's|href=\"/|href=\"/ui/|g' dist/ui/index.html",
     "fix-ui-src": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/ui/index.html",
@@ -63,10 +64,10 @@
     "fix-dist": "sed -i 's|src=\"/static|src=\"/ui/static|g' dist/index.html",
     "dist-ui": "yarn cp-ui-dist && yarn fix-dist && yarn fix-ui",
     "build-ui": "react-scripts build && rm -rf dist && mkdir dist && mv build dist/ui && yarn dist-ui",
-    "build:demo": "REACT_APP_APREXIS_API=https://demo.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=demo yarn build-ui",
-    "build:staging": "REACT_APP_APREXIS_API=https://staging.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=staging yarn build-ui",
-    "build:production": "REACT_APP_APREXIS_API=https://portal.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
-    "build:production_mso": "REACT_APP_APREXIS_API=https://mso.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
+    "build:demo": "NODE_OPTIONS=--openssl-legacy-provider REACT_APP_APREXIS_API=https://demo.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=demo yarn build-ui",
+    "build:staging": "NODE_OPTIONS=--openssl-legacy-provider REACT_APP_APREXIS_API=https://staging.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=staging yarn build-ui",
+    "build:production": "NODE_OPTIONS=--openssl-legacy-provider REACT_APP_APREXIS_API=https://portal.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
+    "build:production_mso": "NODE_OPTIONS=--openssl-legacy-provider REACT_APP_APREXIS_API=https://mso.aprexis.com/api REACT_APP_APREXIS_ENVIRONMENT=production yarn build-ui",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
