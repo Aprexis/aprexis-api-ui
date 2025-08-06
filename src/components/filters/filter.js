@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { filterClasses } from "./filter_classes"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { filtersHelper } from "../../helpers"
@@ -43,6 +43,7 @@ class Filter extends Component {
           filterValidations={this.props.filterValidations}
           onChange={this.props[onChange]}
           readOnly={this.props.readOnly}
+          reconnectAndRetry={this.props.reconnectAndRetry}
         />
       </div>
     )

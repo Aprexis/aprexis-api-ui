@@ -121,9 +121,8 @@ function filterToClass(filterDescription, filterClasses) {
   return filterClasses[filterDescription.type]
 }
 
-function filterToLabel(filterDescription, filters, filterClasses, nextOperation) {
-  filtersHelper.filterToClass(filterDescription, filterClasses)
-    .toLabel(filterDescription, filters, nextOperation)
+function filterToLabel(filterDescription, filters, filterClasses, nextOperation, props) {
+  filtersHelper.filterToClass(filterDescription, filterClasses).toLabel(filterDescription, filters, nextOperation, props)
 }
 
 function filterToOnChange(filterDescription) {

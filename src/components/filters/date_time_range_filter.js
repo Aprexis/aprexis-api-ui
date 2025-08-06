@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Label } from "reactstrap"
 import { DayTimePicker } from "../shared"
 import { dateHelper, valueHelper } from "@aprexis/aprexis-api-utility"
@@ -181,7 +181,7 @@ class DateTimeRangeFilter extends Component {
     )
   }
 
-  static toLabel(filterDescription, filters, nextOperation) {
+  static toLabel(filterDescription, filters, nextOperation, _props) {
     const { name, queryParam } = filterDescription
     const value = filtersHelper.filterToValue(filters, queryParam)
     if (!valueHelper.isValue(value)) {

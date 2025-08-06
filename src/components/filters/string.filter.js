@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Col, Input, Label } from 'reactstrap'
 import { valueHelper } from '@aprexis/aprexis-api-utility'
 import { filtersHelper } from '../../helpers'
@@ -31,7 +31,7 @@ class StringFilter extends Component {
     )
   }
 
-  static toLabel(filterDescription, filters, nextOperation) {
+  static toLabel(filterDescription, filters, nextOperation, _props) {
     const { name, queryParam } = filterDescription
     const label = buildLabel(filterDescription, filters)
     if (!valueHelper.isValue(label)) {

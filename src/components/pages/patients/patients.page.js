@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { PatientsPageViewModel } from "../../view_models/pages/patients"
 import { ListView } from "../../../containers"
 import { patientHelper } from "@aprexis/aprexis-api-utility"

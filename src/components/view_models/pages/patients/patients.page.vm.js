@@ -117,7 +117,7 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
             },
             searchMethod: healthPlanApi.search,
             searchParam: "for_name",
-            sorting: { sort: "name" }
+            sorting: { sort: "health_plans.name" }
           }
         )
       )
@@ -141,17 +141,17 @@ class PatientsPageViewModel extends AbstractListPageViewModel {
           "Pharmacy Store",
           "for_pharmacy_store",
           {
-            fields: ["store", "pharmacy.name"],
+            fields: ["name"],
             findMethod: pharmacyStoreApi.show,
-            labelMethod: pharmacyStoreHelper.identification,
+            labelMethod: pharmacyStoreHelper.name,
             minLength: 3,
             otherFilters: {
-              ...this.buildFilterFor("for-health-plan", healthPlan),
+              ...this.buildFilterFor("for_health_plan", healthPlan),
               page: { number: 1, size: 10 }
             },
             searchMethod: pharmacyStoreApi.search,
             searchParam: "for_store",
-            sorting: { sort: "name,store_number,id" }
+            sorting: { sort: "pharmacy_stores.name,pharmacy_stores.store_number,pharmacy_stores.id" }
           }
         )
       )

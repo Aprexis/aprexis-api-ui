@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import { Component, useEffect } from 'react'
 import { withLastLocation } from 'react-router-last-location'
 import IdleTimer from 'react-idle-timer'
 import { Footer, Header, Main } from './'
@@ -96,7 +96,7 @@ class App extends Component {
           history={history}
           onSignIn={this.vm.signIn}
           onSignOut={this.vm.signOut}
-          reconnectAndRetry={this.vm.reconnectAndRetyr}
+          reconnectAndRetry={this.vm.reconnectAndRetry}
         />
 
         <Main

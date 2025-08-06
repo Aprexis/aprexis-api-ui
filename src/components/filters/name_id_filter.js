@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { Col, Row } from "reactstrap"
 import { Autocomplete } from "../shared"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
@@ -53,6 +53,7 @@ class NameIdFilter extends Component {
           searchText={value ?? searchText}
           sorting={filterDescription.sorting ?? "name"}
           tableDisplayProps={fields}
+          reconnectAndRetry={this.props.reconnectAndRetry}
         />
       </div>
     )
@@ -80,13 +81,13 @@ class NameIdFilter extends Component {
     return item[fields[0]]
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, _nextState) {
     this.vm.props = { ...this.vm.props, ...nextProps }
     return true
   }
 
-  static toLabel(filterDescription, filters, nextOperation) {
-    NameIdFilterViewModel.toLabel(filterDescription, filters, nextOperation)
+  static toLabel(filterDescription, filters, nextOperation, props) {
+    NameIdFilterViewModel.toLabel(filterDescription, filters, nextOperation, props)
   }
 }
 

@@ -1,6 +1,6 @@
 import { AbstractViewModel } from ".."
 import { valueHelper } from "@aprexis/aprexis-api-utility"
-import { alertHelper, filtersHelper, userCredentialsHelper } from "../../../helpers"
+import { alertHelper, apiEnvironmentHelper, filtersHelper, userCredentialsHelper } from "../../../helpers"
 
 class NameIdFilterViewModel extends AbstractViewModel {
   constructor(props) {
@@ -16,7 +16,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
     this.addField("searchResults", [], this.redrawView)
   }
 
-  static fetchModel(filterDescription, filters, onSuccess, onFailure) {
+  static fetchModel(filterDescription, filters, onSuccess, onFailure, props) {
     const value = filtersHelper.filterToValue(filters, filterDescription.queryParam)
     if (!valueHelper.isValue(value)) {
       onSuccess()
@@ -24,12 +24,13 @@ class NameIdFilterViewModel extends AbstractViewModel {
     }
 
     const { findMethod } = filterDescription
-    findMethod(userCredentialsHelper.get(), value, onSuccess, onFailure)
+    findMethod(apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), props.reconnectAndRetry), value, onSuccess, onFailure)
   }
 
   loadData() {
     this.clearData()
     const { filterDescription, filters } = this.props
+
     NameIdFilterViewModel.toLabel(
       filterDescription,
       filters,
@@ -41,11 +42,12 @@ class NameIdFilterViewModel extends AbstractViewModel {
 
         this.addField("searchText", labelHash.label, this.redrawView)
       },
-      this.onError
+      this.onError,
+      this.props
     )
   }
 
-  search(searchText, filters, sorting, onSuccess, onFailure) {
+  search(searchText, filters, sorting, onSuccess, _onFailure) {
     const { filterDescription } = this.props
     const { otherFilters, searchMethod, searchParam } = filterDescription
     const makeDataAvailable = (searchResults) => {
@@ -57,7 +59,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
 
     const allFilters = { ...filters, ...otherFilters }
     searchMethod(
-      userCredentialsHelper.get(),
+      apiEnvironmentHelper.apiEnvironment(userCredentialsHelper.get(), this.props.reconnectAndRetry),
       {
         [searchParam]: searchText,
         ...allFilters,
@@ -82,7 +84,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
     )
   }
 
-  static toLabel(filterDescription, filters, nextOperation) {
+  static toLabel(filterDescription, filters, nextOperation, props) {
     const { labelMethod, name, queryParam } = filterDescription
     const onSuccess = (model) => {
       if (!valueHelper.isValue(model)) {
@@ -104,7 +106,7 @@ class NameIdFilterViewModel extends AbstractViewModel {
       nextOperation()
     }
 
-    NameIdFilterViewModel.fetchModel(filterDescription, filters, onSuccess, onError)
+    NameIdFilterViewModel.fetchModel(filterDescription, filters, onSuccess, onError, props)
   }
 }
 
