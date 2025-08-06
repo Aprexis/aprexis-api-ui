@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { UsersPageViewModel } from "../../view_models/pages/users"
 import { ListView } from "../../../containers"
 import { userHelper, valueHelper } from "@aprexis/aprexis-api-utility"

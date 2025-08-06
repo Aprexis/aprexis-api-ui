@@ -6,6 +6,8 @@ class PackageVersionsPageViewModel extends AbstractListPageViewModel {
   constructor(props) {
     super(props)
 
+    this.notImplementedYet = true
+
     this.defaultParameters = this.defaultParameters.bind(this)
     this.filterDescriptions = this.filterDescriptions.bind(this)
     this.filtersOptions = this.filtersOptions.bind(this)
@@ -49,6 +51,14 @@ class PackageVersionsPageViewModel extends AbstractListPageViewModel {
     const pathEntries = this.pathEntries()
     const package_id = pathHelper.pathEntryValue(pathEntries, "packages")
     const { filters, sorting, page } = this.data
+
+    if (this.notImplementedYet) {
+      this.addData(
+        { packageVersions: ['Dummy Package Version'], page },
+        this.redrawView
+      )
+      return
+    }
 
     if (valueHelper.isNumberValue(package_id)) {
       goldStandardPackageVersionApi.listForPackage(
