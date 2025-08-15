@@ -6,7 +6,7 @@ lock '~> 3.17'
 set :application, 'aprexis-api-ui'
 set :repo_url, 'git@github.com:Aprexis/aprexis-api-ui.git'
 set :repository, 'git@github.com:Aprexis/aprexis-api-ui.git'
-set :stages, %w[staging demo production]
+set :stages, %w[staging demo production production_mso]
 set :default_stage, 'staging'
 set :user, 'webapp'
 set :log_level, :debug
