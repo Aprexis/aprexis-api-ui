@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import { Component } from "react"
 import { PackageVersionsPageViewModel } from "../../../../view_models/pages/admin/gold_standard/package_versions"
 import { ListView } from "../../../../../containers"
 import { valueHelper, goldStandardPackageVersionHelper } from "@aprexis/aprexis-api-utility"
@@ -49,6 +49,8 @@ class PackageVersionsPage extends Component {
       }
     )
 
+    this.notImplementedYet = true
+
     this.generateTableHeadings = this.generateTableHeadings.bind(this)
     this.generateTableRow = this.generateTableRow.bind(this)
   }
@@ -77,6 +79,10 @@ class PackageVersionsPage extends Component {
   generateTableRow(packageVersion) {
     const { filters } = this.state
     const pathEntries = this.vm.pathEntries()
+
+    if (this.notImplementedYet) {
+      return ([<td><label>Not implemented yet</label></td>])
+    }
 
     return listHelper.listRow(
       {

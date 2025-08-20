@@ -34,7 +34,7 @@ class FiltersItemViewModel extends AbstractViewModel {
       this.buildFilterLabel(filterDescriptions, filters, nextFilterIdx, filterLabels, nextOperation)
     }
 
-    filtersHelper.filterToLabel(filterDescriptions[filterIdx], filters, filterClasses, onSuccess)
+    filtersHelper.filterToLabel(filterDescriptions[filterIdx], filters, filterClasses, onSuccess, this.props)
   }
 
   loadData() {

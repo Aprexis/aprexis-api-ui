@@ -46,6 +46,7 @@ class PatientHealthPlanInsuranceDetailProfileForPatientPageViewModel extends Abs
     const userCredentials = userCredentialsHelper.get()
     const pathEntries = this.pathEntries()
     const patient_id = pathHelper.pathEntryValue(pathEntries, 'patients')
+
     this.api().profileForPatient(
       apiEnvironmentHelper.apiEnvironment(userCredentials, this.props.reconnectAndRetry),
       patient_id,

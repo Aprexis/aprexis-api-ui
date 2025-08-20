@@ -1,4 +1,3 @@
-import React from "react"
 import { valueHelper } from "@aprexis/aprexis-api-utility"
 import { displayHelper } from "./display.helper"
 import { TableColumnHeader, TableIdentificationColumn } from "../components/shared"

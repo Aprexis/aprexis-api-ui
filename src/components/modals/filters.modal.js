@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Form } from 'reactstrap'
 import { Filter } from '../filters/filter'
 import { FiltersModalViewModel } from '../view_models/modals'
@@ -59,6 +59,7 @@ class FiltersModal extends Component {
         onChangeDateTime={this.vm.changeDateTime}
         onChangeId={this.vm.changeId}
         readOnly={false}
+        reconnectAndRetry={this.props.reconnectAndRetry}
       />
     )
   }
